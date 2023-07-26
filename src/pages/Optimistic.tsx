@@ -31,7 +31,7 @@ export default function Optimistic() {
     () => fetchComments(postNumber),
     {
       staleTime: 1000 * 60, // * staleTime을 0 ~ 1000으로 설정해서 네트워크 요청이 얼마나 가는지 보여주기 (default : 0)
-      cacheTime: 1000 * 60 * 5, // * cache가 0일 경우 refetch시 비교할 수 있는 데이터가 없기 떄문에 반드시 rerendering이 일어난다. (default : 5min)
+      cacheTime: 1000 * 60 * 5 // * cache가 0일 경우 refetch시 비교할 수 있는 데이터가 없기 떄문에 반드시 rerendering이 일어난다. (default : 5min)
       // enabled : !!postNumber // mount될 때 fetch를 하지 않으려면 아래와 같이 enabled를 사용한다.
     }
   )
@@ -57,7 +57,7 @@ export default function Optimistic() {
     },
     onError(error, newComment, ctx) {
       console.error(error)
-      console.log('context : ', ctx)
+      console.info('context : ', ctx)
       // 1. 서버에 다시 comments를 요청
       // queryClient.setQueryData(['post', postNumber], (prev: Comment[] | undefined) =>  ....
 
@@ -66,7 +66,7 @@ export default function Optimistic() {
       // ! 위와 아래는 같은 코드임 왜 이렇게하는지 서버 API를 어떻게 달라할 때 무엇을 생각해야하는지 알려주기
       if (typeof comments === 'undefined') return []
       return comments
-    },
+    }
   })
 
   const updateComments = () => {
@@ -75,7 +75,7 @@ export default function Optimistic() {
       id: Math.floor(Math.random() * 99999),
       name: '익명의 사용자',
       email: 'unknown@unknown.com',
-      body: '익명의 댓글입니다.',
+      body: '익명의 댓글입니다.'
     }
     mutation.mutate(dummyComment)
   }
