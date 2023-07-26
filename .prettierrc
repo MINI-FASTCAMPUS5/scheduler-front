@@ -1,0 +1,12 @@
+{
+  "printWidth": 120, // 한 줄애 120자 까지 출력됩니다. 줄 바꿈을 하고싶다면 "//" 주석을 추가해주세요.
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true, // jsx return 안에서도 single quote를 사용합니다.
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "quoteProps": "as-needed"
+}
