@@ -19,7 +19,7 @@ export default function Sample() {
     staleTime: 1000 * 60 * 5,
     // * inactive상태일 때 (unmount시 inactive) fetch하는 동안 임시로!! 보여줄 데이터
     // * cacheTime이 지나면 gb에 의해 삭제된다.
-    cacheTime: 1000 * 60 * 5,
+    cacheTime: 1000 * 60 * 5
   })
 
   const [post, setPost] = useState<Post>(data ? data : {})

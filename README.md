@@ -43,7 +43,7 @@ import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
+  plugins: [react(), tsconfigPaths()]
 })
 ```
 
@@ -122,9 +122,7 @@ function User() {
 아래 예시는 리렌더링이 일어나지 않는다.
 
 ```js
-queryClient.setQueryData(['todo', id], (previousTodo) =>
-  previousTodo ? { ...previousTodo, done: true } : undefined
-)
+queryClient.setQueryData(['todo', id], (previousTodo) => (previousTodo ? { ...previousTodo, done: true } : undefined))
 ```
 
 ### interface 변화
@@ -143,8 +141,8 @@ ueryFn이 undefined를 리턴할 수 없도록 타입, 런타임 단에서 동�
 useQueries({
   queries: [
     { queryKey1, queryFn1, options1 },
-    { queryKey2, queryFn2, options2 },
-  ],
+    { queryKey2, queryFn2, options2 }
+  ]
 })
 ```
 
