@@ -1,0 +1,8 @@
+{
+  "eslint.validate": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true // 저장할 때마다 eslint가 자동으로 코드를 고쳐줍니다.
+  },
+  "javascript.autoClosingTags": true, // 닫히는 태그가 자동으로 생성됩니다.
+  "typescript.autoClosingTags": true
+}
