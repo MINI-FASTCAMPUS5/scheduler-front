@@ -13,9 +13,9 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     quotes: ['error', 'single'],
-    'no-duplicate-imports': 'error',
     'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
-    'no-unused-vars': 'error',
+    'no-unused-vars': 'off', // interface에서 사용하지 않는 변수는 에러로 처리하지 않도록 설정
+    '@typescript-eslint/no-unused-vars': ['error'],
     'no-multiple-empty-lines': 'error',
     'react/self-closing-comp': [
       'error',
