@@ -1,5 +1,5 @@
 import { AdminUser, FanUser } from '@/models/user'
-import React, { createContext, useState, useMemo, useEffect, useCallback } from 'react'
+import React, { createContext, useState, useMemo, useCallback } from 'react'
 
 interface IUserContext {
   loading: boolean
@@ -22,26 +22,25 @@ export const UserContext = createContext<IUserContext>({
 type Props = {
   children: React.ReactNode
 }
+
 function UserProvider({ children }: Props) {
   const [userInfo, setUserInfo] = useState({})
   const [loggedIn, setLoggedIn] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const getUserInfo = useCallback(() => {
+    if (userInfo) return userInfo
+    // ! userInfo가 없으면 /auth/user를 호출합니다.
     return userInfo
   }, [userInfo])
 
   const value = useMemo(
-    () => ({ getUserInfo, loading, loggedIn, setLoggedIn, setLoading, setUserInfo }),
+    () => ({ getUserInfo, loading, loggedIn, setUserInfo, setLoggedIn, setLoading }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [getUserInfo, setLoggedIn, setLoading, setUserInfo]
+    [getUserInfo, setLoggedIn, setLoading, setUserInfo, loading, loggedIn]
   )
 
-  useEffect(() => {
-    console.info('LOGIN CONTEXT가 변경되었습니다.')
-  }, [loggedIn, loading, userInfo])
-
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+  return <UserContext.Provider value={{ ...value }}>{children}</UserContext.Provider>
 }
 
 export default UserProvider

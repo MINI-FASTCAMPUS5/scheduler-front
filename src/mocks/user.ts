@@ -18,7 +18,7 @@ export const FAN_USER_1: FanUser = {
   id: 'fan1',
   fullName: 'john daho',
   email: 'fan1@aabbccdd.kr',
-  profileImage: '/mock_image/user1_profile_image.png',
+  profileImage: '/mock_image/user_profile_1.png',
   role: 'USER',
   tickect: 12
 }
@@ -26,7 +26,7 @@ export const FAN_USER_2: FanUser = {
   id: 'fan2',
   fullName: 'ellie brown',
   email: 'ellie2@acdefg.io',
-  profileImage: '/mock_image/user2_profile_image.png',
+  profileImage: '/mock_image/user_profile_2.png',
   role: 'USER',
   tickect: 12
 }
@@ -34,7 +34,7 @@ export const FAN_USER_3: FanUser = {
   id: 'fan3',
   fullName: 'any amond',
   email: 'amond@any.com',
-  profileImage: '/mock_image/user3_profile_image.png',
+  profileImage: '/mock_image/user_profile_3.png',
   role: 'USER',
   tickect: 12
 }
@@ -42,7 +42,7 @@ export const FAN_USER_4: FanUser = {
   id: 'fan4',
   fullName: 'alien icecream',
   email: 'icecream@amanda.com',
-  profileImage: '/mock_image/user4_profile_image.png',
+  profileImage: '/mock_image/user_profile_4.png',
   role: 'USER',
   tickect: 12
 }
@@ -50,7 +50,7 @@ export const FAN_USER_5: FanUser = {
   id: 'fan5',
   fullName: 'carl knife',
   email: 'icecream@amanda.com',
-  profileImage: '/mock_image/user4_profile_image.png',
+  profileImage: '/mock_image/user_profile_5.png',
   role: 'USER',
   tickect: 12
 }
