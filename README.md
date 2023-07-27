@@ -122,7 +122,9 @@ function User() {
 아래 예시는 리렌더링이 일어나지 않는다.
 
 ```js
-queryClient.setQueryData(['todo', id], (previousTodo) => (previousTodo ? { ...previousTodo, done: true } : undefined))
+queryClient.setQueryData(['todo', id], (previousTodo) =>
+  previousTodo ? { ...previousTodo, done: true } : undefined
+)
 ```
 
 ### interface 변화

@@ -3,7 +3,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import styles from './Optimistic.module.css'
 
 function fetchComments(postNumber: number) {
-  return fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postNumber}`).then((res) => res.json())
+  return fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postNumber}`).then((res) =>
+    res.json()
+  )
 }
 
 async function addComment(postNumber: number, newComment: Comment) {
