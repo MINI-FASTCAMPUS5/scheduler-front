@@ -36,7 +36,6 @@ function UserProvider({ children }: Props) {
 
   const value = useMemo(
     () => ({ getUserInfo, loading, loggedIn, setUserInfo, setLoggedIn, setLoading }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [getUserInfo, setLoggedIn, setLoading, setUserInfo, loading, loggedIn]
   )
 
