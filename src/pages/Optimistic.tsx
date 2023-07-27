@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import styles from './Optimistic.module.css'
 
 function fetchComments(postNumber: number) {
   return fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postNumber}`).then((res) => res.json())
@@ -82,7 +83,7 @@ export default function Optimistic() {
 
   return (
     <div>
-      <h1>React queryOptimistic Data Fetching</h1>
+      <h1 className={styles.title}>React queryOptimistic Data Fetching</h1>
       <div style={{ margin: '30px' }}>
         {mutation.isLoading && <div>데이터를 패칭하고 있습니다... 잠시만 기다려주세요</div>}
         {comments &&
