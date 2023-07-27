@@ -14,13 +14,17 @@ export default function Sample() {
   const [postNumber, setPostNumber] = useState(1)
 
   //  * key는 반드시 배열
-  const { data, isLoading, error } = useQuery<Post, Error>(['post', postNumber], () => getPosts(postNumber), {
-    // * staleTiem : fresh 상태일 때는 Refetch 트리거(위의 3가지 경우)가 발생해도 Refetch가 일어나지 않는다!
-    staleTime: 1000 * 60 * 5,
-    // * inactive상태일 때 (unmount시 inactive) fetch하는 동안 임시로!! 보여줄 데이터
-    // * cacheTime이 지나면 gb에 의해 삭제된다.
-    cacheTime: 1000 * 60 * 5
-  })
+  const { data, isLoading, error } = useQuery<Post, Error>(
+    ['post', postNumber],
+    () => getPosts(postNumber),
+    {
+      // * staleTiem : fresh 상태일 때는 Refetch 트리거(위의 3가지 경우)가 발생해도 Refetch가 일어나지 않는다!
+      staleTime: 1000 * 60 * 5,
+      // * inactive상태일 때 (unmount시 inactive) fetch하는 동안 임시로!! 보여줄 데이터
+      // * cacheTime이 지나면 gb에 의해 삭제된다.
+      cacheTime: 1000 * 60 * 5
+    }
+  )
 
   const [post, setPost] = useState<Post>(data ? data : {})
   // https://jsonplaceholder.typicode.com/posts/1
