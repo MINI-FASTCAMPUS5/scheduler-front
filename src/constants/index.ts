@@ -1,2 +1,2 @@
-// * 에시 입니다.
 export const DATE_FORMAT = 'YYYY-MM-DD'
+export const DATE_ROUTER_FORMAT = 'YYYY/MM/DD'
