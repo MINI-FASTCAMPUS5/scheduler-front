@@ -23,6 +23,8 @@ export default function CalendarLayout() {
       .catch(() => {
         // login 페이지로 redirect 합니다.
       })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
