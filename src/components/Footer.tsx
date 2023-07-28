@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Footer() {
+  console.log('test 실패해랏')
   return (
     <div className='w-full h-36 bg-slate-500'>
       <h1 className='text-xl'>Footer</h1>

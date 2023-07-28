@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "format": "prettier --cache --write .",
-    "lint": "eslint --cache ."
+    "prepare": "husky install"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.32.0",
@@ -37,5 +36,11 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vite-tsconfig-paths": "^4.2.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }
