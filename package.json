@@ -38,7 +38,7 @@
     "vite-tsconfig-paths": "^4.2.0"
   },
   "lint-staged": {
-    "*.ts": [
+    "*.{ts,tsx,js,jsx}": [
       "prettier --write",
       "eslint --fix"
     ]

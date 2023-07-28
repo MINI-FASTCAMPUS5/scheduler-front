@@ -24,5 +24,11 @@ module.exports = {
         html: true
       }
     ]
+  },
+  // https://stackoverflow.com/questions/72780296/warning-react-version-not-specified-in-eslint-plugin-react-settings-while-run
+  settings: {
+    react: {
+      version: 'detect'
+    }
   }
 }
