@@ -2,15 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
 * {
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-  width: 100%;
-  min-height: 100vh;
-  height: 100%;
-  margin: 0;
+.move-from-left {
+  animation: moveFromLeft 0.2s ease-in-out;
+  animation-fill-mode: backwards;
+}
+
+.move-from-right {
+  animation: moveFromRight 0.2s ease-in-out;
+  animation-fill-mode: backwards;
+}
+
+@keyframes moveFromLeft {
+  0% {
+    transform: translateX(-20%);
+    opacity: 0.2;
+  }
+  40% {
+    transform: translateX(-5%);
+    opacity: 0.6;
+  }
+  80% {
+    transform: translateX(0%);
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes moveFromRight {
+  0% {
+    transform: translateX(20%);
+    opacity: 0.2;
+  }
+  40% {
+    transform: translateX(10%);
+    opacity: 0.6;
+  }
+  80% {
+    transform: translateX(0%);
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
 }

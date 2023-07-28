@@ -3,10 +3,10 @@ export default {
   theme: {
     extend: {
       gridTemplateColumns: {
-        'cal-w': 'repeat(7, minmax(100px, 150px))'
+        'cal-w': 'repeat(7, minmax(100px, 200px))'
       },
       gridTemplateRows: {
-        'cal-h': '30px repeat(6, minmax(100px, 1fr))'
+        'cal-h': '30px repeat(6, minmax(150px, 1fr))'
       }
     }
   },
