@@ -18,7 +18,7 @@ jobs:
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: VERCEL_DEPLOY_TOKEN
+          API_TOKEN_GITHUB: ${{ secrets.VERCEL_DEPLOY_TOKEN }}
         with:
           source-directory: 'output'
           destination-github-username: peacepiece7
