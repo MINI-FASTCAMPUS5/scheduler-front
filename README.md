@@ -56,7 +56,7 @@ hooks는 이 곳에 정의해주세요
 
 react-query의 fetcher에 해당하는 함수는 이곳에 정의해주세요.
 
-예를들어서 아래처럼 작성해주시면 됩니다.
+아래처럼 작성해주시면 됩니다.
 
 ```js
 // api/calendar.ts
@@ -107,3 +107,8 @@ export const delay = async <T>(mock: T, ms: number): Promise<T> =>
     }, ms)
   )
 ```
+
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "postinstall": "husky install",
+    "format": "prettier --cache --write .",
+    "eslint": "eslint --cache ."
