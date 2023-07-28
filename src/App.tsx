@@ -1,12 +1,12 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import CalendarLayout from '@/components/layout/CalendarLayout'
+import CalendarLayout from '@/components/layouts/CalendarLayout'
 import CalendarPage from '@/pages/Calendar'
 import Sample from '@/pages/Sample/Sample'
 import '@/App.css'
 import Optimistic from '@/pages/Sample/Optimistic'
-import MainLayout from '@/components/layout/MainLayout'
+import MainLayout from '@/components/layouts/MainLayout'
 import SignInOrUpTestPage from '@/pages/Sample/SignInOrUpTestPage'
 import Home from './pages/Home'
 
