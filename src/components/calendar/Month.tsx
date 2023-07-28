@@ -25,15 +25,26 @@ export default function Month() {
         const trancate = i % 6 === 0 ? 'truncate' : ''
         return (
           <div
-            className={`${getDailyColor(i)} ${trancate} text-clip border-[1px] relative`}
+            className={`${getDailyColor(
+              i
+            )} ${trancate} text-clip border-[1px] relative text-[0.8rem]`}
             key={day + i}
           >
             <div className='text-end'>{day}</div>
             {i === 4 && (
-              <div className='bg-red-500 absolute z-10 rounded-l-[15px] pl-2'>
-                준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
-                좋겠습니다.
-              </div>
+              <>
+                <div className='bg-red-500 absolute top-[20px] z-10 rounded-[15px] pl-2 truncate w-[400px]'>
+                  준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
+                  좋겠습니다.
+                </div>
+                <div className='bg-red-500 absolute z-10 top-[45px] rounded-l-[15px] pl-2'>
+                  준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
+                  좋겠습니다.
+                </div>
+                <div className='bg-red-500 absolute z-10 top-[70px] rounded-[15px]  pl-2'>
+                  오버플로우되면 elipsis로 표시되면 좋겠습니다.
+                </div>
+              </>
             )}
           </div>
         )
