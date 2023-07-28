@@ -10,64 +10,67 @@ export default function Month() {
   const weeks = useMemo(() => ['일', '월', '화', '수', '목', '금', '토'], [])
 
   return (
-    <div
-      id={CALENDAR_TAG_ID}
-      className={`
-      grid grid-cols-cal-w md:grid-rows-cal-h grid-rows-none
-      absolute truncate w-fit mx-auto border-[1px]`}
-    >
-      {weeks.map((week, i) => {
-        return (
-          <div className={`${getDailyColor(i)} text-center bg-slate-300`} key={week}>
-            {week}
-          </div>
-        )
-      })}
-      {dailyIdx.map((date, i) => {
-        // const trancate = i % 6 === 0 ? 'truncate' : '' 이렇게 구현 안됨
-        // todo 요거에 따라서 추가적으로 클릭 기능 등 구현해야함
-        const disable = dayjs(date).month() !== dayjs(currentDate).month() ? 'text-gray-300' : ''
+    <div className='w-full'>
+      <div
+        id={CALENDAR_TAG_ID}
+        className={`grid grid-cols-cal-w grid-rows-cal-h-10 md:grid-rows-cal-h-13
+       truncate w-fit border-[1px] m-auto
+       transition-all duration-100 ease-in-out
+       `}
+      >
+        {weeks.map((week, i) => {
+          return (
+            <div className={`${getDailyColor(i)} text-center bg-slate-300`} key={week}>
+              {week}
+            </div>
+          )
+        })}
+        {dailyIdx.map((date, i) => {
+          // const trancate = i % 6 === 0 ? 'truncate' : '' 이렇게 구현 안됨
+          // todo 요거에 따라서 추가적으로 클릭 기능 등 구현해야함
+          const disable = dayjs(date).month() !== dayjs(currentDate).month() ? 'text-gray-300' : ''
 
-        // return으로 Daily Component, disable도 넘겨 줘야 함
-        return (
-          <div
-            className={`${getDailyColor(i)}  text-clip border-[1px] relative text-[0.8rem]`}
-            key={`calendar-${date}-${i}`}
-          >
-            <div className={`${disable} text-end`}>{dayjs(date).date()}</div>
-            {i === 12 && (
-              <>
-                <div className='bg-red-500 text-black absolute top-[20px] z-20 rounded-[15px] pl-2 truncate w-[400px]'>
-                  준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
-                  좋겠습니다.
-                </div>
-                <div className='bg-red-500 text-black absolute z-20 top-[45px] rounded-l-[15px] pl-2'>
-                  준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
-                  좋겠습니다.
-                </div>
-                <div className='bg-red-500 text-black absolute z-20 top-[70px] rounded-[15px]  pl-2'>
-                  오버플로우되면 elipsis로 표시되면 좋겠습니다.
-                </div>
-              </>
-            )}
-            {i === 22 && (
-              <>
-                <div className='bg-red-500 text-black absolute top-[20px] z-20 rounded-[15px] pl-2 truncate w-[400px]'>
-                  준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
-                  좋겠습니다.
-                </div>
-                <div className='bg-red-500 text-black absolute z-20 top-[45px] rounded-l-[15px] truncate pl-2'>
-                  준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
-                  좋겠습니다.
-                </div>
-                <div className='bg-red-500 text-black absolute z-20 top-[70px] rounded-[15px]  pl-2'>
-                  오버플로우되면 elipsis로 표시되면 좋겠습니다.
-                </div>
-              </>
-            )}
-          </div>
-        )
-      })}
+          // return으로 Daily Component, disable도 넘겨 줘야 함
+          return (
+            <div
+              className={`${getDailyColor(i)} text-clip border-[1px] relative text-[0.8rem]`}
+              key={`calendar-${date}-${i}`}
+            >
+              <div className={`${disable} text-end`}>{dayjs(date).date()}</div>
+              {i === 12 && (
+                <>
+                  <div className='bg-red-500 text-black absolute top-[20px] z-20 rounded-[15px] pl-2 truncate w-[400px]'>
+                    준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
+                    좋겠습니다.
+                  </div>
+                  <div className='bg-red-500 text-black absolute z-20 top-[45px] rounded-l-[15px] pl-2'>
+                    준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
+                    좋겠습니다.
+                  </div>
+                  <div className='bg-red-500 text-black absolute z-20 top-[70px] rounded-[15px]  pl-2'>
+                    오버플로우되면 elipsis로 표시되면 좋겠습니다.
+                  </div>
+                </>
+              )}
+              {i === 22 && (
+                <>
+                  <div className='bg-red-500 text-black absolute top-[20px] z-20 rounded-[15px] pl-2 truncate w-[400px]'>
+                    준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
+                    좋겠습니다.
+                  </div>
+                  <div className='bg-red-500 text-black absolute z-20 top-[45px] rounded-l-[15px] truncate pl-2'>
+                    준내 긴 일정입니다. 이게 daily를 덮어야합니다. 오버플로우되면 elipsis로 표시되면
+                    좋겠습니다.
+                  </div>
+                  <div className='bg-red-500 text-black absolute z-20 top-[70px] rounded-[15px]  pl-2'>
+                    오버플로우되면 elipsis로 표시되면 좋겠습니다.
+                  </div>
+                </>
+              )}
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

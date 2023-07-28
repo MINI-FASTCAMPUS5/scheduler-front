@@ -7,10 +7,10 @@ export default function SideBar() {
 
   const buttonStyle = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 rounded'
   return (
-    <div className='relative bg-slate-300 min-w-[12rem] sm:min-w-[15rem] md:min-w-[18rem] transition-all ease-out duration-75 p-2 z-[100]'>
-      <aside className='fixed sm:min-w-[15rem] md:min-w-[18rem] transition-all ease-out duration-75 p-2'>
+    <div className='relative min-w-[12rem] sm:min-w-[15rem] transition-all ease-out duration-75 z-[100]'>
+      <aside className='h-screen top-0 left-0 bg-slate-300 transition-all ease-out duration-75'>
         <h1 className='text-xl'>Side Bar</h1>
-        <div className='flex flex-col h-[95%] justify-between'>
+        <div className='flex flex-col justify-between'>
           <div>
             {user.role === 'USER' && (
               <>

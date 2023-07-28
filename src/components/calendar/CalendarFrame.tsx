@@ -7,7 +7,7 @@ export default function CalendarFrame() {
   const { isFetching } = useSchedule()
 
   return (
-    <div>
+    <>
       <CalendarSwiper />
       {/* 임시 fetch loading 태그입니다. */}
       {isFetching && (
@@ -19,9 +19,7 @@ export default function CalendarFrame() {
           {/* <span className='relative inline-flex rounded-full h-3 w-3 bg-orange-500 ' /> */}
         </div>
       )}
-      <div className='relative'>
-        <Month />
-      </div>
-    </div>
+      <Month />
+    </>
   )
 }
