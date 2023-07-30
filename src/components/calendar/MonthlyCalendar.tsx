@@ -21,7 +21,7 @@ export default function Month() {
         {weeks.map((week, i) => {
           return (
             <div className={`${getDailyColor(i)} text-center bg-slate-300`} key={week}>
-              {week}
+              {week + '요일'}
             </div>
           )
         })}

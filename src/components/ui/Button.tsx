@@ -7,7 +7,13 @@ type Props = {
   size?: 'small' | 'medium' | 'large'
   className?: string
 }
-export default function Button({ text, disabled = false, size = 'medium', className }: Props) {
+export default function Button({
+  text,
+  disabled = false,
+  size = 'medium',
+  className,
+  onClick
+}: Props) {
   let sizeStyle = ''
   if (size === 'small') sizeStyle = 'h-6 px-2'
   else if (size === 'medium') sizeStyle = 'h-8 px-4'
@@ -16,6 +22,7 @@ export default function Button({ text, disabled = false, size = 'medium', classN
   return (
     <button
       disabled={disabled}
+      onClick={onClick}
       className={`${disabled ? 'text-slate-300' : 'text-black'} 
       ${sizeStyle} bg-slate-500 rounded-md ${className && className}`}
     >
