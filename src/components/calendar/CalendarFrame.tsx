@@ -1,6 +1,6 @@
 import useSchedule from '@/hooks/schedule'
 import React from 'react'
-import Month from './Month'
+import MonthlyCalendar from './MonthlyCalendar'
 import CalendarSwiper from './CalendarSwiper'
 
 export default function CalendarFrame() {
@@ -19,7 +19,7 @@ export default function CalendarFrame() {
           {/* <span className='relative inline-flex rounded-full h-3 w-3 bg-orange-500 ' /> */}
         </div>
       )}
-      <Month />
+      <MonthlyCalendar />
     </>
   )
 }

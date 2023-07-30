@@ -1,9 +1,14 @@
-import { ToggleType } from '@/components/ui/ToggleButton'
+import { DirectionType } from '@/components/ui/ArrowButton'
 import { DATE_ROUTER_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
 
 // * 캘린더의 이동 방향과(차월, 익월) 현재 날짜를 받아서 다음 켈린더 URL을 반환
-export function swipeCalendar(direction: ToggleType, year: string, month: string, today?: string) {
+export function swipeCalendar(
+  direction: DirectionType,
+  year: string,
+  month: string,
+  today?: string
+) {
   const date = new Date()
   const currentMonth = Number(month) + (direction === 'left' ? -1 : 1)
   const day = date.getMonth() + 1 === currentMonth ? date.getDate() : 1
@@ -18,7 +23,7 @@ export function swipeCalendar(direction: ToggleType, year: string, month: string
   return `/calendar/${year}/${month}/1`
 }
 
-export function appendSwipeAnimation(id: string, direction: ToggleType) {
+export function appendSwipeAnimation(id: string, direction: DirectionType) {
   if (typeof window === 'undefined') return
   const calendar = document.getElementById(id)
   calendar?.classList.remove('move-from-left')
