@@ -1,12 +1,14 @@
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ArrowButton, { DirectionType } from '@/components/ui/ArrowButton'
+import dayjs from 'dayjs'
+
 import useSchedule from '@/hooks/schedule'
 import { appendSwipeAnimation, swipeCalendar } from '@/utils/calendar'
 import { CALENDAR_TAG_ID, DATE_ROUTE_FORMAT } from '@/constants'
-import Button from '../ui/Button'
-import HighlightInformation from './HighlightInformation'
-import dayjs from 'dayjs'
+
+import Button from '@/components/ui/Button'
+import HighlightInformation from '@/components/calendar/HighlightInformation'
+import ArrowButton, { DirectionType } from '@/components/ui/ArrowButton'
 
 export default function CalendarSwiper() {
   const { isFetching } = useSchedule()

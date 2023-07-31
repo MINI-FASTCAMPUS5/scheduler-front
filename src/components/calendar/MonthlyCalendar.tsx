@@ -1,14 +1,15 @@
 import React from 'react'
-import 'dayjs/locale/ko'
 import dayjs from 'dayjs'
+import 'dayjs/locale/ko'
 import { CALENDAR_TAG_ID, DATE_FORMAT } from '@/constants'
-import Weeks from './Weeks'
-import Daily from './Daily'
 import useSchedule from '@/hooks/schedule'
+import Weeks from '@/components/calendar/Weeks'
+import Daily from '@/components/calendar/Daily'
 
 export default function Month() {
   const { year, month } = useSchedule()
 
+  // todo dayjs(date).dayjsInMonth로 달력 마지막 날 보고 인덱스 row를 6개 | 5개로 조정하기
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const dailyIdx = caculateDailyIdx(year, month)
 
@@ -17,7 +18,7 @@ export default function Month() {
       <div
         id={CALENDAR_TAG_ID}
         className={`grid grid-cols-cal-w grid-rows-cal-h-10 md:grid-rows-cal-h-13
-       w-fit border-[1px] m-auto
+       w-fit border-[1px] m-auto overflow-x-hidden
        transition-all duration-100 ease-in-out
        `}
       >

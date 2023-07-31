@@ -1,5 +1,6 @@
-import { DirectionType } from '@/components/ui/ArrowButton'
+import type { DirectionType } from '@/components/ui/ArrowButton'
 import { DATE_ROUTE_FORMAT } from '@/constants'
+import type { ProviderSchedule } from '@/models/schedule'
 import dayjs from 'dayjs'
 
 /**
@@ -46,4 +47,29 @@ export function getDailyColor(idx: number) {
   let color = idx % 7 === 0 ? 'text-red-600' : 'text-black'
   if (idx % 7 === 6) color = 'text-blue-600'
   return color
+}
+// isBefore
+export type SchedulePosition = 'start' | 'between' | 'end' | 'start-end'
+type ProviderScheduleWithPos = ProviderSchedule & { pos: SchedulePosition }
+export function getProviderSchdule(
+  schedule: ProviderSchedule[],
+  date: string
+): ProviderScheduleWithPos[] {
+  return schedule
+    .filter((s) => s.startDate <= date && s.endDate >= date)
+    .sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
+    .map((s) => {
+      let pos: SchedulePosition = 'between'
+      if (s.startDate === date) pos = 'start'
+      if (s.endDate === date) pos = 'end'
+
+      if (dayjs(date).format('ddd') === '일') {
+        if (s.startDate <= date && s.endDate >= date) pos = 'start'
+        if (s.endDate === date && s.startDate !== date) pos = 'end'
+      }
+
+      if (s.startDate === date && s.endDate === date) pos = 'start-end'
+
+      return { ...s, pos }
+    })
 }

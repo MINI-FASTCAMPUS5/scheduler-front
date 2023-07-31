@@ -1,7 +1,7 @@
 import useSchedule from '@/hooks/schedule'
 import React from 'react'
-import MonthlyCalendar from './MonthlyCalendar'
-import CalendarSwiper from './CalendarSwiper'
+import MonthlyCalendar from '@/components/calendar/MonthlyCalendar'
+import CalendarSwiper from '@/components/calendar/CalendarSwiper'
 
 export default function CalendarFrame() {
   const { isFetching } = useSchedule()

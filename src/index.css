@@ -31,6 +31,18 @@ body {
   animation-fill-mode: backwards;
 }
 
+.custom-ping {
+  animation: customPing 1s ease-in-out infinite;
+}
+
+@keyframes customPing {
+  75%,
+  100% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
 @keyframes moveFromLeft {
   0% {
     transform: translateX(-20%);
