@@ -12,7 +12,7 @@ export function swipeCalendar(
   month: number,
   today?: string
 ) {
-  // * 현제 day를 계산
+  // * 현재 day를 계산
   const date = new Date()
   const currentMonth = month + (direction === 'left' ? -1 : 1)
   const day = date.getMonth() + 1 === currentMonth ? date.getDate() : 1
@@ -48,16 +48,27 @@ export function getDailyColor(idx: number) {
   if (idx % 7 === 6) color = 'text-[#6C27FF] font-bold'
   return color
 }
-// isBefore
+
 export type SchedulePosition = 'start' | 'between' | 'end' | 'start-end'
-type ProviderScheduleWithPos = ProviderSchedule & { pos: SchedulePosition }
+type ProviderScheduleWithPos = ProviderSchedule & { pos: SchedulePosition; restItem: number }
+
+/**
+ * @description schedule들을 받아서 가공합니다. ProviderScheduleWithPos[] 형태로 반환합니다.
+ */
 export function getProviderSchdule(
   schedule: ProviderSchedule[],
   date: string
 ): ProviderScheduleWithPos[] {
-  return schedule
-    .filter((s) => s.startDate <= date && s.endDate >= date)
-    .sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
+  const filtetedSchedule = schedule.filter((s) => s.startDate <= date && s.endDate >= date)
+  const restItem = filtetedSchedule.length > 2 ? filtetedSchedule.length - 2 : 0
+
+  return filtetedSchedule
+    .sort((a, b) => {
+      if (a.startDate === b.startDate) {
+        return a.endDate > b.endDate ? -1 : 1
+      }
+      return a.startDate > b.startDate ? 1 : -1
+    })
     .map((s) => {
       let pos: SchedulePosition = 'between'
       if (s.startDate === date) pos = 'start'
@@ -65,11 +76,9 @@ export function getProviderSchdule(
 
       if (dayjs(date).format('ddd') === '일') {
         if (s.startDate <= date && s.endDate >= date) pos = 'start'
-        if (s.endDate === date && s.startDate !== date) pos = 'end'
+        if (s.endDate === date && s.startDate !== date) pos = 'start-end'
       }
-
       if (s.startDate === date && s.endDate === date) pos = 'start-end'
-
-      return { ...s, pos }
+      return { ...s, pos, restItem }
     })
 }

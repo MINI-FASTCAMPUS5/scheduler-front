@@ -17,7 +17,7 @@ export default function Month() {
     <div className='w-full'>
       <div
         id={CALENDAR_TAG_ID}
-        className={`grid grid-cols-cal-w grid-rows-cal-h-10 md:grid-rows-cal-h-13
+        className={`grid grid-cols-cal-w grid-rows-cal-h-10 gap-1 md:grid-rows-cal-h-13
        w-fit  m-auto overflow-x-hidden
        transition-all duration-100 ease-in-out rounded-xl border-[4px] border-white
        `}
@@ -31,11 +31,14 @@ export default function Month() {
   )
 }
 
+// * 현재 달, 이전 달, 다음 달의 날짜를 구해서 배열로 반환
 function caculateDailyIdx(year: number, month: number) {
+  const date = dayjs(`${year}-${month}-01`)
+
   // * 오늘의 년 월 일, 시작 요일(월~일) 구하기
   dayjs.locale('ko')
-  const lastDay = dayjs(`${year}-${month}-01`).endOf('month').date()
-  const startDay = dayjs(`${year}-${month}-01`).format('ddd')
+  const lastDay = date.endOf('month').date()
+  const startDay = date.format('ddd')
   const weeks = ['일', '월', '화', '수', '목', '금', '토']
 
   // * 첫 주 중 며칠이 1일인지 구하기
@@ -48,17 +51,24 @@ function caculateDailyIdx(year: number, month: number) {
   }
 
   // * 다음 달의 마지막 일 구하기 (30일 | 31일 | 28일)
-  const lastDate = month === 1 ? `${year - 1}-${month - 1}` : `${year}-${month - 1}`
-  const prevLastDay = dayjs(lastDate).endOf('month').date()
+  const prevDate = date.subtract(1, 'day').format(DATE_FORMAT)
 
-  // * 칸에 맞춰서 일자를 채워 넣기 (7 * 6 달력)
-  const nextDate = month === 12 ? `${year + 1}-1` : `${year}-${month + 1}`
-  let nextDay = 1
-  const dailyIndex = Array(42)
+  // * 칸에 맞춰서 일자를 채워 넣기 (7 * 6 달력으로 고정)
+  const nextDate = date.add(1, 'month').format(DATE_FORMAT)
+
+  let nextIdx = 0
+
+  const dailyIndex = Array(weeks[startDateIdx] === '토' ? 42 : 35)
     .fill(0)
     .map((_, i) => {
-      if (i < startDateIdx) return `${lastDate}-${prevLastDay - startDateIdx + i + 1}`
-      if (i - startDateIdx + 1 > lastDay) return `${nextDate}-${nextDay++}`
+      if (i < startDateIdx)
+        // prettier-ignore
+        return `${dayjs(prevDate).subtract(startDateIdx - i - 1, 'days').format(DATE_FORMAT)}`
+      if (i - startDateIdx + 1 > lastDay)
+        // prettier-ignore
+        return `${dayjs(nextDate).add(nextIdx++, 'day').format(DATE_FORMAT)}`
+
+      // * 현제 날짜
       return dayjs(`${year}-${month}-${i - startDateIdx + 1}`).format(DATE_FORMAT)
     })
   return dailyIndex
