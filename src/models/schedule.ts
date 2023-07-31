@@ -1,4 +1,4 @@
-export type AdminSchedule = {
+export type ProviderSchedule = {
   id: string
   userId: string
   title: string

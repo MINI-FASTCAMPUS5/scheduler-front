@@ -35,7 +35,7 @@ export default function CalendarSwiper() {
   // todo max width를 캘린더와 동일하게 맞추기
   return (
     <div className='flex items-center justify-between mt-2 mb-14 '>
-      <div className='min-w-[33.33%] basis-[33.33%]'>
+      <div className='min-w-[33.33%] basis-[33.33%] relative'>
         <HighlightInformation />
       </div>
       <div className='flex items-center basis-[33.33%]'>

@@ -9,16 +9,20 @@ export function swipeCalendar(
   month: string,
   today?: string
 ) {
+  // * 현제 day를 계산
   const date = new Date()
   const currentMonth = Number(month) + (direction === 'left' ? -1 : 1)
   const day = date.getMonth() + 1 === currentMonth ? date.getDate() : 1
-  const nextDate = dayjs(`${year}/${month}/${today ? today : day}`)
   if (direction === 'left') {
-    return `/calendar/${dayjs(nextDate.subtract(1, 'month')).format(DATE_ROUTER_FORMAT)}`
+    const prevDate = dayjs(`${year}/${month}/${today ? today : day}`).subtract(1, 'month')
+    return `/calendar/${dayjs(prevDate).format(DATE_ROUTER_FORMAT)}`
   }
   if (direction === 'right') {
-    return `/calendar/${dayjs(nextDate.add(1, 'month')).format(DATE_ROUTER_FORMAT)}`
+    return `/calendar/${dayjs(dayjs(`${year}/${currentMonth}/${today ? today : day}`)).format(
+      DATE_ROUTER_FORMAT
+    )}`
   }
+  alert('잘못된 접근입니다.')
   //  todo 비정상적 주소 이동 어떻게 처리할지 정하기
   return `/calendar/${year}/${month}/1`
 }
@@ -30,4 +34,11 @@ export function appendSwipeAnimation(id: string, direction: DirectionType) {
   calendar?.classList.remove('move-from-right')
   if (direction === 'left') setTimeout(() => calendar?.classList.add('move-from-left'))
   if (direction === 'right') setTimeout(() => calendar?.classList.add('move-from-right'))
+}
+
+// * 임의의 3가지 색, 색깔이 정해지면 수정해야합니다.
+export function getDailyColor(idx: number) {
+  let color = idx % 7 === 0 ? 'text-red-600' : 'text-black'
+  if (idx % 7 === 6) color = 'text-blue-600'
+  return color
 }

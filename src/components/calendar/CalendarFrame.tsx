@@ -11,7 +11,7 @@ export default function CalendarFrame() {
       <CalendarSwiper />
       {/* 임시 fetch loading 태그입니다. */}
       {isFetching && (
-        <div className='absolute flex w-full h-full left-0 top-0 bg-orange-700 z-[99999] justify-center items-center opacity-60 overflow-hidden'>
+        <div className='fixed flex w-full h-full left-0 top-0 bg-orange-700 z-[99999] justify-center items-center opacity-60 overflow-hidden'>
           <div className='text-black  text-7xl font-extrabold'>
             schedule data를 가져오고 있습니다!
           </div>
