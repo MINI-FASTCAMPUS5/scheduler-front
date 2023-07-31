@@ -1,0 +1,13 @@
+import React, { useMemo } from 'react'
+
+export default function Weeks() {
+  const weeks = useMemo(() => ['일', '월', '화', '수', '목', '금', '토'], [])
+
+  return weeks.map((week) => {
+    return (
+      <div key={week} className={'text-center bg-[#6C27FF] font-bold text-white leading-8'}>
+        {week + '요일'}
+      </div>
+    )
+  })
+}
