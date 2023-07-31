@@ -18,8 +18,8 @@ export default function Month() {
       <div
         id={CALENDAR_TAG_ID}
         className={`grid grid-cols-cal-w grid-rows-cal-h-10 md:grid-rows-cal-h-13
-       w-fit border-[1px] m-auto overflow-x-hidden
-       transition-all duration-100 ease-in-out
+       w-fit  m-auto overflow-x-hidden
+       transition-all duration-100 ease-in-out rounded-xl border-[4px] border-white
        `}
       >
         {/* 달력의 요일을 표기 */}

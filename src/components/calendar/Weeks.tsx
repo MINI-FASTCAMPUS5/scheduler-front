@@ -1,17 +1,11 @@
-import { getDailyColor } from '@/utils/calendar'
 import React, { useMemo } from 'react'
-
-// type Props = {
-//   weeks: string[]
-//   color: 'red' | 'blue' | 'black'
-// }
 
 export default function Weeks() {
   const weeks = useMemo(() => ['일', '월', '화', '수', '목', '금', '토'], [])
 
-  return weeks.map((week, i) => {
+  return weeks.map((week) => {
     return (
-      <div key={week} className={`${getDailyColor(i)} text-center bg-slate-300`}>
+      <div key={week} className={'text-center bg-[#6C27FF] font-bold text-white leading-8'}>
         {week + '요일'}
       </div>
     )

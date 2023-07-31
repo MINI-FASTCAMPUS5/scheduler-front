@@ -44,8 +44,8 @@ export function appendSwipeAnimation(id: string, direction: DirectionType) {
 
 // * 임의의 3가지 색, 색깔이 정해지면 수정해야합니다.
 export function getDailyColor(idx: number) {
-  let color = idx % 7 === 0 ? 'text-red-600' : 'text-black'
-  if (idx % 7 === 6) color = 'text-blue-600'
+  let color = idx % 7 === 0 ? 'text-[#6C27FF] font-bold' : 'text-[#6C27FF] font-bold'
+  if (idx % 7 === 6) color = 'text-[#6C27FF] font-bold'
   return color
 }
 // isBefore

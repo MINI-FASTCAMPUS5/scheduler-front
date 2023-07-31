@@ -23,8 +23,10 @@ export default function Button({
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`${disabled ? 'text-slate-300' : 'text-black'} 
-      ${sizeStyle} bg-slate-500 rounded-md ${className && className}`}
+      className={`${disabled ? 'text-slate-300' : 'text-white'} 
+      ${sizeStyle} bg-[#6C27FF] rounded-md ${
+        className && className
+      } hover:bg-[#411b92] transition-colors ease-in-out duration-200`}
     >
       {text}
     </button>

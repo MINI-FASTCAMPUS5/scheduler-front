@@ -11,16 +11,16 @@ type Props = {
 
 export default function DailySchedule({ schedule, ceilWidth }: Props) {
   const ceils = dayjs(schedule.endDate).diff(dayjs(schedule.startDate), 'day')
+
   return (
-    <div className={'relative mb-1 text-black '}>
+    <div className={'relative mb-2 text-white'}>
       <div>
         {schedule.pos.includes('start') ? (
           <>
             <span className='whitespace-nowrap invisible'>{schedule.title}</span>
             <span
               className={`
-              flex justify-start items-center absolute  left-0 top-0 text-start whitespace-nowrap z-30 rounded-xl cursor-pointer
-               bg-purple-400 hover:bg-purple-500 
+              flex justify-start items-center absolute left-0 top-0 text-start whitespace-nowrap z-30 rounded-xl cursor-pointer ml-2
                transition-all ease-in-out duration-200
               `}
               style={{
@@ -31,9 +31,9 @@ export default function DailySchedule({ schedule, ceilWidth }: Props) {
               <img
                 src={schedule.profileImage}
                 alt={schedule.fullName}
-                className='w-6 h-6 rounded-[0.75rem]'
+                className='absolute w-6 h-6 aspect- rounded-[20px]'
               />
-              <div className='rounded-xl cursor-pointer bg-purple-400 hover:bg-purple-500 pr-4'>
+              <div className='rounded-xl w-full cursor-pointer bg-[#6C27FF] hover:bg-[#4619a5] pl-8 pr-4 transition-all ease-in-out duration-200'>
                 {schedule.title}
               </div>
             </span>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { FaChevronLeft, FaChevronRight, FaMinus } from 'react-icons/fa'
 
 export type DirectionType = 'left' | 'right'
 type Props = {
@@ -9,15 +9,17 @@ type Props = {
 }
 
 export default function ArrowBotton({ direction, onClick, disabled = true }: Props) {
-  const ICON =
+  const iconStyle = 'w-6 h-6 text-white'
+  let ICON =
     direction === 'left' ? (
-      <FaChevronLeft className={`w-6 h-6 ${disabled ? 'text-slate-300' : 'text-black'} `} />
+      <FaChevronLeft className={iconStyle} />
     ) : (
-      <FaChevronRight className={`w-6 h-6 ${disabled ? 'text-slate-300' : 'text-black'}`} />
+      <FaChevronRight className={iconStyle} />
     )
+  disabled && (ICON = <FaMinus className={iconStyle} />)
   return (
     <button
-      className='bg-slate-500 p-2 rounded-[0.5rem]'
+      className='disabled:bg-[#411b92] bg-[#6C27FF] p-2 rounded-[0.5rem] hover:bg-[#411b92] transition-colors ease-in-out duration-200'
       disabled={disabled}
       onClick={() => onClick && onClick(direction)}
     >
