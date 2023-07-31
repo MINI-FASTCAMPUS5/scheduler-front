@@ -1,17 +1,16 @@
 import React, { useCallback } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import ArrowButton, { DirectionType } from '@/components/ui/ArrowButton'
 import useSchedule from '@/hooks/schedule'
 import { appendSwipeAnimation, swipeCalendar } from '@/utils/calendar'
-import { CALENDAR_TAG_ID, DATE_ROUTER_FORMAT } from '@/constants'
+import { CALENDAR_TAG_ID, DATE_ROUTE_FORMAT } from '@/constants'
 import Button from '../ui/Button'
 import HighlightInformation from './HighlightInformation'
 import dayjs from 'dayjs'
 
 export default function CalendarSwiper() {
   const { isFetching } = useSchedule()
-  const params = useParams()
-  const { year, month } = params
+  const { year, month } = useSchedule()
   const navigate = useNavigate()
 
   // * 이전/다음 달로 이동합니다.
@@ -26,9 +25,10 @@ export default function CalendarSwiper() {
     [navigate, year, month]
   )
 
+  // * 오늘로 이동합니다.
   const navagateToCurrentDate = useCallback(() => {
     const date = new Date()
-    const path = `/calendar/${dayjs(date).format(DATE_ROUTER_FORMAT)}`
+    const path = `/calendar/${dayjs(date).format(DATE_ROUTE_FORMAT)}`
     navigate(path)
   }, [navigate])
 

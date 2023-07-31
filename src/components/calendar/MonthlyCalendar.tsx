@@ -1,7 +1,7 @@
 import React from 'react'
 import 'dayjs/locale/ko'
 import dayjs from 'dayjs'
-import { CALENDAR_TAG_ID } from '@/constants'
+import { CALENDAR_TAG_ID, DATE_FORMAT } from '@/constants'
 import Weeks from './Weeks'
 import Daily from './Daily'
 import useSchedule from '@/hooks/schedule'
@@ -17,7 +17,7 @@ export default function Month() {
       <div
         id={CALENDAR_TAG_ID}
         className={`grid grid-cols-cal-w grid-rows-cal-h-10 md:grid-rows-cal-h-13
-       truncate w-fit border-[1px] m-auto
+       w-fit border-[1px] m-auto
        transition-all duration-100 ease-in-out
        `}
       >
@@ -58,7 +58,7 @@ function caculateDailyIdx(year: number, month: number) {
     .map((_, i) => {
       if (i < startDateIdx) return `${lastDate}-${prevLastDay - startDateIdx + i + 1}`
       if (i - startDateIdx + 1 > lastDay) return `${nextDate}-${nextDay++}`
-      return `${year}-${month}-${i - startDateIdx + 1}`
+      return dayjs(`${year}-${month}-${i - startDateIdx + 1}`).format(DATE_FORMAT)
     })
   return dailyIndex
 }

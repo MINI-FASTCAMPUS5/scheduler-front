@@ -1,6 +1,8 @@
+import { DATE_FORMAT } from '@/constants'
 import { SCHEDULE_7_MONTH, SCHEDULE_8_MONTH } from '@/mocks/schedule'
 import { ProviderSchedule } from '@/models/schedule'
 import { delay } from '@/utils'
+import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -20,6 +22,13 @@ export default function useSchedule() {
     // * API 호출 로직, API가 완성되면 로직이 크게 변경됩니다.
     let scheduleData = SCHEDULE_7_MONTH
     if (month === 8) scheduleData = SCHEDULE_8_MONTH
+    scheduleData.map((s) => {
+      return {
+        ...s,
+        startDate: dayjs(s.startDate).format(DATE_FORMAT),
+        endDate: dayjs(s.endDate).format(DATE_FORMAT)
+      }
+    })
     delay<ProviderSchedule[]>(scheduleData, 2000).then((res) => {
       setSchedule(res)
       setIsFetching(false)

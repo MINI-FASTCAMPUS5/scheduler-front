@@ -12,7 +12,7 @@ import { AdminUser, FanUser } from '@/models/user'
 import { delay } from '@/utils'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { DATE_ROUTER_FORMAT } from '@/constants'
+import { DATE_ROUTE_FORMAT } from '@/constants'
 import { UserContext } from '@/context/UserProvider'
 // import useUser from '@/hooks/user'
 
@@ -35,7 +35,7 @@ export default function SignInOrUpTestPage() {
     // * login check (백엔드) API가 완성되면 백엔드에 요청을 보내서 로그인 여부를 판단합니다.
     if (loggedIn && getUserInfo().id) {
       const date = new Date()
-      const currentDate = dayjs(date).format(DATE_ROUTER_FORMAT)
+      const currentDate = dayjs(date).format(DATE_ROUTE_FORMAT)
       navigation(`/calendar/${currentDate}`)
     }
   }, [loggedIn, getUserInfo, navigation])

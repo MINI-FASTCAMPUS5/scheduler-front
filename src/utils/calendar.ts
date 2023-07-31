@@ -1,25 +1,27 @@
 import { DirectionType } from '@/components/ui/ArrowButton'
-import { DATE_ROUTER_FORMAT } from '@/constants'
+import { DATE_ROUTE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
 
-// * 캘린더의 이동 방향과(차월, 익월) 현재 날짜를 받아서 다음 켈린더 URL을 반환
+/**
+ * @description 캘린더의 이동 방향과(차월, 익월) 현재 날짜를 받아서 다음 켈린더 URL을 반환
+ * */
 export function swipeCalendar(
   direction: DirectionType,
-  year: string,
-  month: string,
+  year: number,
+  month: number,
   today?: string
 ) {
   // * 현제 day를 계산
   const date = new Date()
-  const currentMonth = Number(month) + (direction === 'left' ? -1 : 1)
+  const currentMonth = month + (direction === 'left' ? -1 : 1)
   const day = date.getMonth() + 1 === currentMonth ? date.getDate() : 1
   if (direction === 'left') {
     const prevDate = dayjs(`${year}/${month}/${today ? today : day}`).subtract(1, 'month')
-    return `/calendar/${dayjs(prevDate).format(DATE_ROUTER_FORMAT)}`
+    return `/calendar/${dayjs(prevDate).format(DATE_ROUTE_FORMAT)}`
   }
   if (direction === 'right') {
     return `/calendar/${dayjs(dayjs(`${year}/${currentMonth}/${today ? today : day}`)).format(
-      DATE_ROUTER_FORMAT
+      DATE_ROUTE_FORMAT
     )}`
   }
   alert('잘못된 접근입니다.')
@@ -27,6 +29,9 @@ export function swipeCalendar(
   return `/calendar/${year}/${month}/1`
 }
 
+/**
+ * @description 켈린더의 이동방향에 맞게 애니메이션을 추가
+ */
 export function appendSwipeAnimation(id: string, direction: DirectionType) {
   if (typeof window === 'undefined') return
   const calendar = document.getElementById(id)
