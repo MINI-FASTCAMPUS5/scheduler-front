@@ -11,7 +11,6 @@ type Props = {
 
 export default function DailySchedule({ schedule, ceilWidth }: Props) {
   const ceils = dayjs(schedule.endDate).diff(dayjs(schedule.startDate), 'day')
-
   return (
     <div className={'relative mb-1 text-black '}>
       <div>
@@ -25,7 +24,8 @@ export default function DailySchedule({ schedule, ceilWidth }: Props) {
                transition-all ease-in-out duration-200
               `}
               style={{
-                minWidth: `${ceils * ceilWidth}px`
+                minWidth: `${ceilWidth * ceils}px`
+                // paddingRight: `${ceilWidth === 0 && '5rem'}`
               }}
             >
               <img
@@ -33,11 +33,13 @@ export default function DailySchedule({ schedule, ceilWidth }: Props) {
                 alt={schedule.fullName}
                 className='w-6 h-6 rounded-[0.75rem]'
               />
-              <span>{schedule.title}</span>
+              <div className='rounded-xl cursor-pointer bg-purple-400 hover:bg-purple-500 pr-4'>
+                {schedule.title}
+              </div>
             </span>
           </>
         ) : (
-          <span className='min-w-[200px] whitespace-nowrap invisible'>{schedule.title}</span>
+          <div className='whitespace-nowrap invisible'>{schedule.title}</div>
         )}
       </div>
     </div>

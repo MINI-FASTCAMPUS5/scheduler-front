@@ -16,5 +16,5 @@ export default function useResize(selector: string) {
     return () => window.removeEventListener('resize', resize)
   }, [])
 
-  return { width, height, resize }
+  return { width, height, resize, setWidth, setHeight }
 }

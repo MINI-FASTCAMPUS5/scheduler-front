@@ -55,6 +55,15 @@ export const SCHEDULE_7_MONTH: ProviderSchedule[] = [
     profileImage: '/mock_image/sm_profile_image.png',
     startDate: '2023-07-11',
     endDate: '2023-07-15'
+  },
+  {
+    id: 'schedule7month7',
+    userId: 'admin2',
+    title: '슈퍼쥬니어 독도 콘서트',
+    fullName: 'SM Entertainment',
+    profileImage: '/mock_image/sm_profile_image.png',
+    startDate: '2023-07-11',
+    endDate: '2023-07-15'
   }
 ]
 export const SCHEDULE_8_MONTH: ProviderSchedule[] = [
@@ -102,14 +111,5 @@ export const SCHEDULE_8_MONTH: ProviderSchedule[] = [
     profileImage: '/mock_image/hive_profile_image.png',
     startDate: '2023-08-11',
     endDate: '2023-08-15'
-  },
-  {
-    id: 'schedule8month6',
-    userId: 'admin2',
-    title: '슈퍼쥬니어 독도 콘서트',
-    fullName: 'SM Entertainment',
-    profileImage: '/mock_image/sm_profile_image.png',
-    startDate: '2023-07-11',
-    endDate: '2023-07-15'
   }
 ]
