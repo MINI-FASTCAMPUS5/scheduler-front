@@ -22,6 +22,9 @@ export default function useSchedule() {
     // * API 호출 로직, API가 완성되면 로직이 크게 변경됩니다.
     let scheduleData = SCHEDULE_7_MONTH
     if (month === 8) scheduleData = SCHEDULE_8_MONTH
+    if (month === 6) scheduleData = []
+    if (month === 9) scheduleData = []
+
     scheduleData.map((s) => {
       return {
         ...s,

@@ -23,6 +23,15 @@ export const SCHEDULE_7_MONTH: ProviderSchedule[] = [
   {
     id: 'schedule7month3',
     userId: 'admin1',
+    title: '아이돌 콘서트 블라블라 어쩌고 저쩌고..!!!',
+    fullName: 'HIVE',
+    profileImage: '/mock_image/hive_profile_image.png',
+    startDate: '2023-07-19',
+    endDate: '2023-07-19'
+  },
+  {
+    id: 'schedule7month123',
+    userId: 'admin1',
     title: 'BTS 일본 콘서트',
     fullName: 'HIVE',
     profileImage: '/mock_image/hive_profile_image.png',
@@ -54,7 +63,7 @@ export const SCHEDULE_7_MONTH: ProviderSchedule[] = [
     fullName: 'SM Entertainment',
     profileImage: '/mock_image/sm_profile_image.png',
     startDate: '2023-07-11',
-    endDate: '2023-07-15'
+    endDate: '2023-07-14'
   },
   {
     id: 'schedule7month7',

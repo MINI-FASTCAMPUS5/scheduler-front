@@ -10,7 +10,7 @@ export default function CalendarPage() {
   return (
     <div className='grid grid-cols-cal-frame-w overflow-x-hidden'>
       <SideBar />
-      <div className='px-4 mb-12'>
+      <div className='px-4 mb-12 min-w-[760px]'>
         <Banner className='py-4' src='/newjeans_ad.png' type='top' alt='newjeans banner' />
         <CalendarFrame />
       </div>
