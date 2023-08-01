@@ -36,13 +36,21 @@ export default function CalendarSwiper() {
 
   // todo max width를 캘린더와 동일하게 맞추기
   return (
-    <div className='flex items-center justify-between mt-2 mb-14 '>
+    // ! px-[0.25rem]과 max-w-[1432px]은 캘린더의 최대 너비입니다.
+    <div className='flex items-center max-w-[1432px] px-[0.25rem] justify-between mt-2 mb-14  mx-auto'>
       <div className='min-w-[33.33%] basis-[33.33%] relative'>
         <HighlightInformation />
       </div>
       <div className='flex items-center basis-[33.33%]'>
         <ArrowButton disabled={isFetching} direction='left' onClick={handleArrowBtn} />
-        <h1 className='text-2xl mx-2'>{`${year}년 ${month}월`}</h1>
+        <h1 className='text-2xl mx-2 text-[#6C27FF]'>
+          <span className='mr-2'>
+            <strong className='text-4xl'>{year}</strong>년
+          </span>
+          <span>
+            <strong className='text-4xl'>{month}</strong>월
+          </span>
+        </h1>
         <ArrowButton disabled={isFetching} direction='right' onClick={handleArrowBtn} />
       </div>
       <div className='flex basis-auto'>

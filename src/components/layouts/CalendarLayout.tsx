@@ -10,5 +10,10 @@ export default function CalendarLayout() {
     if (!loggedIn) navigate('/login/test')
   }, [loggedIn, navigate])
 
-  return <main className=''>{loggedIn && <Outlet />}</main>
+  return (
+    <main className=''>
+      {loggedIn && <Outlet />}
+      <div id='portal' />
+    </main>
+  )
 }
