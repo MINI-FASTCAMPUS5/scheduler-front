@@ -1,0 +1,75 @@
+.right-light-stick {
+  animation-name: shake-right-light-stick;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+}
+
+.right-hand {
+  animation-name: shake-right-hand;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+}
+
+.left-light-stick {
+  animation-name: shake-left-light-stick;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+}
+
+.left-hand {
+  animation-name: shake-left-hand;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+}
+
+@keyframes shake-right-light-stick {
+  0% {
+    transform: rotate(0);
+  }
+  70% {
+    transform: rotate(7deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes shake-right-hand {
+  0% {
+    transform: rotate(0);
+  }
+  70% {
+    transform: rotate(5deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes shake-left-light-stick {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  70% {
+    transform: translateY(-2px) rotate(-10deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+}
+@keyframes shake-left-hand {
+  0% {
+    transform: rotate(0);
+  }
+  70% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}

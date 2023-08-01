@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import SidebarMenu from './sidebar/SidebarMenu'
 import { useLocation } from 'react-router-dom'
+import { AiTwotoneCalendar } from 'react-icons/ai'
+import { FaUserClock } from 'react-icons/fa'
 
 const sidebarMenu = [
   {
     title: '행사 신청 캘린더',
-    id: 'user-sidebar-0'
+    id: 'user-sidebar-0',
+    Icon: AiTwotoneCalendar
   },
   {
     title: '마이 페이지',
-    id: 'user-sidebar-1'
+    id: 'user-sidebar-1',
+    Icon: FaUserClock
   }
 ]
 
@@ -36,7 +40,10 @@ export default function UserActionBar() {
             onClick={(name) => setActiveId(name)}
             idx={idx}
           >
-            {menu.title}
+            <p className='flex items-center ml-4'>
+              <menu.Icon className='mr-4 w-6 h-6' />
+              {menu.title}
+            </p>
           </SidebarMenu>
         )
       })}

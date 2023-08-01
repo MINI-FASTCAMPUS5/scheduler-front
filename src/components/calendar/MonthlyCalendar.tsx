@@ -1,17 +1,33 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ko'
 import { CALENDAR_TAG_ID, DATE_FORMAT } from '@/constants'
 import useSchedule from '@/hooks/schedule'
 import Weeks from '@/components/calendar/Weeks'
 import Daily from '@/components/calendar/Daily'
+import CalendarModal from './CalendarModal'
+import DailyDetail from './DailyDetail'
 
 export default function Month() {
+  const [openMoreModal, setOpenMoreModal] = useState(false)
+  const [targetDate, setTargetDate] = useState('')
   const { year, month } = useSchedule()
 
   // todo dayjs(date).dayjsInMonth로 달력 마지막 날 보고 인덱스 row를 6개 | 5개로 조정하기
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const dailyIdx = caculateDailyIdx(year, month)
+
+  const handleViewMore = useCallback((date: string) => {
+    if (document.getElementById(`monthly-${date}`)) {
+      setTargetDate(date)
+      setOpenMoreModal(true)
+    }
+  }, [])
+
+  const setCloseModal = useCallback(() => {
+    setOpenMoreModal(false)
+    setTargetDate('')
+  }, [])
 
   return (
     <div className='w-full'>
@@ -25,7 +41,12 @@ export default function Month() {
         {/* 달력의 요일을 표기 */}
         <Weeks />
         {/* 달력의 날짜를 표기 */}
-        <Daily daily={dailyIdx} />
+        <Daily daily={dailyIdx} onClickMoreButton={handleViewMore} />
+        {openMoreModal && (
+          <CalendarModal onClose={setCloseModal}>
+            <DailyDetail date={targetDate} />
+          </CalendarModal>
+        )}
       </div>
     </div>
   )

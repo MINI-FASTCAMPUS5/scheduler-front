@@ -46,10 +46,11 @@ export default function useSchedule() {
     ) {
       return alert('잘못된 접근입니다.')
     }
+
     setYear(parseInt(params.year))
     setMonth(parseInt(params.month))
     setDay(parseInt(params.day))
-  }, [params.year, params.month, params.day])
+  }, [month, params.day, params.month, params.year, year])
 
   return { schedule, isFetching, year, month, day, setYear, setMonth, setDay }
 }

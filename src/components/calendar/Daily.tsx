@@ -8,8 +8,9 @@ import MoreButton from './MoreButton'
 
 type Props = {
   daily: string[]
+  onClickMoreButton?: (date: string) => void
 }
-export default function Daily({ daily }: Props) {
+export default function Daily({ daily, onClickMoreButton }: Props) {
   const { width, resize, setWidth } = useResize('.ceil')
   const { month, schedule, isFetching } = useSchedule()
   // * resize 이벤트는 화면 사이즈가 변경되야만 발생하기 때문에, 페이지가 처음로드되면 resize 이벤트를 발생시킵니다.
@@ -27,10 +28,10 @@ export default function Daily({ daily }: Props) {
     const disable = dayjs(date).month() + 1 !== Number(month) ? true : false
     const providerSchedule = getProviderSchdule(schedule, date)
     const today = dayjs(date).date()
-
     return (
       <div key={'daily' + date} className={`ceil ${getBgStyle(date)}`}>
-        <div className={`relative ${disable ? 'text-gray-400' : 'text-[#6C27FF]'} text-[0.8rem]`}>
+        <div id={`monthly-${date}`} />
+        <div className={`relative ${disable ? 'text-gray-400' : 'text-[#6C27FF]'}`}>
           <div className='pl-2 font-bold'>{Math.floor(today / 10) === 0 ? `0${today}` : today}</div>
           {providerSchedule?.map((s, i) => {
             if (disable) return
@@ -38,7 +39,11 @@ export default function Daily({ daily }: Props) {
             return <DailySchedule key={s.id} schedule={s} ceilWidth={width} date={date} />
           })}
           {providerSchedule.length > 2 && (
-            <MoreButton date={date} restItem={providerSchedule[0].restItem} />
+            <MoreButton
+              date={date}
+              restItem={providerSchedule[0].restItem}
+              onClick={onClickMoreButton}
+            />
           )}
         </div>
       </div>
