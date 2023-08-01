@@ -3,10 +3,15 @@ import React from 'react'
 import AdminActionBar from './AdminActionBar'
 import UserActionBar from './UserActionBar'
 import Profile from './Profile'
+import SearchForm from './SearchForm'
 
 export default function SideBar() {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
+
+  const handleSubmit = (value: string) => {
+    alert(value + '를 검색합니다.')
+  }
 
   return (
     <div className='relative h-full z-[100]'>
@@ -14,7 +19,7 @@ export default function SideBar() {
         <div className='my-4'>
           <img className='m-auto' src='/yearly_idol.png' width='240px' alt='연간 아이돌' />
         </div>
-        <div className='py-2 my-4s border-t-2 border-b-2 border-white text-white'>검색!</div>
+        <SearchForm onSubmit={handleSubmit} />
         <div className='flex flex-col justify-between'>
           <div className='min-h-[300px]'>
             {user.role === 'USER' && <UserActionBar />}

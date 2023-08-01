@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-
 import useSchedule from '@/hooks/schedule'
 import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
-import DailySchedule from './DailySchedule'
-import Banner from '../Banner'
-import CheerUpLoading from '../ui/cheerUpLoading'
+import DailySchedule from '@/components/calendar/DailySchedule'
+import Banner from '@/components/Banner'
+import CheerUpLoading from '@/components/ui/CheerUpLoading'
 
 type Props = {
   date: string

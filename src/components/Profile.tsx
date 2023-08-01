@@ -9,7 +9,7 @@ export default function Profile({ user }: Props) {
     <>
       <div className='flex justify-center items-center p-4 gap-4'>
         <img
-          className='w-20 h-20 rounded-[2.5rem] aspect-square object-cover'
+          className='w-20 h-20 rounded-[2.5rem]'
           src={`http://localhost:5173/${user.profileImage}`}
         />
         <div className='text-center'>
