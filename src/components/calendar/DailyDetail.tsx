@@ -4,7 +4,7 @@ import useSchedule from '@/hooks/schedule'
 import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
 import DailySchedule from './DailySchedule'
 import Banner from '../Banner'
-import CheerUpLoading from '../ui/cheerUpLoading'
+import CheerUpLoading from '../ui/CheerUpLoading'
 
 type Props = {
   date: string

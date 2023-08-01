@@ -9,6 +9,8 @@ import Optimistic from '@/pages/Sample/Optimistic'
 import MainLayout from '@/components/layouts/MainLayout'
 import SignInOrUpTestPage from '@/pages/Sample/SignInOrUpTestPage'
 import Home from './pages/Home'
+import SignupPage from 'pages/SignupPage'
+import SignInPage from 'pages/SignInPage'
 
 function App() {
   return (
@@ -20,6 +22,12 @@ function App() {
       <Route path='/' element={<MainLayout />}>
         <Route path='/' element={<Home />} />
         <Route path='/login/test' element={<SignInOrUpTestPage />} />
+      </Route>
+      <Route>
+        <Route path='/login' element={<SignInPage />} />
+      </Route>
+      <Route>
+        <Route path='/SignupPage' element={<SignupPage />} />
       </Route>
 
       {/* ! react-query Sample 페이지입니다 ! */}
