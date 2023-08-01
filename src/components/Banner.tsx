@@ -8,13 +8,21 @@ type Props = {
 }
 export default function Banner({ src, type = 'top', className, alt }: Props) {
   let bannerStyle = ''
-  if (type === 'top') bannerStyle = 'w-full'
-  else if (type === 'side') bannerStyle = 'w-[200px]'
-  else if (type === 'post') bannerStyle = 'w-full'
+  let imgStyle = ''
+  if (type === 'top') {
+    bannerStyle = 'w-full'
+    imgStyle = 'w-full aspect-auto object-cover'
+  } else if (type === 'side') {
+    bannerStyle = 'w-[200px]'
+    imgStyle = 'w-full aspect-auto object-cover'
+  } else if (type === 'post') {
+    bannerStyle = 'w-full'
+    imgStyle = 'w-full max-h-[318px] aspect-square object-contain'
+  }
 
   return (
     <div className={`items-center ${bannerStyle} ${className}`}>
-      <img src={src} className='m-auto' alt={alt} />
+      <img src={src} className={`m-auto ${imgStyle}`} alt={alt} />
     </div>
   )
 }

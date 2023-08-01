@@ -19,10 +19,10 @@ export default function CalendarAction({ type, schedule }: Props) {
   }
 
   return (
-    <div>
+    <>
       {type === 'add' && <div>add</div>}
       {type === 'edit' && <div>edit</div>}
       {type === 'reserve' && <ReserveForm schedule={schedule!} />}
-    </div>
+    </>
   )
 }

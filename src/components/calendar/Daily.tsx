@@ -15,9 +15,7 @@ type Props = {
 }
 export default function Daily({ daily }: Props) {
   const [openPortal, setOpenPortal] = useState(false)
-  const [targetSchedule, setTargetSchedule] = useState<ProviderScheduleWithPos>(
-    {} as ProviderScheduleWithPos
-  )
+  const [targetSchedule, setTargetSchedule] = useState({} as ProviderScheduleWithPos)
   const [openMoreModal, setOpenMoreModal] = useState(false)
   const [targetDate, setTargetDate] = useState('')
 
