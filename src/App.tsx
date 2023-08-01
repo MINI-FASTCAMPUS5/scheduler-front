@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Outlet, Route, Routes } from 'react-router-dom'
 
 import CalendarLayout from '@/components/layouts/CalendarLayout'
 import CalendarPage from '@/pages/Calendar'
@@ -9,14 +9,38 @@ import Optimistic from '@/pages/Sample/Optimistic'
 import MainLayout from '@/components/layouts/MainLayout'
 import SignInOrUpTestPage from '@/pages/Sample/SignInOrUpTestPage'
 import Home from './pages/Home'
+
 import SignupPage from 'pages/SignupPage'
 import SignInPage from 'pages/SignInPage'
+
+import ApprovalPage from './pages/Manager/Approval'
+import ManagerEventAddEditPage from './pages/Manager/ManagerEventAddEdit'
+import ManagerDashboardPage from './pages/Manager/ManagerDashboard'
+import SideBar from './components/SideBar'
+
+const Layout = () => {
+  return (
+    <div className='grid grid-cols-cal-frame-w overflow-x-hidden'>
+      <SideBar/>
+      <div className='px-4'>
+        <Outlet />
+      </div>
+    </div>
+  )
+}
+
 
 function App() {
   return (
     <Routes>
       <Route path='/calendar' element={<CalendarLayout />}>
         <Route path='/calendar/:year/:month/:day' element={<CalendarPage />} />
+      </Route>
+
+      <Route path='/manager' element={<Layout />}>
+        <Route path='/manager/event' element={<ManagerEventAddEditPage />} />
+        <Route path='/manager/approval' element={<ApprovalPage />} />
+        <Route path='/manager/dashboard' element={<ManagerDashboardPage />} />
       </Route>
 
       <Route path='/' element={<MainLayout />}>
