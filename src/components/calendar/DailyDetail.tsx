@@ -22,6 +22,10 @@ export default function DailyDetail({ date }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schedule, isFetching])
 
+  const handleClickSchedule = (schedule: ProviderScheduleWithPos) => {
+    console.info('handleClickSchedule  : ', schedule)
+  }
+
   return (
     <section className='overflow-hidden h-full p-4'>
       <div className='bg-blue-100 h-full rounded-2xl'>
@@ -52,8 +56,12 @@ export default function DailyDetail({ date }: Props) {
                 <div className='text-[#6C27FF]'>
                   <strong>{s.title}</strong> ({s.startDate} ~ {s.endDate})
                 </div>
-
-                <DailySchedule ceilWidth={500} date={date} schedule={s} />
+                <DailySchedule
+                  ceilWidth={500}
+                  date={date}
+                  schedule={s}
+                  onClickSchedule={handleClickSchedule}
+                />
               </div>
             )
           })}

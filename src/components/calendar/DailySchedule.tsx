@@ -8,9 +8,10 @@ type Props = {
   ceilWidth: number
   date: string
   skip?: boolean
+  onClickSchedule: (schedule: ProviderScheduleWithPos) => void
 }
 
-export default function DailySchedule({ schedule, ceilWidth }: Props) {
+export default function DailySchedule({ schedule, ceilWidth, onClickSchedule }: Props) {
   let ceils = dayjs(schedule.endDate).diff(dayjs(schedule.startDate), 'day') + 1
   if (schedule.pos === 'start-end') ceils = 1
   return (
@@ -27,6 +28,9 @@ export default function DailySchedule({ schedule, ceilWidth }: Props) {
               style={{
                 minWidth: `${ceilWidth * ceils}px`,
                 maxWidth: `${ceilWidth * ceils}px`
+              }}
+              onClick={() => {
+                onClickSchedule(schedule)
               }}
             >
               <img

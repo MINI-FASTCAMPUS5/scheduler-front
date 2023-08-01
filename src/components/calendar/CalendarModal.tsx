@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { CgClose } from 'react-icons/cg'
 
 type Props = {
-  children: React.ReactNode
+  children?: React.ReactNode
   onClose: () => void
 }
 export default function CalendarModal({ onClose, children }: Props) {
