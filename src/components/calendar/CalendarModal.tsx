@@ -30,7 +30,9 @@ export default function CalendarModal({ onClose, children }: Props) {
           <CgClose className='stroke-1' />
         </div>
       </button>
-      <div className='bg-white w-4/5 h-3/5 max-w-[640px] max-h-[740px] rounded-2xl'>{children}</div>
+      <div className='bg-white w-4/5 f-full max-w-[640px] max-h-[740px] min-h-[640px] rounded-2xl'>
+        {children}
+      </div>
     </section>
   )
 }

@@ -50,7 +50,7 @@ export function getDailyColor(idx: number) {
 }
 
 export type SchedulePosition = 'start' | 'between' | 'end' | 'start-end'
-type ProviderScheduleWithPos = ProviderSchedule & { pos: SchedulePosition; restItem: number }
+export type ProviderScheduleWithPos = ProviderSchedule & { pos: SchedulePosition; restItem: number }
 
 /**
  * @description schedule들을 받아서 가공합니다. ProviderScheduleWithPos[] 형태로 반환합니다.

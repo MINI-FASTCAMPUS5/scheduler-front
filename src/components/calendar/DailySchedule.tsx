@@ -1,11 +1,10 @@
 import React from 'react'
 import dayjs from 'dayjs'
-import type { ProviderSchedule } from '@/models/schedule'
-import type { SchedulePosition } from '@/utils/calendar'
+import type { ProviderScheduleWithPos } from '@/utils/calendar'
 // import useSchedule from '@/hooks/schedule'
 
 type Props = {
-  schedule: ProviderSchedule & { pos: SchedulePosition; restItem: number }
+  schedule: ProviderScheduleWithPos
   ceilWidth: number
   date: string
   skip?: boolean
@@ -15,7 +14,7 @@ export default function DailySchedule({ schedule, ceilWidth }: Props) {
   let ceils = dayjs(schedule.endDate).diff(dayjs(schedule.startDate), 'day') + 1
   if (schedule.pos === 'start-end') ceils = 1
   return (
-    <div className={'relative my-1 text-white'}>
+    <div className={'relative my-1 text-white text-[0.8rem]'}>
       <div>
         {schedule.pos.includes('start') ? (
           <>

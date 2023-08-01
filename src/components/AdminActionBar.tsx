@@ -1,23 +1,31 @@
 import React, { useState } from 'react'
 import SidebarMenu from './sidebar/SidebarMenu'
 import { useLocation } from 'react-router-dom'
+import { AiTwotoneCalendar } from 'react-icons/ai'
+import { AiOutlineEdit } from 'react-icons/ai'
+import { BiMessageRoundedCheck } from 'react-icons/bi'
+import { FaUserEdit } from 'react-icons/fa'
 
 const sidebarMenu = [
   {
     title: '행사 일정 캘린더',
-    id: 'admin-sidebar-0'
+    id: 'admin-sidebar-0',
+    Icon: AiTwotoneCalendar
   },
   {
     title: '행사 등록/수정',
-    id: 'admin-sidebar-1'
+    id: 'admin-sidebar-1',
+    Icon: AiOutlineEdit
   },
   {
     title: '신청 승인/취소',
-    id: 'admin-sidebar-2'
+    id: 'admin-sidebar-2',
+    Icon: BiMessageRoundedCheck
   },
   {
     title: '매니저 페이지',
-    id: 'admin-sidebar-3'
+    id: 'admin-sidebar-3',
+    Icon: FaUserEdit
   }
 ]
 
@@ -44,7 +52,10 @@ export default function AdminActionBar() {
             onClick={(name) => setActiveId(name)}
             idx={idx}
           >
-            {menu.title}
+            <p className='flex items-center ml-4'>
+              <menu.Icon className='mr-4 w-6 h-6' />
+              {menu.title}
+            </p>
           </SidebarMenu>
         )
       })}

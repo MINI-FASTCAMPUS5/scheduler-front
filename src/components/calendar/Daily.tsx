@@ -31,7 +31,7 @@ export default function Daily({ daily, onClickMoreButton }: Props) {
     return (
       <div key={'daily' + date} className={`ceil ${getBgStyle(date)}`}>
         <div id={`monthly-${date}`} />
-        <div className={`relative ${disable ? 'text-gray-400' : 'text-[#6C27FF]'} text-[0.8rem]`}>
+        <div className={`relative ${disable ? 'text-gray-400' : 'text-[#6C27FF]'}`}>
           <div className='pl-2 font-bold'>{Math.floor(today / 10) === 0 ? `0${today}` : today}</div>
           {providerSchedule?.map((s, i) => {
             if (disable) return
