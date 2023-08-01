@@ -1,27 +1,22 @@
 import useUser from '@/hooks/user'
 import React from 'react'
 import AdminActionBar from './AdminActionBar'
+import UserActionBar from './UserActionBar'
 
 export default function SideBar() {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
 
-  const buttonStyle = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 rounded'
   return (
     <div className='relative h-fulltransition-all ease-out duration-75 z-[100]'>
       <aside className='fixed h-[98%] min-w-[300px] max-w-[300px]  top-0 left-0 m-2 pt-4 rounded-[20px] bg-[#6C27FF] transition-all ease-out duration-75 overflow-y-scroll scrollbar-hide'>
         <div className='my-4'>
           <img className='m-auto' src='/yearly_idol.png' width='240px' alt='연간 아이돌' />
         </div>
-        <div className='py-2 my-4s border-t-2 border-b-2 border-white'>검색 기능</div>
+        <div className='py-2 my-4s border-t-2 border-b-2 border-white text-white'>검색!</div>
         <div className='flex flex-col justify-between'>
           <div className='min-h-[300px]'>
-            {user.role === 'USER' && (
-              <>
-                <div className={`${buttonStyle}`}>행사 신청 캘린더</div>
-                <div className={`${buttonStyle}`}>마이 페이지</div>
-              </>
-            )}
+            {user.role === 'USER' && <UserActionBar />}
             {user.role === 'ADMIN' && <AdminActionBar />}
           </div>
           <div className='max-h-[300px] py-24 border-dotted border-y-2 border-white text-white p-4' />
