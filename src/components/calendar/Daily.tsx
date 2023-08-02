@@ -13,6 +13,7 @@ import { DATE_FORMAT } from '@/constants'
 import useUser from '@/hooks/user'
 import { useLocation } from 'react-router-dom'
 import { ScheduleAddFormData } from './AddForm'
+import useHover from '@/hooks/hover'
 
 type Props = {
   daily: string[]
@@ -25,13 +26,16 @@ export default function Daily({ daily }: Props) {
   const [targetSchedule, setTargetSchedule] = useState({} as ProviderScheduleWithPos)
   const [openMoreModal, setOpenMoreModal] = useState(false)
   const [targetDate, setTargetDate] = useState('')
-  const { width, resize, setWidth } = useResize('.ceil')
+  const { width, resize, setWidth } = useResize('.cell')
   const [isAdmin] = useState(user.role === 'ADMIN' ? true : false)
   const [portalType, setPortalType] = useState<'edit' | 'reserve' | 'add'>('reserve')
 
   // * 행사 등록/수정 페이지 + 어드민일 경우 자신이 등록한 스케줄만 가져옵니다.
   const adminId = isAdmin && pathname.includes('manager/event/calendar') ? user.id : undefined
   const { month, schedule, isFetching } = useSchedule(adminId)
+
+  // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
+  useHover(adminId ? true : false)
 
   const today = dayjs(new Date()).format(DATE_FORMAT)
 
@@ -88,6 +92,22 @@ export default function Daily({ daily }: Props) {
     setOpenPortal(false)
   }
 
+  const handleOnClickCell = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, date: string) => {
+    if (!pathname.includes('manager/event/calendar') || !isAdmin) return
+
+    // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정 모달을 띄웁니다.
+    if ((e.target as HTMLElement).classList.contains('schedule-cell')) {
+      setTargetDate(date)
+      setPortalType('edit')
+      setOpenPortal(true)
+      return
+    }
+    setTargetDate(date)
+    setPortalType('add')
+    setOpenPortal(true)
+    return
+  }
+
   // * 스케줄이 변경되면 width를 다시 계산합니다.
   useEffect(() => {
     setWidth(() => 0)
@@ -96,6 +116,7 @@ export default function Daily({ daily }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
+  const hoverEvent = adminId ? 'hover:border-point hover:border-[1px] hover:cursor-pointer' : ''
   return (
     <>
       {daily?.map((date) => {
@@ -106,15 +127,10 @@ export default function Daily({ daily }: Props) {
         return (
           <div
             key={'daily' + date}
-            className={`ceil ${getBgStyle(date)}`}
-            onClick={(e) => {
-              if (!isAdmin) return
-              if (!(e.target as HTMLElement).querySelector('.daily-ceil')) return
-              if (!pathname.includes('manager/event/calendar')) return
-              setTargetDate(date)
-              setPortalType('add')
-              setOpenPortal(true)
-            }}
+            className={`cell ${getBgStyle(
+              date
+            )} transition-all ease-in-out duration-150 ${hoverEvent}`}
+            onClick={(e) => handleOnClickCell(e, date)}
           >
             {/* <div className='h-full hover:bg-[rgba(0,0,0,0.1)] transition-all ease-in-out duration-150' /> */}
             <div id={`monthly-${date}`} className={`h-full relative ${textColor}`}>
@@ -127,7 +143,7 @@ export default function Daily({ daily }: Props) {
                   <DailySchedule
                     key={s.id}
                     schedule={s}
-                    ceilWidth={width}
+                    cellWidth={width}
                     date={date}
                     onClickSchedule={handleSchedule}
                   />
@@ -174,6 +190,6 @@ function getBgStyle(date: string) {
   if (dayjs(date).format('ddd') === '일' || dayjs(date).format('ddd') === '토') {
     bgStyle = 'bg-blue-100'
   }
-  bgStyle += ' cursor-pointer'
+  bgStyle
   return bgStyle
 }
