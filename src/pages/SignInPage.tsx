@@ -42,10 +42,10 @@ const SignInPage: React.FC = () => {
       // 로그인 성공시 처리 (예: 토큰 저장, 페이지 이동 등)
       const userJwtToken = response.data.data.accessToken;
       // 여기서 토큰을 원하는 곳에 저장하면 됩니다. 예를 들어, 쿠키나 로컬스토리지에 저장 가능합니다.
-      console.log('로그인 성공! 토큰:', userJwtToken);
+      alert('로그인 성공! 토큰:' + userJwtToken)
     } catch (error) {
       // 로그인 실패시 처리 (예: 에러 메시지 표시 등)
-      console.error('로그인 실패:', error.message);
+      console.error('로그인 실패:', error);
     }
   };
 

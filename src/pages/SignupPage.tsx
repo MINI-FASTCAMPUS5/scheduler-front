@@ -85,14 +85,14 @@ const SignupPage = (): JSX.Element => {
       });
 
       // 회원가입 성공시 처리 (예: 토큰 저장, 페이지 이동 등)
-      console.log('test')
-      console.log('회원가입 성공:', response.data);
+      alert('test')
+      alert('회원가입 성공:' + response.data)
 
       // 회원가입 성공시 모달 띄우기 등의 처리
       setSuccessModalVisible(true);
     } catch (error) {
       // 회원가입 실패시 처리 (예: 에러 메시지 표시 등)
-      console.error('회원가입 실패:', error.message);
+      console.error('회원가입 실패:', error);
     }
   };
 
