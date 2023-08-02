@@ -1,6 +1,16 @@
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+
   theme: {
+    colors: (theme) => {
+      return {
+        ...theme.colors,
+        main: '#6C27FF',
+        point: '#FF00A5',
+        wait: '#FFA800',
+        confirm: '#00C2FF'
+      }
+    },
     screens: {
       sm: '480px',
       md: '1080px',
