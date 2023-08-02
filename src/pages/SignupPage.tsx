@@ -85,6 +85,7 @@ const SignupPage = (): JSX.Element => {
       });
 
       // 회원가입 성공시 처리 (예: 토큰 저장, 페이지 이동 등)
+      console.log('test')
       console.log('회원가입 성공:', response.data);
 
       // 회원가입 성공시 모달 띄우기 등의 처리
