@@ -6,9 +6,10 @@ import React from 'react'
 
 type Props = {
   schedule: ProviderScheduleWithPos
+  onChageDate: (date: string) => void
 }
 
-export default function ReserveFormInfomation({ schedule }: Props) {
+export default function ReserveFormInfomation({ schedule, onChageDate }: Props) {
   const date = new Date()
 
   const itemStyle = 'flex justify-between items-center pb-8'
@@ -38,6 +39,7 @@ export default function ReserveFormInfomation({ schedule }: Props) {
               className='bg-slate-100 px-4 rounded-xl'
               min={schedule.startDate}
               max={schedule.endDate}
+              onChange={(e) => onChageDate(e.target.value)}
             />
           )}
         </span>

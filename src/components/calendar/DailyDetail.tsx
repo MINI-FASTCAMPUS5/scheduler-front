@@ -33,13 +33,13 @@ export default function DailyDetail({ date }: Props) {
           <Banner className='py-4' src='/newjeans_ad.png' type='top' alt='newjeans banner' />
         </div>
         <div className='p-4'>
-          <h1 className='text-2xl font-bold text-[#6C27FF]'>
+          <h1 className='text-2xl font-bold text-main'>
             <strong className='text-3xl '>{date}</strong> 행사 리스트
           </h1>
           {/* 임시 로당 바 */}
           {isFetching && scheduleWithPos.length === 0 && (
             <div className='flex flex-col pt-12 justify-center items-center'>
-              <div className='text-2xl text-[#6C27FF] font-bold text-center pb-8'>
+              <div className='text-2xl text-main font-bold text-center pb-8'>
                 데이터를 가져오고 있습니다!
               </div>
               <div className='max-w-[200px]'>
@@ -48,12 +48,12 @@ export default function DailyDetail({ date }: Props) {
             </div>
           )}
           {isFetching && scheduleWithPos.length > 0 && (
-            <div className='text-[#6C27FF] pt-4 font-bold'>추가 데이터 확인 중...</div>
+            <div className='text-main pt-4 font-bold'>추가 데이터 확인 중...</div>
           )}
           {scheduleWithPos?.map((s) => {
             return (
               <div key={`monthly-detail-${s.id}`} className='max-w-[500px] overflow-hidden pt-4'>
-                <div className='text-[#6C27FF]'>
+                <div className='text-main'>
                   <strong>{s.title}</strong> ({s.startDate} ~ {s.endDate})
                 </div>
                 <DailySchedule

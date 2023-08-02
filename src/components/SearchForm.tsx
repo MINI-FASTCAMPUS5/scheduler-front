@@ -17,7 +17,7 @@ export default function SearchForm({ onSubmit }: Props) {
     >
       <input
         className={
-          'bg-[#6C27FF] text-white w-[240px] outline-none border-2 border-white rounded-3xl px-4 py-3 m-4 placeholder:text-#fcfcfcfc'
+          'bg-main text-white w-[240px] outline-none border-2 border-white rounded-3xl px-4 py-3 m-4 placeholder:text-#fcfcfcfc'
         }
         type='text'
         value={value}

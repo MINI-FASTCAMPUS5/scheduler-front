@@ -21,15 +21,17 @@ export default function Button({
   else if (size === 'md') sizeStyle = 'h-8 px-4'
   else if (size === 'lg') sizeStyle = 'h-10 px-6'
 
-  const color = type === 'purple' ? '#6C27FF' : '#FF00A5'
-  const deepColor = type === 'purple' ? '#511bc7' : '#b00d77'
+  const color = type === 'purple' ? 'main' : 'point'
+  const deepColor = type === 'purple' ? '[#4619a5]' : 'rose-500'
 
   return (
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`${disabled ? 'text-slate-300' : 'text-white'} 
-      ${sizeStyle} bg-[${color}] hover:bg-[${deepColor}] rounded-md transition-colors ease-in-out duration-200 
+      className={`
+      ${sizeStyle} bg-${color} hover:bg-${deepColor} ${
+        disabled ? `text-slate-300 opacity-60 hover:bg-${color} cursor-not-allowed` : 'text-white'
+      }  rounded-md transition-colors ease-in-out duration-200 
       ${className && className}`}
     >
       {text}

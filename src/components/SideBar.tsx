@@ -15,7 +15,7 @@ export default function SideBar() {
 
   return (
     <div className='relative h-full z-[100]'>
-      <aside className='fixed h-[98%] min-w-[300px] max-w-[300px]  top-0 left-0 m-2 pt-4 rounded-[20px] bg-[#6C27FF] transition-all ease-out duration-75 overflow-y-scroll scrollbar-hide'>
+      <aside className='fixed h-[98%] min-w-[300px] max-w-[300px]  top-0 left-0 m-2 pt-4 rounded-[20px] bg-main transition-all ease-out duration-75 overflow-y-scroll scrollbar-hide'>
         <div className='my-4'>
           <img className='m-auto' src='/yearly_idol.png' width='240px' alt='연간 아이돌' />
         </div>

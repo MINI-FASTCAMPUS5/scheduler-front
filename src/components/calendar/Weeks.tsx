@@ -5,7 +5,7 @@ export default function Weeks() {
 
   return weeks.map((week) => {
     return (
-      <div key={week} className={'text-center bg-[#6C27FF] font-bold text-white leading-8'}>
+      <div key={week} className={'text-center bg-main font-bold text-white leading-8'}>
         {week + '요일'}
       </div>
     )

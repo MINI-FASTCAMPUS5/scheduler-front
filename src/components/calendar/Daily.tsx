@@ -9,6 +9,7 @@ import CalendarModal from './CalendarModal'
 import DailyDetail from './DailyDetail'
 import ModalPortal from '../ui/ModalPortal'
 import CalendarAction from './CalendarAction'
+import { DATE_FORMAT } from '@/constants'
 
 type Props = {
   daily: string[]
@@ -22,6 +23,8 @@ export default function Daily({ daily }: Props) {
   const { width, resize, setWidth } = useResize('.ceil')
   const { month, schedule, isFetching } = useSchedule()
 
+  const today = dayjs(new Date()).format(DATE_FORMAT)
+
   const handleViewMore = useCallback((date: string) => {
     if (!document.getElementById(`monthly-${date}`)) return
     setTargetDate(date)
@@ -32,6 +35,11 @@ export default function Daily({ daily }: Props) {
     setTargetSchedule(schedule)
     setOpenPortal(true)
   }, [])
+
+  const handleReserve = (schedule: ProviderScheduleWithPos, selectedDate: string) => {
+    alert(`${schedule.title} 공연을 ${selectedDate}에 예약 하셨습니다.`)
+    setOpenPortal(false)
+  }
 
   const setCloseMoreModal = useCallback(() => {
     setOpenMoreModal(false)
@@ -54,13 +62,15 @@ export default function Daily({ daily }: Props) {
       {daily?.map((date) => {
         const disable = dayjs(date).month() + 1 !== Number(month) ? true : false
         const providerSchedule = getProviderSchdule(schedule, date)
-        const today = dayjs(date).date()
+
+        let textColor = today === dayjs(date).format(DATE_FORMAT) ? 'text-point' : 'text-main'
+        if (disable) textColor += ' opacity-20'
         return (
           <div key={'daily' + date} className={`ceil ${getBgStyle(date)}`}>
             <div id={`monthly-${date}`} />
-            <div className={`relative ${disable ? 'text-gray-400' : 'text-[#6C27FF]'}`}>
-              <div className='pl-2 font-bold'>
-                {Math.floor(today / 10) === 0 ? `0${today}` : today}
+            <div className={`relative ${textColor}`}>
+              <div className={'pl-2 font-bold'}>
+                {dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()}
               </div>
               {providerSchedule?.map((s, i) => {
                 if (disable || i > 1) return null
@@ -93,7 +103,12 @@ export default function Daily({ daily }: Props) {
       {openPortal && (
         <ModalPortal>
           <CalendarModal onClose={setClosePortal}>
-            <CalendarAction type='reserve' schedule={targetSchedule} />
+            <CalendarAction
+              type='reserve'
+              schedule={targetSchedule}
+              onCancle={setClosePortal}
+              onReserve={handleReserve}
+            />
           </CalendarModal>
         </ModalPortal>
       )}

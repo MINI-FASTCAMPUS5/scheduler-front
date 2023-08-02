@@ -19,7 +19,7 @@ export default function ArrowBotton({ direction, onClick, disabled = true }: Pro
   disabled && (ICON = <FaMinus className={iconStyle} />)
   return (
     <button
-      className='disabled:bg-[#411b92] bg-[#6C27FF] p-2 rounded-[0.5rem] hover:bg-[#411b92] transition-colors ease-in-out duration-200'
+      className='disabled:bg-[#411b92] bg-main p-2 rounded-[0.5rem] hover:bg-[#411b92] transition-colors ease-in-out duration-200'
       disabled={disabled}
       onClick={() => onClick && onClick(direction)}
     >

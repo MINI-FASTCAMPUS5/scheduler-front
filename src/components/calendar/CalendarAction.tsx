@@ -6,8 +6,10 @@ import { useNavigate } from 'react-router-dom'
 type Props = {
   type: 'add' | 'edit' | 'reserve'
   schedule?: ProviderScheduleWithPos
+  onCancle?: () => void
+  onReserve?: (schedule: ProviderScheduleWithPos, selectedDate: string) => void
 }
-export default function CalendarAction({ type, schedule }: Props) {
+export default function CalendarAction({ type, schedule, onCancle, onReserve }: Props) {
   const nativate = useNavigate()
   if (type === 'reserve' || type === 'edit') {
     if (!schedule) {
@@ -22,7 +24,13 @@ export default function CalendarAction({ type, schedule }: Props) {
     <>
       {type === 'add' && <div>add</div>}
       {type === 'edit' && <div>edit</div>}
-      {type === 'reserve' && <ReserveForm schedule={schedule!} />}
+      {type === 'reserve' && (
+        <ReserveForm
+          onCancle={() => onCancle && onCancle()}
+          onReserve={(...args) => onReserve && onReserve(...args)}
+          schedule={schedule!}
+        />
+      )}
     </>
   )
 }
