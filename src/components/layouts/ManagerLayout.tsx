@@ -25,6 +25,7 @@ export default function ManagerLayout() {
     <div className='grid grid-cols-cal-frame-w overflow-x-hidden'>
       {loggedIn && <SideBar />}
       {loggedIn && <Outlet />}
+      <div id='portal' />
     </div>
   )
 }

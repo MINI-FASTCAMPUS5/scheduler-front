@@ -6,11 +6,12 @@ import Button from '../ui/Button'
 
 type Props = {
   schedule: ProviderScheduleWithPos
+  user: 'admin' | 'fan'
   onCancle: () => void
   onReserve: (schedule: ProviderScheduleWithPos, selectedDate: string) => void
 }
 
-export default function ReserveForm({ schedule, onCancle, onReserve }: Props) {
+export default function ReserveForm({ schedule, onCancle, onReserve, user }: Props) {
   const [selectedDate, setSelectedDate] = useState('')
   return (
     <section className='overflow-hidden h-full p-4 px-12'>
@@ -28,23 +29,29 @@ export default function ReserveForm({ schedule, onCancle, onReserve }: Props) {
           />
         </div>
         <div className='flex justify-around py-4'>
-          <Button
-            disabled={!selectedDate}
-            text='신청하기'
-            size='lg'
-            className='w-3/12 font-bold'
-            onClick={() => {
-              if (!selectedDate) return alert('날짜를 선택해주세요.')
-              onReserve(schedule, selectedDate)
-            }}
-          />
-          <Button
-            text='취소'
-            type='red'
-            size='lg'
-            className='w-3/12 font-bold'
-            onClick={() => onCancle()}
-          />
+          {user === 'fan' ? (
+            <>
+              <Button
+                disabled={!selectedDate}
+                text='신청하기'
+                size='lg'
+                className='w-3/12 font-bold'
+                onClick={() => {
+                  if (!selectedDate) return alert('날짜를 선택해주세요.')
+                  onReserve(schedule, selectedDate)
+                }}
+              />
+              <Button
+                text='취소'
+                type='red'
+                size='lg'
+                className='w-3/12 font-bold'
+                onClick={() => onCancle()}
+              />
+            </>
+          ) : (
+            <div className='text-2xl font-bold text-point'>매니저는 예약할 수 없습니다!</div>
+          )}
         </div>
       </div>
     </section>

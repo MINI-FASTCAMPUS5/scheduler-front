@@ -117,6 +117,7 @@ export default function Daily({ daily }: Props) {
           <CalendarModal onClose={setClosePortal}>
             <CalendarAction
               type='reserve'
+              user={isAdmin ? 'admin' : 'fan'}
               schedule={targetSchedule}
               onCancle={setClosePortal}
               onReserve={handleReserve}
