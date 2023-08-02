@@ -6,7 +6,7 @@ import useSchedule from '@/hooks/schedule'
 import Weeks from '@/components/calendar/Weeks'
 import Daily from '@/components/calendar/Daily'
 
-export default function Month() {
+export default function MonthlyCalendar() {
   const { year, month } = useSchedule()
 
   // todo dayjs(date).dayjsInMonth로 달력 마지막 날 보고 인덱스 row를 6개 | 5개로 조정하기

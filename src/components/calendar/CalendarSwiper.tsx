@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 
 import useSchedule from '@/hooks/schedule'
@@ -11,6 +11,7 @@ import HighlightInformation from '@/components/calendar/HighlightInformation'
 import ArrowButton, { DirectionType } from '@/components/ui/ArrowButton'
 
 export default function CalendarSwiper() {
+  const location = useLocation()
   const { isFetching } = useSchedule()
   const { year, month } = useSchedule()
   const navigate = useNavigate()
@@ -20,11 +21,17 @@ export default function CalendarSwiper() {
     (direction: DirectionType) => {
       //  todo 비정상적 주소 이동 어떻게 처리할지 정하기
       if (!year || !month) return alert('비정상적인 접근입니다.')
-      const path = swipeCalendar(direction, year, month)
+
+      const route = location.pathname.split(`/${year}`)[0]
+      const path = swipeCalendar(direction, {
+        year,
+        month,
+        path: route
+      })
       navigate(path)
       appendSwipeAnimation(CALENDAR_TAG_ID, direction)
     },
-    [navigate, year, month]
+    [navigate, year, month, location.pathname]
   )
 
   // * 오늘로 이동합니다.

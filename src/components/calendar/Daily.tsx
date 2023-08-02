@@ -10,18 +10,27 @@ import DailyDetail from './DailyDetail'
 import ModalPortal from '../ui/ModalPortal'
 import CalendarAction from './CalendarAction'
 import { DATE_FORMAT } from '@/constants'
+import useUser from '@/hooks/user'
+import { useLocation } from 'react-router-dom'
 
 type Props = {
   daily: string[]
 }
 export default function Daily({ daily }: Props) {
+  const { getUserInfo } = useUser()
+  const user = getUserInfo()
+  const location = useLocation()
   const [openPortal, setOpenPortal] = useState(false)
   const [targetSchedule, setTargetSchedule] = useState({} as ProviderScheduleWithPos)
   const [openMoreModal, setOpenMoreModal] = useState(false)
   const [targetDate, setTargetDate] = useState('')
-
   const { width, resize, setWidth } = useResize('.ceil')
-  const { month, schedule, isFetching } = useSchedule()
+  const [isAdmin] = useState(user.role === 'ADMIN' ? true : false)
+
+  // * 행사 등록/수정 페이지 + 어드민일 경우 자신이 등록한 스케줄만 가져옵니다.
+  const adminId =
+    isAdmin && location.pathname.includes('manager/event/calendar') ? user.id : undefined
+  const { month, schedule, isFetching } = useSchedule(adminId)
 
   const today = dayjs(new Date()).format(DATE_FORMAT)
 
@@ -53,7 +62,11 @@ export default function Daily({ daily }: Props) {
   useEffect(() => {
     setWidth(() => 0)
     // prettier-ignore
-    if (!isFetching) setTimeout(() => { resize()}, 100)
+    if (!isFetching) {
+      setTimeout(() => { resize()}, 100)
+      // ? 이 로직이 필요할까?
+      // setisAdmin(user.role === 'ADMIN' ? true : false)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
@@ -62,7 +75,6 @@ export default function Daily({ daily }: Props) {
       {daily?.map((date) => {
         const disable = dayjs(date).month() + 1 !== Number(month) ? true : false
         const providerSchedule = getProviderSchdule(schedule, date)
-
         let textColor = today === dayjs(date).format(DATE_FORMAT) ? 'text-point' : 'text-main'
         if (disable) textColor += ' opacity-20'
         return (

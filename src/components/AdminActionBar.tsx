@@ -1,45 +1,51 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import SidebarMenu from './sidebar/SidebarMenu'
 import { useLocation } from 'react-router-dom'
 import { AiTwotoneCalendar } from 'react-icons/ai'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BiMessageRoundedCheck } from 'react-icons/bi'
 import { FaUserEdit } from 'react-icons/fa'
-
-const sidebarMenu = [
-  {
-    title: '행사 일정 캘린더',
-    id: 'admin-sidebar-0',
-    Icon: AiTwotoneCalendar
-  },
-  {
-    title: '행사 등록/수정',
-    id: 'admin-sidebar-1',
-    Icon: AiOutlineEdit
-  },
-  {
-    title: '신청 승인/취소',
-    id: 'admin-sidebar-2',
-    Icon: BiMessageRoundedCheck
-  },
-  {
-    title: '매니저 페이지',
-    id: 'admin-sidebar-3',
-    Icon: FaUserEdit
-  }
-]
+import { DATE_ROUTE_FORMAT } from '@/constants'
+import dayjs from 'dayjs'
 
 export default function AdminActionBar() {
   const location = useLocation()
-  // console.log('location : ', location.pathname)
-
+  const date = new Date()
+  const sidebarMenu = useMemo(
+    () => [
+      {
+        title: '행사 일정 캘린더',
+        id: 'admin-sidebar-0',
+        Icon: AiTwotoneCalendar,
+        url: `/calendar/${dayjs(date).format(DATE_ROUTE_FORMAT)}`
+      },
+      {
+        title: '행사 등록/수정',
+        id: 'admin-sidebar-1',
+        Icon: AiOutlineEdit,
+        url: `/manager/event/calendar/${dayjs(date).format(DATE_ROUTE_FORMAT)}`
+      },
+      {
+        title: '신청 승인/취소',
+        id: 'admin-sidebar-2',
+        Icon: BiMessageRoundedCheck,
+        url: '/manager/approval'
+      },
+      {
+        title: '매니저 페이지',
+        id: 'admin-sidebar-3',
+        Icon: FaUserEdit,
+        url: '/manager/dashboard'
+      }
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
   let idx = 0
-  if (location.pathname.includes('apply')) idx = 2
-  if (location.pathname.includes('manager')) idx = 3
-  // params로 체크해서 sidebarMenu[0] 몇번째 인지 정하기
+  if (location.pathname.includes('/manager/event/calendar/')) idx = 1
+  if (location.pathname.includes('/manager/approval')) idx = 2
+  if (location.pathname.includes('/manager/dashboard')) idx = 3
   const [activeId, setActiveId] = useState(sidebarMenu[idx].id)
-
-  // const openEventSidebar = () => {}
 
   return (
     <div>
@@ -51,6 +57,7 @@ export default function AdminActionBar() {
             isActive={activeId === menu.id}
             onClick={(name) => setActiveId(name)}
             idx={idx}
+            url={menu.url}
           >
             <p className='flex items-center ml-4'>
               <menu.Icon className='mr-4 w-6 h-6' />
