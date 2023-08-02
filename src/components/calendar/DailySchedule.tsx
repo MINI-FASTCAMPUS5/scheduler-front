@@ -8,9 +8,10 @@ type Props = {
   ceilWidth: number
   date: string
   skip?: boolean
+  onClickSchedule: (schedule: ProviderScheduleWithPos) => void
 }
 
-export default function DailySchedule({ schedule, ceilWidth }: Props) {
+export default function DailySchedule({ schedule, ceilWidth, onClickSchedule }: Props) {
   let ceils = dayjs(schedule.endDate).diff(dayjs(schedule.startDate), 'day') + 1
   if (schedule.pos === 'start-end') ceils = 1
   return (
@@ -28,6 +29,9 @@ export default function DailySchedule({ schedule, ceilWidth }: Props) {
                 minWidth: `${ceilWidth * ceils}px`,
                 maxWidth: `${ceilWidth * ceils}px`
               }}
+              onClick={() => {
+                onClickSchedule(schedule)
+              }}
             >
               <img
                 src={schedule.profileImage}
@@ -37,7 +41,7 @@ export default function DailySchedule({ schedule, ceilWidth }: Props) {
               <div
                 className={`w-full ${
                   schedule.pos === 'start-end' ? 'rounded-l-xl' : 'rounded-xl'
-                } min-w-[100px] cursor-pointer bg-[#6C27FF] hover:bg-[#4619a5] pl-8 transition-all ease-in-out duration-1000 overflow-hidden`}
+                } min-w-[100px] cursor-pointer bg-main hover:bg-[#4619a5] pl-8 transition-all ease-in-out duration-1000 overflow-hidden`}
               >
                 {schedule.title}
               </div>

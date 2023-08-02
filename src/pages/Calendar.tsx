@@ -10,7 +10,8 @@ export default function CalendarPage() {
   return (
     <div className='grid grid-cols-cal-frame-w overflow-x-hidden'>
       <SideBar />
-      <div className='px-4 mb-12 min-w-[760px]'>
+      {/*  max-w-[1432px] px-[0.25rem]는 켈린더 최대 너비입니다. */}
+      <div className='mb-12 min-w-[760px] max-w-[1432px] px-[1.25rem]'>
         <Banner className='py-4' src='/newjeans_ad.png' type='top' alt='newjeans banner' />
         <CalendarFrame />
       </div>

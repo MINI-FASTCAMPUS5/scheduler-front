@@ -21,6 +21,13 @@ body {
   /* box-sizing: border-box; */
 }
 
+input[type='date']::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+input[type='date']::-webkit-calendar-picker-indicator:hover {
+  transform: scale(1.2);
+}
+
 .move-from-left {
   animation: moveFromLeft 0.2s ease-in-out;
   animation-fill-mode: backwards;

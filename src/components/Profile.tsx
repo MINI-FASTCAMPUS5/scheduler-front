@@ -1,5 +1,6 @@
 import { AdminUser, FanUser } from '@/models/user'
 import React from 'react'
+import Button from './ui/Button'
 
 type Props = {
   user: Partial<AdminUser | FanUser>
@@ -9,7 +10,7 @@ export default function Profile({ user }: Props) {
     <>
       <div className='flex justify-center items-center p-4 gap-4'>
         <img
-          className='w-20 h-20 rounded-[2.5rem] aspect-square object-cover'
+          className='w-20 h-20 rounded-[2.5rem]'
           src={`http://localhost:5173/${user.profileImage}`}
         />
         <div className='text-center'>
@@ -20,9 +21,7 @@ export default function Profile({ user }: Props) {
         </div>
       </div>
       <div className='flex justify-center pt-4'>
-        <button className='bg-[#FF00A5] text-white font-bold w-4/5 py-1 rounded-xl'>
-          로그아웃
-        </button>
+        <Button text='로그아웃' type='red' size='md' className='font-bold w-4/5 rounded-xl' />
       </div>
     </>
   )

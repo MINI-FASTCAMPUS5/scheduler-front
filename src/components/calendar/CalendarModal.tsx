@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { CgClose } from 'react-icons/cg'
 
 type Props = {
-  children: React.ReactNode
+  children?: React.ReactNode
   onClose: () => void
 }
 export default function CalendarModal({ onClose, children }: Props) {
@@ -23,8 +23,8 @@ export default function CalendarModal({ onClose, children }: Props) {
     >
       <button className='fixed top-0 right-0 p-8  font-bold' onClick={() => onClose()}>
         <div
-          className={`flex justify-center items-center w-7 h-7 bg-[#FF00A5] text-white rounded-[0.6rem]
-        transtion-all duration-200 ease-in-out hover:bg-white hover:text-[#FF00A5] border-2 border-[#FF00A5]
+          className={`flex justify-center items-center w-7 h-7 bg-point text-white rounded-[0.6rem]
+        transtion-all duration-200 ease-in-out hover:bg-white hover:text-point border-2 border-point
         `}
         >
           <CgClose className='stroke-1' />

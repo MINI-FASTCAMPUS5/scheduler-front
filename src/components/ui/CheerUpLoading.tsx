@@ -1,5 +1,5 @@
 import React from 'react'
-import './CheerUpLoading.css'
+import './CheerUpLoadingStyle.css'
 export default function CheerUpLoading() {
   return (
     <div>

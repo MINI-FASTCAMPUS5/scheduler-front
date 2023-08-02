@@ -8,10 +8,10 @@ type Props = {
   onClick?: (name: string) => void
 }
 export default function SidebarMenu({ name, children, isActive = false, onClick }: Props) {
-  const style = isActive ? 'bg-white text-[#6C27FF] rounded-l-[20px]' : 'bg-[#6C27FF] text-white'
+  const style = isActive ? 'bg-white text-main rounded-l-[20px]' : 'bg-main text-white'
   return (
     <div className='relative h-[70px] bg-white font-bold' onClick={() => onClick && onClick(name)}>
-      <div className={`${isActive ? 'h-[70px]' : 'h-[70px]'} w-full text-right bg-[#6C27FF]`}>
+      <div className={`${isActive ? 'h-[70px]' : 'h-[70px]'} w-full text-right bg-main`}>
         <div className='relative'>
           {isActive && <img className='absolute right-0 z-40' src='/sbtn_ac.svg' />}
           <button className={`absolute w-[240px] h-[50px] right-0 top-[20px] z-50 ${style}`}>
