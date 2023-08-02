@@ -17,7 +17,7 @@ export default function CalendarFrame() {
             데이터를 가져오고 있습니다!
           </div>
           <CheerUpLoading />
-          <span className='aanimate-ping absolute inline-flex h-full w-full rounded-full bg-purple-100  opacity-10' />
+          <span className='aanimate-ping absolute inline-flex h-full w-full rounded-full bg-purple-100 opacity-10' />
           {/* <span className='relative inline-flex rounded-full h-3 w-3 bg-orange-500 ' /> */}
         </div>
       )}

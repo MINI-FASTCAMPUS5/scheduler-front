@@ -23,7 +23,7 @@ export default function DailyDetail({ date }: Props) {
   }, [schedule, isFetching])
 
   const handleClickSchedule = (schedule: ProviderScheduleWithPos) => {
-    console.info('handleClickSchedule  : ', schedule)
+    alert('handleClickSchedule more에서 더보기 기능 처리 필요 : ' + schedule.title)
   }
 
   return (

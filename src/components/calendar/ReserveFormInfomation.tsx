@@ -12,6 +12,7 @@ type Props = {
 export default function ReserveFormInfomation({ schedule, onChageDate }: Props) {
   const date = new Date()
 
+  // todo 이미 지난 날짜는 예약 불가능하게 하기
   const itemStyle = 'flex justify-between items-center pb-8'
   return (
     <ul>
@@ -30,7 +31,11 @@ export default function ReserveFormInfomation({ schedule, onChageDate }: Props) 
         <span className='text-lg font-bold'>
           {schedule.startDate < dayjs(date).format(DATE_FORMAT) ? (
             <div className='flex text-slate-500'>
-              <span>예약 불가</span>
+              <span>
+                {schedule.endDate > dayjs(date).format(DATE_FORMAT)
+                  ? '진행 중인 행사입니다!'
+                  : '이미 끝난 행사입니다!'}
+              </span>
               <FcOvertime className='ml-2 w-8 h-8' />
             </div>
           ) : (
