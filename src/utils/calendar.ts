@@ -8,26 +8,25 @@ import dayjs from 'dayjs'
  * */
 export function swipeCalendar(
   direction: DirectionType,
-  year: number,
-  month: number,
-  today?: string
+  p: { year: number; month: number; today?: string; path: string }
 ) {
+  const { month, year, today, path } = p
   // * 현재 day를 계산
   const date = new Date()
   const currentMonth = month + (direction === 'left' ? -1 : 1)
   const day = date.getMonth() + 1 === currentMonth ? date.getDate() : 1
   if (direction === 'left') {
     const prevDate = dayjs(`${year}/${month}/${today ? today : day}`).subtract(1, 'month')
-    return `/calendar/${dayjs(prevDate).format(DATE_ROUTE_FORMAT)}`
+    return `${path}/${dayjs(prevDate).format(DATE_ROUTE_FORMAT)}`
   }
   if (direction === 'right') {
-    return `/calendar/${dayjs(dayjs(`${year}/${currentMonth}/${today ? today : day}`)).format(
+    return `${path}/${dayjs(dayjs(`${year}/${currentMonth}/${today ? today : day}`)).format(
       DATE_ROUTE_FORMAT
     )}`
   }
   alert('잘못된 접근입니다.')
   //  todo 비정상적 주소 이동 어떻게 처리할지 정하기
-  return `/calendar/${year}/${month}/1`
+  return `${path}/${year}/${month}/1`
 }
 
 /**

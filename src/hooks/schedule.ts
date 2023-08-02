@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-export default function useSchedule() {
+export default function useSchedule(userId?: string) {
   const params = useParams()
   const [schedule, setSchedule] = useState<ProviderSchedule[]>([])
   const [isFetching, setIsFetching] = useState(true)
@@ -25,18 +25,23 @@ export default function useSchedule() {
     if (month === 6) scheduleData = []
     if (month === 9) scheduleData = []
 
-    scheduleData.map((s) => {
+    scheduleData = scheduleData.map((s) => {
       return {
         ...s,
         startDate: dayjs(s.startDate).format(DATE_FORMAT),
         endDate: dayjs(s.endDate).format(DATE_FORMAT)
       }
     })
+
+    if (userId) {
+      scheduleData = scheduleData.filter((s) => s.userId === userId)
+    }
+
     delay<ProviderSchedule[]>(scheduleData, 2000).then((res) => {
       setSchedule(res)
       setIsFetching(false)
     })
-  }, [year, month])
+  }, [year, month, userId])
 
   useEffect(() => {
     if (
