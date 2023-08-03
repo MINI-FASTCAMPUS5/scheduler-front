@@ -1,6 +1,6 @@
 import { AdminUser, FanUser } from '@/models/user'
 import React from 'react'
-import Button from './ui/Button'
+import Button from '../ui/Button'
 import { Link } from 'react-router-dom'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 }
 export default function Profile({ user }: Props) {
   return (
-    <>
+    <div className='mt-auto mb-8'>
       <div className='flex justify-center items-center p-4 gap-4'>
         <img
           className='w-20 h-20 rounded-[2.5rem]'
@@ -24,7 +24,7 @@ export default function Profile({ user }: Props) {
           </Link>
         </div>
       </div>
-      <div className='flex justify-center pt-4'>
+      <div className='flex justify-center pt-2'>
         <Button
           text='로그아웃'
           type='red'
@@ -36,6 +36,6 @@ export default function Profile({ user }: Props) {
           }}
         />
       </div>
-    </>
+    </div>
   )
 }

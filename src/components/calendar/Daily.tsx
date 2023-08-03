@@ -35,7 +35,7 @@ export default function Daily({ daily }: Props) {
   const { month, schedule, isFetching } = useSchedule(adminId)
 
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
-  useHover(adminId ? true : false)
+  useHover(adminId && schedule.length !== 0 ? true : false)
 
   const today = dayjs(new Date()).format(DATE_FORMAT)
 
@@ -110,7 +110,7 @@ export default function Daily({ daily }: Props) {
 
   // * 스케줄이 변경되면 width를 다시 계산합니다.
   useEffect(() => {
-    setWidth(() => 0)
+    setWidth(() => 20)
     // prettier-ignore
     if (!isFetching) {  setTimeout(() => { resize()}, 100) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,9 +127,8 @@ export default function Daily({ daily }: Props) {
         return (
           <div
             key={'daily' + date}
-            className={`cell ${getBgStyle(
-              date
-            )} transition-all ease-in-out duration-150 ${hoverEvent}`}
+            className={`cell min-h-[100px] md:min-h-[120px]
+            ${getBgStyle(date)} transition-all ease-in-out duration-150 ${hoverEvent}`}
             onClick={(e) => handleOnClickCell(e, date)}
           >
             {/* <div className='h-full hover:bg-[rgba(0,0,0,0.1)] transition-all ease-in-out duration-150' /> */}

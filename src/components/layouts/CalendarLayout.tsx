@@ -11,7 +11,7 @@ export default function CalendarLayout() {
   }, [loggedIn, navigate])
 
   return (
-    <main className=''>
+    <main className='relative h-full'>
       {loggedIn && <Outlet />}
       <div id='portal' />
     </main>
