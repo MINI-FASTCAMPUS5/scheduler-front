@@ -15,7 +15,7 @@ export default {
         weekend: '#E5F2F6',
         weekday: '#F0FBFF',
         boxline: '#E9E9E9',
-        boxbg: '#F4F3F3',
+        boxbg: '#F4F3F3'
       }
     },
     screens: {
@@ -29,9 +29,7 @@ export default {
         'cal-w': 'repeat(7, minmax(50px, 200px))'
       },
       gridTemplateRows: {
-        'cal-h-13': '30px repeat(6, 120px)',
-        'cal-h-10': '30px repeat(6, 100px)',
-        'cal-h-8': '30px repeat(6, 80px)'
+        'cal-h-13': '30px repeat(6, auto) '
       },
       height: {
         '98vh': '98vh'

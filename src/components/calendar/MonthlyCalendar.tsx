@@ -17,7 +17,7 @@ export default function MonthlyCalendar() {
     <div className='w-full'>
       <div
         id={CALENDAR_TAG_ID}
-        className={`grid grid-cols-cal-w grid-rows-cal-h-10 gap-1 md:grid-rows-cal-h-13
+        className={`grid grid-cols-cal-w gap-1 grid-rows-cal-h-13
        w-fit  m-auto overflow-x-hidden
        transition-all duration-100 ease-in-out rounded-xl border-[4px] border-white
        `}
