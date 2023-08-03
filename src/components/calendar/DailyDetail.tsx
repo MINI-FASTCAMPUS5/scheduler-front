@@ -57,7 +57,7 @@ export default function DailyDetail({ date }: Props) {
                   <strong>{s.title}</strong> ({s.startDate} ~ {s.endDate})
                 </div>
                 <DailySchedule
-                  ceilWidth={500}
+                  cellWidth={500}
                   date={date}
                   schedule={s}
                   onClickSchedule={handleClickSchedule}

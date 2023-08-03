@@ -38,6 +38,13 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+.cell-hover {
+  border: 1px solid #ff00a5;
+  cursor: pointer;
+}
+.no-cell-hover {
+  border: none !important;
+}
 
 .move-from-left {
   animation: moveFromLeft 0.2s ease-in-out;
