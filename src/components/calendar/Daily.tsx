@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
 import useSchedule from '@/hooks/schedule'
 import useResize from '@/hooks/resize'
+import useUser from '@/hooks/user'
+import useHover from '@/hooks/hover'
 import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
 import DailySchedule from '@/components/calendar/DailySchedule'
-import MoreButton from './MoreButton'
-import CalendarModal from './CalendarModal'
-import DailyDetail from './DailyDetail'
-import ModalPortal from '../ui/ModalPortal'
-import CalendarAction from './CalendarAction'
+import MoreButton from '@/components/calendar/MoreButton'
+import CalendarModal from '@/components/calendar/CalendarModal'
+import DailyDetail from '@/components/calendar/DailyDetail'
+import ModalPortal from '@/components/ui/ModalPortal'
+import CalendarAction from '@/components/calendar/CalendarAction'
 import { DATE_FORMAT } from '@/constants'
-import useUser from '@/hooks/user'
-import { useLocation } from 'react-router-dom'
-import { ScheduleAddFormData } from './AddForm'
-import useHover from '@/hooks/hover'
+import { ScheduleAddFormData } from '@/components/calendar/AddForm'
 
 type Props = {
   daily: string[]
@@ -35,7 +35,7 @@ export default function Daily({ daily }: Props) {
   const { month, schedule, isFetching } = useSchedule(adminId)
 
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
-  useHover(adminId && schedule.length ? true : false)
+  useHover(adminId ? true : false)
 
   const today = dayjs(new Date()).format(DATE_FORMAT)
 

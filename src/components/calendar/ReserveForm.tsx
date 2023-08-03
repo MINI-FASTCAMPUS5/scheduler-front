@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
-import Banner from '../Banner'
-import ReserveFormInfomation from './ReserveFormInfomation'
-import Button from '../ui/Button'
+import Banner from '@/components/Banner'
+import ReserveFormInfomation from '@/components/calendar/ReserveFormInfomation'
+import Button from '@/components/ui/Button'
 
 type Props = {
   schedule: ProviderScheduleWithPos

@@ -1,7 +1,7 @@
 import useUser from '@/hooks/user'
 import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import SideBar from '../SideBar'
+import SideBar from '@/components/SideBar'
 
 export default function ManagerLayout() {
   const navigate = useNavigate()
