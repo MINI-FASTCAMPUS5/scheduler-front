@@ -8,7 +8,14 @@ export default {
         main: '#6C27FF',
         point: '#FF00A5',
         wait: '#FFA800',
-        confirm: '#00C2FF'
+        confirm: '#00C2FF',
+        white: '#FFFFFF',
+        black: '#000000',
+        hover: '#411b92',
+        weekend: '#E5F2F6',
+        weekday: '#F0FBFF',
+        boxline: '#E9E9E9',
+        boxbg: '#F4F3F3',
       }
     },
     screens: {
