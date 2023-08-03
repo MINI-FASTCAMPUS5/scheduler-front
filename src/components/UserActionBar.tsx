@@ -20,13 +20,12 @@ export default function UserActionBar() {
       title: '마이 페이지',
       id: 'user-sidebar-1',
       Icon: FaUserClock,
-      url: '/mypage'
+      url: '/user/mypage'
     }
   ]
 
   let idx = 0
-  if (location.pathname.includes('user/apply')) idx = 2
-  if (location.pathname.includes('mypage')) idx = 3
+  if (location.pathname.includes('mypage')) idx = 1
   // params로 체크해서 sidebarMenu[0] 몇번째 인지 정하기
   const [activeId, setActiveId] = useState(sidebarMenu[idx].id)
 

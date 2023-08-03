@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Button from '../ui/Button'
-import Banner from '../Banner'
-import { ScheduleAddFormData } from './AddForm'
+import Button from '@/components/ui/Button'
+import Banner from '@/components/Banner'
+import { ScheduleAddFormData } from '@/components/calendar/AddForm'
 
 type Props = {
   date: string

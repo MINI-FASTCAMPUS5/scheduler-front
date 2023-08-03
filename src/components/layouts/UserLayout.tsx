@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
 import useUser from '@/hooks/user'
+import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import SideBar from '@/components/SideBar'
 
@@ -14,8 +14,8 @@ export default function ManagerLayout() {
       return
     }
     const user = getUserInfo()
-    if (user.role !== 'ADMIN') {
-      alert('관리자만 접근할 수 있는 페이지 입니다!')
+    if (user.role !== 'USER') {
+      alert('사용자만 접근할 수 있는 페이지 입니다!')
       navigate('/login/test')
       return
     }

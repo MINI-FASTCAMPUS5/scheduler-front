@@ -1,9 +1,9 @@
-import { ProviderScheduleWithPos } from '@/utils/calendar'
 import React from 'react'
-import ReserveForm from './ReserveForm'
 import { useNavigate } from 'react-router-dom'
-import EditForm from './EditForm'
-import AddForm, { ScheduleAddFormData } from './AddForm'
+import { ProviderScheduleWithPos } from '@/utils/calendar'
+import ReserveForm from '@/components/calendar/ReserveForm'
+import EditForm from '@/components/calendar/EditForm'
+import AddForm, { ScheduleAddFormData } from '@/components/calendar/AddForm'
 
 type Props = {
   type: 'add' | 'edit' | 'reserve'

@@ -1,9 +1,9 @@
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import React, { useState } from 'react'
-import Banner from '../Banner'
+import Banner from '@/components/Banner'
 import dayjs from 'dayjs'
 import { DATE_FORMAT } from '@/constants'
-import Button from '../ui/Button'
+import Button from '@/components/ui/Button'
 
 type Props = {
   schedule: ProviderScheduleWithPos
