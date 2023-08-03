@@ -7,7 +7,8 @@ import Sample from '@/pages/Sample/Sample'
 import '@/App.css'
 import Optimistic from '@/pages/Sample/Optimistic'
 import MainLayout from '@/components/layouts/MainLayout'
-import SignInOrUpTestPage from '@/pages/Sample/SignInOrUpTestPage'
+import SignInTestPage from '@/pages/Sample/SignInTestPage'
+import SignUpTestPage from '@/pages/Sample/SignUpTestPage'
 import Home from './pages/Home'
 
 import SignupPage from 'pages/SignupPage'
@@ -20,6 +21,7 @@ import ManagerLayout from './components/layouts/ManagerLayout'
 import UserLayout from './components/layouts/UserLayout'
 import MyPage from './pages/User/MyPage'
 import Edit from './pages/User/Edit'
+import SignInAPITestPage from './pages/Sample/SignInAPITestPage'
 
 function App() {
   return (
@@ -48,7 +50,9 @@ function App() {
         </Route>
         <Route path='/' element={<MainLayout />}>
           <Route path='/' element={<Home />} />
-          <Route path='/login/test' element={<SignInOrUpTestPage />} />
+          <Route path='/login/test' element={<SignInTestPage />} />
+          <Route path='/login/api/test' element={<SignInAPITestPage />} />
+          <Route path='/signup/test' element={<SignUpTestPage />} />
         </Route>
         {/* ! react-query Sample 페이지입니다 ! */}
         <Route path='/sample' element={<Sample />} />
