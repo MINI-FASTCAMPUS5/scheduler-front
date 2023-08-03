@@ -2,7 +2,7 @@ import useUser from '@/hooks/user'
 import React from 'react'
 import AddEventList from './AddEventList'
 import EventStatusCard from './EventStatusCard'
-import userDefaultImg from '/Users/Rona/BitTorrent Sync/CODING/FastCampus/12ZO/scheduler-front/public/mock_image/user_default.png'
+import userDefaultImg from '/mock_image/user_default.png'
 
 export default function ManagerDashboardPage() {
   const { getUserInfo } = useUser()
