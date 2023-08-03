@@ -2,20 +2,20 @@ import useUser from '@/hooks/user'
 import React, { useEffect } from 'react'
 
 export default function Edit() {
-  // useUser 훅으로부터 필요한 상태와 함수들을 가져옵니다.
+  // useUser 훅으로부터 필요한 상태와 함수들을 가져온다.
   const { getUserInfo, loggedIn } = useUser()
 
-  // 사용자의 프로필 이미지, 이름, 이메일, 새로운 비밀번호에 대한 상태들을 정의합니다.
+  // 사용자의 프로필 이미지, 이름, 이메일, 새로운 비밀번호에 대한 상태들을 정의한다.
   const [profileImage, setProfileImage] = React.useState<string>('')
   const [name, setName] = React.useState<string>('')
   const [email, setEmail] = React.useState<string>('')
   const [newPassword, setNewPassword] = React.useState<string>('')
 
-  // useUser 훅으로부터 가져온 사용자 정보를 user 변수에 저장합니다.
+  // useUser 훅으로부터 가져온 사용자 정보를 user 변수에 저장한다.
   const user = getUserInfo()
 
   useEffect(() => {
-    // 사용자가 로그인한 상태라면, useUser 훅으로부터 가져온 정보를 사용하여 상태를 업데이트합니다.
+    // 사용자가 로그인한 상태라면, useUser 훅으로부터 가져온 정보를 사용하여 상태를 업데이트한다.
     if (loggedIn) {
       setProfileImage(() => (user?.profileImage ? user?.profileImage : ''))
       setName(() => (user?.fullName ? user?.fullName : ''))
