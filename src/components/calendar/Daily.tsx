@@ -35,7 +35,7 @@ export default function Daily({ daily }: Props) {
   const { month, schedule, isFetching } = useSchedule(adminId)
 
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
-  useHover(adminId ? true : false)
+  useHover(adminId && schedule.length ? true : false)
 
   const today = dayjs(new Date()).format(DATE_FORMAT)
 

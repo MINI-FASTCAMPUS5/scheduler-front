@@ -17,6 +17,9 @@ import ApprovalPage from './pages/Manager/Approval'
 import ManagerEventAddEditPage from './pages/Manager/ManagerEventAddEdit'
 import ManagerDashboardPage from './pages/Manager/ManagerDashboard'
 import ManagerLayout from './components/layouts/ManagerLayout'
+import UserLayout from './components/layouts/UserLayout'
+import MyPage from './pages/User/MyPage'
+import Edit from './pages/User/Edit'
 
 function App() {
   return (
@@ -24,7 +27,6 @@ function App() {
       <Route path='/calendar' element={<CalendarLayout />}>
         <Route path='/calendar/:year/:month/:day' element={<CalendarPage />} />
       </Route>
-
       <Route path='/manager' element={<ManagerLayout />}>
         <Route
           path='/manager/event/calendar/:year/:month/:day'
@@ -33,10 +35,9 @@ function App() {
         <Route path='/manager/approval' element={<ApprovalPage />} />
         <Route path='/manager/dashboard' element={<ManagerDashboardPage />} />
       </Route>
-
-      <Route path='/' element={<MainLayout />}>
-        <Route path='/' element={<Home />} />
-        <Route path='/login/test' element={<SignInOrUpTestPage />} />
+      <Route path='/user' element={<UserLayout />}>
+        <Route path='/user/mypage' element={<MyPage />} />
+        <Route path='/user/edit' element={<Edit />} />
       </Route>
       <Route>
         <Route path='/login' element={<SignInPage />} />
@@ -44,7 +45,10 @@ function App() {
       <Route>
         <Route path='/SignupPage' element={<SignupPage />} />
       </Route>
-
+      <Route path='/' element={<MainLayout />}>
+        <Route path='/' element={<Home />} />
+        <Route path='/login/test' element={<SignInOrUpTestPage />} />
+      </Route>
       {/* ! react-query Sample 페이지입니다 ! */}
       <Route path='/sample' element={<Sample />} />
       <Route path='/sample/optimistic' element={<Optimistic />} />
