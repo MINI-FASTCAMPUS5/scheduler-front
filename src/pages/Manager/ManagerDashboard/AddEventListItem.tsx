@@ -3,7 +3,7 @@ import React from 'react'
 export default function AddEventListItem() {
   return (
     <div>
-      <div className='flex w-full h-[48px] bg-box-bg-color rounded-xl pr-5 pl-5'>
+      <div className='flex w-full h-[48px] bg-boxbg rounded-xl pr-5 pl-5'>
         <div className='flex w-2/6 pr-6 mt-auto mb-auto text-base font-bold justify-center'>
           BTS 서울 공연
         </div>

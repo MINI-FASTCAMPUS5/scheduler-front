@@ -6,7 +6,7 @@ export default function EventStatusCard() {
     <div className='flex flex-col w-full mb-[50px]'>
       <div className='flex text-3xl font-bold mb-2'>행사현황</div>
       <div className='flex w-full gap-4'>
-        <div className='flex flex-col w-full h-48 border-4 rounded-2xl justify-center text-main-color'>
+        <div className='flex flex-col w-full h-48 border-4 border-main rounded-2xl justify-center text-main'>
           <div className='flex justify-center mb-3'>
             <TbCalendarUp className=' text-6xl' />
           </div>
@@ -15,7 +15,7 @@ export default function EventStatusCard() {
             0<div className='text-lg mt-3'>개</div>
           </div>
         </div>
-        <div className='flex flex-col w-full h-48 border-4 rounded-2xl justify-center text-waiting-color'>
+        <div className='flex flex-col w-full h-48 border-4 border-wait rounded-2xl justify-center text-wait'>
           <div className='flex justify-center mb-3'>
             <TbFaceId className=' text-6xl' />
           </div>
@@ -24,7 +24,7 @@ export default function EventStatusCard() {
             0<div className='text-lg mt-3'>개</div>
           </div>
         </div>
-        <div className='flex flex-col w-full h-48 border-4 rounded-2xl justify-center text-approval-color'>
+        <div className='flex flex-col w-full h-48 border-4 border-confirm rounded-2xl justify-center text-confirm'>
           <div className='flex justify-center mb-3'>
             <TbCircleCheckFilled className=' text-6xl' />
           </div>
@@ -33,7 +33,7 @@ export default function EventStatusCard() {
             0<div className='text-lg mt-3'>개</div>
           </div>
         </div>
-        <div className='flex flex-col w-full h-48 border-4 rounded-2xl justify-center text-point-color'>
+        <div className='flex flex-col w-full h-48 border-4 border-point rounded-2xl justify-center text-point'>
           <div className='flex justify-center mb-3'>
             <TbCircleXFilled className=' text-6xl' />
           </div>
