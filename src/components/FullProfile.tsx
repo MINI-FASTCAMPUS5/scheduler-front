@@ -7,8 +7,8 @@ type Props = {
 }
 export default function FullProfile({ src, name, email }: Props) {
   return (
-    <div className='relative w-2/5 max-w-[600px] h-full p-12'>
-      <div className='h-full max-w-[550px] rounded-xl overflow-hidden'>
+    <div className='relative w-2/5 h-full max-w-[600px]'>
+      <div className='max-w-[550px] rounded-xl h-full overflow-hidden'>
         <img
           src={src}
           alt='profile image'
@@ -16,8 +16,12 @@ export default function FullProfile({ src, name, email }: Props) {
         />
       </div>
       <div className='absolute inset-0 m-auto flex flex-col justify-center items-center'>
-        <img src={src} alt='profile image' className=' w-20 h-20 rounded-full' />
-        <p className='font-bold text-2xl'>{name}</p>
+        <img
+          src={src}
+          alt='profile image'
+          className='block w-20 h-20 rounded-full border-[2px] border-white drop-shadow-lg'
+        />
+        <p className='font-bold text-2xl pt-4'>{name}</p>
         <p>{email}</p>
       </div>
     </div>

@@ -3,6 +3,7 @@ import FullProfile from '@/components/FullProfile'
 import useUser from '@/hooks/user'
 import { FanUser } from '@/models/user'
 import { useNavigate } from 'react-router-dom'
+import ReserveDetail from '@/components/user/ReserveDetail'
 
 export default function MyPage() {
   const navigate = useNavigate()
@@ -19,11 +20,13 @@ export default function MyPage() {
   }, [loading, loggedIn, navigate])
 
   return (
-    <div className='ml-4 h-screen'>
-      <h1>티켓 신청 내역</h1>
-      <div className='flex'>
+    <div className='flex flex-col ml-4 p-4 h-screen'>
+      <h1 className='text-3xl font-bold border-b-2 pb-2'>티켓 신청 내역</h1>
+      <div className='flex h-full pt-8'>
         <FullProfile src={fan.profileImage} name={fan.fullName} email={fan.email} />
-        <div className='w-3/5'>티켓 신청 내역</div>
+        <div className='w-3/5 ml-8'>
+          <ReserveDetail />
+        </div>
       </div>
     </div>
   )
