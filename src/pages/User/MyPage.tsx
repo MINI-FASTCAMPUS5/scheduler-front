@@ -19,11 +19,11 @@ export default function MyPage() {
   }, [loading, loggedIn, navigate])
 
   return (
-    <div className='ml-4'>
+    <div className='ml-4 h-screen'>
       <h1>티켓 신청 내역</h1>
       <div className='flex'>
         <FullProfile src={fan.profileImage} name={fan.fullName} email={fan.email} />
-        <div className='flex-1'>티켓 신청 내역</div>
+        <div className='w-3/5'>티켓 신청 내역</div>
       </div>
     </div>
   )

@@ -22,10 +22,12 @@ export default function ManagerLayout() {
   }, [getUserInfo, loggedIn, navigate])
 
   return (
-    <div className='grid grid-cols-cal-frame-w overflow-x-hidden'>
-      {loggedIn && <SideBar />}
-      {loggedIn && <Outlet />}
+    <div>
       <div id='portal' />
+      <div className='grid grid-cols-cal-frame-w'>
+        {loggedIn && <SideBar />}
+        {loggedIn && <Outlet />}
+      </div>
     </div>
   )
 }

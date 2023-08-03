@@ -14,7 +14,6 @@ export default function useHover(start: boolean) {
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (!start) return
-
     document.querySelectorAll('.schedule-cell').forEach((el) => {
       el.addEventListener('mouseenter', addNoHover)
       el.addEventListener('mouseleave', removeNoHover)
