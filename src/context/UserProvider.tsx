@@ -60,6 +60,7 @@ function UserProvider({ children }: Props) {
         }
       })
       setCookie('AccessToken', res.headers.authorization, { path: '/' })
+      setUserInfo(res.data.data)
       setLoading(false)
       setLoggedIn(true)
       return true

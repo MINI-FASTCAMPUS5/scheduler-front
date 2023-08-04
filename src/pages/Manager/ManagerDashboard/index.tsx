@@ -21,7 +21,7 @@ export default function ManagerDashboardPage() {
             {user.profileImage ? (
               <img
                 className='flex ml-auto mr-auto mt-80 w-32 h-32 rounded-full aspect-square object-cover border border-boxline'
-                src={`http://localhost:5173/${user.profileImage}`}
+                src={user.profileImage}
               />
             ) : (
               <img

@@ -24,6 +24,7 @@ export default function SignInAPITestPage() {
     <div>
       <p>로그인 페이지 입니다. 매니저는 manager1@test.io</p>
       <p>유저는 fan1@test.io</p>
+      <p>비밀번호는 p@ssw0rd</p>
       <input
         type='email'
         placeholder='이메일을 입력해주세요'

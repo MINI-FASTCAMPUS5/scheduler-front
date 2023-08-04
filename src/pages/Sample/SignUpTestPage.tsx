@@ -2,8 +2,7 @@ import api from '@/api'
 import React, { useState, FormEvent } from 'react'
 
 export default function SignUpTestPage() {
-  const [imageUrl, setImageUrl] = useState('')
-  const [imgSrc, setImgSrc] = useState({})
+  const [imgSrc, setImgSrc] = useState<File>({} as File)
   const [role, setRole] = useState('USER' as 'ADMIN' | 'USER')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -11,24 +10,33 @@ export default function SignUpTestPage() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    if (!imageUrl || !username || !password || !email || (role !== 'ADMIN' && role !== 'USER')) {
+    if (!username || !password || !email || (role !== 'ADMIN' && role !== 'USER')) {
       alert('인풋을 채워주세요!')
-      console.info(imgSrc.toString().length)
       return
     }
-
+    const formData = new FormData()
+    formData.append('file', imgSrc)
+    formData.append(
+      'dto',
+      new Blob(
+        [
+          JSON.stringify({
+            fullName: username,
+            password: password,
+            email: email,
+            role: role
+          })
+        ],
+        {
+          type: 'application/json'
+        }
+      )
+    )
     api('/join', {
       method: 'POST',
-      data: {
-        fullName: username,
-        password: password,
-        email: email,
-        role: role,
-        profileImage: imageUrl
-      },
+      data: formData,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     })
       .then((res) => console.info(res.data))
@@ -40,20 +48,21 @@ export default function SignUpTestPage() {
     const files = event.target.files
     if (files && files.length > 0) {
       const file = files[0]
-      //   setImgSrc(file)
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        const base64 = reader.result
-        if (base64) {
-          const str = base64?.toString()
-          if (str && str.length > 1048576) {
-            alert('이미지는 1MB이하여야합니다!')
-            return
-          }
-          setImgSrc(base64.toString())
-        }
-      }
-      reader.readAsDataURL(file)
+      setImgSrc(file)
+
+      // const reader = new FileReader()
+      // reader.onloadend = () => {
+      //   const base64 = reader.result
+      //   if (base64) {
+      //     const str = base64?.toString()
+      //     if (str && str.length > 1048576) {
+      //       alert('이미지는 1MB이하여야합니다!')
+      //       return
+      //     }
+      //     setImgSrc(base64.toString())
+      //   }
+      // }
+      // reader.readAsDataURL(file)
     }
   }
 
@@ -66,11 +75,6 @@ export default function SignUpTestPage() {
           onChange={handleChangeFile}
           accept='image/jpeg, image/png'
           className='upload-name'
-        />
-        <input
-          type='text'
-          placeholder='Enter a url'
-          onChange={(e) => setImageUrl(e.target.value)}
         />
         <input
           type='text'

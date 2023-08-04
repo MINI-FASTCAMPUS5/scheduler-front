@@ -10,7 +10,7 @@ export type User = {
 // * Fan User Type
 type Fan = {
   role: 'USER'
-  tickect: number
+  sizeOfTicket: number
 }
 export type FanUser = Fan & User
 
