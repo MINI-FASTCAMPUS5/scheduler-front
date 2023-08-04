@@ -10,10 +10,7 @@ export default function Profile({ user }: Props) {
   return (
     <div className='mt-auto mb-8'>
       <div className='flex justify-center items-center p-4 gap-4'>
-        <img
-          className='w-20 h-20 rounded-[2.5rem]'
-          src={`http://localhost:5173/${user.profileImage}`}
-        />
+        <img className='w-20 h-20 rounded-[2.5rem]' src={user.profileImage} />
         <div className='text-center'>
           <h2 className='text-xl text-white font-bold'> {user.fullName}</h2>
           <Link
