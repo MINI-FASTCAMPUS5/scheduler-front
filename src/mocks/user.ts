@@ -20,7 +20,7 @@ export const FAN_USER_1: FanUser = {
   email: 'fan1@aabbccdd.kr',
   profileImage: '/mock_image/user_profile_1.png',
   role: 'USER',
-  tickect: 12
+  sizeOfTicket: 12
 }
 export const FAN_USER_2: FanUser = {
   id: 'fan2',
@@ -28,7 +28,7 @@ export const FAN_USER_2: FanUser = {
   email: 'ellie2@acdefg.io',
   profileImage: '/mock_image/user_profile_2.png',
   role: 'USER',
-  tickect: 12
+  sizeOfTicket: 12
 }
 export const FAN_USER_3: FanUser = {
   id: 'fan3',
@@ -36,7 +36,7 @@ export const FAN_USER_3: FanUser = {
   email: 'amond@any.com',
   profileImage: '/mock_image/user_profile_3.png',
   role: 'USER',
-  tickect: 12
+  sizeOfTicket: 12
 }
 export const FAN_USER_4: FanUser = {
   id: 'fan4',
@@ -44,7 +44,7 @@ export const FAN_USER_4: FanUser = {
   email: 'icecream@amanda.com',
   profileImage: '/mock_image/user_profile_4.png',
   role: 'USER',
-  tickect: 12
+  sizeOfTicket: 12
 }
 export const FAN_USER_5: FanUser = {
   id: 'fan5',
@@ -52,5 +52,5 @@ export const FAN_USER_5: FanUser = {
   email: 'icecream@amanda.com',
   profileImage: '/mock_image/user_profile_5.png',
   role: 'USER',
-  tickect: 12
+  sizeOfTicket: 12
 }
