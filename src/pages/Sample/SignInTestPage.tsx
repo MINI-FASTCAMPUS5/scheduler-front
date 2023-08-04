@@ -21,15 +21,8 @@ import { UserContext } from '@/context/UserProvider'
 export default function SignInOrUpTestPage() {
   const navigation = useNavigate()
   const [errorMsg, setErrorMsg] = useState('')
-  const {
-    //
-    getUserInfo,
-    loading,
-    loggedIn,
-    setLoggedIn,
-    setLoading,
-    setUserInfo
-  } = useContext(UserContext)
+  const { getUserInfo, loading, loggedIn, setLoggedIn, setLoading, setUserInfo } =
+    useContext(UserContext)
 
   useEffect(() => {
     // * login check (백엔드) API가 완성되면 백엔드에 요청을 보내서 로그인 여부를 판단합니다.
