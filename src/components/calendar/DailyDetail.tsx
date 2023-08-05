@@ -48,7 +48,7 @@ export default function DailyDetail({ date }: Props) {
             </div>
           )}
           {isFetching && scheduleWithPos.length > 0 && (
-            <div className='text-main pt-4 font-bold'>추가 데이터 확인 중...</div>
+            <div className='text-main pt-4 font-bold'>추가된 데이터 확인 중...</div>
           )}
           {scheduleWithPos?.map((s) => {
             return (

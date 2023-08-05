@@ -31,7 +31,9 @@ export const fetchSchedule = async ({
           userId: s.user.id,
           title: s.title,
           fullName: s.user.fullName,
+          image: s.image,
           profileImage: s.user.profileImage,
+          description: s.description,
           startDate: dayjs(s.scheduleStart).format(DATE_FORMAT),
           endDate: dayjs(s.scheduleEnd).format(DATE_FORMAT)
         }

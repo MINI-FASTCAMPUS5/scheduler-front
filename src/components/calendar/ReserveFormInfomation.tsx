@@ -51,7 +51,7 @@ export default function ReserveFormInfomation({ schedule, onChageDate }: Props) 
       </li>
       <li className={itemStyle}>
         <span className='text-2xl font-bold'>{'행사 설명'}</span>
-        <span className='text-lg font-bold'>어쩌고 저쩌고~~</span>
+        <span className='text-lg font-bold'>{schedule.description}</span>
       </li>
     </ul>
   )
