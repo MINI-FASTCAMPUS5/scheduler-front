@@ -56,12 +56,6 @@ export default function Daily({ daily }: Props) {
     [pathname]
   )
 
-  // * 예약 모달에서 예약 버튼을 누르면 실행됩니다.
-  const handleReserve = (schedule: ProviderScheduleWithPos, selectedDate: string) => {
-    alert(`${schedule.title} 공연을 ${selectedDate}에 예약 하셨습니다.`)
-    setOpenPortal(false)
-  }
-
   // * 더보기 모달창을 닫습니다.
   const setCloseMoreModal = useCallback(() => {
     setOpenMoreModal(false)
@@ -76,6 +70,11 @@ export default function Daily({ daily }: Props) {
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
   const handleEdit = (schedule: ProviderScheduleWithPos) => {
     alert(`${schedule.title} 공연을 ${schedule.startDate} ~ ${schedule.endDate}로 수정 하셨습니다.`)
+    setOpenPortal(false)
+  }
+
+  const handleReserve = (message: string) => {
+    alert(message)
     setOpenPortal(false)
   }
 
@@ -168,8 +167,8 @@ export default function Daily({ daily }: Props) {
               schedule={targetSchedule}
               date={targetDate}
               onCancle={setClosePortal}
-              onReserve={handleReserve}
               onEdit={handleEdit}
+              onReserve={handleReserve}
               onSubmit={handleSubmitSchedule}
             />
           </CalendarModal>

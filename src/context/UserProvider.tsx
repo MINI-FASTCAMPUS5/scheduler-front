@@ -60,7 +60,7 @@ function UserProvider({ children }: Props) {
         }
       })
       setCookie('AccessToken', res.headers.authorization, { path: '/' })
-      setUserInfo(res.data.data)
+      setUserInfo(res.data.data as Partial<AdminUser | FanUser>)
       setLoading(false)
       setLoggedIn(true)
       return true

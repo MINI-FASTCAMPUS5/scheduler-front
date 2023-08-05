@@ -10,6 +10,7 @@ type Props = {
 }
 export default function DailyDetail({ date }: Props) {
   const { schedule, isFetching } = useSchedule()
+
   const [scheduleWithPos, setScheduleWithPos] = useState<ProviderScheduleWithPos[]>([])
 
   useEffect(() => {
@@ -17,13 +18,12 @@ export default function DailyDetail({ date }: Props) {
       s.pos = 'start'
       return s
     })
-
     setScheduleWithPos(filteredSchedule)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schedule, isFetching])
 
-  const handleClickSchedule = (schedule: ProviderScheduleWithPos) => {
-    alert('handleClickSchedule more에서 더보기 기능 처리 필요 : ' + schedule.title)
+  const handleClickSchedule = (s: ProviderScheduleWithPos) => {
+    alert(s)
   }
 
   return (
