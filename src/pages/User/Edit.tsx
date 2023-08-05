@@ -64,7 +64,7 @@ export default function Edit() {
         <Button
           text='수정'
           size='sm'
-          className='w-20 bg-point text-white rounded ml-8'
+          className='bg-point text-white rounded ml-8'
           onClick={() => {
             // "수정" 버튼을 클릭하면 숨겨진 파일 선택 창을 트리거한다.
             document.getElementById('profile-image-input')?.click()
@@ -92,30 +92,30 @@ export default function Edit() {
       </div>
 
       {/* 그리드로 수정된 영역 */}
-      <div className='grid grid-cols-3 grid-rows-4 gap-4 min-w-[720px] max-w-[1392px]'>
+      <div className='grid grid-cols-3 grid-rows-4 min-w-[720px] max-w-[1392px]'>
         {/* 1 */}
-        <div className='row-span-2 flex items-start'>
+        <div className='row-span-2 flex items-start border-t border-gray-300 bg-boxbg'>
           <label htmlFor='name' className='text-sm font-medium'>
             계정
           </label>
         </div>
 
         {/* 2 */}
-        <div className='flex flex-col mb-4 items-start'>
+        <div className='flex flex-col mb-4 items-start border-t border-gray-300'>
           <label htmlFor='name' className='text-sm font-medium'>
             이름
           </label>
         </div>
 
         {/* 3 */}
-        <div className='flex flex-col mb-4 items-start'>
+        <div className='flex flex-col mb-4 items-start border-t border-gray-300'>
           <div className='flex items-center'>
             <input
               type='text'
               id='name'
               value={name}
               onChange={handleNameChange}
-              className='border-b border-gray-300 mr-2'
+              className='border p-2 rounded mr-2'
             />
           </div>
         </div>
@@ -133,56 +133,56 @@ export default function Edit() {
         </div>
 
         {/* 6 */}
-        <div className='flex flex-col mb-4 items-start row-span-2 row-start-3'>
+        <div className='flex flex-col mb-4 items-start row-span-2 row-start-3 border-t border-b border-gray-300 bg-boxbg'>
           <label htmlFor='newPassword' className='text-sm font-medium'>
             비밀번호
           </label>
         </div>
 
         {/* 7 */}
-        <div className='flex flex-col mb-4 items-start row-start-3'>
+        <div className='flex flex-col mb-4 items-start row-start-3 border-t border-gray-300'>
           <label htmlFor='newPassword' className='text-sm font-medium'>
             비밀번호
           </label>
         </div>
 
         {/* 8 */}
-        <div className='flex flex-col mb-4 items-start row-start-3'>
+        <div className='flex flex-col mb-4 items-start row-start-3 border-t border-gray-300'>
           <div className='flex items-center'>
             <input
               type='password'
               id='newPassword'
               value={newPassword}
               onChange={handleNewPasswordChange}
-              className='border-b border-gray-300 mr-2'
+              className='border p-2 rounded mr-2'
               placeholder='********'
             />
           </div>
         </div>
 
         {/* 9 */}
-        <div className='flex flex-col mb-4 items-start col-start-2 row-start-4'>
+        <div className='flex flex-col mb-4 items-start col-start-2 row-start-4 border-b border-gray-300'>
           <label htmlFor='confirmPassword' className='text-sm font-medium'>
             비밀번호 확인
           </label>
         </div>
 
         {/* 10 */}
-        <div className='flex flex-col mb-4 items-start col-start-3 row-start-4'>
+        <div className='flex flex-col mb-4 items-start col-start-3 row-start-4 border-b border-gray-300'>
           <div className='flex items-center'>
             <input
               type='password'
               id='confirmPassword'
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
-              className='border-b border-gray-300 mr-2'
+              className='border p-2 rounded mr-2'
               placeholder='********'
             />
           </div>
         </div>
       </div>
 
-      {/* 버튼들은 그대로 유지합니다. */}
+      {/* 버튼들을 수정 */}
       <div className='flex'>
         {/* "취소" 버튼 */}
         <Button
