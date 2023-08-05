@@ -61,20 +61,17 @@ export function getProviderSchdule(
   if (typeof schedule === 'undefined') return []
   const filtetedSchedule = schedule.filter((s) => s.startDate <= date && s.endDate >= date)
   const prevSchedule = schedule.filter(
-    (s) => s.startDate <= dayjs(date).subtract(1, 'day').format(DATE_FORMAT) && s.endDate >= date
+    (s) =>
+      s.startDate <= dayjs(date).subtract(1, 'day').format(DATE_FORMAT) &&
+      s.endDate >= dayjs(date).subtract(1, 'day').format(DATE_FORMAT)
   )
 
   const restItem = filtetedSchedule.length > 2 ? filtetedSchedule.length - 2 : 0
 
-  const level: ProviderScheduleWithPos[] = Array(100).fill(null)
-  const r = filtetedSchedule
-    .sort((a, b) => {
-      if (a.startDate === b.startDate) {
-        return a.endDate > b.endDate ? -1 : 1
-      }
-      return a.startDate > b.startDate ? 1 : -1
-    })
+  const shcedule: ProviderScheduleWithPos[] = Array(100).fill(null)
+  filtetedSchedule
     .map((s) => {
+      // * position 속성 추가 설정
       let pos: SchedulePosition = 'between'
       if (s.startDate === date) pos = 'start'
       if (s.endDate === date) pos = 'end'
@@ -84,19 +81,21 @@ export function getProviderSchdule(
         if (s.endDate === date && s.startDate !== date) pos = 'start-end'
       }
       if (s.startDate === date && s.endDate === date) pos = 'start-end'
-
-      const pi = prevSchedule.findIndex((ps) => ps.id === s.id)
-      if (pi !== -1) {
-        level[pi] = { ...s, pos, restItem }
-      } else {
-        level.forEach((v, i) => {
-          if (!v) {
-            level[i] = { ...s, pos, restItem }
-          }
-        })
-      }
       return { ...s, pos, restItem }
     })
+    .forEach((s) => {
+      // * 하루 전 스케줄과 오늘 스케줄을 비교해서 적절한 인덱스에 스케줄을 넣는다.
+      const pi = prevSchedule.findIndex((ps) => ps.id === s.id)
+      if (pi !== -1) shcedule[pi] = { ...s }
+      else {
+        for (let j = 0; j < shcedule.length; j++) {
+          if (shcedule[j] === null) {
+            shcedule[j] = { ...s }
+            break
+          }
+        }
+      }
+    })
 
-  return r
+  return shcedule.filter((s) => s !== null)
 }

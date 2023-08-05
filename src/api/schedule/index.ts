@@ -24,17 +24,24 @@ export const fetchSchedule = async ({
         Authorization: `Bearer ${token}`
       }
     })
-    const schedule = res.data.schedulerAdmin.map((s, i) => {
-      return {
-        id: s.user.id + i + s.title, // post id PK가 안와서 임시로 만듬
-        userId: s.user.id,
-        title: s.title,
-        fullName: s.user.fullName,
-        profileImage: s.user.profileImage,
-        startDate: dayjs(s.scheduleStart).format(DATE_FORMAT),
-        endDate: dayjs(s.scheduleEnd).format(DATE_FORMAT)
-      }
-    })
+    const schedule = res.data.schedulerAdmin
+      .map((s, i) => {
+        return {
+          id: s.user.id + i + s.title, // post id PK가 안와서 임시로 만듬
+          userId: s.user.id,
+          title: s.title,
+          fullName: s.user.fullName,
+          profileImage: s.user.profileImage,
+          startDate: dayjs(s.scheduleStart).format(DATE_FORMAT),
+          endDate: dayjs(s.scheduleEnd).format(DATE_FORMAT)
+        }
+      })
+      .sort((a, b) => {
+        if (a.startDate === b.startDate) {
+          return a.endDate > b.endDate ? -1 : 1
+        }
+        return a.startDate > b.startDate ? 1 : -1
+      })
 
     const end = new Date()
     // * userId로 필터링 된 해당 년 월의 스케줄 정보

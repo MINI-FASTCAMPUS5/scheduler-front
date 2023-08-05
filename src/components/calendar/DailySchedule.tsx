@@ -18,7 +18,7 @@ export default function DailySchedule({
   date
 }: Props) {
   const startDate = dayjs(date).day() === 0 ? date : schedule.startDate
-  let cells = Math.min(dayjs(schedule.endDate).diff(dayjs(startDate), 'day') + 1, 7)
+  let cells = Math.min(dayjs(schedule.endDate).diff(dayjs(startDate), 'day') + 1, 8)
   if (schedule.pos === 'start-end') cells = 1
   return (
     <div className={'relative my-1 text-white text-[0.8rem]'}>
