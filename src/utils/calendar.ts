@@ -1,5 +1,5 @@
 import type { DirectionType } from '@/components/ui/ArrowButton'
-import { DATE_ROUTE_FORMAT } from '@/constants'
+import { DATE_FORMAT, DATE_ROUTE_FORMAT } from '@/constants'
 import type { ProviderSchedule } from '@/models/schedule'
 import dayjs from 'dayjs'
 
@@ -55,13 +55,19 @@ export type ProviderScheduleWithPos = ProviderSchedule & { pos: SchedulePosition
  * @description schedule들을 받아서 가공합니다. ProviderScheduleWithPos[] 형태로 반환합니다.
  */
 export function getProviderSchdule(
-  schedule: ProviderSchedule[],
+  schedule: ProviderSchedule[] | undefined,
   date: string
 ): ProviderScheduleWithPos[] {
+  if (typeof schedule === 'undefined') return []
   const filtetedSchedule = schedule.filter((s) => s.startDate <= date && s.endDate >= date)
+  const prevSchedule = schedule.filter(
+    (s) => s.startDate <= dayjs(date).subtract(1, 'day').format(DATE_FORMAT) && s.endDate >= date
+  )
+
   const restItem = filtetedSchedule.length > 2 ? filtetedSchedule.length - 2 : 0
 
-  return filtetedSchedule
+  const level: ProviderScheduleWithPos[] = Array(100).fill(null)
+  const r = filtetedSchedule
     .sort((a, b) => {
       if (a.startDate === b.startDate) {
         return a.endDate > b.endDate ? -1 : 1
@@ -78,6 +84,19 @@ export function getProviderSchdule(
         if (s.endDate === date && s.startDate !== date) pos = 'start-end'
       }
       if (s.startDate === date && s.endDate === date) pos = 'start-end'
+
+      const pi = prevSchedule.findIndex((ps) => ps.id === s.id)
+      if (pi !== -1) {
+        level[pi] = { ...s, pos, restItem }
+      } else {
+        level.forEach((v, i) => {
+          if (!v) {
+            level[i] = { ...s, pos, restItem }
+          }
+        })
+      }
       return { ...s, pos, restItem }
     })
+
+  return r
 }

@@ -7,7 +7,7 @@ import Weeks from '@/components/calendar/Weeks'
 import Daily from '@/components/calendar/Daily'
 
 export default function MonthlyCalendar() {
-  const { year, month } = useSchedule()
+  const { year, month, isSuccess } = useSchedule()
 
   // todo dayjs(date).dayjsInMonth로 달력 마지막 날 보고 인덱스 row를 6개 | 5개로 조정하기
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -22,10 +22,8 @@ export default function MonthlyCalendar() {
        transition-all duration-100 ease-in-out rounded-xl border-[4px] border-white
        `}
       >
-        {/* 달력의 요일을 표기 */}
         <Weeks />
-        {/* 달력의 날짜를 표기 */}
-        <Daily daily={dailyIdx} />
+        {isSuccess && <Daily daily={dailyIdx} />}
       </div>
     </div>
   )

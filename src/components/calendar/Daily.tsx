@@ -35,7 +35,7 @@ export default function Daily({ daily }: Props) {
   const { month, schedule, isFetching } = useSchedule(adminId)
 
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
-  useHover(adminId && schedule.length !== 0 ? true : false)
+  useHover(adminId && schedule?.length !== 0 ? true : false)
 
   const today = dayjs(new Date()).format(DATE_FORMAT)
 
@@ -96,23 +96,18 @@ export default function Daily({ daily }: Props) {
     if (!pathname.includes('manager/event/calendar') || !isAdmin) return
 
     // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정 모달을 띄웁니다.
-    if ((e.target as HTMLElement).classList.contains('schedule-cell')) {
-      setTargetDate(date)
-      setPortalType('edit')
-      setOpenPortal(true)
-      return
-    }
+    if ((e.target as HTMLElement).classList.contains('schedule-cell')) setPortalType('edit')
+    else setPortalType('add')
     setTargetDate(date)
-    setPortalType('add')
     setOpenPortal(true)
-    return
   }
 
   // * 스케줄이 변경되면 width를 다시 계산합니다.
+  // todo : isFetching이 최선인가?
   useEffect(() => {
     setWidth(() => 20)
     // prettier-ignore
-    if (!isFetching) {  setTimeout(() => { resize()}, 100) }
+    if (!isFetching) {setTimeout(() => { resize()}, 100) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 

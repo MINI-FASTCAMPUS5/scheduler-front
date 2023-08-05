@@ -22,6 +22,7 @@ import UserLayout from './components/layouts/UserLayout'
 import MyPage from './pages/User/MyPage'
 import Edit from './pages/User/Edit'
 import SignInAPITestPage from './pages/Sample/SignInAPITestPage'
+import ScheduleAddTestPage from './pages/Sample/Schedule'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path='/calendar' element={<CalendarLayout />}>
           <Route path='/calendar/:year/:month/:day' element={<CalendarPage />} />
+          <Route path='/calendar/schedule' element={<ScheduleAddTestPage />} />
         </Route>
         <Route path='/manager' element={<ManagerLayout />}>
           <Route

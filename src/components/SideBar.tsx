@@ -22,7 +22,6 @@ export default function SideBar() {
         <img className='m-auto' src='/yearly_idol.png' width='240px' alt='연간 아이돌' />
       </div>
       <SearchForm onSubmit={handleSubmit} />
-
       {user.role === 'USER' && <UserActionBar />}
       {user.role === 'ADMIN' && <AdminActionBar />}
       {/* todo : useUser hooks를 내부에서 호출할지 정하자, 그리고 버튼 디자인 정해지면 버튼은 재사용 가능하게 변경하지*/}

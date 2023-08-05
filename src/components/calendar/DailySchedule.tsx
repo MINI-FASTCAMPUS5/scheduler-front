@@ -11,8 +11,14 @@ type Props = {
   onClickSchedule: (schedule: ProviderScheduleWithPos) => void
 }
 
-export default function DailySchedule({ schedule, cellWidth: cellWidth, onClickSchedule }: Props) {
-  let cells = dayjs(schedule.endDate).diff(dayjs(schedule.startDate), 'day') + 1
+export default function DailySchedule({
+  schedule,
+  cellWidth: cellWidth,
+  onClickSchedule,
+  date
+}: Props) {
+  const startDate = dayjs(date).day() === 0 ? date : schedule.startDate
+  let cells = Math.min(dayjs(schedule.endDate).diff(dayjs(startDate), 'day') + 1, 7)
   if (schedule.pos === 'start-end') cells = 1
   return (
     <div className={'relative my-1 text-white text-[0.8rem]'}>

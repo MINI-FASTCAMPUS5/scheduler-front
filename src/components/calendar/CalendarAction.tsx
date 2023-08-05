@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import ReserveForm from '@/components/calendar/ReserveForm'
 import EditForm from '@/components/calendar/EditForm'
@@ -8,7 +7,7 @@ import AddForm, { ScheduleAddFormData } from '@/components/calendar/AddForm'
 type Props = {
   type: 'add' | 'edit' | 'reserve'
   user: 'admin' | 'fan'
-  schedule?: ProviderScheduleWithPos
+  schedule: ProviderScheduleWithPos
   date: string
   onCancle: () => void
   onReserve: (schedule: ProviderScheduleWithPos, selectedDate: string) => void
@@ -25,16 +24,6 @@ export default function CalendarAction({
   onEdit,
   onSubmit
 }: Props) {
-  const nativate = useNavigate()
-  if (type === 'reserve' || type === 'edit') {
-    if (!schedule) {
-      alert('잘못된 접근입니다.')
-      // todo :  navigate to main
-      nativate('/')
-      return
-    }
-  }
-
   return (
     <>
       {type === 'add' && user == 'admin' && (
@@ -44,7 +33,7 @@ export default function CalendarAction({
         <EditForm onCancle={onCancle} onEdit={onEdit} schedule={schedule!} />
       )}
       {type === 'reserve' && (
-        <ReserveForm onCancle={onCancle} onReserve={onReserve} schedule={schedule!} user={user} />
+        <ReserveForm onCancle={onCancle} onReserve={onReserve} schedule={schedule} user={user} />
       )}
     </>
   )
