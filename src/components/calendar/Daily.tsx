@@ -32,10 +32,10 @@ export default function Daily({ daily }: Props) {
 
   // * 행사 등록/수정 페이지 + 어드민일 경우 자신이 등록한 스케줄만 가져옵니다.
   const adminId = isAdmin && pathname.includes('manager/event/calendar') ? user.id : undefined
-  const { month, schedule, isFetching } = useSchedule(adminId)
+  const { month, adminSchedule, reservedList, isFetching } = useSchedule(adminId)
 
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
-  useHover(adminId && schedule?.length !== 0 ? true : false)
+  useHover(adminId && adminSchedule?.length !== 0 ? true : false)
 
   const today = dayjs(new Date()).format(DATE_FORMAT)
 
@@ -110,12 +110,28 @@ export default function Daily({ daily }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
+  const reserveStyle = {
+    WAITING: {
+      from: 'from-wait',
+      bg: 'bg-wait'
+    },
+    ACCEPT: {
+      from: 'from-confirm',
+      bg: 'bg-confirm'
+    },
+    REFUSE: {
+      from: 'from-refuse',
+      bg: 'bg-refuse'
+    }
+  }
+
   const hoverEvent = adminId ? 'hover:border-point hover:border-[1px] hover:cursor-pointer' : ''
   return (
     <>
       {daily?.map((date) => {
         const disable = dayjs(date).month() + 1 !== Number(month) ? true : false
-        const providerSchedule = getProviderSchdule(schedule, date)
+        const providerSchedule = getProviderSchdule(adminSchedule, date)
+        const reservedSchedule = reservedList?.filter((r) => r.reservedDate === date)
         let textColor = today === dayjs(date).format(DATE_FORMAT) ? 'text-point' : 'text-main'
         if (disable) textColor += ' opacity-20'
         return (
@@ -136,18 +152,37 @@ export default function Daily({ daily }: Props) {
                   <DailySchedule
                     key={s.id}
                     schedule={s}
+                    reservedList={reservedList}
                     cellWidth={width}
                     date={date}
                     onClickSchedule={handleSchedule}
                   />
                 )
               })}
+              {reservedSchedule?.map((r) => {
+                r.progress === 'REFUSE'
+                return (
+                  <>
+                    <div
+                      key={r.id}
+                      className={`absolute top-0 w-full h-full bg-gradient-to-t 
+                    ${reserveStyle[r.progress].from} opacity-40 to-transparent z-[0]`}
+                    />
+                    <div
+                      className={`absolute right-2 top-2 w-2 h-2 rounded-full 
+                  ${reserveStyle[r.progress].bg} opacity-100 animate-ping`}
+                    />
+                  </>
+                )
+              })}
               {providerSchedule.length > 2 && (
-                <MoreButton
-                  date={date}
-                  restItem={providerSchedule[0].restItem}
-                  onClick={handleViewMore}
-                />
+                <div className='absolute'>
+                  <MoreButton
+                    date={date}
+                    restItem={providerSchedule[0].restItem}
+                    onClick={handleViewMore}
+                  />
+                </div>
               )}
             </div>
           </div>

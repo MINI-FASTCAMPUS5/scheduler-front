@@ -12,6 +12,18 @@ export type ProviderSchedule = {
   endDate: string
 }
 
+export type ProviderReservedList = {
+  id: string
+  userID: string
+  profileImage: string
+  fullName: string
+  role: string
+  sizeOfTicket: number
+  reservedDate: string
+  progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
+  title: string
+}
+
 export type AdminSchedule = {
   createdAt: string
   description: string
@@ -22,10 +34,18 @@ export type AdminSchedule = {
   user: AdminUser
 }
 
+export type UserSchedule = {
+  scheduleStart: string // reservedDate
+  createdAt: string
+  progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
+  user: FanUser
+  schedulerAdmin: AdminSchedule
+}
+
 /**
  * @description GET user/schedule?year=number&month=number, AccessToken 필요
  */
 export type Schedule = {
   schedulerAdmin: AdminSchedule[]
-  schedulerUser: FanUser[]
+  schedulerUser: UserSchedule[]
 }

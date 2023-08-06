@@ -40,5 +40,16 @@ export default function useSchedule(userId?: string) {
     setDay(parseInt(params.day))
   }, [params])
 
-  return { schedule, isFetching, year, month, day, isLoading, isError, isFetched, isSuccess }
+  return {
+    adminSchedule: schedule?.schedule,
+    reservedList: schedule?.reservedList,
+    isFetching,
+    year,
+    month,
+    day,
+    isLoading,
+    isError,
+    isFetched,
+    isSuccess
+  }
 }

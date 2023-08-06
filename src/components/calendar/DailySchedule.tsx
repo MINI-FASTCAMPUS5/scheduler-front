@@ -1,10 +1,12 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import type { ProviderScheduleWithPos } from '@/utils/calendar'
+import { ProviderReservedList } from '@/models/schedule'
 // import useSchedule from '@/hooks/schedule'
 
 type Props = {
   schedule: ProviderScheduleWithPos
+  reservedList: ProviderReservedList[] | undefined
   cellWidth: number
   date: string
   skip?: boolean
@@ -15,11 +17,26 @@ export default function DailySchedule({
   schedule,
   cellWidth: cellWidth,
   onClickSchedule,
+  reservedList,
   date
 }: Props) {
   const startDate = dayjs(date).day() === 0 ? date : schedule.startDate
   let cells = Math.min(dayjs(schedule.endDate).diff(dayjs(startDate), 'day') + 1, 8)
   if (schedule.pos === 'start-end') cells = 1
+
+  const bgByProgress = {
+    WAITING: 'bg-wait',
+    ACCEPT: 'bg-confirm',
+    REFUSE: 'bg-refuse'
+  }
+  let bgStyle = 'bg-main'
+  if (typeof reservedList !== 'undefined') {
+    reservedList.forEach((r) => {
+      if (r.title === schedule.title) {
+        bgStyle = bgByProgress[r.progress]
+      }
+    })
+  }
   return (
     <div className={'relative my-1 text-white text-[0.8rem]'}>
       {schedule.pos.includes('start') ? (
@@ -45,7 +62,7 @@ export default function DailySchedule({
             <div
               className={`schedule-cell w-full ${
                 schedule.pos === 'start-end' ? 'rounded-l-xl' : 'rounded-xl'
-              } min-w-[100px] cursor-pointer bg-main hover:bg-[#4619a5] pl-8 transition-all ease-in-out z-30 duration-200 overflow-hidden`}
+              } min-w-[100px] cursor-pointer ${bgStyle} hover:bg-[#4619a5] pl-8 transition-all ease-in-out z-30 duration-200 overflow-hidden`}
             >
               {schedule.title}
             </div>

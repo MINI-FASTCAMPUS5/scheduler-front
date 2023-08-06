@@ -9,18 +9,18 @@ type Props = {
   date: string
 }
 export default function DailyDetail({ date }: Props) {
-  const { schedule, isFetching } = useSchedule()
+  const { adminSchedule, isFetching } = useSchedule()
 
   const [scheduleWithPos, setScheduleWithPos] = useState<ProviderScheduleWithPos[]>([])
 
   useEffect(() => {
-    const filteredSchedule = getProviderSchdule(schedule, date).map((s) => {
+    const filteredSchedule = getProviderSchdule(adminSchedule, date).map((s) => {
       s.pos = 'start'
       return s
     })
     setScheduleWithPos(filteredSchedule)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schedule, isFetching])
+  }, [adminSchedule, isFetching])
 
   const handleClickSchedule = (s: ProviderScheduleWithPos) => {
     alert(s)
