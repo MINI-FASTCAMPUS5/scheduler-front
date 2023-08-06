@@ -2,19 +2,20 @@ import api from '..'
 
 export const addSchedule = async (adminId: string, selectDate: string, cookie: string) => {
   try {
-    await api({
+    const res = await api({
       url: `/user/schedule/create?schedulerAdminId=${adminId}`,
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${cookie}`
+        Authorization: cookie
       },
       data: {
         scheduleStart: selectDate
       }
     })
+    console.info(res)
     return true
   } catch (err) {
-    console.error(err)
+    console.info(err)
     return false
   }
 }

@@ -25,7 +25,7 @@ export const fetchSchedule = async ({
     const start = new Date()
     const res: { data: Schedule } = await api.get(`/user/schedule?year=${year}&month=${month}`, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: token
       }
     })
     const schedule = res.data.schedulerAdmin
