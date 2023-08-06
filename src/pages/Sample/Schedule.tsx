@@ -15,8 +15,6 @@ export default function ScheduleAddTestPage() {
   const [description, setDescription] = useState('')
 
   const handleSubmit = () => {
-    console.info(`Bearer ${cookie.AccessToken}`)
-
     // * 2021-10-01T00:00:00 시간정보는 없기 때문에 이런식으로 보냅니다.
     // eslint-disable-next-line quotes
     const formData = new FormData()

@@ -28,7 +28,6 @@ export const fetchSchedule = async ({
         Authorization: `Bearer ${token}`
       }
     })
-    console.info(res)
     const schedule = res.data.schedulerAdmin
       .map((s) => {
         return {
