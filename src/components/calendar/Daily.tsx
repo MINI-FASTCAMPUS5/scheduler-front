@@ -21,14 +21,16 @@ type Props = {
 export default function Daily({ daily }: Props) {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
-  const { pathname } = useLocation()
-  const [openPortal, setOpenPortal] = useState(false)
-  const [targetSchedule, setTargetSchedule] = useState({} as ProviderScheduleWithPos)
-  const [openMoreModal, setOpenMoreModal] = useState(false)
-  const [targetDate, setTargetDate] = useState('')
-  const { width, resize, setWidth } = useResize('.cell')
   const [isAdmin] = useState(user.role === 'ADMIN' ? true : false)
+  const { pathname } = useLocation()
+  // * 모달 관련 속성
+  const [openPortal, setOpenPortal] = useState(false)
   const [portalType, setPortalType] = useState<'edit' | 'reserve' | 'add'>('reserve')
+  const [openMoreModal, setOpenMoreModal] = useState(false)
+  const [targetSchedule, setTargetSchedule] = useState({} as ProviderScheduleWithPos)
+  const [targetDate, setTargetDate] = useState('')
+  // * 스타일링 관련 속성
+  const { width, resize, setWidth } = useResize('.cell')
 
   // * 행사 등록/수정 페이지 + 어드민일 경우 자신이 등록한 스케줄만 가져옵니다.
   const adminId = isAdmin && pathname.includes('manager/event/calendar') ? user.id : undefined
@@ -49,6 +51,7 @@ export default function Daily({ daily }: Props) {
   // * /manager 페이지라면 수정 모달을 띄우고, /calendar 페이지라면 예약 모달을 띄웁니다.
   const handleSchedule = useCallback(
     (schedule: ProviderScheduleWithPos) => {
+      setOpenMoreModal(false)
       setTargetSchedule(schedule)
       setPortalType(pathname.includes('manager/event/calendar') ? 'edit' : 'reserve')
       setOpenPortal(true)
@@ -93,8 +96,9 @@ export default function Daily({ daily }: Props) {
 
   const handleOnClickCell = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, date: string) => {
     if (!pathname.includes('manager/event/calendar') || !isAdmin) return
+    if ((e.target as HTMLElement).classList.contains('moreBtn')) return
 
-    // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정 모달을 띄웁니다.
+    // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정, cell이라면 스케줄 추가 모달을 띄웁니다.
     if ((e.target as HTMLElement).classList.contains('schedule-cell')) setPortalType('edit')
     else setPortalType('add')
     setTargetDate(date)
@@ -124,7 +128,6 @@ export default function Daily({ daily }: Props) {
       bg: 'bg-refuse'
     }
   }
-
   const hoverEvent = adminId ? 'hover:border-point hover:border-[1px] hover:cursor-pointer' : ''
   return (
     <>
@@ -132,7 +135,8 @@ export default function Daily({ daily }: Props) {
         const disable = dayjs(date).month() + 1 !== Number(month) ? true : false
         const providerSchedule = getProviderSchdule(adminSchedule, date)
         const reservedSchedule = reservedList?.filter((r) => r.reservedDate === date)
-        let textColor = today === dayjs(date).format(DATE_FORMAT) ? 'text-point' : 'text-main'
+        const isToday = today === dayjs(date).format(DATE_FORMAT)
+        let textColor = isToday ? 'text-point' : 'text-main'
         if (disable) textColor += ' opacity-20'
         return (
           <div
@@ -144,7 +148,7 @@ export default function Daily({ daily }: Props) {
             {/* <div className='h-full hover:bg-[rgba(0,0,0,0.1)] transition-all ease-in-out duration-150' /> */}
             <div id={`monthly-${date}`} className={`h-full relative ${textColor}`}>
               <span className='pl-2 font-bold'>
-                {dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()}
+                {dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()}{' '}
               </span>
               {providerSchedule?.map((s, i) => {
                 if (disable || i > 1) return null
@@ -169,8 +173,8 @@ export default function Daily({ daily }: Props) {
                     ${reserveStyle[r.progress].from} opacity-40 to-transparent z-[0]`}
                     />
                     <div
-                      className={`absolute right-2 top-2 w-2 h-2 rounded-full 
-                  ${reserveStyle[r.progress].bg} opacity-100 animate-ping`}
+                      className={`absolute right-2 top-2 w-[10px] h-[10px] rounded-full 
+                  ${reserveStyle[r.progress].bg} opacity-100 custom-ping`}
                     />
                   </>
                 )
@@ -190,7 +194,7 @@ export default function Daily({ daily }: Props) {
       })}
       {openMoreModal && (
         <CalendarModal onClose={setCloseMoreModal}>
-          <DailyDetail date={targetDate} />
+          <DailyDetail date={targetDate} onClick={handleSchedule} />
         </CalendarModal>
       )}
       {openPortal && (

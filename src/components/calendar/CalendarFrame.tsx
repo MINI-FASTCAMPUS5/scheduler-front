@@ -16,7 +16,7 @@ export default function CalendarFrame() {
             데이터를 가져오고 있습니다!
           </div>
           <CheerUpLoading />
-          <span className='aanimate-ping absolute inline-flex h-full w-full rounded-full bg-purple-100 opacity-10' />
+          <span className='animate-ping행사 일정 absolute inline-flex h-full w-full rounded-full bg-purple-100 opacity-10' />
         </div>
       )}
       <MonthlyCalendar />
