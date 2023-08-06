@@ -1,4 +1,4 @@
-import api from '..'
+import api from '@/api'
 
 export const addSchedule = async (adminId: string, selectDate: string, cookie: string) => {
   try {

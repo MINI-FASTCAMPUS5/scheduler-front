@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import FullProfile from '@/components/FullProfile'
 import useUser from '@/hooks/user'
 import { useNavigate } from 'react-router-dom'
@@ -6,17 +6,8 @@ import ReserveDetail from '@/components/user/ReserveDetail'
 
 export default function MyPage() {
   const navigate = useNavigate()
-  const { getUserInfo, loggedIn } = useUser()
+  const { getUserInfo } = useUser()
   const fan = getUserInfo()
-
-  // todo layout에서 로그인되었는지 검사하기 떄문에 이 로직이 필요없긴함!
-  // todo 나중에 리펙토링할 떄 필요없으면 제거하자!
-  useEffect(() => {
-    if (!loggedIn) {
-      alert('로그인이 필요합니다.')
-      navigate('/login/test')
-    }
-  }, [loggedIn, navigate])
 
   if (fan.role !== 'USER') {
     alert('관리자는 접근할 수 없는 페이지입니다.')
