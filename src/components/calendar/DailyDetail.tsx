@@ -7,24 +7,21 @@ import CheerUpLoading from '@/components/ui/CheerUpLoading'
 
 type Props = {
   date: string
+  onClick: (schedule: ProviderScheduleWithPos) => void
 }
-export default function DailyDetail({ date }: Props) {
-  const { schedule, isFetching } = useSchedule()
+export default function DailyDetail({ date, onClick }: Props) {
+  const { adminSchedule, reservedList, isFetching } = useSchedule()
+
   const [scheduleWithPos, setScheduleWithPos] = useState<ProviderScheduleWithPos[]>([])
 
   useEffect(() => {
-    const filteredSchedule = getProviderSchdule(schedule, date).map((s) => {
+    const filteredSchedule = getProviderSchdule(adminSchedule, date).map((s) => {
       s.pos = 'start'
       return s
     })
-
     setScheduleWithPos(filteredSchedule)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schedule, isFetching])
-
-  const handleClickSchedule = (schedule: ProviderScheduleWithPos) => {
-    alert('handleClickSchedule more에서 더보기 기능 처리 필요 : ' + schedule.title)
-  }
+  }, [adminSchedule, isFetching])
 
   return (
     <section className='overflow-hidden h-full p-4'>
@@ -48,7 +45,7 @@ export default function DailyDetail({ date }: Props) {
             </div>
           )}
           {isFetching && scheduleWithPos.length > 0 && (
-            <div className='text-main pt-4 font-bold'>추가 데이터 확인 중...</div>
+            <div className='text-main pt-4 font-bold'>추가된 데이터 확인 중...</div>
           )}
           {scheduleWithPos?.map((s) => {
             return (
@@ -60,7 +57,8 @@ export default function DailyDetail({ date }: Props) {
                   cellWidth={500}
                   date={date}
                   schedule={s}
-                  onClickSchedule={handleClickSchedule}
+                  reservedList={reservedList}
+                  onClickSchedule={onClick}
                 />
               </div>
             )

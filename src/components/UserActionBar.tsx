@@ -8,7 +8,6 @@ import { DATE_ROUTE_FORMAT } from '@/constants'
 
 export default function UserActionBar() {
   const location = useLocation()
-
   const sidebarMenu = [
     {
       title: '행사 신청 캘린더',
@@ -23,7 +22,6 @@ export default function UserActionBar() {
       url: '/user/mypage'
     }
   ]
-
   let idx = 0
   if (location.pathname.includes('mypage')) idx = 1
   // params로 체크해서 sidebarMenu[0] 몇번째 인지 정하기

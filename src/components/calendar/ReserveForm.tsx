@@ -18,7 +18,7 @@ export default function ReserveForm({ schedule, onCancle, onReserve, user }: Pro
       <div className='h-full flex flex-col justify-between rounded-2xl'>
         <Banner
           className='py-4'
-          src='/YeonganIdolLogoOrigin.svg'
+          src={schedule.image ? schedule.image : '/YeonganIdolLogoOrigin.svg'}
           type='post'
           alt='newjeans banner'
         />

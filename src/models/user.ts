@@ -1,5 +1,4 @@
-// * General User Type
-export type User = {
+type User = {
   id: string
   email: string
   profileImage: string

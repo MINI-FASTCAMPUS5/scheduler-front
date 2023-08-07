@@ -1,47 +1,31 @@
-import { DATE_FORMAT } from '@/constants'
-import { SCHEDULE_7_MONTH, SCHEDULE_8_MONTH } from '@/mocks/schedule'
-import { ProviderSchedule } from '@/models/schedule'
-import { delay } from '@/utils'
-import dayjs from 'dayjs'
+import { fetchSchedule } from '@/api/schedule'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
 import { useParams } from 'react-router-dom'
 
 export default function useSchedule(userId?: string) {
   const params = useParams()
-  const [schedule, setSchedule] = useState<ProviderSchedule[]>([])
-  const [isFetching, setIsFetching] = useState(true)
+  const [cookie] = useCookies(['AccessToken'])
   // ? year, month가 없는 경우 체크 필요 redirect 해야함
   const [year, setYear] = useState(params.year ? parseInt(params.year) : 0)
   const [month, setMonth] = useState(params.month ? parseInt(params.month) : 0)
   const [day, setDay] = useState(params.day ? parseInt(params.day) : 0)
-
-  useEffect(() => {
-    // ? year, month가 없는 경우 체크 필요 redirect 해야함
-    if (!month || !year) return
-    setIsFetching(true)
-    // * API 호출 로직, API가 완성되면 로직이 크게 변경됩니다.
-    let scheduleData = SCHEDULE_7_MONTH
-    if (month === 8) scheduleData = SCHEDULE_8_MONTH
-    if (month === 6) scheduleData = []
-    if (month === 9) scheduleData = []
-
-    scheduleData = scheduleData.map((s) => {
-      return {
-        ...s,
-        startDate: dayjs(s.startDate).format(DATE_FORMAT),
-        endDate: dayjs(s.endDate).format(DATE_FORMAT)
-      }
-    })
-
-    if (userId) {
-      scheduleData = scheduleData.filter((s) => s.userId === userId)
+  const {
+    data: schedule,
+    isFetching,
+    isLoading,
+    isError,
+    isFetched,
+    isSuccess
+  } = useQuery(
+    ['schedule', year, month, `${userId ? userId : ''}`],
+    () => fetchSchedule({ year, month, token: cookie.AccessToken, userId }),
+    {
+      enabled: !!year && !!month && !!cookie.AccessToken,
+      staleTime: 1000 * 60 * 5
     }
-
-    delay<ProviderSchedule[]>(scheduleData, 2000).then((res) => {
-      setSchedule(res)
-      setIsFetching(false)
-    })
-  }, [year, month, userId])
+  )
 
   useEffect(() => {
     if (
@@ -51,11 +35,21 @@ export default function useSchedule(userId?: string) {
     ) {
       return alert('잘못된 접근입니다.')
     }
-
     setYear(parseInt(params.year))
     setMonth(parseInt(params.month))
     setDay(parseInt(params.day))
-  }, [month, params.day, params.month, params.year, year])
+  }, [params])
 
-  return { schedule, isFetching, year, month, day, setYear, setMonth, setDay }
+  return {
+    adminSchedule: schedule?.schedule,
+    reservedList: schedule?.reservedList,
+    isFetching,
+    year,
+    month,
+    day,
+    isLoading,
+    isError,
+    isFetched,
+    isSuccess
+  }
 }

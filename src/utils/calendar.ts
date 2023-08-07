@@ -1,5 +1,5 @@
 import type { DirectionType } from '@/components/ui/ArrowButton'
-import { DATE_ROUTE_FORMAT } from '@/constants'
+import { DATE_FORMAT, DATE_ROUTE_FORMAT } from '@/constants'
 import type { ProviderSchedule } from '@/models/schedule'
 import dayjs from 'dayjs'
 
@@ -55,20 +55,23 @@ export type ProviderScheduleWithPos = ProviderSchedule & { pos: SchedulePosition
  * @description schedule들을 받아서 가공합니다. ProviderScheduleWithPos[] 형태로 반환합니다.
  */
 export function getProviderSchdule(
-  schedule: ProviderSchedule[],
+  schedule: ProviderSchedule[] | undefined,
   date: string
 ): ProviderScheduleWithPos[] {
+  if (typeof schedule === 'undefined') return []
   const filtetedSchedule = schedule.filter((s) => s.startDate <= date && s.endDate >= date)
+  const prevSchedule = schedule.filter(
+    (s) =>
+      s.startDate <= dayjs(date).subtract(1, 'day').format(DATE_FORMAT) &&
+      s.endDate >= dayjs(date).subtract(1, 'day').format(DATE_FORMAT)
+  )
+
   const restItem = filtetedSchedule.length > 2 ? filtetedSchedule.length - 2 : 0
 
-  return filtetedSchedule
-    .sort((a, b) => {
-      if (a.startDate === b.startDate) {
-        return a.endDate > b.endDate ? -1 : 1
-      }
-      return a.startDate > b.startDate ? 1 : -1
-    })
+  const providerSchedule: ProviderScheduleWithPos[] = Array(100).fill(null)
+  filtetedSchedule
     .map((s) => {
+      // * position 속성 추가 설정
       let pos: SchedulePosition = 'between'
       if (s.startDate === date) pos = 'start'
       if (s.endDate === date) pos = 'end'
@@ -80,4 +83,24 @@ export function getProviderSchdule(
       if (s.startDate === date && s.endDate === date) pos = 'start-end'
       return { ...s, pos, restItem }
     })
+    .forEach((s, i) => {
+      // * 하루 전 스케줄과 오늘 스케줄을 비교해서 적절한 인덱스에 스케줄을 넣는다.
+      const pi = prevSchedule.findIndex((ps) => ps.id === s.id)
+      if (pi !== -1) {
+        if (pi == 2 && providerSchedule[i] === null) {
+          providerSchedule[pi] = { ...s, pos: 'start' }
+        } else {
+          providerSchedule[pi] = { ...s }
+        }
+      } else {
+        for (let j = 0; j < providerSchedule.length; j++) {
+          if (providerSchedule[j] === null) {
+            providerSchedule[j] = { ...s }
+            break
+          }
+        }
+      }
+    })
+
+  return providerSchedule.filter((s) => s !== null)
 }

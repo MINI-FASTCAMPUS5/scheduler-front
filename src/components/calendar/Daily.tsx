@@ -21,21 +21,23 @@ type Props = {
 export default function Daily({ daily }: Props) {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
-  const { pathname } = useLocation()
-  const [openPortal, setOpenPortal] = useState(false)
-  const [targetSchedule, setTargetSchedule] = useState({} as ProviderScheduleWithPos)
-  const [openMoreModal, setOpenMoreModal] = useState(false)
-  const [targetDate, setTargetDate] = useState('')
-  const { width, resize, setWidth } = useResize('.cell')
   const [isAdmin] = useState(user.role === 'ADMIN' ? true : false)
+  const { pathname } = useLocation()
+  // * 모달 관련 속성
+  const [openPortal, setOpenPortal] = useState(false)
   const [portalType, setPortalType] = useState<'edit' | 'reserve' | 'add'>('reserve')
+  const [openMoreModal, setOpenMoreModal] = useState(false)
+  const [targetSchedule, setTargetSchedule] = useState({} as ProviderScheduleWithPos)
+  const [targetDate, setTargetDate] = useState('')
+  // * 스타일링 관련 속성
+  const { width, resize, setWidth } = useResize('.cell')
 
   // * 행사 등록/수정 페이지 + 어드민일 경우 자신이 등록한 스케줄만 가져옵니다.
   const adminId = isAdmin && pathname.includes('manager/event/calendar') ? user.id : undefined
-  const { month, schedule, isFetching } = useSchedule(adminId)
+  const { month, adminSchedule, reservedList, isFetching } = useSchedule(adminId)
 
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
-  useHover(adminId && schedule.length !== 0 ? true : false)
+  useHover(adminId && adminSchedule?.length !== 0 ? true : false)
 
   const today = dayjs(new Date()).format(DATE_FORMAT)
 
@@ -49,18 +51,13 @@ export default function Daily({ daily }: Props) {
   // * /manager 페이지라면 수정 모달을 띄우고, /calendar 페이지라면 예약 모달을 띄웁니다.
   const handleSchedule = useCallback(
     (schedule: ProviderScheduleWithPos) => {
+      setOpenMoreModal(false)
       setTargetSchedule(schedule)
       setPortalType(pathname.includes('manager/event/calendar') ? 'edit' : 'reserve')
       setOpenPortal(true)
     },
     [pathname]
   )
-
-  // * 예약 모달에서 예약 버튼을 누르면 실행됩니다.
-  const handleReserve = (schedule: ProviderScheduleWithPos, selectedDate: string) => {
-    alert(`${schedule.title} 공연을 ${selectedDate}에 예약 하셨습니다.`)
-    setOpenPortal(false)
-  }
 
   // * 더보기 모달창을 닫습니다.
   const setCloseMoreModal = useCallback(() => {
@@ -79,6 +76,11 @@ export default function Daily({ daily }: Props) {
     setOpenPortal(false)
   }
 
+  const handleReserve = (message: string) => {
+    alert(message)
+    setOpenPortal(false)
+  }
+
   // * 공연 추가 모달에서 새로운 공연을 추가하면 실행됩니다.
   const handleSubmitSchedule = (schedule: ScheduleAddFormData) => {
     alert(
@@ -94,35 +96,47 @@ export default function Daily({ daily }: Props) {
 
   const handleOnClickCell = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, date: string) => {
     if (!pathname.includes('manager/event/calendar') || !isAdmin) return
+    if ((e.target as HTMLElement).classList.contains('moreBtn')) return
 
-    // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정 모달을 띄웁니다.
-    if ((e.target as HTMLElement).classList.contains('schedule-cell')) {
-      setTargetDate(date)
-      setPortalType('edit')
-      setOpenPortal(true)
-      return
-    }
+    // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정, cell이라면 스케줄 추가 모달을 띄웁니다.
+    if ((e.target as HTMLElement).classList.contains('schedule-cell')) setPortalType('edit')
+    else setPortalType('add')
     setTargetDate(date)
-    setPortalType('add')
     setOpenPortal(true)
-    return
   }
 
   // * 스케줄이 변경되면 width를 다시 계산합니다.
+  // todo : isFetching이 최선인가?
   useEffect(() => {
     setWidth(() => 20)
     // prettier-ignore
-    if (!isFetching) {  setTimeout(() => { resize()}, 100) }
+    if (!isFetching) {setTimeout(() => { resize()}, 100) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
+  const reserveStyle = {
+    WAITING: {
+      from: 'from-wait',
+      bg: 'bg-wait'
+    },
+    ACCEPT: {
+      from: 'from-confirm',
+      bg: 'bg-confirm'
+    },
+    REFUSE: {
+      from: 'from-refuse',
+      bg: 'bg-refuse'
+    }
+  }
   const hoverEvent = adminId ? 'hover:border-point hover:border-[1px] hover:cursor-pointer' : ''
   return (
     <>
       {daily?.map((date) => {
         const disable = dayjs(date).month() + 1 !== Number(month) ? true : false
-        const providerSchedule = getProviderSchdule(schedule, date)
-        let textColor = today === dayjs(date).format(DATE_FORMAT) ? 'text-point' : 'text-main'
+        const providerSchedule = getProviderSchdule(adminSchedule, date)
+        const reservedSchedule = reservedList?.filter((r) => r.reservedDate === date)
+        const isToday = today === dayjs(date).format(DATE_FORMAT)
+        let textColor = isToday ? 'text-point' : 'text-main'
         if (disable) textColor += ' opacity-20'
         return (
           <div
@@ -134,7 +148,7 @@ export default function Daily({ daily }: Props) {
             {/* <div className='h-full hover:bg-[rgba(0,0,0,0.1)] transition-all ease-in-out duration-150' /> */}
             <div id={`monthly-${date}`} className={`h-full relative ${textColor}`}>
               <span className='pl-2 font-bold'>
-                {dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()}
+                {dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()}{' '}
               </span>
               {providerSchedule?.map((s, i) => {
                 if (disable || i > 1) return null
@@ -142,18 +156,37 @@ export default function Daily({ daily }: Props) {
                   <DailySchedule
                     key={s.id}
                     schedule={s}
+                    reservedList={reservedList}
                     cellWidth={width}
                     date={date}
                     onClickSchedule={handleSchedule}
                   />
                 )
               })}
+              {reservedSchedule?.map((r) => {
+                r.progress === 'REFUSE'
+                return (
+                  <>
+                    <div
+                      key={r.id}
+                      className={`absolute top-0 w-full h-full bg-gradient-to-t 
+                    ${reserveStyle[r.progress].from} opacity-40 to-transparent z-[0]`}
+                    />
+                    <div
+                      className={`absolute right-2 top-2 w-[10px] h-[10px] rounded-full 
+                  ${reserveStyle[r.progress].bg} opacity-100 custom-ping`}
+                    />
+                  </>
+                )
+              })}
               {providerSchedule.length > 2 && (
-                <MoreButton
-                  date={date}
-                  restItem={providerSchedule[0].restItem}
-                  onClick={handleViewMore}
-                />
+                <div className='absolute'>
+                  <MoreButton
+                    date={date}
+                    restItem={providerSchedule[0].restItem}
+                    onClick={handleViewMore}
+                  />
+                </div>
               )}
             </div>
           </div>
@@ -161,7 +194,7 @@ export default function Daily({ daily }: Props) {
       })}
       {openMoreModal && (
         <CalendarModal onClose={setCloseMoreModal}>
-          <DailyDetail date={targetDate} />
+          <DailyDetail date={targetDate} onClick={handleSchedule} />
         </CalendarModal>
       )}
       {openPortal && (
@@ -173,8 +206,8 @@ export default function Daily({ daily }: Props) {
               schedule={targetSchedule}
               date={targetDate}
               onCancle={setClosePortal}
-              onReserve={handleReserve}
               onEdit={handleEdit}
+              onReserve={handleReserve}
               onSubmit={handleSubmitSchedule}
             />
           </CalendarModal>
