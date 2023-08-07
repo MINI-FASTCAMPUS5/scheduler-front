@@ -7,7 +7,6 @@ import Sample from '@/pages/Sample/Sample'
 import '@/App.css'
 import Optimistic from '@/pages/Sample/Optimistic'
 import MainLayout from '@/components/layouts/MainLayout'
-import SignInTestPage from '@/pages/Sample/SignInTestPage'
 import SignUpTestPage from '@/pages/Sample/SignUpTestPage'
 import Home from './pages/Home'
 
@@ -52,7 +51,6 @@ function App() {
         </Route>
         <Route path='/' element={<MainLayout />}>
           <Route path='/' element={<Home />} />
-          <Route path='/login/test' element={<SignInTestPage />} />
           <Route path='/login/api/test' element={<SignInAPITestPage />} />
           <Route path='/signup/test' element={<SignUpTestPage />} />
         </Route>
