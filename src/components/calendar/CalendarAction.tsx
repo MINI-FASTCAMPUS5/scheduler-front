@@ -54,12 +54,14 @@ export default function CalendarAction({
   const handleReserve = (schedule: ProviderScheduleWithPos, selectDate: string) => {
     reserveMutation
       .mutateAsync({
-        adminId: schedule.id,
+        adminId: schedule.userId,
         selectDate: dayjs(selectDate).format(DATE_REQEUST_FORMAT)
       })
       .then((isReflected) => {
-        if (isReflected) onReserve('행사가 추가되었습니다.')
-        else onReserve('행사 추가에 실패했습니다.')
+        if (isReflected) {
+          queryClient.invalidateQueries(['schedule'])
+          onReserve('행사가 추가되었습니다.')
+        } else onReserve('행사 추가에 실패했습니다.')
       })
       .catch(() => {
         onReserve('행사 추가에 실패했습니다.')
@@ -89,14 +91,6 @@ export default function CalendarAction({
         }
       )
     )
-
-    console.info({
-      id: schedule.id,
-      title: schedule.title,
-      description: schedule.description,
-      scheduleStart: dayjs(schedule.startDate).format(DATE_REQEUST_FORMAT),
-      scheduleEnd: dayjs(schedule.endDate).format(DATE_REQEUST_FORMAT)
-    })
 
     api(`/admin/schedule/update/${schedule.id}`, {
       method: 'POST',
