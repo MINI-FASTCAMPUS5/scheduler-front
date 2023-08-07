@@ -6,7 +6,7 @@ export default function CalendarLayout() {
   const navigate = useNavigate()
   const { loggedIn } = useUser()
   useEffect(() => {
-    if (!loggedIn) navigate('/login/test')
+    if (!loggedIn) navigate('/login/api/test')
   }, [loggedIn, navigate])
 
   return (

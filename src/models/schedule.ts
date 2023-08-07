@@ -36,6 +36,7 @@ export type AdminSchedule = {
 }
 
 export type UserSchedule = {
+  id: string
   scheduleStart: string // reservedDate
   createdAt: string
   progress: 'WAITING' | 'ACCEPT' | 'REFUSE'

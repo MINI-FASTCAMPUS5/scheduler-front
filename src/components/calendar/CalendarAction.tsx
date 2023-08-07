@@ -54,7 +54,7 @@ export default function CalendarAction({
   const handleReserve = (schedule: ProviderScheduleWithPos, selectDate: string) => {
     reserveMutation
       .mutateAsync({
-        adminId: schedule.userId,
+        adminId: schedule.id,
         selectDate: dayjs(selectDate).format(DATE_REQEUST_FORMAT)
       })
       .then((isReflected) => {

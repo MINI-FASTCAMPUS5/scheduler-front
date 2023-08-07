@@ -28,6 +28,7 @@ export const fetchSchedule = async ({
         Authorization: token
       }
     })
+
     const schedule = res.data.schedulerAdmin
       .map((s) => {
         return {
@@ -52,7 +53,7 @@ export const fetchSchedule = async ({
     const reservedList = res.data.schedulerUser.map((s) => {
       const reservedDate = dayjs(s.scheduleStart).format(DATE_FORMAT)
       return {
-        id: s.scheduleStart + s.createdAt,
+        id: s.id,
         userID: s.user.id,
         profileImage: s.user.profileImage,
         fullName: s.user.fullName,
