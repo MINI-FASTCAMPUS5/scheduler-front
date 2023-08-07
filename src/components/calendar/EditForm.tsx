@@ -1,6 +1,5 @@
 import React from 'react'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
-
 import EditFormInformation from './EditFormInformation'
 
 type Props = {

@@ -48,8 +48,8 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
     // todo : validation 체크하기
     const newSchedule = {
       ...schedule,
-      startDate,
-      endDate,
+      startDate: startDate ? startDate : schedule.startDate,
+      endDate: endDate ? endDate : schedule.endDate,
       title,
       description,
       imgFile

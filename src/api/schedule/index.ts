@@ -28,11 +28,10 @@ export const fetchSchedule = async ({
         Authorization: token
       }
     })
-    // console.log('RES:DATA : ', res.data)
     const schedule = res.data.schedulerAdmin
       .map((s) => {
         return {
-          id: s.user.id + s.createdAt, // post id PK가 안와서 임시로 만듬
+          id: s.id, // post id PK가 안와서 임시로 만듬
           userId: s.user.id,
           title: s.title,
           fullName: s.user.fullName,

@@ -9,6 +9,7 @@ import { addSchedule } from '@/api/schedule/user'
 import dayjs from 'dayjs'
 import useUser from '@/hooks/user'
 import { DATE_REQEUST_FORMAT } from '@/constants'
+import api from '@/api'
 
 type Props = {
   type: 'add' | 'edit' | 'reserve'
@@ -70,8 +71,48 @@ export default function CalendarAction({
       imgFile?: File
     }
   ) => {
-    console.info('HANDLE SCHEDULE', schedule)
-    onEdit(true)
+    const formData = new FormData()
+    if (schedule.imgFile) formData.append('file', schedule.imgFile as Blob)
+    formData.append(
+      'dto',
+      new Blob(
+        [
+          JSON.stringify({
+            title: schedule.title,
+            scheduleStart: dayjs(schedule.startDate).format(DATE_REQEUST_FORMAT),
+            scheduleEnd: dayjs(schedule.endDate).format(DATE_REQEUST_FORMAT),
+            description: schedule.description
+          })
+        ],
+        {
+          type: 'application/json'
+        }
+      )
+    )
+
+    console.info({
+      id: schedule.id,
+      title: schedule.title,
+      description: schedule.description,
+      scheduleStart: dayjs(schedule.startDate).format(DATE_REQEUST_FORMAT),
+      scheduleEnd: dayjs(schedule.endDate).format(DATE_REQEUST_FORMAT)
+    })
+
+    api(`/admin/schedule/update/${schedule.id}`, {
+      method: 'POST',
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: cookie.AccessToken
+      }
+    })
+      .then(() => {
+        onEdit(true)
+      })
+      .catch((err) => {
+        console.error(err)
+        onEdit(false)
+      })
   }
 
   return (

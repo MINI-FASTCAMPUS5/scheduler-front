@@ -25,6 +25,7 @@ export type ProviderReservedList = {
 }
 
 export type AdminSchedule = {
+  id: string
   createdAt: string
   description: string
   scheduleEnd: string
