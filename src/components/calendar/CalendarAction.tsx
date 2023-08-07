@@ -17,17 +17,18 @@ type Props = {
   date: string
   onCancle: () => void
   onReserve: (message: string) => void
-  onEdit: (schedule: ProviderScheduleWithPos) => void
+  onEdit: (isEdit: boolean) => void
   onSubmit: (schedule: ScheduleAddFormData) => void
 }
+
 export default function CalendarAction({
   type,
   user,
   schedule,
   date,
+  onEdit,
   onCancle,
   onReserve,
-  onEdit,
   onSubmit
 }: Props) {
   const [cookie] = useCookies(['AccessToken'])
@@ -64,13 +65,22 @@ export default function CalendarAction({
       })
   }
 
+  const handleEdit = (
+    schedule: ProviderScheduleWithPos & {
+      imgFile?: File
+    }
+  ) => {
+    console.info('HANDLE SCHEDULE', schedule)
+    onEdit(true)
+  }
+
   return (
     <>
       {type === 'add' && user == 'admin' && (
         <AddForm onCancle={onCancle} onSubmit={onSubmit} date={date} />
       )}
       {type === 'edit' && user == 'admin' && (
-        <EditForm onCancle={onCancle} onEdit={onEdit} schedule={schedule!} />
+        <EditForm onCancle={onCancle} onEdit={handleEdit} schedule={schedule!} />
       )}
       {type === 'reserve' && (
         <ReserveForm

@@ -5,9 +5,12 @@ import EditFormInformation from './EditFormInformation'
 
 type Props = {
   schedule: ProviderScheduleWithPos
-
   onCancle: () => void
-  onEdit: (schedule: ProviderScheduleWithPos) => void
+  onEdit: (
+    schedule: ProviderScheduleWithPos & {
+      imgFile?: File
+    }
+  ) => void
 }
 
 export default function EditForm({ schedule, onCancle, onEdit }: Props) {

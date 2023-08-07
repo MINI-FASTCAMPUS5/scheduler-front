@@ -50,9 +50,6 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
 
   return (
     <>
-      <p className='text-red-500 font-bold'>
-        * 더미데이터는 공연 이미지가 없습니다. profile 이미지로 대체합니다.
-      </p>
       <div className={'flex pb-4 justify-between items-end pt-4'}>
         <span draggable={true} className='text-xl font-bold flex-1'>
           이미지
