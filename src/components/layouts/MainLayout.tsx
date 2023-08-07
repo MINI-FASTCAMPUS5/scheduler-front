@@ -13,7 +13,7 @@ export default function MainLayout() {
       navigate(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`)
       return
     }
-    // navigate('/login/api/test')
+    navigate('/login/api/test')
   }, [getUserInfo, navigate, loggedIn])
   return (
     <main className='flex min-h-screen'>
