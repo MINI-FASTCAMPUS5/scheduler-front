@@ -67,7 +67,6 @@ export function getProviderSchdule(
   )
 
   const restItem = filtetedSchedule.length > 2 ? filtetedSchedule.length - 2 : 0
-
   const providerSchedule: ProviderScheduleWithPos[] = Array(100).fill(null)
   filtetedSchedule
     .map((s) => {
@@ -83,15 +82,20 @@ export function getProviderSchdule(
       if (s.startDate === date && s.endDate === date) pos = 'start-end'
       return { ...s, pos, restItem }
     })
-    .forEach((s, i) => {
+    .forEach((s) => {
       // * 하루 전 스케줄과 오늘 스케줄을 비교해서 적절한 인덱스에 스케줄을 넣는다.
       const pi = prevSchedule.findIndex((ps) => ps.id === s.id)
       if (pi !== -1) {
-        if (pi == 2 && providerSchedule[i] === null) {
-          providerSchedule[pi] = { ...s, pos: 'start' }
-        } else {
-          providerSchedule[pi] = { ...s }
-        }
+        // if (pi == 2 && providerSchedule[pi] === null) {
+        //   if (providerSchedule[0] === null)
+        //     providerSchedule[0] = { ...s, pos: 'start', startDate: date }
+        //   else {
+        //     providerSchedule[pi] = { ...s, pos: 'start', startDate: date }
+        //   }
+        // } else {
+        providerSchedule[pi] = { ...s }
+        // }
+        return
       } else {
         for (let j = 0; j < providerSchedule.length; j++) {
           if (providerSchedule[j] === null) {
@@ -101,6 +105,5 @@ export function getProviderSchdule(
         }
       }
     })
-
   return providerSchedule.filter((s) => s !== null)
 }
