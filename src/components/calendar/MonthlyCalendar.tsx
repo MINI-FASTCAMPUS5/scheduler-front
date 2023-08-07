@@ -14,17 +14,17 @@ export default function MonthlyCalendar() {
   const dailyIdx = caculateDailyIdx(year, month)
 
   return (
-    <div className='w-full'>
-      <div
-        id={CALENDAR_TAG_ID}
-        className={`grid grid-cols-cal-w gap-1 grid-rows-cal-h-13
-       w-fit  m-auto overflow-x-hidden
-       transition-all duration-100 ease-in-out rounded-xl border-[4px] border-white
-       `}
-      >
-        <Weeks />
-        {isSuccess && <Daily daily={dailyIdx} />}
-      </div>
+    <div
+      id={CALENDAR_TAG_ID}
+      className={`grid grid-cols-cal-w gap-1 grid-rows-cal-h-13 m-auto overflow-x-hidden 
+transition-all duration-100 ease-in-out rounded-xl border-[4px] border-white`}
+    >
+      <Weeks />
+      {isSuccess ? (
+        <Daily daily={dailyIdx} />
+      ) : (
+        dailyIdx.map((d, i) => <div key={d + i} className='cell min-h-[100px] md:min-h-[120px]' />)
+      )}
     </div>
   )
 }

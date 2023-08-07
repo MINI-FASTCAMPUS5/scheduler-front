@@ -13,7 +13,6 @@ import DailyDetail from '@/components/calendar/DailyDetail'
 import ModalPortal from '@/components/ui/ModalPortal'
 import CalendarAction from '@/components/calendar/CalendarAction'
 import { DATE_FORMAT } from '@/constants'
-import { ScheduleAddFormData } from '@/components/calendar/AddForm'
 
 type Props = {
   daily: string[]
@@ -71,8 +70,9 @@ export default function Daily({ daily }: Props) {
   }, [])
 
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
-  const handleEdit = (schedule: ProviderScheduleWithPos) => {
-    alert(`${schedule.title} 공연을 ${schedule.startDate} ~ ${schedule.endDate}로 수정 하셨습니다.`)
+  const handleEdit = (isEdit: boolean) => {
+    if (isEdit) alert('수정되었습니다.')
+    else alert('수정에 실패했습니다.')
     setOpenPortal(false)
   }
 
@@ -82,15 +82,8 @@ export default function Daily({ daily }: Props) {
   }
 
   // * 공연 추가 모달에서 새로운 공연을 추가하면 실행됩니다.
-  const handleSubmitSchedule = (schedule: ScheduleAddFormData) => {
-    alert(
-      schedule.title +
-        ' 공연을 ' +
-        schedule.startDate +
-        ' ~ ' +
-        schedule.endDate +
-        '로 등록 하셨습니다.'
-    )
+  const handleSubmitSchedule = (message: string) => {
+    alert(message)
     setOpenPortal(false)
   }
 

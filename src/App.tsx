@@ -38,6 +38,7 @@ function App() {
           />
           <Route path='/manager/approval' element={<ApprovalPage />} />
           <Route path='/manager/dashboard' element={<ManagerDashboardPage />} />
+          <Route path='/manager/edit' element={<Edit />} />
         </Route>
         <Route path='/user' element={<UserLayout />}>
           <Route path='/user/mypage' element={<MyPage />} />

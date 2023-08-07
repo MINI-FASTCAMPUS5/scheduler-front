@@ -9,8 +9,11 @@ import { CALENDAR_TAG_ID, DATE_ROUTE_FORMAT } from '@/constants'
 import Button from '@/components/ui/Button'
 import HighlightInformation from '@/components/calendar/HighlightInformation'
 import ArrowButton, { DirectionType } from '@/components/ui/ArrowButton'
+import useUser from '@/hooks/user'
 
 export default function CalendarSwiper() {
+  const { getUserInfo } = useUser()
+  const user = getUserInfo()
   const location = useLocation()
   const { isFetching } = useSchedule()
   const { year, month } = useSchedule()
@@ -21,7 +24,6 @@ export default function CalendarSwiper() {
     (direction: DirectionType) => {
       //  todo 비정상적 주소 이동 어떻게 처리할지 정하기
       if (!year || !month) return alert('비정상적인 접근입니다.')
-
       const route = location.pathname.split(`/${year}`)[0]
       const path = swipeCalendar(direction, {
         year,
@@ -43,13 +45,11 @@ export default function CalendarSwiper() {
 
   // todo max width를 캘린더와 동일하게 맞추기
   return (
-    <div className='flex items-center  justify-between mt-2 mb-14  mx-auto'>
-      <div className='min-w-[33.33%] basis-[33.33%] relative'>
-        <HighlightInformation />
-      </div>
-      <div className='flex items-center basis-[33.33%]'>
+    <div className='flex items-center justify-center w-full max-w-[1420px] mt-2 mb-4 mx-auto'>
+      <div className='w-[33.33%] flex-wrap'>{user.role === 'USER' && <HighlightInformation />}</div>
+      <div className='flex flex-1 justify-center'>
         <ArrowButton disabled={isFetching} direction='left' onClick={handleArrowBtn} />
-        <h1 className='text-2xl mx-2 text-main'>
+        <h1 className='text-2xl mx-2 text-main whitespace-nowrap'>
           <span className='mr-2'>
             <strong className='text-4xl'>{year}</strong>년
           </span>
@@ -58,9 +58,14 @@ export default function CalendarSwiper() {
           </span>
         </h1>
         <ArrowButton disabled={isFetching} direction='right' onClick={handleArrowBtn} />
+        <Button
+          className='ml-2 mt-auto  min-w-[50px]'
+          size='sm'
+          text='오늘'
+          onClick={navagateToCurrentDate}
+        />
       </div>
-      <div className='flex basis-auto'>
-        <Button className='mr-2' text='오늘' onClick={navagateToCurrentDate} />
+      <div className='flex w-[33.33%] justify-end'>
         <Button className='mr-2' text='월간' onClick={navagateToCurrentDate} />
         <Button text='연간' />
       </div>

@@ -36,12 +36,6 @@ export default function AdminActionBar() {
         id: 'admin-sidebar-3',
         Icon: FaUserEdit,
         url: '/manager/dashboard'
-      },
-      {
-        title: '임시 스케줄 추가 페이지 (제거예정)',
-        id: 'admin-sidebar-4',
-        Icon: FaUserEdit,
-        url: '/calendar/schedule'
       }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps

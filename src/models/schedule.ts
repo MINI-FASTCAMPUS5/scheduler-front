@@ -14,17 +14,14 @@ export type ProviderSchedule = {
 
 export type ProviderReservedList = {
   id: string
-  userID: string
-  profileImage: string
-  fullName: string
-  role: string
-  sizeOfTicket: number
+  scheduleId: string
   reservedDate: string
   progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
-  title: string
+  user: FanUser
 }
 
 export type AdminSchedule = {
+  id: string
   createdAt: string
   description: string
   scheduleEnd: string
@@ -35,6 +32,7 @@ export type AdminSchedule = {
 }
 
 export type UserSchedule = {
+  id: string
   scheduleStart: string // reservedDate
   createdAt: string
   progress: 'WAITING' | 'ACCEPT' | 'REFUSE'

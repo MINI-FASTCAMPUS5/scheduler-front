@@ -25,8 +25,8 @@ export default function ReserveDetail({ user }: Props) {
       <div className='flex justify-center'>
         {isSuccess && data && (
           <>
-            <Ticket type='used' ticket={data?.usedTicket} />
-            <Ticket type='rest' ticket={data?.sizeOfTicket} />
+            <Ticket type='used' ticket={data?.getUserInfoDTO.usedTicket} />
+            <Ticket type='rest' ticket={data?.getUserInfoDTO.sizeOfTicket} />
           </>
         )}
       </div>

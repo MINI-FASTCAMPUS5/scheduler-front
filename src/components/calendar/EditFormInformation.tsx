@@ -8,21 +8,26 @@ import Button from '@/components/ui/Button'
 type Props = {
   schedule: ProviderScheduleWithPos
   onCancle: () => void
-  onEdit: (schedule: ProviderScheduleWithPos) => unknown
+  onEdit: (
+    schedule: ProviderScheduleWithPos & {
+      imgFile?: File
+    }
+  ) => unknown
 }
 
 export default function EditFormInformation({ schedule, onEdit, onCancle }: Props) {
   const [imgSrc, setImgSrc] = useState('')
+  const [imgFile, setImgFile] = useState<File>()
   const date = dayjs(new Date()).format(DATE_FORMAT)
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [title, setTitle] = useState(schedule.title)
-  const [description, setDescription] = useState('설명란은 아직 없습니다!')
+  const [description, setDescription] = useState(schedule.description)
   //이미지 미리보기
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (files && files.length > 0) {
-      const file = files[0]
+      setImgFile(files[0])
       const reader = new FileReader()
       reader.onloadend = () => {
         const base64 = reader.result
@@ -35,33 +40,29 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
           setImgSrc(base64.toString())
         }
       }
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(files[0])
     }
   }
 
   const handleSubmit = () => {
-    // todo : validation 체크하기
     const newSchedule = {
       ...schedule,
-      startDate,
-      endDate,
+      startDate: startDate ? startDate : schedule.startDate,
+      endDate: endDate ? endDate : schedule.endDate,
       title,
       description,
-      imgSrc
+      imgFile
     }
     onEdit(newSchedule)
   }
 
   return (
     <>
-      <p className='text-red-500 font-bold'>
-        * 더미데이터는 공연 이미지가 없습니다. profile 이미지로 대체합니다.
-      </p>
       <div className={'flex pb-4 justify-between items-end pt-4'}>
         <span draggable={true} className='text-xl font-bold flex-1'>
           이미지
         </span>
-        {imgSrc ? (
+        {imgFile ? (
           <Banner
             className='mr-2 p-2 bg-slate-300 rounded-xl'
             type='side'
@@ -72,7 +73,7 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
           <Banner
             className='mr-2 p-2 bg-slate-300 rounded-xl'
             type='side'
-            src='/YeonganIdolLogoOrigin.svg'
+            src={schedule.image}
             alt='공연 이미지'
           />
         )}

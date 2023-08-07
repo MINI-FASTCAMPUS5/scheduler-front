@@ -11,7 +11,6 @@ type Props = {
 }
 export default function DailyDetail({ date, onClick }: Props) {
   const { adminSchedule, reservedList, isFetching } = useSchedule()
-
   const [scheduleWithPos, setScheduleWithPos] = useState<ProviderScheduleWithPos[]>([])
 
   useEffect(() => {

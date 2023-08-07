@@ -14,7 +14,7 @@ export default function Profile({ user }: Props) {
         <div className='text-center'>
           <h2 className='text-xl text-white font-bold'> {user.fullName}</h2>
           <Link
-            to='/user/edit'
+            to={`${user.role === 'ADMIN' ? '/manager' : '/user'}/edit`}
             className='inline-block bg-white px-3 rounded-xl font-bold text-[0.9rem] leading-6 mt-4'
           >
             수정
@@ -29,7 +29,7 @@ export default function Profile({ user }: Props) {
           className='font-bold w-4/5 rounded-xl'
           onClick={() => {
             alert('임시로 페이지를 새로 고쳐 로그아웃합니다.')
-            window.location.href = '/login/test'
+            window.location.href = '/login/api/test'
           }}
         />
       </div>

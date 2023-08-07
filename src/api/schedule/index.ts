@@ -31,7 +31,7 @@ export const fetchSchedule = async ({
     const schedule = res.data.schedulerAdmin
       .map((s) => {
         return {
-          id: s.user.id + s.createdAt, // post id PK가 안와서 임시로 만듬
+          id: s.id, // post id PK가 안와서 임시로 만듬
           userId: s.user.id,
           title: s.title,
           fullName: s.user.fullName,
@@ -52,15 +52,13 @@ export const fetchSchedule = async ({
     const reservedList = res.data.schedulerUser.map((s) => {
       const reservedDate = dayjs(s.scheduleStart).format(DATE_FORMAT)
       return {
-        id: s.scheduleStart + s.createdAt,
-        userID: s.user.id,
-        profileImage: s.user.profileImage,
-        fullName: s.user.fullName,
-        role: s.user.role,
-        sizeOfTicket: s.user.sizeOfTicket,
-        reservedDate,
+        id: s.id,
+        scheduleId: s.schedulerAdmin.id,
         progress: s.progress,
-        title: s.schedulerAdmin.title // 고유 ID가 없어서 title로 schedule을 매칭합니다..
+        reservedDate,
+        user: {
+          ...s.user
+        }
       }
     })
 

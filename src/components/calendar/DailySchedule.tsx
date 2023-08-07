@@ -2,7 +2,6 @@ import React from 'react'
 import dayjs from 'dayjs'
 import type { ProviderScheduleWithPos } from '@/utils/calendar'
 import { ProviderReservedList } from '@/models/schedule'
-// import useSchedule from '@/hooks/schedule'
 
 type Props = {
   schedule: ProviderScheduleWithPos
@@ -32,7 +31,7 @@ export default function DailySchedule({
   let bgStyle = 'bg-main hover:bg-[#4619a5]'
   if (typeof reservedList !== 'undefined') {
     reservedList.forEach((r) => {
-      if (r.title === schedule.title) {
+      if (r.scheduleId === schedule.id) {
         bgStyle = bgByProgress[r.progress]
       }
     })
@@ -58,7 +57,7 @@ export default function DailySchedule({
             <img
               src={schedule.profileImage}
               alt={schedule.fullName}
-              className='schedule-cell absolute w-5 h-5 z-40'
+              className='schedule-cell absolute max-w-5 max-h-5 aspect-square object-cover z-40'
             />
             <div
               className={`schedule-cell w-full ${

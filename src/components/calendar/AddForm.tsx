@@ -6,7 +6,7 @@ export type ScheduleAddFormData = {
   endDate: string
   title: string
   description: string
-  image: string
+  imageFile: File
 }
 
 type Props = {
@@ -14,7 +14,6 @@ type Props = {
   onCancle: () => void
   onSubmit: (schedule: ScheduleAddFormData) => void
 }
-
 export default function AddForm({ date, onCancle, onSubmit }: Props) {
   return (
     <section className='overflow-y-scroll h-full p-4 px-12 scrollbar-hide'>
