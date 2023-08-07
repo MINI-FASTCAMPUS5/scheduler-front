@@ -1,7 +1,5 @@
-import { ProviderSchedule } from '@/models/schedule'
-
 // * 월간 공연 목록 API RESPONSE
-export const SCHEDULE_7_MONTH: ProviderSchedule[] = [
+export const SCHEDULE_7_MONTH = [
   {
     id: 'schedule7month1',
     userId: 'admin1',
@@ -75,7 +73,7 @@ export const SCHEDULE_7_MONTH: ProviderSchedule[] = [
     endDate: '2023-07-15'
   }
 ]
-export const SCHEDULE_8_MONTH: ProviderSchedule[] = [
+export const SCHEDULE_8_MONTH = [
   {
     id: 'schedule8month1',
     userId: 'admin1',
