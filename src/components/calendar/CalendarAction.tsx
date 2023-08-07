@@ -7,9 +7,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useCookies } from 'react-cookie'
 import { addSchedule } from '@/api/schedule/user'
 import dayjs from 'dayjs'
-import useUser from '@/hooks/user'
+// import useUser from '@/hooks/user'
 import { DATE_REQEUST_FORMAT } from '@/constants'
 import api from '@/api'
+import { createSchedule } from '@/api/schedule/admin'
 
 type Props = {
   type: 'add' | 'edit' | 'reserve'
@@ -19,7 +20,7 @@ type Props = {
   onCancle: () => void
   onReserve: (message: string) => void
   onEdit: (isEdit: boolean) => void
-  onSubmit: (schedule: ScheduleAddFormData) => void
+  onSubmit: (message: string) => void
 }
 
 export default function CalendarAction({
@@ -33,7 +34,7 @@ export default function CalendarAction({
   onSubmit
 }: Props) {
   const [cookie] = useCookies(['AccessToken'])
-  const { getUserInfo } = useUser()
+  // const { getUserInfo } = useUser()
   const queryClient = useQueryClient()
 
   const reserveMutation = useMutation({
@@ -41,10 +42,19 @@ export default function CalendarAction({
       return addSchedule(adminId, selectDate, cookie.AccessToken)
     },
     onSuccess: async () => {
-      const year = dayjs(date).year()
-      const month = dayjs(date).month() + 1
-      const { id: userId } = getUserInfo()
-      queryClient.invalidateQueries(['schedule', year, month, `${userId ? userId : ''}`])
+      queryClient.invalidateQueries(['schedule'])
+    },
+    onError: (error) => {
+      console.error(error)
+    }
+  })
+
+  const addMutation = useMutation({
+    mutationFn: ({ schedule, token }: { schedule: ScheduleAddFormData; token: string }) => {
+      return createSchedule(schedule, token)
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries(['schedule'])
     },
     onError: (error) => {
       console.error(error)
@@ -60,11 +70,11 @@ export default function CalendarAction({
       .then((isReflected) => {
         if (isReflected) {
           queryClient.invalidateQueries(['schedule'])
-          onReserve('행사가 추가되었습니다.')
-        } else onReserve('행사 추가에 실패했습니다.')
+          onReserve('예약되었습니다.')
+        } else onReserve('예약을 실패했습니다.')
       })
       .catch(() => {
-        onReserve('행사 추가에 실패했습니다.')
+        onReserve('예약을 실패했습니다.')
       })
   }
 
@@ -75,7 +85,6 @@ export default function CalendarAction({
   ) => {
     const formData = new FormData()
     if (schedule.imgFile) formData.append('file', schedule.imgFile as Blob)
-
     formData.append(
       'dto',
       new Blob(
@@ -109,10 +118,27 @@ export default function CalendarAction({
       })
   }
 
+  const handleSubmit = (schedule: ScheduleAddFormData) => {
+    addMutation
+      .mutateAsync({
+        schedule,
+        token: cookie.AccessToken
+      })
+      .then((isReflected) => {
+        if (isReflected) {
+          queryClient.invalidateQueries(['schedule'])
+          onSubmit('행사가 추가되었습니다.')
+        } else onSubmit('행사 추가에 실패했습니다.')
+      })
+      .catch(() => {
+        onSubmit('행사 추가에 실패했습니다.')
+      })
+  }
+
   return (
     <>
       {type === 'add' && user == 'admin' && (
-        <AddForm onCancle={onCancle} onSubmit={onSubmit} date={date} />
+        <AddForm onCancle={onCancle} onSubmit={handleSubmit} date={date} />
       )}
       {type === 'edit' && user == 'admin' && (
         <EditForm onCancle={onCancle} onEdit={handleEdit} schedule={schedule!} />

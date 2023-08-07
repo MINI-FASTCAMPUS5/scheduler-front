@@ -10,16 +10,18 @@ type Props = {
 }
 
 export default function EditFormInformation({ date, onSubmit, onCancle }: Props) {
+  const [file, setFile] = useState<File>()
   const [imgSrc, setImgSrc] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('설명란은 아직 없습니다!')
+  const [description, setDescription] = useState('')
   //이미지 미리보기
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (files && files.length > 0) {
       const file = files[0]
+      setFile(file)
       const reader = new FileReader()
       reader.onloadend = () => {
         const base64 = reader.result
@@ -38,12 +40,13 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
 
   const handleSubmit = () => {
     // todo : validation 체크하기
+    if (!file) return
     const newSchedule = {
       startDate,
       endDate,
       title,
       description,
-      image: imgSrc
+      imageFile: file
     }
     onSubmit(newSchedule)
   }
@@ -134,7 +137,7 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
           className='bg-slate-100 p-2 min-w-[300px] max-w-[300px] rounded-xl'
           rows={3}
           defaultValue={description}
-          placeholder='행사 설명을 입력해주세요'
+          placeholder='행사 내용을 입력해주세요'
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
