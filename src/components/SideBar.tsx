@@ -15,7 +15,7 @@ export default function SideBar() {
 
   return (
     <aside
-      className={`sticky top-2 left-2 mb-2 flex flex-col min-w-[300px] max-w-[300px] max-h-[calc(100vh_-_1rem)] min-h-[860px] pt-4 rounded-[20px] bg-main z-[60]
+      className={`sticky mt-2 left-2 mb-2 flex flex-col min-w-[300px] max-w-[300px] max-h-[calc(100vh_-_1rem)] min-h-[860px] pt-4 rounded-[20px] bg-main z-[60]
       transition-all ease-out duration-75`}
     >
       <div>
