@@ -31,7 +31,7 @@ export default function DailySchedule({
   let bgStyle = 'bg-main hover:bg-[#4619a5]'
   if (typeof reservedList !== 'undefined') {
     reservedList.forEach((r) => {
-      if (r.id === schedule.id) {
+      if (r.scheduleId === schedule.id) {
         bgStyle = bgByProgress[r.progress]
       }
     })

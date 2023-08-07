@@ -55,6 +55,7 @@ export default function ScheduleAddTestPage() {
     <div className='grid grid-cols-cal-frame-w'>
       <SideBar />
       {/*  max-w-[1432px] px-[0.25rem]는 켈린더 최대 너비입니다. */}
+
       <div className='mb-12 min-w-[760px] max-w-[1432px] px-[1.25rem]'>
         <Banner className='py-4' src='/newjeans_ad.png' type='top' alt='newjeans banner' />
         <div>

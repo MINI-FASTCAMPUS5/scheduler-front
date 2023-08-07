@@ -2,7 +2,7 @@ import api from '@/api'
 
 export const addSchedule = async (adminId: string, selectDate: string, cookie: string) => {
   try {
-    const res = await api({
+    await api({
       url: `/user/schedule/create?schedulerAdminId=${adminId}`,
       method: 'POST',
       headers: {
@@ -12,10 +12,9 @@ export const addSchedule = async (adminId: string, selectDate: string, cookie: s
         scheduleStart: selectDate
       }
     })
-    console.info(res)
     return true
   } catch (err) {
-    console.info(err)
+    console.error(err)
     return false
   }
 }

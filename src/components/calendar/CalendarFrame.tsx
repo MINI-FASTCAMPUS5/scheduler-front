@@ -14,7 +14,7 @@ export default function CalendarFrame() {
     <>
       <CalendarSwiper />
       {(isFetching || isLoading) && (
-        <div className='fixed flex flex-col w-full h-full left-0 top-0 bg-purple-50 z-[99999] justify-center items-center opacity-90 overflow-hidden'>
+        <div className='fixed flex flex-col w-full h-full left-0 top-0 bg-purple-50 z-[9999] justify-center items-center opacity-90 overflow-hidden'>
           <div className='text-black  text-7xl font-extrabold opacity-80 mb-12'>
             데이터를 가져오고 있습니다!
           </div>

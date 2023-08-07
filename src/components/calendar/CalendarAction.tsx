@@ -54,7 +54,7 @@ export default function CalendarAction({
   const handleReserve = (schedule: ProviderScheduleWithPos, selectDate: string) => {
     reserveMutation
       .mutateAsync({
-        adminId: schedule.userId,
+        adminId: schedule.id,
         selectDate: dayjs(selectDate).format(DATE_REQEUST_FORMAT)
       })
       .then((isReflected) => {
@@ -75,6 +75,7 @@ export default function CalendarAction({
   ) => {
     const formData = new FormData()
     if (schedule.imgFile) formData.append('file', schedule.imgFile as Blob)
+
     formData.append(
       'dto',
       new Blob(
@@ -91,7 +92,6 @@ export default function CalendarAction({
         }
       )
     )
-
     api(`/admin/schedule/update/${schedule.id}`, {
       method: 'POST',
       data: formData,

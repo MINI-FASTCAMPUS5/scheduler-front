@@ -6,27 +6,31 @@ export type SchedulerRoleUserList = {
   progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
 }
 export type TicketListResponse = {
-  createdAt: string
-  email: string
-  fullName: string
-  profileImage: string
+  getUserInfoDTO: {
+    id: number
+    email: string
+    fullName: string
+    profileImage: string
+    role: 'USER' | 'ADMIN'
+    sizeOfTicket: number
+    usedTicket: number
+  }
   schedulerRoleUserList: SchedulerRoleUserList[]
-  sizeOfTicket: number
-  usedTicket: number
 }
 export const getMyTicketList = async (cookie: string): Promise<TicketListResponse | null> => {
   try {
-    const { data } = await api({
+    const res = await api({
       url: '/mypage?role=USER',
       method: 'GET',
       headers: {
         Authorization: cookie
       }
     })
-    if (data.data) return data.data
+
+    if (res.data.data) return res.data.data
     return null
   } catch (error) {
-    console.error(error)
+    console.info(error)
     return null
   }
 }

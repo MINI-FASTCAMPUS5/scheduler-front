@@ -45,7 +45,6 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
   }
 
   const handleSubmit = () => {
-    // todo : validation 체크하기
     const newSchedule = {
       ...schedule,
       startDate: startDate ? startDate : schedule.startDate,
@@ -74,7 +73,7 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
           <Banner
             className='mr-2 p-2 bg-slate-300 rounded-xl'
             type='side'
-            src='/YeonganIdolLogoOrigin.svg'
+            src={schedule.image}
             alt='공연 이미지'
           />
         )}
