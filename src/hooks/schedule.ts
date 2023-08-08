@@ -1,4 +1,5 @@
 import { fetchSchedule } from '@/api/schedule'
+import { ACCESS_TOKEN } from '@/constants'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
@@ -6,7 +7,7 @@ import { useParams } from 'react-router-dom'
 
 export default function useSchedule(userId?: string) {
   const params = useParams()
-  const [cookie] = useCookies(['AccessToken'])
+  const [cookie] = useCookies([ACCESS_TOKEN])
   // ? year, month가 없는 경우 체크 필요 redirect 해야함
   const [year, setYear] = useState(params.year ? parseInt(params.year) : 0)
   const [month, setMonth] = useState(params.month ? parseInt(params.month) : 0)

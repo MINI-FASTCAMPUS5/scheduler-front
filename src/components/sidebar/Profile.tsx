@@ -29,7 +29,7 @@ export default function Profile({ user }: Props) {
           className='font-bold w-4/5 rounded-xl'
           onClick={() => {
             alert('임시로 페이지를 새로 고쳐 로그아웃합니다.')
-            window.location.href = '/login/api/test'
+            window.location.href = '/login'
           }}
         />
       </div>

@@ -11,7 +11,7 @@ export default function MyPage() {
 
   if (fan.role !== 'USER') {
     alert('관리자는 접근할 수 없는 페이지입니다.')
-    navigate('/login/api/test')
+    navigate('/login')
     return
   }
 

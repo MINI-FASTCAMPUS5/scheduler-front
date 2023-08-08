@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { api } from './index'
+import api from './index'
 
 interface ApiResponse<T> {
   data: T
