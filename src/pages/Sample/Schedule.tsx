@@ -1,13 +1,13 @@
 import api from '@/api'
 import Banner from '@/components/Banner'
 import SideBar from '@/components/SideBar'
-import { DATE_REQEUST_FORMAT } from '@/constants'
+import { ACCESS_TOKEN, DATE_REQEUST_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'
 
 export default function ScheduleAddTestPage() {
-  const [cookie] = useCookies(['AccessToken'])
+  const [cookie] = useCookies([ACCESS_TOKEN])
   const [file, setFile] = useState<File>()
   const [title, setTitle] = useState('')
   const [scheduleStart, setScheduleStart] = useState('')

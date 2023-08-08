@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie'
 import { addSchedule } from '@/api/schedule/user'
 import dayjs from 'dayjs'
 // import useUser from '@/hooks/user'
-import { DATE_REQEUST_FORMAT } from '@/constants'
+import { ACCESS_TOKEN, DATE_REQEUST_FORMAT } from '@/constants'
 import api from '@/api'
 import { createSchedule } from '@/api/schedule/admin'
 
@@ -33,7 +33,7 @@ export default function CalendarAction({
   onReserve,
   onSubmit
 }: Props) {
-  const [cookie] = useCookies(['AccessToken'])
+  const [cookie] = useCookies([ACCESS_TOKEN])
   // const { getUserInfo } = useUser()
   const queryClient = useQueryClient()
 

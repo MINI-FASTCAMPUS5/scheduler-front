@@ -3,9 +3,10 @@ import Button from '@/components/ui/Button'
 import { getProfileInfo, updateUserProfile } from '@/api/userEdit'
 //uploadProfileImage
 import { useCookies } from 'react-cookie'
+import { ACCESS_TOKEN } from '@/constants'
 
 export default function Edit() {
-  const [cookies] = useCookies(['AccessToken'])
+  const [cookies] = useCookies([ACCESS_TOKEN])
 
   //const [profileImage, setProfileImage] = useState<File | null>(null)
   const [name, setName] = useState<string>('')

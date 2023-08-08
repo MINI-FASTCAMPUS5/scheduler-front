@@ -1,4 +1,5 @@
 import api from '@/api'
+import { ACCESS_TOKEN } from '@/constants'
 import { AdminUser, FanUser } from '@/models/user'
 import React, { createContext, useState, useMemo, useCallback } from 'react'
 import { useCookies } from 'react-cookie'
@@ -24,7 +25,7 @@ type Props = {
 
 function UserProvider({ children }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies(['AccessToken'])
+  const [cookies, setCookie, removeCookie] = useCookies([ACCESS_TOKEN])
   const [userInfo, setUserInfo] = useState({} as AdminUser | FanUser)
   const [loggedIn, setLoggedIn] = useState(false)
 
@@ -49,7 +50,7 @@ function UserProvider({ children }: Props) {
           'Content-Type': 'application/json'
         }
       })
-      setCookie('AccessToken', res.headers.authorization, { path: '/' })
+      setCookie(ACCESS_TOKEN, res.headers.authorization, { path: '/' })
       setUserInfo(res.data.data as AdminUser | FanUser)
 
       setLoggedIn(true)

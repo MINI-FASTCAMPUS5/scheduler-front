@@ -5,12 +5,13 @@ import { getMyTicketList } from '@/api/user/mypage'
 import Ticket from './Ticket'
 import TicketList from './TicketList'
 import { FanUser } from '@/models/user'
+import { ACCESS_TOKEN } from '@/constants'
 
 type Props = {
   user: FanUser
 }
 export default function ReserveDetail({ user }: Props) {
-  const [cookie] = useCookies(['AccessToken'])
+  const [cookie] = useCookies([ACCESS_TOKEN])
 
   const { data, isSuccess } = useQuery(
     ['myTicketList', user.id ? user.id : ''],

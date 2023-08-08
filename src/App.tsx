@@ -44,19 +44,16 @@ function App() {
           <Route path='/user/mypage' element={<MyPage />} />
           <Route path='/user/edit' element={<Edit />} />
         </Route>
-        <Route>
-          <Route path='/login' element={<SignInPage />} />
-        </Route>
-        <Route>
-          <Route path='/SignupPage' element={<SignupPage />} />
-        </Route>
+        <Route />
         <Route path='/' element={<MainLayout />}>
           <Route path='/' element={<Home />} />
-          <Route path='/login/api/test' element={<SignInAPITestPage />} />
-          <Route path='/signup/test' element={<SignUpTestPage />} />
+          <Route path='/login' element={<SignInPage />} />
+          <Route path='/signup' element={<SignupPage />} />
         </Route>
         {/* ! react-query Sample 페이지입니다 ! */}
         <Route path='/sample' element={<Sample />} />
+        <Route path='/login/api/test' element={<SignInAPITestPage />} />
+        <Route path='/signup/test' element={<SignUpTestPage />} />
         <Route path='/sample/optimistic' element={<Optimistic />} />
       </Routes>
     </>
