@@ -1,105 +1,88 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useState, ChangeEvent } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { loginUser } from '../api/api'
+import { useCookies } from 'react-cookie'
+import useUser from '@/hooks/user'
+import dayjs from 'dayjs'
+import { DATE_ROUTE_FORMAT } from '@/constants'
 
 const SignInPage: React.FC = () => {
-  // 이메일, 비밀번호 등의 상태(state)를 관리합니다.
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  // 이메일, 비밀번호 입력 형식 체크 상태 (errorMessage)
-  const [emailValid, setEmailValid] = useState<boolean>(false);
-  const [passwordValid, setPasswordValid] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [emailValid, setEmailValid] = useState<boolean>(false)
+  const [passwordValid, setPasswordValid] = useState<boolean>(false)
+  const navigate = useNavigate()
+  const [, setCookie] = useCookies(['userToken'])
+  const { setUserInfo } = useUser() // setUserInfo 가져오기
 
-  // 형식 체크: 이메일 (@ 혹은 .이 들어가있지 않으면 false)
   const checkEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
+    setEmail(e.target.value)
     const regex =
-      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
     if (regex.test(e.target.value)) {
-      setEmailValid(true);
-    } else setEmailValid(false);
-  };
+      setEmailValid(true)
+    } else setEmailValid(false)
+  }
 
-  // 형식 체크: 비밀번호 (8자 이하면 false)
   const checkPassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value);
-    const regex = /^(?!.*[^a-zA-Z0-9$`~!@$!%*#^?&\\()\-=+])[a-zA-Z0-9$`~!@$!%*#^?&\\()\-=+]{8,}$/;
+    setPassword(e.target.value)
+    const regex = /^(?!.*[^a-zA-Z0-9$`~!@$!%*#^?&\\()\-=+])[a-zA-Z0-9$`~!@$!%*#^?&\\()\-=+]{8,}$/
     if (regex.test(e.target.value)) {
-      setPasswordValid(true);
-    } else setPasswordValid(false);
-  };
+      setPasswordValid(true)
+    } else setPasswordValid(false)
+  }
 
-  // 로그인 요청
-  const signIn = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault();
-    // 로그인 API 호출
-    try {
-      const response = await axios.post('/login', {
-        email: email,
-        password: password,
-      });
+  const handleSignIn = async (e: React.FormEvent): Promise<void> => {
+    e.preventDefault()
 
-      // 로그인 성공시 처리 (예: 토큰 저장, 페이지 이동 등)
-      const userJwtToken = response.data.data.accessToken;
-      // 여기서 토큰을 원하는 곳에 저장하면 됩니다. 예를 들어, 쿠키나 로컬스토리지에 저장 가능합니다.
-      alert('로그인 성공! 토큰:' + userJwtToken)
-    } catch (error) {
-      // 로그인 실패시 처리 (예: 에러 메시지 표시 등)
-      console.error('로그인 실패:', error);
+    const result = await loginUser(email, password)
+
+    if (result !== null) {
+      const { data, userJwtToken } = result
+      setUserInfo(data) // setUserInfo 사용
+      // JWT 토큰을 쿠키에 저장
+      setCookie('userToken', userJwtToken)
+      // 유저정보를 보내고,
+      alert('로그인 성공!')
+      const currentDate = dayjs(new Date()).format(DATE_ROUTE_FORMAT)
+      navigate(`/calendar/${currentDate}`) // 메인 페이지로 이동
+    } else {
+      alert('로그인 실패!') // 로그인 실패 시 경고 메시지
     }
-  };
+  }
 
   return (
-    <section>
-      <div className="contentWrap">
-        <div className='page_title'>로그인</div>
-        <form onSubmit={signIn}>
-          <div className="inputBox">
+    <div className='w-[100vw] h-[100vh] bg-wait relative'>
+      <div
+        className='flex  bg-main #6C27FF absolute top-[50px] right-[200px] rounded-xl w-[450px] h-[500px]'
+        style={{
+          backgroundPosition: 'center', // 이미지 위치
+          backgroundSize: 'cover', // 이미지 꽉차게
+          backgroundRepeat: 'no-repeat' // 이미지 반복 지정
+          // width: '250px' // 배경이미지 크기
+        }}
+      >
+        <div>
+          {/* 로그인 폼 */}
+          <form onSubmit={handleSignIn}>
+            <input type='text' value={email} onChange={checkEmail} placeholder='이메일' />
+            {emailValid ? null : <div>올바른 이메일 형식을 입력해 주세요.</div>}
             <input
-              type="text"
-              className="input-id"
-              placeholder="아이디를 입력해 주세요."
-              value={email}
-              onChange={checkEmail}
-            />
-            <input
-              className="input-pw"
-              placeholder="비밀번호를 입력해 주세요."
-              defaultValue={password}
-              type="password"
+              type='password'
+              value={password}
               onChange={checkPassword}
+              placeholder='비밀번호'
             />
-            <div className="valid_desc">
-              {!emailValid && email.length > 0 && (
-                <div className='valid'>
-                  <span className='valid__icon'>❗</span>
-                  올바른 이메일 형식을 입력해 주세요.
-                </div>
-              )}
-              {!passwordValid && password.length > 0 && (
-                <div className='valid'>
-                  <span className='valid__icon'>❗</span>
-                  비밀번호는 8자 이상입니다.
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="sign-btn">
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              disabled={!emailValid || !passwordValid} // 이메일과 비밀번호가 유효하지 않으면 버튼 비활성화
-            >
-              로그인
-            </button>
-            <Link to="/SignupPage" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              회원가입
-            </Link>
-          </div>
-        </form>
-      </div>
-    </section>
-  );
-};
+            {passwordValid ? null : <div>비밀번호는 최소 8자 이상이어야 합니다.</div>}
+            <button type='submit'>로그인</button>
+          </form>
 
-export default SignInPage;
+          {/* 회원가입으로 가는 네비게이션 버튼 */}
+          <Link to='/SignupPage'>회원가입</Link>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default SignInPage
