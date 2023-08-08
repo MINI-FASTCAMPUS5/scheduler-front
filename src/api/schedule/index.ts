@@ -51,7 +51,7 @@ export const fetchSchedule = async ({
     })
 
     // 데이터가 없을 경우 서버측에서 null이 들어간 배열을 반환함
-    if (!res.data.schedulerAdmin) {
+    if (!res.data.schedulerAdmin[0]) {
       return {
         schedule: [],
         reservedList: reservedList
