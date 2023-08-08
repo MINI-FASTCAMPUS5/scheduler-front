@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function SideBarAd() {
   return (
-    <div className='max-h-[310px] border-dotted border-y-2 border-white text-white py-2 overflow-y-scroll scrollbar-hide'>
+    <div className='max-h-[350px] text-white py-8 overflow-y-scroll scrollbar-hide'>
       <img className='m-auto max-h-[260px]' src='/side_add.png' alt='side bar advertisement' />
       <div className='flex items-center justify-center'>
         <button

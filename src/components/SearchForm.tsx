@@ -17,7 +17,7 @@ export default function SearchForm({ onSubmit }: Props) {
     >
       <input
         className={
-          'bg-main text-white w-[240px] outline-none border-2 border-white rounded-3xl px-4 py-2 my-8 mb-10 placeholder:text-#fcfcfcfc'
+          'bg-main text-white w-[240px] outline-none border-2 border-white rounded-3xl px-4 py-2 placeholder:text-#fcfcfcfc'
         }
         type='text'
         value={value}
@@ -28,7 +28,7 @@ export default function SearchForm({ onSubmit }: Props) {
         placeholder='기획사를 입력해주세요!'
       />
       <label htmlFor='searchSubmitBtn'>
-        <BiSearchAlt2 className='absolute w-6 h-6 text-white z-[998] top-[43px] right-[34px] cursor-pointer' />
+        <BiSearchAlt2 className='absolute w-6 h-6 text-white z-[998] top-[12px] right-[34px] cursor-pointer' />
       </label>
       <input type='submit' id='searchSubmitBtn' className='hidden' />
     </form>
