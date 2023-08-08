@@ -27,6 +27,7 @@ export const fetchSchedule = async ({
     let path = '/user/schedule'
     if (keyword) path += `/search?year=${year}&month=${month}&keyword=${keyword}`
     else path += `?year=${year}&month=${month}`
+
     const start = new Date()
 
     const res: { data: Schedule } = await api.get(path, {
@@ -35,11 +36,32 @@ export const fetchSchedule = async ({
       }
     })
 
+    const reservedList = res.data.schedulerUser.map((s) => {
+      const reservedDate = dayjs(s.scheduleStart).format(DATE_FORMAT)
+      return {
+        id: s.id,
+        scheduleId: s.schedulerAdmin.id,
+        progress: s.progress,
+        reservedDate,
+        user: {
+          ...s.user
+        }
+      }
+    })
+
+    // 데이터가 없을 경우 서버측에서 null이 들어간 배열을 반환함
+    if (!res.data.schedulerAdmin) {
+      return {
+        schedule: [],
+        reservedList: reservedList
+      }
+    }
+
     const schedule = res.data.schedulerAdmin
       .map((s) => {
         return {
-          id: s.id.toString(), // post id PK가 안와서 임시로 만듬
-          userId: s.user.id.toString(),
+          id: s.id, // post id PK가 안와서 임시로 만듬
+          userId: s.user.id,
           title: s.title,
           fullName: s.user.fullName,
           image: s.image,
@@ -56,25 +78,12 @@ export const fetchSchedule = async ({
         return a.startDate > b.startDate ? 1 : -1
       })
 
-    const reservedList = res.data.schedulerUser.map((s) => {
-      const reservedDate = dayjs(s.scheduleStart).format(DATE_FORMAT)
-      return {
-        id: s.id,
-        scheduleId: s.schedulerAdmin.id,
-        progress: s.progress,
-        reservedDate,
-        user: {
-          ...s.user
-        }
-      }
-    })
-
     const end = new Date()
     // * userId로 필터링 된 해당 년 월의 스케줄 정보
     await delay({}, 1000 - (end.getTime() - start.getTime()))
     if (userId)
       return {
-        schedule: schedule.filter((s) => s.userId === userId),
+        schedule: schedule.filter((s) => s.userId == userId),
         reservedList
       }
     return {

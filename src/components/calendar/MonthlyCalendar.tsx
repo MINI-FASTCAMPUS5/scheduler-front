@@ -12,7 +12,6 @@ export default function MonthlyCalendar() {
   const navigate = useNavigate()
   const { year, month, isSuccess } = useSchedule()
   const dailyIdx = caculateDailyIdx(year, month)
-
   const searchParams = new URLSearchParams(location.search)
   const keyword = searchParams.get('keyword')
 

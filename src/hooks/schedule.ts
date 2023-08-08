@@ -4,8 +4,9 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useLocation, useParams } from 'react-router-dom'
+import useUser from './user'
 
-export default function useSchedule(userId?: string) {
+export default function useSchedule() {
   const params = useParams()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
@@ -15,6 +16,11 @@ export default function useSchedule(userId?: string) {
   const [month, setMonth] = useState(params.month ? parseInt(params.month) : 0)
   const [day, setDay] = useState(params.day ? parseInt(params.day) : 0)
   const [keyword, setKeyword] = useState(searchParams.get('keyword') || '')
+
+  const { pathname } = useLocation()
+  const { getUserInfo } = useUser()
+  const user = getUserInfo()
+  const userId = user.role === 'ADMIN' && pathname.includes('manager/event/calendar') ? user.id : ''
 
   const {
     data: schedule,
