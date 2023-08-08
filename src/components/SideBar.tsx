@@ -4,6 +4,7 @@ import AdminActionBar from '@/components/AdminActionBar'
 import UserActionBar from '@/components/UserActionBar'
 import Profile from '@/components/sidebar/Profile'
 import SearchForm from '@/components/SearchForm'
+import SideBarAd from './SideBarAd'
 
 export default function SideBar() {
   const { getUserInfo } = useUser()
@@ -25,7 +26,7 @@ export default function SideBar() {
       {user.role === 'USER' && <UserActionBar />}
       {user.role === 'ADMIN' && <AdminActionBar />}
       {/* todo : useUser hooks를 내부에서 호출할지 정하자, 그리고 버튼 디자인 정해지면 버튼은 재사용 가능하게 변경하지*/}
-      <div className='max-h-[300px] py-24 my-4 border-dotted border-y-2 border-white text-white p-4' />
+      <SideBarAd />
       <Profile user={user} />
     </aside>
   )
