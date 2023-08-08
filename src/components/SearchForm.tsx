@@ -14,6 +14,7 @@ export default function SearchForm({ onSubmit }: Props) {
       className='relative text-center'
       onSubmit={(e) => {
         e.preventDefault()
+        alert(value + '로 검색합니다.')
         onSubmit(value)
         setValue('')
       }}
