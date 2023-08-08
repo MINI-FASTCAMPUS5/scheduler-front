@@ -16,7 +16,7 @@ export default function SideBar() {
 
   return (
     <aside
-      className={`sticky mt-2 left-2 mb-2 flex flex-col min-w-[300px] max-w-[300px] max-h-[calc(100vh_-_1rem)] min-h-[860px] pt-4 rounded-[20px] bg-main z-[60]
+      className={`sticky mt-2 left-2 mb-2 flex flex-col min-w-[290px] max-w-[290px] max-h-[calc(100vh_-_1rem)] min-h-[860px] pt-6 rounded-[20px] bg-main z-[60]
       transition-all ease-out duration-75`}
     >
       <div>
@@ -26,7 +26,9 @@ export default function SideBar() {
       {user.role === 'USER' && <UserActionBar />}
       {user.role === 'ADMIN' && <AdminActionBar />}
       {/* todo : useUser hooks를 내부에서 호출할지 정하자, 그리고 버튼 디자인 정해지면 버튼은 재사용 가능하게 변경하지*/}
-      <SideBarAd />
+      <div className='my-auto'>
+        <SideBarAd />
+      </div>
       <Profile user={user} />
     </aside>
   )
