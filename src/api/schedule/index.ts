@@ -9,12 +9,14 @@ type ScheduleRequestOption = {
   month: number
   token: string
   userId?: string
+  keyword?: string
 }
 
 export const fetchSchedule = async ({
   year,
   month,
   userId,
+  keyword,
   token
 }: ScheduleRequestOption): Promise<{
   schedule: ProviderSchedule[]
@@ -22,17 +24,22 @@ export const fetchSchedule = async ({
 }> => {
   try {
     // * 최소 1초의 딜레이로 에니메이션을 보여줌
+    let path = '/user/schedule'
+    if (keyword) path += `/search?year=${year}&month=${month}&keyword=${keyword}`
+    else path += `?year=${year}&month=${month}`
     const start = new Date()
-    const res: { data: Schedule } = await api.get(`/user/schedule?year=${year}&month=${month}`, {
+
+    const res: { data: Schedule } = await api.get(path, {
       headers: {
         Authorization: token
       }
     })
+
     const schedule = res.data.schedulerAdmin
       .map((s) => {
         return {
-          id: s.id, // post id PK가 안와서 임시로 만듬
-          userId: s.user.id,
+          id: s.id.toString(), // post id PK가 안와서 임시로 만듬
+          userId: s.user.id.toString(),
           title: s.title,
           fullName: s.user.fullName,
           image: s.image,

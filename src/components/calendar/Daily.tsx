@@ -32,9 +32,8 @@ export default function Daily({ daily }: Props) {
   const { width, resize, setWidth } = useResize('.cell')
 
   // * 행사 등록/수정 페이지 + 어드민일 경우 자신이 등록한 스케줄만 가져옵니다.
-  const adminId = isAdmin && pathname.includes('manager/event/calendar') ? user.id : undefined
+  const adminId = isAdmin && pathname.includes('manager/event/calendar') ? user.id : ''
   const { month, adminSchedule, reservedList, isFetching } = useSchedule(adminId)
-
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
   useHover(adminId && adminSchedule?.length !== 0 ? true : false)
 

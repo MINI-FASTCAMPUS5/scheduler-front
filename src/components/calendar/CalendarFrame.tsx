@@ -8,7 +8,8 @@ import useUser from '@/hooks/user'
 export default function CalendarFrame() {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
-  const { isFetching, isLoading } = useSchedule(user.id ? user.id : '')
+  const userId = user.role === 'ADMIN' && user.id ? user.id : ''
+  const { isFetching, isLoading } = useSchedule(userId)
 
   return (
     <>
