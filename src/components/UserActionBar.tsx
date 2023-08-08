@@ -30,7 +30,7 @@ export default function UserActionBar() {
   // const openEventSidebar = () => {}
 
   return (
-    <div>
+    <div className='mb-6'>
       {sidebarMenu.map((menu, idx) => {
         return (
           <SidebarMenu

@@ -48,7 +48,7 @@ export default function AdminActionBar() {
   const [activeId, setActiveId] = useState(sidebarMenu[idx].id)
 
   return (
-    <div>
+    <div className='mb-6'>
       {sidebarMenu.map((menu, idx) => {
         return (
           <SidebarMenu

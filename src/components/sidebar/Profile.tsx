@@ -8,7 +8,7 @@ type Props = {
 }
 export default function Profile({ user }: Props) {
   return (
-    <div className='mt-auto mb-8'>
+    <div className='mb-8'>
       <div className='flex justify-center items-center p-4 gap-4'>
         <img className='w-20 h-20 rounded-[2.5rem]' src={user.profileImage} />
         <div className='text-center'>
