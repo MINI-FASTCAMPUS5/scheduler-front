@@ -51,10 +51,15 @@ export default function Daily({ daily }: Props) {
     (schedule: ProviderScheduleWithPos) => {
       setOpenMoreModal(false)
       setTargetSchedule(schedule)
-      setPortalType(pathname.includes('manager/event/calendar') ? 'edit' : 'reserve')
+      setPortalType(() => {
+        if (pathname.includes('manager/event/calendar') && user.id === schedule.userId) {
+          return 'edit'
+        }
+        return 'reserve'
+      })
       setOpenPortal(true)
     },
-    [pathname]
+    [pathname, user.id]
   )
 
   // * 더보기 모달창을 닫습니다.
@@ -89,10 +94,9 @@ export default function Daily({ daily }: Props) {
   const handleOnClickCell = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, date: string) => {
     if (!pathname.includes('manager/event/calendar') || !isAdmin) return
     if ((e.target as HTMLElement).classList.contains('moreBtn')) return
-
-    // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정, cell이라면 스케줄 추가 모달을 띄웁니다.
-    if ((e.target as HTMLElement).classList.contains('schedule-cell')) setPortalType('edit')
-    else setPortalType('add')
+    // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정, cell이라면 return합니다. (handleSchedule에서 처리)
+    if ((e.target as HTMLElement).classList.contains('schedule-cell')) return
+    setPortalType('add')
     setTargetDate(date)
     setOpenPortal(true)
   }

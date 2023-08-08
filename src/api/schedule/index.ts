@@ -81,7 +81,7 @@ export const fetchSchedule = async ({
     const end = new Date()
     // * userId로 필터링 된 해당 년 월의 스케줄 정보
     await delay({}, 1000 - (end.getTime() - start.getTime()))
-    if (userId)
+    if (userId && !keyword)
       return {
         schedule: schedule.filter((s) => s.userId == userId),
         reservedList
