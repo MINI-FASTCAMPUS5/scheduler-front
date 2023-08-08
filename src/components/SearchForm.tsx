@@ -1,11 +1,14 @@
 import React from 'react'
 import { BiSearchAlt2 } from 'react-icons/bi'
+import { useLocation } from 'react-router-dom'
 
 type Props = {
   onSubmit: (value: string) => void
 }
 export default function SearchForm({ onSubmit }: Props) {
-  const [value, setValue] = React.useState('')
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const [value, setValue] = React.useState(searchParams.get('keyword') || '')
   return (
     <form
       className='relative text-center'

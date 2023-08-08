@@ -30,10 +30,13 @@ export default function CalendarSwiper() {
         month,
         path: route
       })
-      navigate(path)
+      const searchParams = new URLSearchParams(location.search)
+      navigate(
+        `${path}${searchParams.get('keyword') ? `?keyword=${searchParams.get('keyword')}` : ''}`
+      )
       appendSwipeAnimation(CALENDAR_TAG_ID, direction)
     },
-    [navigate, year, month, location.pathname]
+    [navigate, year, month, location.pathname, location.search]
   )
 
   // * 오늘로 이동합니다.
