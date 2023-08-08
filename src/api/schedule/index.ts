@@ -25,7 +25,8 @@ export const fetchSchedule = async ({
   try {
     // * 최소 1초의 딜레이로 에니메이션을 보여줌
     let path = '/user/schedule'
-    if (keyword) path += `/search?year=${year}&month=${month}&keyword=${keyword}`
+    if (keyword)
+      path += `/search?year=${year}&month=${month}&keyword=${encodeURIComponent(keyword)}`
     else path += `?year=${year}&month=${month}`
 
     const start = new Date()

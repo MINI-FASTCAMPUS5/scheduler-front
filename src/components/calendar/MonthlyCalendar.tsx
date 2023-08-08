@@ -18,7 +18,7 @@ export default function MonthlyCalendar() {
   return (
     <>
       {keyword && (
-        <div className='pl-1'>
+        <div className='pl-1 w-full max-w-[1420px] mx-auto'>
           <Button
             text={`검색 취소하기 : ${keyword}`}
             size='sm'

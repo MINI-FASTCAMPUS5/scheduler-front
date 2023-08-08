@@ -16,7 +16,8 @@ export default function AdminActionBar() {
   let calendarPath =
     year && month && day
       ? `/calendar/${year}/${month}/${day}`
-      : `/calendar${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`
+      : `/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`
+
   searchParams.get('keyword') && (calendarPath += `?keyword=${searchParams.get('keyword')}`)
 
   const sidebarMenu = [
