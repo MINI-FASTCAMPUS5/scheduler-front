@@ -7,12 +7,12 @@ import { MaskFunction } from 'postprocessing'
 import Fireflies from './Fireflies'
 import './layerMaterial'
 
-let bgUrl =  '/public/resources/bg.jpg'
-let starsUrl = '/public/resources/stars.png'
-let groundUrl =  '/public/resources/ground.png'
-let fanUrl = '/public/resources/fan.png'
-let fans1Url = '/public/resources/fans1.png'
-let fans2Url = '/public/resources/fans2.png'
+let bgUrl = '/resources/bg.jpg'
+let starsUrl = '/resources/stars.png'
+let groundUrl = '/resources/ground.png'
+let fanUrl = '/resources/fan.png'
+let fans1Url = '/resources/fans1.png'
+let fans2Url = '/resources/fans2.png'
 
 function Experience() {
   const scaleN = useAspect(1600, 1000, 1.05)
@@ -27,8 +27,26 @@ function Experience() {
     { texture: textures[1], x: 0, y: 0, z: 10, factor: 0.005, wiggle: 0.2, scale: scaleW },
     { texture: textures[2], x: 0, y: 0, z: 20, scale: scaleW, wiggle: 0.4 },
     { texture: textures[3], x: 0, y: 5, z: 30, scaleFactor: 0.9, wiggle: 0.4, scale: scaleN },
-    { texture: textures[4], x: 0, y: 0, z: 40, factor: 0.03, scaleFactor: 1, wiggle: 0.6, scale: scaleW },
-    { texture: textures[5], x: 0, y: 0, z: 49, factor: 0.03, scaleFactor: 1, wiggle: 0.4, scale: scaleW },
+    {
+      texture: textures[4],
+      x: 0,
+      y: 0,
+      z: 40,
+      factor: 0.03,
+      scaleFactor: 1,
+      wiggle: 0.6,
+      scale: scaleW
+    },
+    {
+      texture: textures[5],
+      x: 0,
+      y: 0,
+      z: 49,
+      factor: 0.03,
+      scaleFactor: 1,
+      wiggle: 0.4,
+      scale: scaleW
+    }
   ]
 
   useFrame((state, delta) => {
@@ -43,22 +61,30 @@ function Experience() {
   return (
     <group ref={group}>
       <Fireflies count={10} radius={80} colors={['orange']} />
-      {layers.map(({ scale, texture, ref, factor = 0, scaleFactor = 1, wiggle = 0, x, y, z }, i) => (
-        <Plane scale={scale} args={[1, 1, wiggle ? 10 : 1, wiggle ? 10 : 1]} position={[x, y, z]} key={i} ref={ref}>
-          <layerMaterial
-            // eslint-disable-next-line react/no-unknown-property
-            movement={movement}
-            // eslint-disable-next-line react/no-unknown-property
-            textr={texture}
-            // eslint-disable-next-line react/no-unknown-property
-            factor={factor}
-            ref={(el) => (layersRef.current[i] = el)}
-            // eslint-disable-next-line react/no-unknown-property
-            wiggle={wiggle}
-            scale={scaleFactor}
-          />
-        </Plane>
-      ))}
+      {layers.map(
+        ({ scale, texture, ref, factor = 0, scaleFactor = 1, wiggle = 0, x, y, z }, i) => (
+          <Plane
+            scale={scale}
+            args={[1, 1, wiggle ? 10 : 1, wiggle ? 10 : 1]}
+            position={[x, y, z]}
+            key={i}
+            ref={ref}
+          >
+            <layerMaterial
+              // eslint-disable-next-line react/no-unknown-property
+              movement={movement}
+              // eslint-disable-next-line react/no-unknown-property
+              textr={texture}
+              // eslint-disable-next-line react/no-unknown-property
+              factor={factor}
+              ref={(el) => (layersRef.current[i] = el)}
+              // eslint-disable-next-line react/no-unknown-property
+              wiggle={wiggle}
+              scale={scaleFactor}
+            />
+          </Plane>
+        )
+      )}
     </group>
   )
 }
@@ -102,22 +128,35 @@ function Canvas({ children }) {
           state.events.connect(document.getElementById('root'))
           state.setEvents({
             compute: (event, state) => {
-              state.pointer.set((event.clientX / state.size.width) * 2 - 1, -(event.clientY / state.size.height) *  + 1)
+              state.pointer.set(
+                (event.clientX / state.size.width) * 2 - 1,
+                -(event.clientY / state.size.height) * +1
+              )
               state.raycaster.setFromCamera(state.pointer, state.camera)
-            },
+            }
           })
-        },
+        }
       })
     }
-    const resize = () => root.current.configure({ width: window.innerWidth, height: window.innerHeight })
+    const resize = () =>
+      root.current.configure({ width: window.innerWidth, height: window.innerHeight })
     window.addEventListener('resize', resize)
     root.current.render(children)
     return () => window.removeEventListener('resize', resize)
   }, [children])
 
   return (
-  <div className="root w-full h-full m-0 p-0 -webkit-touch-callout-none overflow-hidden bg-gray-900">
-  <canvas ref={canvas} style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', display: 'block' }} />
-</div>
+    <div className='root w-full h-full m-0 p-0 -webkit-touch-callout-none overflow-hidden bg-gray-900'>
+      <canvas
+        ref={canvas}
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+          display: 'block'
+        }}
+      />
+    </div>
   )
 }
