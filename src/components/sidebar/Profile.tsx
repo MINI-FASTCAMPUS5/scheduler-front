@@ -2,11 +2,13 @@ import { AdminUser, FanUser } from '@/models/user'
 import React from 'react'
 import Button from '../ui/Button'
 import { Link } from 'react-router-dom'
+import useUser from '@/hooks/user'
 
 type Props = {
   user: Partial<AdminUser | FanUser>
 }
 export default function Profile({ user }: Props) {
+  const { logout } = useUser()
   return (
     <div className='mb-8'>
       <div className='flex justify-center items-center p-4 gap-4'>
@@ -27,10 +29,7 @@ export default function Profile({ user }: Props) {
           type='red'
           size='md'
           className='font-bold w-4/5 rounded-xl'
-          onClick={() => {
-            alert('임시로 페이지를 새로 고쳐 로그아웃합니다.')
-            window.location.href = '/login'
-          }}
+          onClick={() => logout()}
         />
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import useUser from '@/hooks/user'
 import dayjs from 'dayjs'
 import { DATE_ROUTE_FORMAT } from '@/constants'
@@ -9,7 +9,6 @@ export default function SignUpPage() {
   const [password, setPassword] = useState<string>('')
   const [emailValid, setEmailValid] = useState<boolean>(false)
   const [passwordValid, setPasswordValid] = useState<boolean>(false)
-  const navigate = useNavigate()
   const { login } = useUser() // setUserInfo 가져오기
 
   const checkEmail = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -31,10 +30,11 @@ export default function SignUpPage() {
 
   const handleSignIn = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
+    alert('로그인 시도!')
     const loggedIn = await login(email, password)
     if (loggedIn) {
       alert('로그인 성공!')
-      navigate(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`) // 메인 페이지로 이동
+      window.location.replace(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`) // 메인 페이지로 이동
       return
     }
     alert('로그인 실패!') // 로그인 실패 시 경고 메시지

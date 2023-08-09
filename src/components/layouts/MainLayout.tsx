@@ -8,16 +8,21 @@ import Scene from '../ui/animation/Scene'
 export default function MainLayout() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { getUserInfo, loggedIn } = useUser()
+  const { getUserInfo, loggedIn, loading } = useUser()
 
   useEffect(() => {
-    if (loggedIn) {
-      navigate(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`)
+    console.info('로그인 확인')
+    console.info('LOADING : ', loading)
+    console.info('LOGGEDIN : ', loggedIn)
+    if (loggedIn && !loading) {
+      window.location.replace(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`)
+      // navigate(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`)
       return
+    } else {
+      if (location.pathname === '/login' || location.pathname === '/signup') return
+      else navigate('/login')
     }
-    if (location.pathname === '/login' || location.pathname === '/signup') return
-    else navigate('/login')
-  }, [getUserInfo, navigate, loggedIn, location.pathname])
+  }, [getUserInfo, navigate, loggedIn, location.pathname, loading])
 
   return (
     <main className='relative flex h-[100vh] w-[100vw]'>

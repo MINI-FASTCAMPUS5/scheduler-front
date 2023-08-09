@@ -1,29 +1,30 @@
 import React, { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-const CalendarLayout = lazy(() => import('@/components/layouts/CalendarLayout'))
-const CalendarPage = lazy(() => import('@/pages/Calendar'))
+import CalendarLayout from '@/components/layouts/CalendarLayout'
+import CalendarPage from '@/pages/Calendar'
 const Sample = lazy(() => import('@/pages/Sample/Sample'))
+import Optimistic from '@/pages/Sample/Optimistic'
 
-const Optimistic = lazy(() => import('@/pages/Sample/Optimistic'))
 const MainLayout = lazy(() => import('@/components/layouts/MainLayout'))
-const SignUpTestPage = lazy(() => import('@/pages/Sample/SignUpTestPage'))
 const Home = lazy(() => import('./pages/Home'))
-
 const SignupPage = lazy(() => import('pages/SignupPage'))
 const SignInPage = lazy(() => import('pages/SignInPage'))
+const SignUpTestPage = lazy(() => import('@/pages/Sample/SignUpTestPage'))
 
-const ApprovalPage = lazy(() => import('./pages/Manager/Approval'))
-const ManagerEventAddEditPage = lazy(() => import('./pages/Manager/ManagerEventAddEdit'))
-const ManagerDashboardPage = lazy(() => import('./pages/Manager/ManagerDashboard'))
-const ManagerLayout = lazy(() => import('./components/layouts/ManagerLayout'))
-const UserLayout = lazy(() => import('./components/layouts/UserLayout'))
-const MyPage = lazy(() => import('./pages/User/MyPage'))
-const Edit = lazy(() => import('./pages/User/Edit'))
+import ApprovalPage from './pages/Manager/Approval'
+import ManagerEventAddEditPage from './pages/Manager/ManagerEventAddEdit'
+import ManagerDashboardPage from './pages/Manager/ManagerDashboard'
+import ManagerLayout from './components/layouts/ManagerLayout'
+import UserLayout from './components/layouts/UserLayout'
+import MyPage from './pages/User/MyPage'
+import Edit from './pages/User/Edit'
+
 const SignInAPITestPage = lazy(() => import('./pages/Sample/SignInAPITestPage'))
 const ScheduleAddTestPage = lazy(() => import('./pages/Sample/Schedule'))
 
 import '@/App.css'
+
 function App() {
   return (
     <>

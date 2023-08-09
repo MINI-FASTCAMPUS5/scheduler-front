@@ -4,14 +4,14 @@ import { Outlet, useNavigate } from 'react-router-dom'
 
 export default function CalendarLayout() {
   const navigate = useNavigate()
-  const { loggedIn } = useUser()
+  const { loggedIn, loading } = useUser()
   useEffect(() => {
-    if (!loggedIn) navigate('/login')
-  }, [loggedIn, navigate])
+    if (!loggedIn && !loading) navigate('/login')
+  }, [loggedIn, navigate, loading])
 
   return (
     <main className='relative h-full'>
-      {loggedIn && <Outlet />}
+      {loggedIn && !loading && <Outlet />}
       <div id='portal' />
     </main>
   )
