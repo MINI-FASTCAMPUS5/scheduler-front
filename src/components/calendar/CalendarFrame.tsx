@@ -3,12 +3,9 @@ import useSchedule from '@/hooks/schedule'
 import MonthlyCalendar from '@/components/calendar/MonthlyCalendar'
 import CalendarSwiper from '@/components/calendar/CalendarSwiper'
 import CheerUpLoading from '@/components/ui/CheerUpLoading'
-import useUser from '@/hooks/user'
 
 export default function CalendarFrame() {
-  const { getUserInfo } = useUser()
-  const user = getUserInfo()
-  const { isFetching, isLoading } = useSchedule(user.id ? user.id : '')
+  const { isFetching, isLoading } = useSchedule()
 
   return (
     <>

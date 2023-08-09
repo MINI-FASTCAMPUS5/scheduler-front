@@ -32,9 +32,8 @@ export default function Daily({ daily }: Props) {
   const { width, resize, setWidth } = useResize('.cell')
 
   // * 행사 등록/수정 페이지 + 어드민일 경우 자신이 등록한 스케줄만 가져옵니다.
-  const adminId = isAdmin && pathname.includes('manager/event/calendar') ? user.id : undefined
-  const { month, adminSchedule, reservedList, isFetching } = useSchedule(adminId)
-
+  const adminId = isAdmin && pathname.includes('manager/event/calendar') ? user.id : ''
+  const { month, adminSchedule, reservedList, isFetching } = useSchedule()
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
   useHover(adminId && adminSchedule?.length !== 0 ? true : false)
 
@@ -52,10 +51,15 @@ export default function Daily({ daily }: Props) {
     (schedule: ProviderScheduleWithPos) => {
       setOpenMoreModal(false)
       setTargetSchedule(schedule)
-      setPortalType(pathname.includes('manager/event/calendar') ? 'edit' : 'reserve')
+      setPortalType(() => {
+        if (pathname.includes('manager/event/calendar') && user.id === schedule.userId) {
+          return 'edit'
+        }
+        return 'reserve'
+      })
       setOpenPortal(true)
     },
-    [pathname]
+    [pathname, user.id]
   )
 
   // * 더보기 모달창을 닫습니다.
@@ -90,10 +94,9 @@ export default function Daily({ daily }: Props) {
   const handleOnClickCell = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, date: string) => {
     if (!pathname.includes('manager/event/calendar') || !isAdmin) return
     if ((e.target as HTMLElement).classList.contains('moreBtn')) return
-
-    // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정, cell이라면 스케줄 추가 모달을 띄웁니다.
-    if ((e.target as HTMLElement).classList.contains('schedule-cell')) setPortalType('edit')
-    else setPortalType('add')
+    // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정, cell이라면 return합니다. (handleSchedule에서 처리)
+    if ((e.target as HTMLElement).classList.contains('schedule-cell')) return
+    setPortalType('add')
     setTargetDate(date)
     setOpenPortal(true)
   }

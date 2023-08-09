@@ -4,6 +4,7 @@ import Banner from '@/components/Banner'
 import dayjs from 'dayjs'
 import { DATE_FORMAT } from '@/constants'
 import Button from '@/components/ui/Button'
+import useUser from '@/hooks/user'
 
 type Props = {
   schedule: ProviderScheduleWithPos
@@ -16,6 +17,8 @@ type Props = {
 }
 
 export default function EditFormInformation({ schedule, onEdit, onCancle }: Props) {
+  const { getUserInfo } = useUser()
+  const user = getUserInfo()
   const [imgSrc, setImgSrc] = useState('')
   const [imgFile, setImgFile] = useState<File>()
   const date = dayjs(new Date()).format(DATE_FORMAT)
@@ -153,7 +156,13 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
         />
       </div>
       <div className='flex justify-around py-4'>
-        <Button text='수정합니다!' size='lg' className='w-3/12 font-bold' onClick={handleSubmit} />
+        <Button
+          disabled={user.id !== schedule.userId}
+          text={user.id !== schedule.userId ? '권한 없음!' : '수정하기!'}
+          size='lg'
+          className='w-3/12 font-bold'
+          onClick={handleSubmit}
+        />
         <Button
           text='취소!'
           type='red'

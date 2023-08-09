@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SidebarMenu from './sidebar/SidebarMenu'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { AiTwotoneCalendar } from 'react-icons/ai'
 import { FaUserClock } from 'react-icons/fa'
 import dayjs from 'dayjs'
@@ -8,12 +8,21 @@ import { DATE_ROUTE_FORMAT } from '@/constants'
 
 export default function UserActionBar() {
   const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const { year, month, day } = useParams()
+  let calendarPath =
+    year && month && day
+      ? `/calendar/${year}/${month}/${day}`
+      : `/calendar${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`
+
+  searchParams.get('keyword') && (calendarPath += `?keyword=${searchParams.get('keyword')}`)
+
   const sidebarMenu = [
     {
       title: '행사 신청 캘린더',
       id: 'user-sidebar-0',
       Icon: AiTwotoneCalendar,
-      url: `/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`
+      url: calendarPath
     },
     {
       title: '마이 페이지',
@@ -26,8 +35,6 @@ export default function UserActionBar() {
   if (location.pathname.includes('mypage')) idx = 1
   // params로 체크해서 sidebarMenu[0] 몇번째 인지 정하기
   const [activeId, setActiveId] = useState(sidebarMenu[idx].id)
-
-  // const openEventSidebar = () => {}
 
   return (
     <div className='mb-6'>

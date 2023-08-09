@@ -1,20 +1,22 @@
-import useUser from '@/hooks/user'
 import React from 'react'
+import useUser from '@/hooks/user'
 import AdminActionBar from '@/components/AdminActionBar'
 import UserActionBar from '@/components/UserActionBar'
 import Profile from '@/components/sidebar/Profile'
 import SearchForm from '@/components/SearchForm'
 import SideBarAd from './SideBarAd'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { DATE_ROUTE_FORMAT } from '@/constants'
 
 export default function SideBar() {
+  const navigate = useNavigate()
+  const location = useLocation()
   const { getUserInfo } = useUser()
   const user = getUserInfo()
 
   const handleSubmit = (value: string) => {
-    alert(value + '를 검색합니다.')
+    navigate(`${location.pathname}?keyword=${value}`)
   }
 
   return (
