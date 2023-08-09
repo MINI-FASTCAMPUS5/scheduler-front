@@ -26,7 +26,7 @@ function Experience() {
     { texture: textures[0], x: 0, y: 0, z: 0, factor: 0.005, scale: scaleW },
     { texture: textures[1], x: 0, y: 0, z: 10, factor: 0.005, wiggle: 0.2, scale: scaleW },
     { texture: textures[2], x: 0, y: 0, z: 20, scale: scaleW, wiggle: 0.4 },
-    { texture: textures[3], x: 0, y: 5, z: 30, scaleFactor: 0.9, wiggle: 0.4, scale: scaleN },
+    { texture: textures[3], x: 10, y: 5, z: 30, scaleFactor: 0.9, wiggle: 0.4, scale: scaleN },
     {
       texture: textures[4],
       x: 0,
