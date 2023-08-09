@@ -1,8 +1,8 @@
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import React, { useState, ChangeEvent } from 'react'
-import { AiFillPlusCircle } from 'react-icons/ai';
-import { MdInfo } from 'react-icons/md';
+import { AiFillPlusCircle } from 'react-icons/ai'
+import { MdInfo } from 'react-icons/md'
+import api from '@/api'
 
 const SignupPage = (): JSX.Element => {
   // 회원가입 폼 요소들의 상태 관리
@@ -79,16 +79,33 @@ const SignupPage = (): JSX.Element => {
     e.preventDefault()
 
     try {
-      const response = await axios.post('/signup', {
-        email: email,
-        password: password,
-        fullName: fullName,
-        profileImage: profileImg
-      })
+      const formData = new FormData()
+      formData.append('file', profileImg)
+      formData.append(
+        'dto',
+        new Blob(
+          [
+            JSON.stringify({
+              fullName,
+              password: password,
+              email: email,
+              role: 'USER'
+            })
+          ],
+          {
+            type: 'application/json'
+          }
+        )
+      )
 
-      // 회원가입 성공시 처리 (예: 토큰 저장, 페이지 이동 등)
-      alert('test')
-      alert('회원가입 성공:' + response.data)
+      await api({
+        url: '/join',
+        method: 'POST',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
 
       // 회원가입 성공시 모달 띄우기 등의 처리
       setSuccessModalVisible(true)
@@ -116,23 +133,25 @@ const SignupPage = (): JSX.Element => {
                     alt='기본 이미지'
                   />
                 )}
-                <label htmlFor='imageUploadInputLabel' className='absolute bottom-[5px] right-[-10px]'>
+                <label
+                  htmlFor='imageUploadInputLabel'
+                  className='absolute bottom-[5px] right-[-10px]'
+                >
                   <div className='flex text-[28px] bg-whit text-point px-3 w-full text-center rounded-full cursor-pointer transition hover:text-main'>
                     <AiFillPlusCircle />
                   </div>
                 </label>
               </div>
-              </div>
+            </div>
 
-              <div>
-                <input
-                  id='imageUploadInputLabel'
-                  className=' opacity-0'
-                  type='file'
-                  onChange={uploadImage}
-                />
-              </div>
-            
+            <div>
+              <input
+                id='imageUploadInputLabel'
+                className=' opacity-0'
+                type='file'
+                onChange={uploadImage}
+              />
+            </div>
 
             <div className='flex justify-between mt-2'>
               <div className='text-gray-600 mt-auto mb-auto'>이름</div>
@@ -185,10 +204,19 @@ const SignupPage = (): JSX.Element => {
           </div>
 
           <div className='flex w-full mt-6'>
-            <div className='flex text-point text-[38px] items-center mr-[10px]'><MdInfo/></div>
+            <div className='flex text-point text-[38px] items-center mr-[10px]'>
+              <MdInfo />
+            </div>
             <div className='flex flex-col w-full text-[12px]'>
-            <div className='mb-[2px] text-[#878787]'>행사 관리 매니저는 회원가입 후 관리자에게 권한을 요청하세요.</div> 
-            <div className='flex text-[#878787]'>관리자에게 이메일 보내기<span className='flex ml-1 text-[10px] text-[#878787] border border-[#cccccc] rounded-full pl-2 pr-2 cursor-pointer'>이메일 보내기</span></div>
+              <div className='mb-[2px] text-[#878787]'>
+                행사 관리 매니저는 회원가입 후 관리자에게 권한을 요청하세요.
+              </div>
+              <div className='flex text-[#878787]'>
+                관리자에게 이메일 보내기
+                <span className='flex ml-1 text-[10px] text-[#878787] border border-[#cccccc] rounded-full pl-2 pr-2 cursor-pointer'>
+                  이메일 보내기
+                </span>
+              </div>
             </div>
           </div>
 
@@ -228,7 +256,9 @@ const SignupPage = (): JSX.Element => {
                   <p className='text-2xl font-bold'>알림</p>
                   <button onClick={() => setImgModalVisible(false)}>&times;</button>
                 </div>
-                <p className='text-[14px] mb-2'>프로필 이미지 크기는 1MB 이하여야 합니다. 이미지를 변경해주세요.</p>
+                <p className='text-[14px] mb-2'>
+                  프로필 이미지 크기는 1MB 이하여야 합니다. 이미지를 변경해주세요.
+                </p>
               </div>
             </div>
           </div>
