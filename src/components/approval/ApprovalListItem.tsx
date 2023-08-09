@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { approveSchedule, cancelSchedule } from '../../api/admin/approvalPage';
 import { useCookies } from 'react-cookie'; // react-cookie 라이브러리 임포트
+import { ACCESS_TOKEN } from '@/constants';
 
 interface ScheduleDtoType {
   description: string;
@@ -16,48 +17,31 @@ interface ApprovalListItemProps {
 }
 
 const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
-  const [cookies] = useCookies(['yourCookieName']); // 쿠키 가져오기
+  const [cookies] = useCookies([ACCESS_TOKEN]); // 쿠키 가져오기
 
-  useEffect(() => {
-    const handleApprove = async () => {
-      try {
-        await approveSchedule(data.userScheduleId, cookies.yourCookieName);
-        console.info('승인 요청 완료');
-      } catch (error) {
-        console.error('승인 요청 실패:', error);
-      }
-    };
-
-    const handleCancel = async () => {
-      try {
-        await cancelSchedule(data.userScheduleId, cookies.yourCookieName);
-        console.info('취소 요청 완료');
-      } catch (error) {
-        console.error('취소 요청 실패:', error);
-      }
-    };
-
-    const approveButton = document.getElementById(`approve-button-${data.userScheduleId}`);
-    const cancelButton = document.getElementById(`cancel-button-${data.userScheduleId}`);
-
-    if (approveButton) {
-      approveButton.addEventListener('click', handleApprove);
+  const handleApprove = async () => {
+    const result = await approveSchedule(data.userScheduleId, cookies[ACCESS_TOKEN]);
+    if (result) {
+      console.info('승인 요청 완료');
+      alert('승인되었습니다.'); // 승인 알림 표시
+      window.location.replace('/manager/approval'); // 페이지 재로딩
+    } else {
+      console.error('승인 요청 실패');
+      alert('승인 요청에 실패하였습니다.'); // 실패 알림 표시
     }
+  };
 
-    if (cancelButton) {
-      cancelButton.addEventListener('click', handleCancel);
+  const handleCancel = async () => {
+    const result = await cancelSchedule(data.userScheduleId, cookies[ACCESS_TOKEN]);
+    if (result) {
+      console.info('취소 요청 완료');
+      alert('취소되었습니다.'); // 취소 알림 표시
+      window.location.replace('/manager/approval'); // 페이지 재로딩
+    } else {
+      console.error('취소 요청 실패');
+      alert('취소 요청에 실패하였습니다.'); // 실패 알림 표시
     }
-
-    return () => {
-      if (approveButton) {
-        approveButton.removeEventListener('click', handleApprove);
-      }
-
-      if (cancelButton) {
-        cancelButton.removeEventListener('click', handleCancel);
-      }
-    };
-  }, [data.userScheduleId, cookies.yourCookieName]);
+  };
 
   const approval = {
     accepted: 'flex w-[calc(3vw+5px)] text-[calc(1vw-40%)] border text-point border-confirm rounded-lg justify-center text-sm font-bold text-white border-confirm bg-confirm',
@@ -92,12 +76,14 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
           <button
             id={`approve-button-${data.userScheduleId}`}
             className='flex w-[calc(3vw+5px)] text-[calc(1vw-5px)] border text-wait border-wait rounded-lg justify-center text-sm transition hover:bg-wait hover:text-white'
-          >
+            onClick={() => handleApprove()}
+          >z
             승인하기
           </button>
           <button
             id={`cancel-button-${data.userScheduleId}`}
             className='flex w-[calc(3vw+5px)] text-[calc(1vw-5px)] border text-point border-point rounded-lg justify-center text-sm transition hover:bg-point hover:text-white'
+            onClick={() => handleCancel()}
           >
             취소하기
           </button>

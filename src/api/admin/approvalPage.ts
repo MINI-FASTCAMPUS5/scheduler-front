@@ -74,7 +74,7 @@ export const getAdminApprovallList = async (cookie: string): Promise<ApprovalLis
 
 }
 
-export const approveSchedule = async (userScheduleId: number, cookie: string) => {
+export const approveSchedule = async (userScheduleId: number, cookie: string): Promise<boolean> => {
   try {
     const res = await api({
       url: `/admin/schedule/confirm/${userScheduleId}?progress=ACCEPT`,
@@ -82,19 +82,20 @@ export const approveSchedule = async (userScheduleId: number, cookie: string) =>
       headers: {
         Authorization: cookie,
       },
-    }); // eslint-disable-next-line no-console
-    console.log('dfdsd', cookie)
+    });
 
     if (res.data.data) {
-      return res.data.data; // 승인 요청 성공 시 데이터 반환
+      return true; // 성공 시 true 반환
     }
+    return false; // 데이터 없을 시 false 반환
   } catch (error) {
     console.error('승인 요청 실패:', error);
-    throw error; // 에러 발생 시 throw로 예외 처리
+    return false; // 에러 시 false 반환
   }
 };
 
-export const cancelSchedule = async (userScheduleId: number, cookie: string) => {
+
+export const cancelSchedule = async (userScheduleId: number, cookie: string): Promise<boolean> => {
   try {
     const res = await api({
       url: `/admin/schedule/confirm/${userScheduleId}?progress=REFUSE`,
@@ -103,11 +104,13 @@ export const cancelSchedule = async (userScheduleId: number, cookie: string) => 
         Authorization: cookie,
       },
     });
+
     if (res.data.data) {
-      return res.data.data; // 취소 요청 성공 시 데이터 반환
+      return true; // 성공 시 true 반환
     }
+    return false; // 데이터 없을 시 false 반환
   } catch (error) {
     console.error('취소 요청 실패:', error);
-    throw error; // 에러 발생 시 throw로 예외 처리
+    return false; // 에러 시 false 반환
   }
 };
