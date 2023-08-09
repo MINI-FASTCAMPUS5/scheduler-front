@@ -5,28 +5,28 @@ import SideBar from '@/components/SideBar'
 
 export default function ManagerLayout() {
   const navigate = useNavigate()
-  const { getUserInfo, loggedIn } = useUser()
+  const { getUserInfo, loggedIn, loading } = useUser()
 
   useEffect(() => {
-    if (!loggedIn) {
+    if (loading) return
+    if (!loggedIn && !loading) {
       alert('로그인 후 이용해주세요')
       navigate('/login')
       return
     }
-    const user = getUserInfo()
-    if (user.role !== 'ADMIN') {
+    if (loggedIn && getUserInfo().role !== 'ADMIN') {
       alert('관리자만 접근할 수 있는 페이지 입니다!')
       navigate('/login')
       return
     }
-  }, [getUserInfo, loggedIn, navigate])
+  }, [getUserInfo, loggedIn, navigate, loading])
 
   return (
     <div>
       <div id='portal' />
       <div className='grid grid-cols-cal-frame-w'>
-        {loggedIn && <SideBar />}
-        {loggedIn && <Outlet />}
+        {loggedIn && !loading && <SideBar />}
+        {loggedIn && !loading && <Outlet />}
       </div>
     </div>
   )
