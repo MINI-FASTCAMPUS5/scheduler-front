@@ -69,6 +69,8 @@ export default function Edit() {
     alert('회원 정보 수정이 취소되었습니다.')
   }
 
+  // 수정 완료 버튼을 클릭했을때 비밀번호 변경 누락...빠르게 다시 수정!!!
+
   // '수정 완료' 버튼을 클릭했을 때 실행되는 로직
   // 사용자가 입력한 변경 사항을 서버로 전송하여 프로필 정보를 업데이트
   const handleEditComplete = async () => {
