@@ -13,7 +13,7 @@ export default function UserActionBar() {
   let calendarPath =
     year && month && day
       ? `/calendar/${year}/${month}/${day}`
-      : `/calendar${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`
+      : `/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`
 
   searchParams.get('keyword') && (calendarPath += `?keyword=${searchParams.get('keyword')}`)
 
@@ -31,14 +31,16 @@ export default function UserActionBar() {
       url: '/user/mypage'
     }
   ]
-  let idx = 0
-  if (location.pathname.includes('mypage')) idx = 1
+  let idx = -1
+  if (location.pathname.includes('calendar')) idx = 0
+  if (location.pathname.includes('user/mypage')) idx = 1
   // params로 체크해서 sidebarMenu[0] 몇번째 인지 정하기
-  const [activeId, setActiveId] = useState(sidebarMenu[idx].id)
+  const [activeId, setActiveId] = useState(sidebarMenu[idx]?.id ? sidebarMenu[idx].id : -1)
 
   return (
     <div className='mb-6'>
       {sidebarMenu.map((menu, idx) => {
+        if (!menu) return
         return (
           <SidebarMenu
             key={menu.id}

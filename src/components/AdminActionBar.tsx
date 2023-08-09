@@ -46,15 +46,17 @@ export default function AdminActionBar() {
       url: '/manager/dashboard'
     }
   ]
-  let idx = 0
+  let idx = -1
+  if (location.pathname.includes('/calendar')) idx = 0
   if (location.pathname.includes('/manager/event/calendar/')) idx = 1
   if (location.pathname.includes('/manager/approval')) idx = 2
   if (location.pathname.includes('/manager/dashboard')) idx = 3
-  const [activeId, setActiveId] = useState(sidebarMenu[idx].id)
+  const [activeId, setActiveId] = useState(sidebarMenu[idx].id ? sidebarMenu[idx].id : -1)
 
   return (
     <div className='mb-6'>
       {sidebarMenu.map((menu, idx) => {
+        if (!menu) return
         return (
           <SidebarMenu
             key={menu.id}
