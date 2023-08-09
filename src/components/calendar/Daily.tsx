@@ -74,9 +74,8 @@ export default function Daily({ daily }: Props) {
   }, [])
 
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
-  const handleEdit = (isEdit: boolean) => {
-    if (isEdit) alert('수정되었습니다.')
-    else alert('수정에 실패했습니다.')
+  const handleEdit = (message: string) => {
+    alert(message)
     setOpenPortal(false)
   }
 

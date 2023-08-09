@@ -62,15 +62,15 @@ export default function CalendarSwiper() {
         </h1>
         <ArrowButton disabled={isFetching} direction='right' onClick={handleArrowBtn} />
         <Button
-          className='ml-2 mt-auto  min-w-[50px]'
+          className='mt-auto  min-w-[50px] ml-8'
           size='sm'
           text='오늘'
           onClick={navagateToCurrentDate}
         />
       </div>
       <div className='flex w-[33.33%] justify-end'>
-        <Button className='mr-2' text='월간' onClick={navagateToCurrentDate} />
-        <Button text='연간' />
+        {/* <Button className='mr-2' text='월간' onClick={navagateToCurrentDate} /> */}
+        {/* <Button text='연간' /> */}
       </div>
     </div>
   )
