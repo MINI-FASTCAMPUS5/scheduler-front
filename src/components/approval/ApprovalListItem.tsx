@@ -94,7 +94,7 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
       descriptionState = <div className={`${approval['textState']}`}>{data.description}</div>;
       scheduleStartState = <div className={`${approval['textState']}`}>{data.scheduleStart}</div>;
       break;
-  }
+  } //r
 
   return (
     <div className='flex w-full h-[calc(6vh-2px)] mb-[6px] bg-boxbg rounded-xl pr-5 pl-5'>
