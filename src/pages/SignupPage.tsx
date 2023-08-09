@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import React, { useState, ChangeEvent } from 'react'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { MdInfo } from 'react-icons/md'
 import api from '@/api'
 
 const SignupPage = (): JSX.Element => {
+  const navigate = useNavigate()
   // 회원가입 폼 요소들의 상태 관리
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -238,7 +239,14 @@ const SignupPage = (): JSX.Element => {
               <div className='modal-content py-4 text-left px-6'>
                 <div className='flex justify-between items-center pb-3'>
                   <p className='text-2xl font-bold'>알림</p>
-                  <button onClick={() => setSuccessModalVisible(false)}>&times;</button>
+                  <button
+                    onClick={() => {
+                      setSuccessModalVisible(false)
+                      navigate('/login')
+                    }}
+                  >
+                    &times;
+                  </button>
                 </div>
                 <p className='text-[14px] mb-2'>회원가입이 성공적으로 완료되었습니다!</p>
               </div>
