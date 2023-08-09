@@ -41,7 +41,7 @@ export default function SignUpPage() {
   }
 
   return (
-<div className='flex w-full justify-center'>
+    <div className='flex w-full justify-center'>
       <div className='flex w-full flex-col'>
         <div className=' justify-center pl-[35px] pr-[35px] mb-[70px]'>
           <svg viewBox='0 0 300 81'>
@@ -51,7 +51,6 @@ export default function SignUpPage() {
         <form onSubmit={handleSignIn} className='flex flex-col items-center'>
           <div className='flex flex-col w-full'>
             <div className='flex w-full justify-between'>
-              {' '}
               {/* 가로로 정렬, 간격 추가 */}
               <label htmlFor='email' className='text-gray-600 mt-auto mb-auto'>
                 이메일

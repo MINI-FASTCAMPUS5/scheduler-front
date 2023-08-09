@@ -64,7 +64,6 @@ export const getAdminApprovallList = async (
       }
     })
     // eslint-disable-next-line no-console
-    console.log('dfdsd', cookie)
 
     if (res.data.data) return res.data.data
     return null

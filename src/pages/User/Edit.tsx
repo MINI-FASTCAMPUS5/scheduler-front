@@ -127,7 +127,7 @@ export default function Edit() {
           size='sm'
           className='bg-point text-white rounded ml-8'
           onClick={() => {
-            document.getElementById('profile-image-input')?.click()
+            // document.getElementById('profile-image-input')?.click()
           }}
         />
         <input
