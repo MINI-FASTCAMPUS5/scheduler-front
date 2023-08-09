@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import React, { useState, ChangeEvent } from 'react'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { MdInfo } from 'react-icons/md'
@@ -6,6 +6,7 @@ import api from '@/api'
 import { toast } from 'react-toastify'
 
 const SignupPage = (): JSX.Element => {
+  const navigate = useNavigate()
   // 회원가입 폼 요소들의 상태 관리
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -110,6 +111,7 @@ const SignupPage = (): JSX.Element => {
         }
       })
       successToast()
+      navigate('/login')
     } catch (error) {
       failToast()
     }
