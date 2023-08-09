@@ -2,6 +2,7 @@ import React from 'react'
 import { approveSchedule, cancelSchedule } from '../../api/admin/approvalPage'
 import { useCookies } from 'react-cookie' // react-cookie 라이브러리 임포트
 import { ACCESS_TOKEN } from '@/constants'
+import { toast } from 'react-toastify'
 
 interface ScheduleDtoType {
   description: string
@@ -18,26 +19,25 @@ interface ApprovalListItemProps {
 
 const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
   const [cookies] = useCookies([ACCESS_TOKEN]) // 쿠키 가져오기
+  const failToast = () => toast.error('요청을 실패하였습니다. 다시 시도해주세요.')
+  const cancelFailToast = () => toast.error('이미 승인된 일정은 취소할 수 없습니다.')
 
   const handleApprove = async () => {
     const result = await approveSchedule(data.userScheduleId, cookies[ACCESS_TOKEN])
     if (result) {
-      alert('승인되었습니다.') // 승인 알림 표시
-      window.location.replace('/manager/approval') // 페이지 재로딩
-    } else {
-      alert('승인 요청에 실패하였습니다.') // 실패 알림 표시
+      window.location.replace('/manager/approval')
+      return // 페이지 재로딩
     }
+    failToast() // 실패 알림 표시
   }
 
   const handleCancel = async () => {
     const result = await cancelSchedule(data.userScheduleId, cookies[ACCESS_TOKEN])
     if (result) {
-      alert('취소되었습니다.') // 취소 알림 표시
-      window.location.replace('/manager/approval') // 페이지 재로딩
-    } else {
-      console.error('취소 요청 실패')
-      alert('취소 요청에 실패하였습니다.') // 실패 알림 표시
+      window.location.replace('/manager/approval')
+      return // 페이지 재로딩
     }
+    cancelFailToast()
   }
 
   const approval = {
@@ -91,7 +91,7 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
             className='flex w-[calc(3vw+5px)] text-[calc(1vw-5px)] border text-wait border-wait rounded-lg justify-center text-sm transition hover:bg-wait hover:text-white'
             onClick={() => handleApprove()}
           >
-            z 승인하기
+            승인하기
           </button>
           <button
             id={`cancel-button-${data.userScheduleId}`}
@@ -111,7 +111,7 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
 
   return (
     <div className='flex w-full h-[calc(6vh-2px)] mb-[6px] bg-boxbg rounded-xl pr-5 pl-5'>
-      <div className='w-[20%] mt-auto mb-auto'>{titleState}</div>
+      <div className='w-[20%] mt-auto mb-auto'>{titleState}T</div>
       <div className='w-[40%] mt-auto mb-auto'>{descriptionState}</div>
       <div className='w-[10%] mt-auto mb-auto'>{fullNameState}</div>
       <div className='flex text-[calc(1vw-5px)] mt-auto mb-auto text-base justify-center w-[20%]'>

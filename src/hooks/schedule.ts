@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useLocation, useParams } from 'react-router-dom'
 import useUser from './user'
+import { toast } from 'react-toastify'
 
 export default function useSchedule() {
   const params = useParams()
@@ -51,8 +52,10 @@ export default function useSchedule() {
       typeof params.month === 'undefined' ||
       typeof params.day === 'undefined'
     ) {
-      return alert('잘못된 접근입니다.')
+      toast.error('잘못된 접근입니다.')
+      return
     }
+
     setYear(parseInt(params.year))
     setMonth(parseInt(params.month))
     setDay(parseInt(params.day))

@@ -13,6 +13,7 @@ import DailyDetail from '@/components/calendar/DailyDetail'
 import ModalPortal from '@/components/ui/ModalPortal'
 import CalendarAction from '@/components/calendar/CalendarAction'
 import { DATE_FORMAT } from '@/constants'
+import { toast } from 'react-toastify'
 
 type Props = {
   daily: string[]
@@ -75,18 +76,18 @@ export default function Daily({ daily }: Props) {
 
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
   const handleEdit = (message: string) => {
-    alert(message)
+    toast(message)
     setOpenPortal(false)
   }
 
   const handleReserve = (message: string) => {
-    alert(message)
+    toast(message)
     setOpenPortal(false)
   }
 
   // * 공연 추가 모달에서 새로운 공연을 추가하면 실행됩니다.
   const handleSubmitSchedule = (message: string) => {
-    alert(message)
+    toast(message)
     setOpenPortal(false)
   }
 

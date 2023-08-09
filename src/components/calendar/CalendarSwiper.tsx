@@ -10,6 +10,7 @@ import Button from '@/components/ui/Button'
 import HighlightInformation from '@/components/calendar/HighlightInformation'
 import ArrowButton, { DirectionType } from '@/components/ui/ArrowButton'
 import useUser from '@/hooks/user'
+import { toast } from 'react-toastify'
 
 export default function CalendarSwiper() {
   const { getUserInfo } = useUser()
@@ -22,8 +23,7 @@ export default function CalendarSwiper() {
   // * 이전/다음 달로 이동합니다.
   const handleArrowBtn = useCallback(
     (direction: DirectionType) => {
-      //  todo 비정상적 주소 이동 어떻게 처리할지 정하기
-      if (!year || !month) return alert('비정상적인 접근입니다.')
+      if (!year || !month) return toast.error('비정상적인 접근입니다.')
       const route = location.pathname.split(`/${year}`)[0]
       const path = swipeCalendar(direction, {
         year,

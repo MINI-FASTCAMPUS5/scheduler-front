@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import type { DirectionType } from '@/components/ui/ArrowButton'
 import { DATE_FORMAT, DATE_ROUTE_FORMAT } from '@/constants'
 import type { ProviderSchedule } from '@/models/schedule'
@@ -25,7 +26,7 @@ export function swipeCalendar(
       DATE_ROUTE_FORMAT
     )}`
   }
-  alert('잘못된 접근입니다.')
+  toast.warn('잘못된 접근입니다.')
   //  todo 비정상적 주소 이동 어떻게 처리할지 정하기
   return `${path}/${year}/${month}/1`
 }

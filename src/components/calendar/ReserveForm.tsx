@@ -3,6 +3,7 @@ import { ProviderScheduleWithPos } from '@/utils/calendar'
 import Banner from '@/components/Banner'
 import ReserveFormInfomation from '@/components/calendar/ReserveFormInfomation'
 import Button from '@/components/ui/Button'
+import { toast } from 'react-toastify'
 
 type Props = {
   schedule: ProviderScheduleWithPos
@@ -37,7 +38,7 @@ export default function ReserveForm({ schedule, onCancle, onReserve, user }: Pro
                 size='lg'
                 className='w-3/12 font-bold'
                 onClick={() => {
-                  if (!selectedDate) return alert('날짜를 선택해주세요.')
+                  if (!selectedDate) return toast.error('날짜를 선택해주세요.')
                   onReserve(schedule, selectedDate)
                 }}
               />

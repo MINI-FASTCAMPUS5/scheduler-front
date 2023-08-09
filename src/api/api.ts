@@ -51,7 +51,6 @@ export async function signUpUser(
 
     return response.data.data
   } catch (err) {
-    alert('회원가입 시도 실패')
     console.error(err)
     return false
   }

@@ -1,5 +1,6 @@
 import api from '@/api'
 import React, { useState, FormEvent } from 'react'
+import { toast } from 'react-toastify'
 
 export default function SignUpTestPage() {
   const [imgSrc, setImgSrc] = useState<File>({} as File)
@@ -11,7 +12,7 @@ export default function SignUpTestPage() {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!username || !password || !email || (role !== 'ADMIN' && role !== 'USER')) {
-      alert('인풋을 채워주세요!')
+      toast.warn('인풋을 채워주세요!')
       return
     }
     const formData = new FormData()

@@ -24,11 +24,14 @@ const SignInAPITestPage = lazy(() => import('./pages/Sample/SignInAPITestPage'))
 const ScheduleAddTestPage = lazy(() => import('./pages/Sample/Schedule'))
 
 import '@/App.css'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
+        <ToastContainer />
         <Routes>
           <Route path='/calendar' element={<CalendarLayout />}>
             <Route path='/calendar/:year/:month/:day' element={<CalendarPage />} />
