@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import useUser from '@/hooks/user'
 import dayjs from 'dayjs'
@@ -6,44 +6,53 @@ import { DATE_ROUTE_FORMAT } from '@/constants'
 import { toast } from 'react-toastify'
 
 export default function SignUpPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [emailValid, setEmailValid] = useState(false)
-  const [passwordValid, setPasswordValid] = useState(false)
-  const { login } = useUser() // setUserInfo 가져오기
+  const { login } = useUser()
   const failToast = () => toast.error('아이디 또는 비밀번호를 다시 확인해주세요!')
 
-  const checkEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value)
-    const regex =
-      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
-    if (regex.test(e.target.value)) {
-      setEmailValid(true)
-    } else setEmailValid(false)
-  }
-
-  const checkPassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value)
-    const regex = /^(?!.*[^a-zA-Z0-9$`~!@$!%*#^?&\\()\-=+])[a-zA-Z0-9$`~!@$!%*#^?&\\()\-=+]{8,}$/
-    if (regex.test(e.target.value)) {
-      setPasswordValid(true)
-    } else setPasswordValid(false)
-  }
-
-  const handleSignIn = async (e: React.FormEvent): Promise<void> => {
+  const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const loggedIn = await login(email, password)
-    if (loggedIn) {
-      window.location.replace(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`) // 메인 페이지로 이동
-      return
+
+    if (emailValid && passwordValid) {
+      const loggedIn = await login(email, password)
+      if (loggedIn) {
+        window.location.replace(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`)
+      } else {
+        failToast()
+      }
     }
-    failToast() // 로그인 실패 시 경고 메시지
+  }
+
+  const validatePassword = (value: string) => {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#^?&\\()\-=+])[A-Za-z\d$@$!%*#^?&\\()\-=+]{8,20}$/
+    return regex.test(value)
+  }
+
+  const validateEmail = (value: string) => {
+    const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
+    return regex.test(value)
+  }
+
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [emailValid, setEmailValid] = useState<boolean>(false)
+  const [passwordValid, setPasswordValid] = useState<boolean>(false)
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value
+    setEmail(newEmail)
+    setEmailValid(validateEmail(newEmail))
+  }
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value
+    setPassword(newPassword)
+    setPasswordValid(validatePassword(newPassword))
   }
 
   return (
     <div className='flex w-full justify-center'>
       <div className='flex w-full flex-col'>
-        <div className=' justify-center pl-[35px] pr-[35px] mb-[70px]'>
+        <div className='justify-center pl-[35px] pr-[35px] mb-[70px]'>
           <svg viewBox='0 0 300 81'>
             <image href='/YeonganIdolLogoOrigin.svg' width='300' height='81' />
           </svg>
@@ -51,7 +60,6 @@ export default function SignUpPage() {
         <form onSubmit={handleSignIn} className='flex flex-col items-center'>
           <div className='flex flex-col w-full'>
             <div className='flex w-full justify-between'>
-              {/* 가로로 정렬, 간격 추가 */}
               <label htmlFor='email' className='text-gray-600 mt-auto mb-auto'>
                 이메일
               </label>
@@ -59,11 +67,11 @@ export default function SignUpPage() {
                 type='text'
                 id='email'
                 value={email}
-                onChange={checkEmail}
+                onChange={handleEmailChange}
                 className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px]'
               />
             </div>
-            {!emailValid && (
+            {email !== '' && !emailValid && (
               <div className='text-red-600 text-[12px] text-end mt-[5px]'>
                 올바른 이메일 형식을 입력해 주세요.
               </div>
@@ -71,7 +79,6 @@ export default function SignUpPage() {
           </div>
           <div className='flex flex-col w-full'>
             <div className='flex w-full mt-5 justify-between'>
-              {/* 가로로 정렬, 간격 추가 */}
               <label htmlFor='password' className='text-gray-600 mt-auto mb-auto'>
                 비밀번호
               </label>
@@ -79,13 +86,13 @@ export default function SignUpPage() {
                 type='password'
                 id='password'
                 value={password}
-                onChange={checkPassword}
+                onChange={handlePasswordChange}
                 className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px]'
               />
             </div>
-            {!passwordValid && (
+            {password !== '' && !passwordValid && (
               <div className='text-red-600 text-[12px] text-end mt-[5px]'>
-                비밀번호는 최소 8자 이상이어야 합니다.
+                비밀번호는 영문, 숫자, 특수문자 조합 8~20자 이내로 입력해주세요.
               </div>
             )}
           </div>
