@@ -41,17 +41,71 @@ export default function SignUpPage() {
   }
 
   return (
-    <div>
-      {/* 로그인 폼 */}
-      <form onSubmit={handleSignIn}>
-        <input type='text' value={email} onChange={checkEmail} placeholder='이메일' />
-        {emailValid ? null : <div>올바른 이메일 형식을 입력해 주세요.</div>}
-        <input type='password' value={password} onChange={checkPassword} placeholder='비밀번호' />
-        {passwordValid ? null : <div>비밀번호는 최소 8자 이상이어야 합니다.</div>}
-        <button type='submit'>로그인</button>
-      </form>
-      {/* 회원가입으로 가는 네비게이션 버튼 */}
-      <Link to='/signup'>회원가입</Link>
+<div className='flex w-full justify-center'>
+      <div className='flex w-full flex-col'>
+        <div className=' justify-center pl-[35px] pr-[35px] mb-[70px]'>
+          <svg viewBox='0 0 300 81'>
+            <image href='/YeonganIdolLogoOrigin.svg' width='300' height='81' />
+          </svg>
+        </div>
+        <form onSubmit={handleSignIn} className='flex flex-col items-center'>
+          <div className='flex flex-col w-full'>
+            <div className='flex w-full justify-between'>
+              {' '}
+              {/* 가로로 정렬, 간격 추가 */}
+              <label htmlFor='email' className='text-gray-600 mt-auto mb-auto'>
+                이메일
+              </label>
+              <input
+                type='text'
+                id='email'
+                value={email}
+                onChange={checkEmail}
+                className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px]'
+              />
+            </div>
+            {!emailValid && (
+              <div className='text-red-600 text-[12px] text-end mt-[5px]'>
+                올바른 이메일 형식을 입력해 주세요.
+              </div>
+            )}
+          </div>
+          <div className='flex flex-col w-full'>
+            <div className='flex w-full mt-5 justify-between'>
+              {' '}
+              {/* 가로로 정렬, 간격 추가 */}
+              <label htmlFor='password' className='text-gray-600 mt-auto mb-auto'>
+                비밀번호
+              </label>
+              <input
+                type='password'
+                id='password'
+                value={password}
+                onChange={checkPassword}
+                className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px]'
+              />
+            </div>
+            {!passwordValid && (
+              <div className='text-red-600 text-[12px] text-end mt-[5px]'>
+                비밀번호는 최소 8자 이상이어야 합니다.
+              </div>
+            )}
+          </div>
+          <button
+            type='submit'
+            className='py-2 w-[230px] bg-main text-white rounded-[14px] disabled:opacity-50 mt-[50px] transition hover:bg-hover'
+            disabled={!emailValid || !passwordValid}
+          >
+            로그인
+          </button>
+        </form>
+        <div className='flex text-[12px] justify-center mt-5'>
+          <span className='flex text-black'>아직 계정이 없으신가요?</span>
+          <Link to='/signup' className='flex text-main font-bold ml-2 hover:underline'>
+            회원가입
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }

@@ -15,7 +15,8 @@ export default {
         weekend: '#E5F2F6',
         weekday: '#F0FBFF',
         boxline: '#E9E9E9',
-        boxbg: '#F4F3F3'
+        boxbg: '#F4F3F3',
+        inputbox: '#F6F6F6'
       }
     },
     screens: {
