@@ -19,9 +19,10 @@ export default function SearchForm({ onSubmit }: Props) {
         setValue('')
       }}
     >
+      <div className='transition hover:scale-105'>
       <input
         className={
-          'bg-main text-white w-[240px] outline-none border-2 border-white rounded-3xl px-4 py-2 placeholder:text-#fcfcfcfc'
+          'bg-main text-white w-[210px]items-center outline-none border-2 border-white rounded-[18px] px-4 py-2 placeholder-white placeholder:text-[14px] focus:opacity-100 focus:ring-2 focus:ring-point focus:border-point'
         }
         type='text'
         value={value}
@@ -32,9 +33,10 @@ export default function SearchForm({ onSubmit }: Props) {
         placeholder='기획사를 입력해주세요!'
       />
       <label htmlFor='searchSubmitBtn'>
-        <BiSearchAlt2 className='absolute w-6 h-6 text-white z-[998] top-[12px] right-[34px] cursor-pointer' />
+        <BiSearchAlt2 className='absolute w-6 h-6 text-white z-[998] top-[10px] right-[55px] cursor-pointer' />
       </label>
       <input type='submit' id='searchSubmitBtn' className='hidden' />
+      </div>
     </form>
   )
 }

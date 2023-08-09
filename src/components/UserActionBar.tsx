@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import SidebarMenu from './sidebar/SidebarMenu'
 import { useLocation, useParams } from 'react-router-dom'
-import { AiTwotoneCalendar } from 'react-icons/ai'
-import { FaUserClock } from 'react-icons/fa'
+import { BiCalendarCheck } from 'react-icons/bi'
+import { BiSolidUserRectangle } from 'react-icons/bi'
 import dayjs from 'dayjs'
 import { DATE_ROUTE_FORMAT } from '@/constants'
 
@@ -21,13 +21,13 @@ export default function UserActionBar() {
     {
       title: '행사 신청 캘린더',
       id: 'user-sidebar-0',
-      Icon: AiTwotoneCalendar,
+      Icon: BiCalendarCheck,
       url: calendarPath
     },
     {
       title: '마이 페이지',
       id: 'user-sidebar-1',
-      Icon: FaUserClock,
+      Icon: BiSolidUserRectangle,
       url: '/user/mypage'
     }
   ]

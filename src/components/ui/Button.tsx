@@ -22,7 +22,7 @@ export default function Button({
   else if (size === 'lg') sizeStyle = 'h-10 px-6'
 
   const color = type === 'purple' ? 'main' : 'point'
-  const deepColor = type === 'purple' ? '[#4619a5]' : 'rose-500'
+  const deepColor = type === 'purple' ? 'hover' : 'rose-500'
 
   return (
     <button

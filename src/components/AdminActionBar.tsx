@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import SidebarMenu from './sidebar/SidebarMenu'
 import { useLocation, useParams } from 'react-router-dom'
-import { AiTwotoneCalendar } from 'react-icons/ai'
-import { AiOutlineEdit } from 'react-icons/ai'
-import { BiMessageRoundedCheck } from 'react-icons/bi'
-import { FaUserEdit } from 'react-icons/fa'
+import { BiCalendarAlt } from 'react-icons/bi'
+import { BiCalendarPlus } from 'react-icons/bi'
+import { BiSolidCommentCheck } from 'react-icons/bi'
+import { BiSolidUserRectangle } from 'react-icons/bi'
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
 
@@ -24,25 +24,25 @@ export default function AdminActionBar() {
     {
       title: '행사 일정 캘린더',
       id: 'admin-sidebar-0',
-      Icon: AiTwotoneCalendar,
+      Icon: BiCalendarAlt,
       url: calendarPath
     },
     {
       title: '행사 등록/수정',
       id: 'admin-sidebar-1',
-      Icon: AiOutlineEdit,
+      Icon: BiCalendarPlus,
       url: '/manager/event' + calendarPath
     },
     {
       title: '신청 승인/취소',
       id: 'admin-sidebar-2',
-      Icon: BiMessageRoundedCheck,
+      Icon: BiSolidCommentCheck,
       url: '/manager/approval'
     },
     {
       title: '매니저 페이지',
       id: 'admin-sidebar-3',
-      Icon: FaUserEdit,
+      Icon: BiSolidUserRectangle,
       url: '/manager/dashboard'
     }
   ]
