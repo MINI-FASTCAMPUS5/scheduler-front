@@ -61,6 +61,8 @@ export const getAdminApprovallList = async (cookie: string): Promise<ApprovalLis
         Authorization: cookie
       }
     })
+    // eslint-disable-next-line no-console
+    console.log('dfdsd', cookie)
 
     if (res.data.data) return res.data.data
     return null
@@ -68,4 +70,44 @@ export const getAdminApprovallList = async (cookie: string): Promise<ApprovalLis
     console.info(error)
     return null
   }
+
+
 }
+
+export const approveSchedule = async (userScheduleId: number, cookie: string) => {
+  try {
+    const res = await api({
+      url: `/admin/schedule/confirm/${userScheduleId}?progress=ACCEPT`,
+      method: 'POST',
+      headers: {
+        Authorization: cookie,
+      },
+    }); // eslint-disable-next-line no-console
+    console.log('dfdsd', cookie)
+
+    if (res.data.data) {
+      return res.data.data; // 승인 요청 성공 시 데이터 반환
+    }
+  } catch (error) {
+    console.error('승인 요청 실패:', error);
+    throw error; // 에러 발생 시 throw로 예외 처리
+  }
+};
+
+export const cancelSchedule = async (userScheduleId: number, cookie: string) => {
+  try {
+    const res = await api({
+      url: `/admin/schedule/confirm/${userScheduleId}?progress=REFUSE`,
+      method: 'POST',
+      headers: {
+        Authorization: cookie,
+      },
+    });
+    if (res.data.data) {
+      return res.data.data; // 취소 요청 성공 시 데이터 반환
+    }
+  } catch (error) {
+    console.error('취소 요청 실패:', error);
+    throw error; // 에러 발생 시 throw로 예외 처리
+  }
+};
