@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom'
 import useUser from '@/hooks/user'
 import dayjs from 'dayjs'
 import { DATE_ROUTE_FORMAT } from '@/constants'
+import { toast } from 'react-toastify'
 
 export default function SignUpPage() {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [emailValid, setEmailValid] = useState<boolean>(false)
-  const [passwordValid, setPasswordValid] = useState<boolean>(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [emailValid, setEmailValid] = useState(false)
+  const [passwordValid, setPasswordValid] = useState(false)
   const { login } = useUser() // setUserInfo 가져오기
+  const failToast = () => toast.error('아이디 또는 비밀번호를 다시 확인해주세요!')
 
   const checkEmail = (e: ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value)
@@ -30,18 +32,16 @@ export default function SignUpPage() {
 
   const handleSignIn = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
-    alert('로그인 시도!')
     const loggedIn = await login(email, password)
     if (loggedIn) {
-      alert('로그인 성공!')
       window.location.replace(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`) // 메인 페이지로 이동
       return
     }
-    alert('로그인 실패!') // 로그인 실패 시 경고 메시지
+    failToast() // 로그인 실패 시 경고 메시지
   }
 
   return (
-<div className='flex w-full justify-center'>
+    <div className='flex w-full justify-center'>
       <div className='flex w-full flex-col'>
         <div className=' justify-center pl-[35px] pr-[35px] mb-[70px]'>
           <svg viewBox='0 0 300 81'>
@@ -51,7 +51,6 @@ export default function SignUpPage() {
         <form onSubmit={handleSignIn} className='flex flex-col items-center'>
           <div className='flex flex-col w-full'>
             <div className='flex w-full justify-between'>
-              {' '}
               {/* 가로로 정렬, 간격 추가 */}
               <label htmlFor='email' className='text-gray-600 mt-auto mb-auto'>
                 이메일
@@ -72,7 +71,6 @@ export default function SignUpPage() {
           </div>
           <div className='flex flex-col w-full'>
             <div className='flex w-full mt-5 justify-between'>
-              {' '}
               {/* 가로로 정렬, 간격 추가 */}
               <label htmlFor='password' className='text-gray-600 mt-auto mb-auto'>
                 비밀번호

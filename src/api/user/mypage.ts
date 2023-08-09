@@ -30,7 +30,6 @@ export const getMyTicketList = async (cookie: string): Promise<TicketListRespons
     if (res.data.data) return res.data.data
     return null
   } catch (error) {
-    console.info(error)
     return null
   }
 }

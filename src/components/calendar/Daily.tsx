@@ -13,6 +13,7 @@ import DailyDetail from '@/components/calendar/DailyDetail'
 import ModalPortal from '@/components/ui/ModalPortal'
 import CalendarAction from '@/components/calendar/CalendarAction'
 import { DATE_FORMAT } from '@/constants'
+import { toast } from 'react-toastify'
 
 type Props = {
   daily: string[]
@@ -74,20 +75,19 @@ export default function Daily({ daily }: Props) {
   }, [])
 
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
-  const handleEdit = (isEdit: boolean) => {
-    if (isEdit) alert('수정되었습니다.')
-    else alert('수정에 실패했습니다.')
+  const handleEdit = (message: string) => {
+    toast(message)
     setOpenPortal(false)
   }
 
   const handleReserve = (message: string) => {
-    alert(message)
+    toast(message)
     setOpenPortal(false)
   }
 
   // * 공연 추가 모달에서 새로운 공연을 추가하면 실행됩니다.
   const handleSubmitSchedule = (message: string) => {
-    alert(message)
+    toast(message)
     setOpenPortal(false)
   }
 
@@ -124,10 +124,11 @@ export default function Daily({ daily }: Props) {
       bg: 'bg-refuse'
     }
   }
+
   const hoverEvent = adminId ? 'hover:border-point hover:border-[1px] hover:cursor-pointer' : ''
   return (
     <>
-      {daily?.map((date) => {
+      {daily?.map((date, i) => {
         const disable = dayjs(date).month() + 1 !== Number(month) ? true : false
         const providerSchedule = getProviderSchdule(adminSchedule, date)
         const reservedSchedule = reservedList?.filter((r) => r.reservedDate === date)
@@ -136,7 +137,7 @@ export default function Daily({ daily }: Props) {
         if (disable) textColor += ' opacity-20'
         return (
           <div
-            key={'daily' + date}
+            key={`daily-${date}-${i}`}
             className={`cell min-h-[100px] md:min-h-[120px]
             ${getBgStyle(date)} transition-all ease-in-out duration-150 ${hoverEvent}`}
             onClick={(e) => handleOnClickCell(e, date)}
@@ -146,11 +147,11 @@ export default function Daily({ daily }: Props) {
               <span className='pl-2 font-bold'>
                 {dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()}{' '}
               </span>
-              {providerSchedule?.map((s, i) => {
-                if (disable || i > 1) return null
+              {providerSchedule?.map((s, j) => {
+                if (disable || j > 1) return null
                 return (
                   <DailySchedule
-                    key={s.id}
+                    key={s.id + s.title + j}
                     schedule={s}
                     reservedList={reservedList}
                     cellWidth={width}
@@ -159,12 +160,12 @@ export default function Daily({ daily }: Props) {
                   />
                 )
               })}
-              {reservedSchedule?.map((r) => {
+              {reservedSchedule?.map((r, i) => {
                 r.progress === 'REFUSE'
                 return (
                   <>
                     <div
-                      key={r.id}
+                      key={`reserved-${r.reservedDate + i}`}
                       className={`absolute top-0 w-full h-full bg-gradient-to-t 
                     ${reserveStyle[r.progress].from} opacity-40 to-transparent z-[0]`}
                     />
@@ -176,7 +177,7 @@ export default function Daily({ daily }: Props) {
                 )
               })}
               {providerSchedule.length > 2 && (
-                <div className='absolute'>
+                <div key={`morebtn-${date}-${i}`} className='absolute'>
                   <MoreButton
                     date={date}
                     restItem={providerSchedule[0].restItem}

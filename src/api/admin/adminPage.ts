@@ -36,7 +36,9 @@ export type ApprovalListResponse = {
   }
 }
 
-export const getAdminDashbordlList = async (cookie: string): Promise<ApprovalListResponse | null> => {
+export const getAdminDashbordlList = async (
+  cookie: string
+): Promise<ApprovalListResponse | null> => {
   try {
     const res = await api({
       url: '/mypage?role=ADMIN',
@@ -49,7 +51,6 @@ export const getAdminDashbordlList = async (cookie: string): Promise<ApprovalLis
     if (res.data.data) return res.data.data
     return null
   } catch (error) {
-    console.info(error)
     return null
   }
 }

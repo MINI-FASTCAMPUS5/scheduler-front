@@ -19,7 +19,6 @@ export const UserContext = createContext<IUserContext>({
   loading: true,
   getUserInfo: () => ({}) as AdminUser | FanUser,
   login: async () => {
-    alert('이게 나오면 안되는디..?!?!')
     return false
   },
   logout: () => {}

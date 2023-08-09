@@ -11,11 +11,8 @@ export async function loginUser(email: string, password: string) {
       email,
       password
     })
-    console.info(response.data) // 컨택스 api 유저 정보 들어있음
     return response.headers.authorization // 쿠키에 저장 토큰임
   } catch (err) {
-    console.info('로그인 에러')
-    console.info(err)
     return null
   }
 }
@@ -54,7 +51,6 @@ export async function signUpUser(
 
     return response.data.data
   } catch (err) {
-    alert('회원가입 시도 실패')
     console.error(err)
     return false
   }

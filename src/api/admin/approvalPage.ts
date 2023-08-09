@@ -52,7 +52,9 @@ export type ApprovalListResponse = {
   }
 }
 
-export const getAdminApprovallList = async (cookie: string): Promise<ApprovalListResponse | null> => {
+export const getAdminApprovallList = async (
+  cookie: string
+): Promise<ApprovalListResponse | null> => {
   try {
     const res = await api({
       url: '/admin/schedule/confirm',
@@ -62,16 +64,12 @@ export const getAdminApprovallList = async (cookie: string): Promise<ApprovalLis
       }
     })
     // eslint-disable-next-line no-console
-    console.log('dfdsd', cookie)
 
     if (res.data.data) return res.data.data
     return null
   } catch (error) {
-    console.info(error)
     return null
   }
-
-
 }
 
 export const approveSchedule = async (userScheduleId: number, cookie: string): Promise<boolean> => {
@@ -80,20 +78,19 @@ export const approveSchedule = async (userScheduleId: number, cookie: string): P
       url: `/admin/schedule/confirm/${userScheduleId}?progress=ACCEPT`,
       method: 'POST',
       headers: {
-        Authorization: cookie,
-      },
-    });
+        Authorization: cookie
+      }
+    })
 
     if (res.data.data) {
-      return true; // 성공 시 true 반환
+      return true // 성공 시 true 반환
     }
-    return false; // 데이터 없을 시 false 반환
+    return false // 데이터 없을 시 false 반환
   } catch (error) {
-    console.error('승인 요청 실패:', error);
-    return false; // 에러 시 false 반환
+    console.error('승인 요청 실패:', error)
+    return false // 에러 시 false 반환
   }
-};
-
+}
 
 export const cancelSchedule = async (userScheduleId: number, cookie: string): Promise<boolean> => {
   try {
@@ -101,16 +98,16 @@ export const cancelSchedule = async (userScheduleId: number, cookie: string): Pr
       url: `/admin/schedule/confirm/${userScheduleId}?progress=REFUSE`,
       method: 'POST',
       headers: {
-        Authorization: cookie,
-      },
-    });
+        Authorization: cookie
+      }
+    })
 
     if (res.data.data) {
-      return true; // 성공 시 true 반환
+      return true // 성공 시 true 반환
     }
-    return false; // 데이터 없을 시 false 반환
+    return false // 데이터 없을 시 false 반환
   } catch (error) {
-    console.error('취소 요청 실패:', error);
-    return false; // 에러 시 false 반환
+    console.error('취소 요청 실패:', error)
+    return false // 에러 시 false 반환
   }
-};
+}

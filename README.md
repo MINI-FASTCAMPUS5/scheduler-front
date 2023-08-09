@@ -69,7 +69,6 @@ export async function getMonthlyCalendar(year: number, month: number) {
   );
   return response.data;
   } catch (error) {
-    process.env.NODE_ENV === 'development' && console.error(error)
     return []
   }
 }

@@ -3,6 +3,7 @@ import Button from '@/components/ui/Button'
 import { getProfileUpdatePage, updateUserInformation, uploadProfileImage } from '@/api/user/edit'
 import { useCookies } from 'react-cookie'
 import { ACCESS_TOKEN } from '@/constants'
+import { toast } from 'react-toastify'
 
 export default function Edit() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -67,7 +68,7 @@ export default function Edit() {
 
   // '취소' 버튼을 클릭했을 때 실행
   const handleCancel = async () => {
-    alert('회원 정보 수정이 취소되었습니다.')
+    toast('회원 정보 수정이 취소되었습니다.')
   }
 
   // 수정 완료 버튼을 클릭했을때 비밀번호 변경 누락...빠르게 다시 수정!!!
@@ -77,17 +78,17 @@ export default function Edit() {
   const handleEditComplete = async () => {
     try {
       if (!newPassword || !confirmPassword) {
-        alert('비밀번호와 비밀번호 확인을 모두 입력해주세요.')
+        toast.warn('비밀번호와 비밀번호 확인을 모두 입력해주세요.')
         return
       }
 
       if (newPassword !== confirmPassword) {
-        alert('비밀번호가 일치하지 않습니다.')
+        toast.error('비밀번호가 일치하지 않습니다.')
         return
       }
 
       if (newPassword.length < 8 || !/[!@#$%^&*()_+{}[\]:;<>,.?~\-=/\\]/.test(newPassword)) {
-        alert('비밀번호는 특수문자를 포함하고, 최소 8자 이상 입력해주세요.')
+        toast.error('비밀번호는 특수문자를 포함하고, 최소 8자 이상 입력해주세요.')
         return
       }
 
@@ -99,10 +100,8 @@ export default function Edit() {
       }
 
       // 수정 완료 후 추가 동작
-      alert('회원정보 수정이 완료되었습니다.')
       setProfileImage(null) // 프로필 이미지 초기화
       setUploadedImage(null) // 업로드된 이미지 파일 상태 초기화
-      alert('수정이 완료되었습니다. 다시 로그인 해주세요.')
       removeCookie(ACCESS_TOKEN, { path: '/' })
       window.location.replace('/login')
     } catch (error) {
@@ -127,7 +126,7 @@ export default function Edit() {
           size='sm'
           className='bg-point text-white rounded ml-8'
           onClick={() => {
-            document.getElementById('profile-image-input')?.click()
+            // document.getElementById('profile-image-input')?.click()
           }}
         />
         <input

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Button from '@/components/ui/Button'
 import Banner from '@/components/Banner'
 import { ScheduleAddFormData } from '@/components/calendar/AddForm'
+import { toast } from 'react-toastify'
 
 type Props = {
   date: string
@@ -16,6 +17,7 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
   const [endDate, setEndDate] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const imageOverSize = () => toast('이미지 크기는 5MB 이하여야 합니다.')
   //이미지 미리보기
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -28,7 +30,7 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
         if (base64) {
           const str = base64?.toString()
           if (str && str.length > 1048576 * 5) {
-            alert('이미지는 5MB이하여야합니다!')
+            imageOverSize()
             return
           }
           setImgSrc(base64.toString())

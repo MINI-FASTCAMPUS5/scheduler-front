@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import { DATE_FORMAT } from '@/constants'
 import Button from '@/components/ui/Button'
 import useUser from '@/hooks/user'
+import { toast } from 'react-toastify'
 
 type Props = {
   schedule: ProviderScheduleWithPos
@@ -37,7 +38,7 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
         if (base64) {
           const str = base64?.toString()
           if (str && str.length > 1048576 * 5) {
-            alert('이미지는 5MB이하여야합니다!')
+            toast.warn('이미지는 5MB이하여야합니다!')
             return
           }
           setImgSrc(base64.toString())

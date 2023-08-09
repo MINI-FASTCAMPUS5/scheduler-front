@@ -36,7 +36,7 @@ transition-all duration-100 ease-in-out rounded-xl border-[4px] border-white`}
           <Daily daily={dailyIdx} />
         ) : (
           dailyIdx.map((d, i) => (
-            <div key={d + i} className='cell min-h-[100px] md:min-h-[120px]' />
+            <div key={`dailyIdx-${d + i}`} className='cell min-h-[100px] md:min-h-[120px]' />
           ))
         )}
       </div>

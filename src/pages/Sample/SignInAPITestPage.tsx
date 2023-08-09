@@ -3,6 +3,7 @@ import useUser from '@/hooks/user'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function SignInAPITestPage() {
   const navigate = useNavigate()
@@ -17,7 +18,7 @@ export default function SignInAPITestPage() {
       navigate('/calendar/' + currentDate)
       return
     }
-    alert('로그인에 실패하였습니다.')
+    toast.error('로그인에 실패하였습니다.')
   }
 
   return (

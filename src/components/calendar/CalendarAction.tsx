@@ -19,7 +19,7 @@ type Props = {
   date: string
   onCancle: () => void
   onReserve: (message: string) => void
-  onEdit: (isEdit: boolean) => void
+  onEdit: (message: string) => void
   onSubmit: (message: string) => void
 }
 
@@ -34,7 +34,6 @@ export default function CalendarAction({
   onSubmit
 }: Props) {
   const [cookie] = useCookies([ACCESS_TOKEN])
-  // const { getUserInfo } = useUser()
   const queryClient = useQueryClient()
 
   const reserveMutation = useMutation({
@@ -61,6 +60,25 @@ export default function CalendarAction({
     }
   })
 
+  const editMutation = useMutation({
+    mutationFn: ({ id, formData, token }: { id: string; formData: FormData; token: string }) => {
+      return api(`/admin/schedule/update/${id}`, {
+        method: 'POST',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: token
+        }
+      })
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries(['schedule'])
+    },
+    onError: (error) => {
+      console.error(error)
+    }
+  })
+
   const handleReserve = (schedule: ProviderScheduleWithPos, selectDate: string) => {
     reserveMutation
       .mutateAsync({
@@ -69,7 +87,6 @@ export default function CalendarAction({
       })
       .then((isReflected) => {
         if (isReflected) {
-          queryClient.invalidateQueries(['schedule'])
           onReserve('예약되었습니다.')
         } else onReserve('예약을 실패했습니다.')
       })
@@ -101,20 +118,17 @@ export default function CalendarAction({
         }
       )
     )
-    api(`/admin/schedule/update/${schedule.id}`, {
-      method: 'POST',
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: cookie.AccessToken
-      }
-    })
-      .then(() => {
-        onEdit(true)
+    editMutation
+      .mutateAsync({
+        id: schedule.id,
+        formData,
+        token: cookie.AccessToken
       })
-      .catch((err) => {
-        console.error(err)
-        onEdit(false)
+      .then(() => {
+        onEdit('수정되었습니다.')
+      })
+      .catch(() => {
+        onEdit('수정에 실패했습니다.')
       })
   }
 
@@ -126,7 +140,6 @@ export default function CalendarAction({
       })
       .then((isReflected) => {
         if (isReflected) {
-          queryClient.invalidateQueries(['schedule'])
           onSubmit('행사가 추가되었습니다.')
         } else onSubmit('행사 추가에 실패했습니다.')
       })
