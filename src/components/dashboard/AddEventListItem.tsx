@@ -1,10 +1,12 @@
+import { ScheduleDtoType } from '@/api/admin/adminPage'
 import React from 'react'
 
-type AddEventProps = {
-  data: { adminScheduleId: string; title: string; description: string; scheduleStart: string }
+type Props = {
+  data: ScheduleDtoType
 }
 
-export default function AddEventListItem({ data }: AddEventProps) {
+export default function AddEventListItem({ data }: Props) {
+
   return (
     <div>
       <div className='flex w-full h-[48px] bg-boxbg rounded-xl pr-5 pl-5'>
