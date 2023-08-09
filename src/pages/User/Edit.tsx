@@ -5,7 +5,8 @@ import { useCookies } from 'react-cookie'
 import { ACCESS_TOKEN } from '@/constants'
 
 export default function Edit() {
-  const [cookies] = useCookies([ACCESS_TOKEN])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [cookies, setCookie, removeCookie] = useCookies([ACCESS_TOKEN])
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -101,6 +102,9 @@ export default function Edit() {
       alert('회원정보 수정이 완료되었습니다.')
       setProfileImage(null) // 프로필 이미지 초기화
       setUploadedImage(null) // 업로드된 이미지 파일 상태 초기화
+      alert('수정이 완료되었습니다. 다시 로그인 해주세요.')
+      removeCookie(ACCESS_TOKEN, { path: '/' })
+      window.location.replace('/login')
     } catch (error) {
       console.error('에러 발생:', error)
     }
