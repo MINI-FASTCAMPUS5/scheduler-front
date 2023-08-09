@@ -2,184 +2,29 @@ import React, { useEffect, useState } from 'react'
 import ApprovalListItem from './ApprovalListItem'
 import ApprovalPaging from './ApprovalPagination'
 import CheerUpLoading from '../ui/CheerUpLoading'
-// import api from '@/api'
-// import { useCookies } from 'react-cookie'
+import { implScheduleDtoType } from '@/api/admin/approvalPage'
 
-export default function ApprovalList() {
-  const mockdata = [
-    {
-      adminScheduleId: '1',
-      fullName: '뉴진숙',
-      title: 'BTS 부산 공연',
-      description: 'BTS 서울 공연 진행합니다.',
-      scheduleStart: '2023-06-05',
-      progress: 'fulfilled'
-    },
-    {
-      adminScheduleId: '2',
-      fullName: '박광일',
-      title: '뉴진스 서울 공연',
-      description: '뉴진스 서울 공연 진행합니다.',
-      scheduleStart: '2023-06-15',
-      progress: 'rejected'
-    },
-    {
-      adminScheduleId: '3',
-      fullName: '최첨단',
-      title: '르세라핌 서울 공연',
-      description: '르세라핌 서울 공연 진행합니다.',
-      scheduleStart: '2023-06-23',
-      progress: 'pending'
-    },
-    {
-      adminScheduleId: '4',
-      fullName: '멋쟁이',
-      title: 'BTS 부산 공연',
-      description: 'BTS 서울 공연 진행합니다.',
-      scheduleStart: '2023-07-05',
-      progress: 'fulfilled'
-    },
-    {
-      adminScheduleId: '5',
-      fullName: '세라핌내꺼',
-      title: '뉴진스 서울 공연',
-      description: '뉴진스 서울 공연 진행합니다.',
-      scheduleStart: '2023-07-15',
-      progress: 'rejected'
-    },
-    {
-      adminScheduleId: '6',
-      fullName: '사랑해민지',
-      title: '르세라핌 서울 공연',
-      description: '르세라핌 서울 공연 진행합니다.',
-      scheduleStart: '2023-07-23',
-      progress: 'pending'
-    },
-    {
-      adminScheduleId: '7',
-      fullName: '다니짱',
-      title: 'BTS 부산 공연',
-      description: 'BTS 서울 공연 진행합니다.',
-      scheduleStart: '2023-08-05',
-      progress: 'fulfilled'
-    },
-    {
-      adminScheduleId: '8',
-      fullName: '아이도르',
-      title: '뉴진스 서울 공연',
-      description: '뉴진스 서울 공연 진행합니다.',
-      scheduleStart: '2023-08-15',
-      progress: 'rejected'
-    },
-    {
-      adminScheduleId: '9',
-      fullName: '우왕이',
-      title: '르세라핌 서울 공연',
-      description: '르세라핌 서울 공연 진행합니다.',
-      scheduleStart: '2023-08-23',
-      progress: 'pending'
-    },
-    {
-      adminScheduleId: '10',
-      fullName: '아귀님',
-      title: 'BTS 부산 공연',
-      description: 'BTS 서울 공연 진행합니다.',
-      scheduleStart: '2023-09-05',
-      progress: 'fulfilled'
-    },
-    {
-      adminScheduleId: '11',
-      fullName: '김순자',
-      title: '뉴진스 서울 공연',
-      description: '뉴진스 서울 공연 진행합니다.',
-      scheduleStart: '2023-09-15',
-      progress: 'rejected'
-    },
-    {
-      adminScheduleId: '12',
-      fullName: '박수민',
-      title: '르세라핌 서울 공연',
-      description: '르세라핌 서울 공연 진행합니다.',
-      scheduleStart: '2023-09-23',
-      progress: 'pending'
-    },
-    {
-      adminScheduleId: '13',
-      fullName: '아귀님',
-      title: 'BTS 부산 공연',
-      description: 'BTS 서울 공연 진행합니다.',
-      scheduleStart: '2023-09-05',
-      progress: 'fulfilled'
-    },
-    {
-      adminScheduleId: '14',
-      fullName: '김순자',
-      title: '뉴진스 서울 공연',
-      description: '뉴진스 서울 공연 진행합니다.',
-      scheduleStart: '2023-09-15',
-      progress: 'rejected'
-    },
-    {
-      adminScheduleId: '15',
-      fullName: '박수민',
-      title: '르세라핌 서울 공연',
-      description: '르세라핌 서울 공연 진행합니다.',
-      scheduleStart: '2023-09-23',
-      progress: 'pending'
-    },
-    {
-      adminScheduleId: '16',
-      fullName: '아귀님',
-      title: 'BTS 부산 공연',
-      description: 'BTS 서울 공연 진행합니다.',
-      scheduleStart: '2023-09-05',
-      progress: 'fulfilled'
-    },
-    {
-      adminScheduleId: '17',
-      fullName: '김순자',
-      title: '뉴진스 서울 공연',
-      description: '뉴진스 서울 공연 진행합니다.',
-      scheduleStart: '2023-09-15',
-      progress: 'rejected'
-    },
-    {
-      adminScheduleId: '18',
-      fullName: '박수민',
-      title: '르세라핌 서울 공연',
-      description: '르세라핌 서울 공연 진행합니다.',
-      scheduleStart: '2023-09-23',
-      progress: 'pending'
-    }
-  ]
 
-  type ApprovalItem = {
-    adminScheduleId: string
-    fullName: string
-    title: string
-    description: string
-    scheduleStart: string
-    progress: string
-  }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function ApprovalList(props: any) {
+  // eslint-disable-next-line react/prop-types
+  const { data } = props
 
   const [postPerPage] = useState(10) //한 페이지에 보여질 아이템 수
   const [count, setCount] = useState(10) //아이템 총 개수
   const [currentPage, setCurrentPage] = useState(1) //현재 페이지. 기본값 '1'
   const [indexOfLastPost, setIndexOfLastPost] = useState(0) //현재 페이지의 마지막 아이템 인덱스
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0) //현재 페이지의 첫번째 아이템 인덱스
-  const [currentPosts, setCurrentPosts] = useState<ApprovalItem[]>([]) //현재 페이지에서 보여지는 아이템
-  const [approvalList, setApprovallist] = useState<ApprovalItem[]>([]) //리스트에 나타낼 아이템
+  const [currentPosts, setCurrentPosts] = useState<implScheduleDtoType[]>([]) //현재 페이지에서 보여지는 아이템
+  const [approvalList, setApprovallist] = useState<implScheduleDtoType[]>([]) //리스트에 나타낼 아이템
   const [londing, setLoding] = useState(true)
 
   useEffect(() => {
     setLoding(true)
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
-        const response = await new Promise<ApprovalItem[]>((resolve) => {
-          setTimeout(() => resolve(mockdata), 1000)
-        })
-        setApprovallist(response)
-        setCount(response.length)
+        setApprovallist(data)
+        setCount(data.length)
         setLoding(false)
       } catch (error) {
         console.error('신청 승인/거절 영역 오류', error)
@@ -188,32 +33,6 @@ export default function ApprovalList() {
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // const [cookie] = useCookies(['AccessToken'])
-
-  // useEffect(() => {
-  //   setLoding(true)
-  //   const fetchData = async () => {
-  //     try {
-  //       const { data } = await api({
-  //         url: 'admin/schedule/confirm',
-  //         method: 'GET',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: cookie.AccessToken
-  //         }
-  //       })
-  //       setApprovallist(data)
-  //       setCount(data.length)
-  //       setLoding(false)
-  //     } catch (error) {
-  //       console.info('신청 승인/거절 영역 오류', error)
-  //       setLoding(false)
-  //     }
-  //   }
-  //   fetchData()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
 
   useEffect(() => {
     setIndexOfLastPost(currentPage * postPerPage) // 현재 페이지와 한 페이지에 보여질 아이템 수를 곱하여 결과 값을 setIndexOfLastPost에 넘깁니다.
@@ -251,7 +70,7 @@ export default function ApprovalList() {
 
       <div className='flex flex-col h-full p-4 rounded-3xl relative'>
         {currentPosts && currentPosts.length > 0 ? (
-          currentPosts.map((data) => <ApprovalListItem key={data.adminScheduleId} data={data} />)
+          currentPosts.map((data) => <ApprovalListItem key={data.userScheduleId} data={data} />)
         ) : (
           <div className='flex m-auto text-[#a9a9a9]'>데이터가 없습니다.</div>
         )}
