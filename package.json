@@ -7,12 +7,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "npx pm2 start npm -- run preview"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.32.0",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
+    "pm2": "^5.3.0",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
