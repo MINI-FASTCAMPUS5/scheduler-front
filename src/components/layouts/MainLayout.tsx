@@ -3,6 +3,7 @@ import useUser from '@/hooks/user'
 import dayjs from 'dayjs'
 import React, { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import Scene from '../ui/animation/Scene'
 
 export default function MainLayout() {
   const location = useLocation()
@@ -19,10 +20,11 @@ export default function MainLayout() {
   }, [getUserInfo, navigate, loggedIn, location.pathname])
 
   return (
-    <main className='relative flex min-h-screen w-full'>
-      <div className='absolute flex w-[350px] h-[400px] border-4 p-4 top-24 right-48 rounded-xl z-[999]'>
+    <main className='relative flex h-[100vh] w-[100vw]'>
+      <div className='absolute flex max-h-[400px] border-4 p-4 rounded-xl z-[999] m-auto top-0 right-48 bottom-0'>
         <Outlet />
       </div>
+      <Scene />
     </main>
   )
 }
