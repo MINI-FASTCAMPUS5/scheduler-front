@@ -3,11 +3,24 @@ import React from 'react'
 import AddEventList from '@/components/dashboard/AddEventList'
 import EventStatusCard from '@/components/dashboard/EventStatusCard'
 import userDefaultImg from '/mock_image/user_default.png'
+import { useCookies } from 'react-cookie'
+import { getAdminDashbordlList } from '@/api/admin/adminPage'
+import { useQuery } from '@tanstack/react-query'
 
 export default function ManagerDashboardPage() {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
   const defaultprofileImage = userDefaultImg
+
+  const [cookie] = useCookies(['AccessToken'])
+
+  const { data, isSuccess } = useQuery(
+    ['DashboardList', user.id ? user.id : ''],
+    () => getAdminDashbordlList(cookie.AccessToken),
+    {
+      staleTime: 1000 * 60 * 5
+    }
+  )
 
   return (
     <div className='flex flex-col pt-2 pb-2 ml-8 mr-8 h-[100vh]'>
@@ -51,8 +64,8 @@ export default function ManagerDashboardPage() {
           )}
         </div>
         <div className='flex flex-col ml-5 w-3/6 h-[100%]'>
-          <EventStatusCard />
-          <AddEventList />
+          {isSuccess && data && <EventStatusCard events={data.registeredEventCount} waiting={data.countProcessDTO.waiting} accepted={data.countProcessDTO.accepted} refused={data.countProcessDTO.refused} />}
+          {isSuccess && data && <AddEventList data={data}/>}
         </div>
       </div>
     </div>

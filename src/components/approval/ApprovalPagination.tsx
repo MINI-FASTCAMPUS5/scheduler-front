@@ -19,9 +19,9 @@ const ApprovalPaging: React.FC<SearchPagingProps> = ({page, count, setPage}) => 
       <Pagination
         innerClass='flex'
         activePage={page} //현재 페이지
-        itemsCountPerPage={page} //한페이지에 보이는 아이템 개수
+        itemsCountPerPage={10} //한페이지에 보이는 아이템 개수
         totalItemsCount={count} //아이템 총 개수
-        pageRangeDisplayed={3} //페이지네이션에서 보여줄 페이지 범위
+        pageRangeDisplayed={5} //페이지네이션에서 보여줄 페이지 범위
         prevPageText={'<'} //이전 텍스트
         nextPageText={'>'} //다음 텍스트
         lastPageText={''} //맨 마지막 이동 텍스트

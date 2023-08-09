@@ -1,173 +1,107 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { signUpUser } from '../api/api'
-import { useCookies } from 'react-cookie'
-import { ACCESS_TOKEN } from '@/constants'
+import React, { useState, ChangeEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import useUser from '@/hooks/user';
+import dayjs from 'dayjs';
+import { DATE_ROUTE_FORMAT } from '@/constants';
 
-export default function SignupPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [fullName, setFullName] = useState('')
-  const [profileImg, setProfileImg] = useState<File>()
-  const [passwordLength, setPasswordLength] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [passwordMatch, setPasswordMatch] = useState('')
-  const [successModalVisible, setSuccessModalVisible] = useState(false)
-  const [imgModalVisible, setImgModalVisible] = useState(false)
+export default function SignUpPage() {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [emailValid, setEmailValid] = useState<boolean>(false);
+  const [passwordValid, setPasswordValid] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const { login } = useUser(); // setUserInfo 가져오기
 
-  const navigate = useNavigate()
-  const [, setCookie] = useCookies([ACCESS_TOKEN])
+  const checkEmail = (e: ChangeEvent<HTMLInputElement>): void => {
+    setEmail(e.target.value);
+    const regex =
+      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+    if (regex.test(e.target.value)) {
+      setEmailValid(true);
+    } else setEmailValid(false);
+  };
 
-  const handleEmailCheck = (e: ChangeEvent<HTMLInputElement>): void => {
-    const newEmail = e.target.value
-    setEmail(newEmail)
+  const checkPassword = (e: ChangeEvent<HTMLInputElement>): void => {
+    setPassword(e.target.value);
+    const regex = /^(?!.*[^a-zA-Z0-9$`~!@$!%*#^?&\\()\-=+])[a-zA-Z0-9$`~!@$!%*#^?&\\()\-=+]{8,}$/;
+    if (regex.test(e.target.value)) {
+      setPasswordValid(true);
+    } else setPasswordValid(false);
+  };
 
-    if (!newEmail.includes('@') || !newEmail.includes('.')) {
-      setEmailError('올바른 이메일 형식을 입력해 주세요.')
-    } else {
-      setEmailError('')
+  const handleSignIn = async (e: React.FormEvent): Promise<void> => {
+    e.preventDefault();
+    const loggedIn = await login(email, password);
+    if (loggedIn) {
+      alert('로그인 성공!');
+      navigate(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`); // 메인 페이지로 이동
+      return;
     }
-  }
-
-  const handlePasswordLength = (e: ChangeEvent<HTMLInputElement>): void => {
-    const newPassword = e.target.value
-    setPassword(newPassword)
-
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/
-
-    if (!regex.test(newPassword)) {
-      setPasswordLength('비밀번호는 영문, 숫자, 특수문자 조합 8~20자 이내로 입력해주세요.')
-    } else {
-      setPasswordLength('')
-    }
-  }
-
-  const handlePasswordConfirm = (e: ChangeEvent<HTMLInputElement>): void => {
-    const confirmPassword = e.target.value
-    setPasswordConfirm(confirmPassword)
-
-    if (confirmPassword !== password) {
-      setPasswordMatch('비밀번호가 일치하지 않습니다.')
-    } else {
-      setPasswordMatch('')
-    }
-  }
-
-  const uploadImage = (e: ChangeEvent<HTMLInputElement>): void => {
-    const files = e.target.files as FileList
-    const file = files[0]
-    const maxSize = 1024 * 1024 // 1MB
-
-    if (file.size > maxSize) {
-      setImgModalVisible(true)
-      return
-    }
-    setProfileImg(file)
-  }
-
-  const handleSignUp = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault()
-    const userJwtToken = await signUpUser(email, password, fullName, profileImg, 'USER')
-    // 회원가입 성공시 처리 (예: 토큰 저장, 페이지 이동 등)
-    if (userJwtToken) {
-      alert('회원가입 성공!')
-      setCookie(ACCESS_TOKEN, userJwtToken)
-      navigate('/login') // 메인 페이지로 이동
-      return
-    }
-  }
+    alert('로그인 실패!'); // 로그인 실패 시 경고 메시지
+  };
 
   return (
-    <section>
-      <div>
-        <div>회원가입</div>
-        <form onSubmit={handleSignUp}>
-          {/* 회원가입 폼 요소들 */}
-          <div>
-            <div>이메일</div>
-            <input
-              className='w-full'
-              value={email}
-              onChange={handleEmailCheck}
-              placeholder='(필수) 이메일을 입력해주세요.'
-            />
-            {emailError && <div className='text-red-500'>{emailError}</div>}
-            <div>비밀번호</div>
-            <input
-              className='w-full'
-              value={password}
-              onChange={handlePasswordLength}
-              placeholder='(필수) 비밀번호를 입력해 주세요.'
-              type='password'
-            />
-            {passwordLength && <div className='text-red-500'>{passwordLength}</div>}
-            <div>비밀번호 확인</div>
-            <input
-              className='w-full'
-              value={passwordConfirm}
-              onChange={handlePasswordConfirm}
-              placeholder='(필수) 비밀번호를 다시 입력해 주세요.'
-              type='password'
-            />
-            {passwordMatch && <div className='text-red-500'>{passwordMatch}</div>}
-            <div>이름</div>
-            <input
-              className='w-full'
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder='(필수) 이름을 입력해 주세요.'
-            />
-            <div>프로필 이미지</div>
-            <input className='w-full' type='file' onChange={uploadImage} />
-          </div>
-          <div>
+    <div className='absolute flex flex-col items-start w-[340px] h-[400px] border-4 p-4 rounded-xl z-[999] top-24 right-48'>
+      <div className="h-screen flex justify-center items-center">
+        <div className="flex flex-col items-center">
+          <svg viewBox="0 0 300 81">
+            <image href="/YeonganIdolLogoOrigin.svg" width="300" height="81" />
+          </svg>
+          <form
+            onSubmit={handleSignIn}
+            className="flex flex-col items-center"
+          >
+            <div className="flex flex-col items-start w-full">
+              <div className="flex flex-row items-start w-full mb-2"> {/* 가로로 정렬, 간격 추가 */}
+                <label htmlFor="email" className="text-gray-600 mb-1">
+                  이메일
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  value={email}
+                  onChange={checkEmail}
+                  className="py-2  w-340 bg-gray-200 rounded"
+                />
+              </div>
+              {!emailValid && (
+                <div className="text-red-600">올바른 이메일 형식을 입력해 주세요.</div>
+              )}
+            </div>
+            <div className="flex flex-col items-start w-full">
+              <div className="flex flex-row items-start w-full mb-2"> {/* 가로로 정렬, 간격 추가 */}
+                <label htmlFor="password" className="text-gray-600 mb-1">
+                  비밀번호
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={checkPassword}
+                  className="py-2  w-340 bg-gray-200 rounded"
+                />
+              </div>
+              {!passwordValid && (
+                <div className="text-red-600">비밀번호는 최소 8자 이상이어야 합니다.</div>
+              )}
+            </div>
             <button
-              className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded'
-              type='submit'
+              type="submit"
+              className="py-2 px-5 bg-purple-600 text-white rounded disabled:opacity-50 mt-4"
+              disabled={!emailValid || !passwordValid}
             >
-              회원가입
+              로그인
             </button>
-          </div>
-        </form>
+          </form>
+          <Link
+            to="/signup"
+            className="text-purple-600 hover:underline mt-4"
+          >
+            <span className="text-black">아직 계정이 없으신가요?</span> 회원가입
+          </Link>
 
-        {/* 필수 입력정보를 확인해주세요. 모달 */}
-        {successModalVisible && (
-          <div className='fixed inset-0 flex items-center justify-center z-10'>
-            <div className='absolute inset-0 bg-black opacity-50' />
-            <div className='bg-white w-full max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto'>
-              <div className='py-4 text-left px-6'>
-                <div className='flex justify-between items-center pb-3'>
-                  <p className='text-2xl font-bold'>알림</p>
-                  <button onClick={() => setSuccessModalVisible(false)}>&times;</button>
-                </div>
-                <p>회원가입이 성공적으로 완료되었습니다!</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 이미 가입된 이메일 모달 */}
-        {imgModalVisible && (
-          <div className='modal fixed inset-0 flex items-center justify-center z-10'>
-            <div className='modal-overlay absolute inset-0 bg-black opacity-50' />
-            <div className='modal-container bg-white w-full max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto'>
-              <div className='modal-content py-4 text-left px-6'>
-                <div className='flex justify-between items-center pb-3'>
-                  <p className='text-2xl font-bold'>알림</p>
-                  <button onClick={() => setImgModalVisible(false)}>&times;</button>
-                </div>
-                <p>프로필 이미지 크기는 1MB 이하여야 합니다. 이미지를 변경해주세요.</p>
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
-      <div className='mt-4'>
-        <Link to='/login' className='text-blue-500 hover:underline'>
-          이미 계정이 있으신가요? 로그인하러 가기
-        </Link>
-      </div>
-    </section>
-  )
+    </div>
+  );
 }
