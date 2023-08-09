@@ -1,0 +1,1 @@
+import{u as e,r,j as a,O as o}from"./index-07b8d0e5.js";import{u as i}from"./user-e932d91f.js";function l(){const t=e(),{loggedIn:s}=i();return r.useEffect(()=>{s||t("/login")},[s,t]),a.jsxs("main",{className:"relative h-full",children:[s&&a.jsx(o,{}),a.jsx("div",{id:"portal"})]})}export{l as default};
