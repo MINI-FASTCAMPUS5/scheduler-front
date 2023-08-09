@@ -1,6 +1,5 @@
 import { AdminUser, FanUser } from '@/models/user'
 import React from 'react'
-import Button from '../ui/Button'
 import { Link } from 'react-router-dom'
 import useUser from '@/hooks/user'
 
@@ -11,26 +10,23 @@ export default function Profile({ user }: Props) {
   const { logout } = useUser()
   return (
     <div className='mb-8'>
-      <div className='flex justify-center items-center p-4 gap-4'>
-        <img className='w-20 h-20 rounded-[2.5rem]' src={user.profileImage} />
+      <div className='flex justify-center items-center p-4 gap-4 mt-3 mb-3'>
+        <img className='w-[70px] h-[70px] rounded-[2.5rem] border-[2px]' src={user.profileImage} />
         <div className='text-center'>
-          <h2 className='text-xl text-white font-bold'> {user.fullName}</h2>
+          <h2 className='text-xl text-white font-bold font-gmarket'> {user.fullName}</h2>
           <Link
             to={`${user.role === 'ADMIN' ? '/manager' : '/user'}/edit`}
-            className='inline-block bg-white px-3 rounded-xl font-bold text-[0.9rem] leading-6 mt-4'
+            className='inline-block bg-white px-4 rounded-xl font-bold text-[0.8rem] leading-6 mt-2 transition hover:bg-point hover:text-white hover:scale-105'
           >
             수정
           </Link>
         </div>
       </div>
       <div className='flex justify-center pt-2'>
-        <Button
-          text='로그아웃'
-          type='red'
-          size='md'
-          className='font-bold w-4/5 rounded-xl'
+        <div
+          className='font-bold bg-point text-white flex justify-center items-center w-4/5 rounded-xl font-gmarket h-[40px] transition hover:bg-wait cursor-pointer'
           onClick={() => logout()}
-        />
+        >로그아웃</div>
       </div>
     </div>
   )
