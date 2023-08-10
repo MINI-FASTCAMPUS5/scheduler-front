@@ -60,26 +60,26 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
       titleState = <div className={`${approval['textState']}`}>{data.title}</div>
       fullNameState = <div className={`${approval['textState']}`}>{data.fullName}</div>
       descriptionState = <div className={`${approval['textState']}`}>{data.description}</div>
-      scheduleStartState = <div className={`${approval['textState']}`}>{data.scheduleStart}</div>
+      scheduleStartState = <div className={`${approval['textState']}`}>{data.scheduleStart.split('T')[0]}</div>
       break
     case 'REFUSE':
       buttonState = <div className={`${approval['refused']} text-[calc(1vw-5px)]`}>거절완료</div>
       titleState = (
-        <div className={`${approval['textState']} text-[#c3c3c3] line-through`}>{data.title}</div>
+        <div className={`${approval['textState']} text-[#c3c3c3]`}>{data.title}</div>
       )
       fullNameState = (
-        <div className={`${approval['textState']} text-[#c3c3c3] line-through`}>
+        <div className={`${approval['textState']} text-[#c3c3c3]`}>
           {data.fullName}
         </div>
       )
       descriptionState = (
-        <div className={`${approval['textState']} text-[#c3c3c3] line-through`}>
+        <div className={`${approval['textState']} text-[#c3c3c3]`}>
           {data.description}
         </div>
       )
       scheduleStartState = (
-        <div className={`${approval['textState']} text-[#c3c3c3] line-through`}>
-          {data.scheduleStart}
+        <div className={`${approval['textState']} text-[#c3c3c3]`}>
+          {data.scheduleStart.split('T')[0]}
         </div>
       )
       break
@@ -110,7 +110,7 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
   } //r
 
   return (
-    <div className='flex w-full h-[calc(6vh-2px)] mb-[6px] bg-boxbg rounded-xl pr-5 pl-5'>
+    <div className='flex w-full h-[calc(6vh-2px)] mb-[6px] bg-boxbg rounded-xl pr-5 pl-5 transition hover:scale-[0.98]'>
       <div className='w-[20%] mt-auto mb-auto'>{titleState}</div>
       <div className='w-[40%] mt-auto mb-auto'>{descriptionState}</div>
       <div className='w-[10%] mt-auto mb-auto'>{fullNameState}</div>
