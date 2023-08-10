@@ -76,18 +76,24 @@ export default function Daily({ daily }: Props) {
 
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
   const handleEdit = (message: string) => {
-    toast(message)
+    toast(message, {
+      position: 'top-center'
+    })
     setOpenPortal(false)
   }
 
   const handleReserve = (message: string) => {
-    toast(message)
+    toast(message, {
+      position: 'top-center'
+    })
     setOpenPortal(false)
   }
 
   // * 공연 추가 모달에서 새로운 공연을 추가하면 실행됩니다.
   const handleSubmitSchedule = (message: string) => {
-    toast(message)
+    toast(message, {
+      position: 'top-center'
+    })
     setOpenPortal(false)
   }
 

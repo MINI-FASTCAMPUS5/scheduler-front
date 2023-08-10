@@ -11,7 +11,7 @@ export default function SearchForm({ onSubmit }: Props) {
   const searchParams = new URLSearchParams(location.search)
   const [value, setValue] = React.useState(searchParams.get('keyword') || '')
   const searchToast = () =>
-    toast.info(`${value}로 검색합니다`, {
+    toast.info(`${value}(을)를 검색합니다`, {
       position: 'top-center',
       autoClose: 1500
     })

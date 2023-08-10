@@ -30,7 +30,7 @@ import { ToastContainer } from 'react-toastify'
 function App() {
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div />}>
         <ToastContainer />
         <Routes>
           <Route path='/calendar' element={<CalendarLayout />}>

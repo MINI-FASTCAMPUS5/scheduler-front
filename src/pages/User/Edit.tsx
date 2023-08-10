@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Button from '@/components/ui/Button'
 import { getProfileUpdatePage, updateUserInformation, uploadProfileImage } from '@/api/user/edit'
 import { useCookies } from 'react-cookie'
-import { ACCESS_TOKEN } from '@/constants'
+import { ACCESS_TOKEN, DATE_ROUTE_FORMAT } from '@/constants'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+import dayjs from 'dayjs'
 
 export default function Edit() {
+  const navigate = useNavigate()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, setCookie, removeCookie] = useCookies([ACCESS_TOKEN])
   const [name, setName] = useState('')
@@ -14,6 +17,7 @@ export default function Edit() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [profileImage, setProfileImage] = useState<string | null>(null)
   const [uploadedImage, setUploadedImage] = useState<File | null>(null) // 업로드할 이미지 파일을 상태로 관리
+  const [role, setRole] = useState('')
 
   // getProfileUpdatePage
   // 프로필 수정 페이지에 처음 접속할 때, 현재 사용자의 프로필 정보를 불러오는 역할
@@ -26,6 +30,7 @@ export default function Edit() {
           setName(profileInfo.fullName)
           setEmail(profileInfo.email)
           setProfileImage(profileInfo.profileImage)
+          setRole(profileInfo.role)
         }
       } catch (error) {
         console.error('프로필 정보 가져오기 오류:', error)
@@ -68,7 +73,13 @@ export default function Edit() {
 
   // '취소' 버튼을 클릭했을 때 실행
   const handleCancel = async () => {
-    toast('회원 정보 수정이 취소되었습니다.')
+    toast('회원 정보 수정이 취소되었습니다.', {
+      position: 'top-center'
+    })
+    if (role === 'USER') {
+      return navigate('/user/mypage')
+    }
+    return navigate(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`)
   }
 
   // 수정 완료 버튼을 클릭했을때 비밀번호 변경 누락...빠르게 다시 수정!!!

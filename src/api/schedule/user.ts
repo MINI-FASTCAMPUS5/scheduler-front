@@ -1,8 +1,9 @@
 import api from '@/api'
+import { AxiosError } from 'axios'
 
 export const addSchedule = async (adminId: string, selectDate: string, cookie: string) => {
   try {
-    const res = await api({
+    await api({
       url: `/user/schedule/create?schedulerAdminId=${adminId}`,
       method: 'POST',
       headers: {
@@ -12,10 +13,16 @@ export const addSchedule = async (adminId: string, selectDate: string, cookie: s
         scheduleStart: selectDate
       }
     })
-    console.info(res)
-    return true
+    return {
+      message: '일정이 추가되었습니다.',
+      status: 200
+    }
   } catch (err) {
     console.error(err)
-    return false
+
+    return {
+      message: (err as AxiosError<{ data: string }>).response?.data?.data,
+      status: (err as AxiosError<{ data: string }>).response?.status
+    }
   }
 }

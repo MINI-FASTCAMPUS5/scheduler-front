@@ -23,24 +23,24 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
   const [imgSrc, setImgSrc] = useState('')
   const [imgFile, setImgFile] = useState<File>()
   const date = dayjs(new Date()).format(DATE_FORMAT)
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  const [startDate, setStartDate] = useState(schedule.startDate)
+  const [endDate, setEndDate] = useState(schedule.endDate)
   const [title, setTitle] = useState(schedule.title)
   const [description, setDescription] = useState(schedule.description)
   //이미지 미리보기
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (files && files.length > 0) {
-      setImgFile(files[0])
       const reader = new FileReader()
       reader.onloadend = () => {
         const base64 = reader.result
         if (base64) {
           const str = base64?.toString()
-          if (str && str.length > 1048576 * 5) {
-            toast.warn('이미지 크기는 5MB 이하여야 합니다.')
+          if (str && str.length > 1048576 * 10) {
+            toast.warn('이미지는 10MB이하여야합니다.')
             return
           }
+          setImgFile(files[0])
           setImgSrc(base64.toString())
         }
       }
@@ -84,21 +84,11 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
           />
         </div>
         <div className='flex bg-white w-[180px] h-[90px] rounded-2xl overflow-hidden border mt-3 justify-center'>
-        {imgFile ? (
-          <Banner
-            className='flex h-full'
-            type='side'
-            src={imgSrc}
-            alt='공연 이미지'
-          />
-        ) : (
-          <Banner
-            className='flex h-full'
-            type='side'
-            src={schedule.image}
-            alt='공연 이미지'
-          />
-        )}
+          {imgFile ? (
+            <Banner className='flex h-full' type='side' src={imgSrc} alt='공연 이미지' />
+          ) : (
+            <Banner className='flex h-full' type='side' src={schedule.image} alt='공연 이미지' />
+          )}
         </div>
       </div>
       <div className={'flex pb-4 justify-between pt-4'}>
