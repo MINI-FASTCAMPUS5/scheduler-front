@@ -80,13 +80,13 @@
 <p>
 <img src="https://img.shields.io/badge/npm-CB3837?style=flat&logo=Npm&logoColor=white"/>
 <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white"/>
-<img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white"/>
 </p>
 
 ### Environment
 
 <p>
 <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white"/>
+<img src="https://img.shields.io/badge/Husky-181717?style=flat&logo=husky&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white"/>
 <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/>
 </p>
@@ -104,11 +104,8 @@
 ### Deployment
 
 <p>
-<img src="https://img.shields.io/badge/CentOS-262577?style=flat&logo=centos&logoColor=white"/>
 <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=flat&logo=amazonec2&logoColor=white" />
 <p>
-<img src="https://img.shields.io/badge/Apache-D22128?style=flat&logo=apache&logoColor=white" />
-</p>
 
 <br>
 
