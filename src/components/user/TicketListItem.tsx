@@ -13,6 +13,8 @@ export default function TicketListItem({ data }: Props) {
     WAITING: 'bg-wait'
   }
 
+  const text = data.progress === 'ACCEPT' ? '승인완료' : '승인거절'
+  data.progress === 'WAITING' && '승인대기'
   return (
     <div className='flex items-center mb-4 bg-boxbg px-4 py-2 rounded-xl'>
       <p className='flex-1 font-bold truncate'>{data.title}</p>
@@ -22,7 +24,7 @@ export default function TicketListItem({ data }: Props) {
         className={`${option[data.progress]} w-[80px] text-center text-white 
         truncate lowercase font-bold  px-2 rounded-full`}
       >
-        {data.progress}
+        {text}
       </span>
     </div>
   )
