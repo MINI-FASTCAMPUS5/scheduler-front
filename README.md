@@ -17,7 +17,7 @@
 <h3>✔️ <a href="https://github.com/MINI-FASTCAMPUS5/scheduler-back">백엔드 깃허브 레포지토리 바로가기</a></h3>
 <br>
 
-## 👩‍🚀 개발팀
+## 🤗 개발팀
 
 <table>
   <tr>
@@ -63,7 +63,7 @@
 </table>
 <br>
 
-## 📌 사용 기술 및 개발 환경
+## 🛠️ 사용 기술 및 개발 환경
 
 ### Development
 
@@ -112,7 +112,7 @@
 
 <br>
 
-## 전체 화면 구성</br>
+## 💻 전체 화면 구성
 
 <br>
 
