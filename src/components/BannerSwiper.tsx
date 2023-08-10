@@ -10,7 +10,7 @@ export default function BannerSwiper() {
   return (
     <>
       <Swiper
-        className='max-w-[1000px] w-full rounded-lg'
+        className='max-w-[900px] w-full h-[90px] rounded-lg'
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, Parallax]}
         spaceBetween={50}
         slidesPerView={1}
