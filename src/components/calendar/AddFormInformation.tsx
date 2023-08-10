@@ -55,28 +55,16 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
 
   return (
     <>
-      <div className={'flex pb-4 justify-between items-end pt-4'}>
-        <span draggable={true} className='text-xl font-bold flex-1'>
+      <div className='flex flex-col text-[34px] font-gmarket font-bold ml-auto mr-auto mt-4'>
+        행사 등록
+      </div>
+      <div className={'flex pb-4 justify-between items-end pt-7'}>
+        <span draggable={true} className='text-xl font-bold flex-1 font-gmarket'>
           이미지
         </span>
-        {imgSrc ? (
-          <Banner
-            className='mr-2 p-2 bg-slate-300 rounded-xl'
-            type='side'
-            src={imgSrc}
-            alt='공연 이미지'
-          />
-        ) : (
-          <Banner
-            className='mr-2 p-2 bg-slate-300 rounded-xl'
-            type='side'
-            src='/YeonganIdolLogoOrigin.svg'
-            alt='공연 이미지'
-          />
-        )}
         <div className='filebox mr-4'>
           <label htmlFor='imageUploadInputLabel'>
-            <div className='bg-point px-3 min-w-[80px] text-center rounded-full text-white cursor-pointer hover:bg-rose-500 transition-all ease-in-out duration-300'>
+            <div className='bg-point px-3 min-w-[70px] text-center rounded-full text-white cursor-pointer hover:bg-wait transition-all ease-in-out duration-300 font-gmarket text-[14px] pt-[1px] font-bold'>
               업로드
             </div>
           </label>
@@ -88,15 +76,32 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
             className='upload-name'
           />
         </div>
+        <div className='flex bg-white w-[180px] h-[90px] rounded-2xl overflow-hidden border mt-3 justify-center'>
+        {imgSrc ? (
+          <Banner
+            className='flex h-full'
+            type='side'
+            src={imgSrc}
+            alt='공연 이미지'
+          />
+        ) : (
+          <Banner
+            className='flex h-full'
+            type='side'
+            src='/mock_image/event_default.jpg'
+            alt='공연 이미지'
+          />
+        )}
+      </div>
       </div>
       <div className='flex justify-between pb-4'>
-        <span draggable={true} className='text-xl font-bold'>
+        <span draggable={true} className='text-xl font-bold font-gmarket'>
           행사 시작일
         </span>
-        <span className='text-lg'>
+        <span className='text-[16px] text-[#696969]'>
           <input
             type='date'
-            className='bg-slate-100 px-4 rounded-xl'
+            className='bg-inputbox rounded-[10px] h-[30px] pl-[12px] pr-[12px]'
             min={date}
             defaultValue={startDate}
             onChange={(e) => {
@@ -107,13 +112,13 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
         </span>
       </div>
       <div className='flex justify-between pb-4'>
-        <span draggable={true} className='text-xl font-bold'>
+        <span draggable={true} className='text-xl font-bold font-gmarket'>
           행사 종료일
         </span>
-        <span className='text-lg'>
+        <span className='text-[16px] text-[#696969]'>
           <input
             type='date'
-            className='bg-slate-100 px-4 rounded-xl'
+            className='bg-inputbox rounded-[10px] h-[30px] pl-[12px] pr-[12px]'
             defaultValue={endDate}
             min={startDate}
             onChange={(e) => setEndDate(e.target.value)}
@@ -121,35 +126,40 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
         </span>
       </div>
       <div className='flex justify-between pb-4'>
-        <span draggable={true} className='text-xl font-bold'>
+        <span draggable={true} className='text-xl font-bold font-gmarket'>
           행사명
         </span>
         <input
-          className='bg-slate-100 p-2 min-w-[300px] max-w-[300px] rounded-xl'
+          className='bg-inputbox p-2 min-w-[380px] max-w-[300px] rounded-[10px] text-[14px] placeholder-[14px] flex items-center'
           defaultValue={title}
           placeholder='행사명을 입력해주세요'
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-      <div className='flex justify-between pb-4'>
-        <span draggable={true} className='text-xl font-bold'>
+      <div className='flex justify-between'>
+        <span draggable={true} className='text-xl font-bold font-gmarket'>
           행사 설명
         </span>
         <textarea
-          className='bg-slate-100 p-2 min-w-[300px] max-w-[300px] rounded-xl'
+          className='bg-inputbox p-2 min-w-[380px] max-w-[300px] rounded-[10px] text-[14px] placeholder-[14px] flex items-center'
           rows={3}
           defaultValue={description}
           placeholder='행사 내용을 입력해주세요'
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
-      <div className='flex justify-around py-4'>
-        <Button text='추가합니다!' size='lg' className='w-3/12 font-bold' onClick={handleSubmit} />
+      <div className='flex justify-around py-10 mr-10 ml-10'>
         <Button
-          text='취소!'
+          text='행사 추가'
+          size='lg'
+          className='w-[200px] h-[40px] font-bold font-gmarket'
+          onClick={handleSubmit}
+        />
+        <Button
+          text='취소'
           type='red'
           size='lg'
-          className='w-3/12 font-bold'
+          className='w-[200px] h-[40px] font-bold font-gmarket'
           onClick={() => onCancle()}
         />
       </div>

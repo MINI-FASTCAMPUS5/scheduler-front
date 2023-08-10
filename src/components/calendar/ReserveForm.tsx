@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
-import Banner from '@/components/Banner'
+// import Banner from '@/components/Banner'
 import ReserveFormInfomation from '@/components/calendar/ReserveFormInfomation'
 import Button from '@/components/ui/Button'
 import { toast } from 'react-toastify'
+// import { MdDiversity1 } from 'react-icons/md'
 
 type Props = {
   schedule: ProviderScheduleWithPos
@@ -17,26 +18,32 @@ export default function ReserveForm({ schedule, onCancle, onReserve, user }: Pro
   return (
     <section className='overflow-hidden h-full p-4 px-12'>
       <div className='h-full flex flex-col justify-between rounded-2xl'>
-        <Banner
-          className='py-4'
-          src={schedule.image ? schedule.image : '/YeonganIdolLogoOrigin.svg'}
-          type='post'
-          alt='newjeans banner'
-        />
+        <div className='flex flex-col text-[34px] font-gmarket font-bold ml-auto mr-auto mt-4'>
+          행사 신청
+        </div>
+        <div className='flex bg-white h-[200px] rounded-2xl overflow-hidden border mt-3 justify-center'>
+          <div className='py-4 flex'>
+            {schedule.image ? (
+              <img src={schedule.image} />
+            ) : (
+              <img src={'/mock_image/event_default.jpg'} />
+            )}
+          </div>
+        </div>
         <div className='flex-1'>
           <ReserveFormInfomation
             schedule={schedule}
             onChageDate={(date) => setSelectedDate(date)}
           />
         </div>
-        <div className='flex justify-around py-4'>
+        <div className='flex justify-around py-10 mr-10 ml-10'>
           {user === 'fan' ? (
             <>
               <Button
                 disabled={!selectedDate}
                 text='신청하기'
                 size='lg'
-                className='w-3/12 font-bold'
+                className='w-[200px] h-[40px] font-bold font-gmarket'
                 onClick={() => {
                   if (!selectedDate) return toast.error('날짜를 선택해주세요.')
                   onReserve(schedule, selectedDate)
@@ -46,7 +53,7 @@ export default function ReserveForm({ schedule, onCancle, onReserve, user }: Pro
                 text='취소'
                 type='red'
                 size='lg'
-                className='w-3/12 font-bold'
+                className='w-[200px] h-[40px] font-bold font-gmarket'
                 onClick={() => onCancle()}
               />
             </>

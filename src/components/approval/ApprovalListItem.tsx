@@ -111,7 +111,7 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
 
   return (
     <div className='flex w-full h-[calc(6vh-2px)] mb-[6px] bg-boxbg rounded-xl pr-5 pl-5'>
-      <div className='w-[20%] mt-auto mb-auto'>{titleState}T</div>
+      <div className='w-[20%] mt-auto mb-auto'>{titleState}</div>
       <div className='w-[40%] mt-auto mb-auto'>{descriptionState}</div>
       <div className='w-[10%] mt-auto mb-auto'>{fullNameState}</div>
       <div className='flex text-[calc(1vw-5px)] mt-auto mb-auto text-base justify-center w-[20%]'>

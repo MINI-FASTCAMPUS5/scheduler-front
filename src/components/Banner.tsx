@@ -13,11 +13,11 @@ export default function Banner({ src, type = 'top', className, alt }: Props) {
     bannerStyle = 'w-full'
     imgStyle = 'w-full aspect-auto object-cover'
   } else if (type === 'side') {
-    bannerStyle = 'w-[200px]'
-    imgStyle = 'w-full aspect-auto object-cover'
+    bannerStyle = 'h-full'
+    imgStyle = 'flex h-full object-cover'
   } else if (type === 'post') {
     bannerStyle = 'w-full'
-    imgStyle = 'w-full max-h-[318px] aspect-square object-contain'
+    imgStyle = 'flex w-full object-cover'
   }
 
   return (

@@ -55,7 +55,7 @@ export default function ApprovalList(props: any) {
         </div>
       )}
       <div>
-        <div className='flex w-full h-10 text-white bg-main rounded-full mb-2 font-bold pl-[40px] pr-[40px]'>
+        <div className='flex w-full h-10 text-white bg-main rounded-full mb-2 font-bold pl-[40px] pr-[40px] font-gmarket'>
           <div className='flex w-[20%] mt-auto mb-auto text-base justify-center font-bold'>
             행사명
           </div>

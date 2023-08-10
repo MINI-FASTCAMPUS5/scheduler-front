@@ -17,7 +17,7 @@ export default function AddEventListItem({ data }: Props) {
           {data.description}
         </div>
         <div className='flex text-[calc(1vw-5px)] w-2/6 pl-6 mt-auto mb-auto gap-2 justify-center'>
-          {data.scheduleStart}
+          {data.scheduleStart.split('T')[0]}
         </div>
       </div>
     </div>

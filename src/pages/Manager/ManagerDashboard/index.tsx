@@ -24,7 +24,7 @@ export default function ManagerDashboardPage() {
 
   return (
     <div className='flex flex-col pt-2 pb-2 ml-8 mr-8 h-[100vh]'>
-      <div className='flex flex-col font-bold text-4xl mt-10'>
+      <div className='flex flex-col font-bold text-4xl mt-10 font-gmarket'>
         매니저 대시보드
         <div className='border-b-2 border-boxline mb-6 mt-3' />
       </div>
@@ -34,17 +34,17 @@ export default function ManagerDashboardPage() {
           <div className='flex flex-col absolute z-20 m-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
             {user.profileImage ? (
               <img
-                className='flex ml-auto mr-auto w-32 h-32 rounded-full aspect-square object-cover border border-boxline'
+                className='flex ml-auto mr-auto w-32 h-32 rounded-full aspect-square object-cover border border-boxline shadow-xl'
                 src={user.profileImage}
               />
             ) : (
               <img
-                className='flex ml-auto mr-auto mt-80 w-32 h-32 rounded-full aspect-square object-cover border border-boxline'
+                className='flex ml-auto mr-auto mt-80 w-32 h-32 rounded-full aspect-square object-cover border border-boxline shadow-xl'
                 src={`${defaultprofileImage}`}
               />
             )}
-            <div className='flex mt-8 text-3xl font-bold justify-center'>하이브</div>
-            <div className='flex text-lg justify-center'>hybe@naver.com</div>
+            <div className='flex mt-8 text-3xl font-bold justify-center'>{user.fullName}</div>
+            <div className='flex text-lg justify-center'>{user.email}</div>
           </div>
           <div
             className='w-full h-full bg-white bg-opacity-10 absolute z-10'

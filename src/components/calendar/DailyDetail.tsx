@@ -24,13 +24,13 @@ export default function DailyDetail({ date, onClick }: Props) {
 
   return (
     <section className='overflow-hidden h-full p-4'>
-      <div className='bg-blue-100 h-full rounded-2xl'>
-        <div className='border-dotted border-white border-b-4 p-4'>
-          <Banner className='py-4' src='/newjeans_ad.png' type='top' alt='newjeans banner' />
-        </div>
+      <div className='h-full'>
         <div className='p-4'>
-          <h1 className='text-2xl font-bold text-main'>
-            <strong className='text-3xl '>{date}</strong> 행사 리스트
+          <h1 className='flex flex-col text-2xl font-bold text-main font-gmarket'>
+            <strong className='text-3xl flex justify-center'>{date}</strong>
+            <span className='flex justify-center border-2 border-main w-[130px] text-[18px] rounded-xl pt-[1px] ml-auto mr-auto mt-2 mb-6'>
+              행사 리스트
+            </span>
           </h1>
           {/* 임시 로당 바 */}
           {isFetching && scheduleWithPos.length === 0 && (
@@ -46,22 +46,35 @@ export default function DailyDetail({ date, onClick }: Props) {
           {isFetching && scheduleWithPos.length > 0 && (
             <div className='text-main pt-4 font-bold'>추가된 데이터 확인 중...</div>
           )}
-          {scheduleWithPos?.map((s) => {
-            return (
-              <div key={`monthly-detail-${s.id}`} className='max-w-[500px] overflow-hidden pt-4'>
-                <div className='text-main'>
-                  <strong>{s.title}</strong> ({s.startDate} ~ {s.endDate})
+          <div className='h-[460px] rounded-[16px] border-[1px] overflow-scroll p-4'>
+            {scheduleWithPos?.map((s) => {
+              return (
+                <div
+                  key={`monthly-detail-${s.id}`}
+                  className='max-w-[540px] overflow-hidden font-gmarket mr-auto ml-auto bg-boxbg rounded-[10px] p-2 mb-2'
+                >
+                  <div className='flex flex-col justify-center'>
+                    <strong className='flex'>{s.title}</strong>
+                    <span className='flex text-[10px] text-[#888888]'>
+                      ({s.startDate} ~ {s.endDate})
+                    </span>
+                  </div>
+                  <div className='flex w-full overflow-hidden'>
+                    <DailySchedule
+                      cellWidth={600}
+                      date={date}
+                      schedule={s}
+                      reservedList={reservedList}
+                      onClickSchedule={onClick}
+                    />
+                  </div>
                 </div>
-                <DailySchedule
-                  cellWidth={500}
-                  date={date}
-                  schedule={s}
-                  reservedList={reservedList}
-                  onClickSchedule={onClick}
-                />
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
+          <div className=' border-dashed border-boxline ml-4 mr-4 cursor-pointer'>
+            <Banner className='py-4' src='/newjeans_ad.png' type='top' alt='newjeans banner' />
+          </div>
         </div>
       </div>
     </section>
