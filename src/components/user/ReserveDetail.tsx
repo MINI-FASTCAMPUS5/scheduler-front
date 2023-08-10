@@ -23,17 +23,17 @@ export default function ReserveDetail({ user }: Props) {
 
   return (
     <>
-      <div className='flex justify-center'>
+      <div className='flex justify-between font-gmarket'>
         {isSuccess && data && (
-          <>
+          <div className='flex gap-3'>
             <Ticket type='used' ticket={data?.getUserInfoDTO.usedTicket} />
             <Ticket type='rest' ticket={data?.getUserInfoDTO.sizeOfTicket} />
-          </>
+          </div>
         )}
       </div>
       <div>
-        <h2 className='text-2xl font-bold pt-20'>나의 티켓 리스트</h2>
-        <div className='border-[1px] p-4 mt-4 rounded-2xl max-h-[500px] overflow-y-scroll scrollbar-hide'>
+        <h2 className='text-2xl font-bold pt-10 font-gmarket'>나의 티켓 리스트</h2>
+        <div className='border-[1px] p-4 mt-4 rounded-2xl h-[500px] overflow-y-scroll scrollbar-hide'>
           {isSuccess && data && <TicketList data={data} />}
           {isSuccess && !data && (
             <div className='relative flex justify-center h-full min-h-[20rem]'>
