@@ -8,16 +8,17 @@ import { toast } from 'react-toastify'
 const SignupPage = (): JSX.Element => {
   const navigate = useNavigate()
   // 회원가입 폼 요소들의 상태 관리
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [passwordConfirm, setPasswordConfirm] = useState<string>('')
-  const [fullName, setFullName] = useState<string>('')
-  const [profileImg, setProfileImg] = useState<string>('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [fullName, setFullName] = useState('')
+  const [profileImg, setProfileImg] = useState('')
+  const [file, setFile] = useState<File>()
 
   // 이메일, 비밀번호 형식 체크를 위한 상태 관리
-  const [passwordLength, setPasswordLength] = useState<string>('')
-  const [emailError, setEmailError] = useState<string>('')
-  const [passwordMatch, setPasswordMatch] = useState<string>('')
+  const [passwordLength, setPasswordLength] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [passwordMatch, setPasswordMatch] = useState('')
 
   const imageOverSize = () => toast.error('프로필 이미지 크기는 1MB 이하여야 합니다.')
   const successToast = () => toast.success('회원가입이 성공적으로 완료되었습니다.')
@@ -41,7 +42,8 @@ const SignupPage = (): JSX.Element => {
     const newPassword = e.target.value
     setPassword(newPassword)
 
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#^?&\\()\-=+])[A-Za-z\d$@$!%*#^?&\\()\-=+]{8,20}$/
+    const regex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#^?&\\()\-=+])[A-Za-z\d$@$!%*#^?&\\()\-=+]{8,20}$/
     if (regex.test(newPassword)) {
       setPasswordLength('')
     } else {
@@ -71,6 +73,7 @@ const SignupPage = (): JSX.Element => {
       imageOverSize()
       return
     }
+    setFile(file)
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.addEventListener('load', (e) => {
@@ -82,12 +85,12 @@ const SignupPage = (): JSX.Element => {
   const signUp = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      if (!email || !password || !passwordConfirm || !fullName || !profileImg) {
+      if (!email || !password || !passwordConfirm || !fullName || !profileImg || !file) {
         requireToast()
         return
       }
       const formData = new FormData()
-      formData.append('file', profileImg)
+      formData.append('file', file)
       formData.append(
         'dto',
         new Blob(

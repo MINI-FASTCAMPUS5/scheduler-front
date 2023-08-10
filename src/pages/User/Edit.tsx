@@ -103,6 +103,7 @@ export default function Edit() {
       setProfileImage(null) // 프로필 이미지 초기화
       setUploadedImage(null) // 업로드된 이미지 파일 상태 초기화
       removeCookie(ACCESS_TOKEN, { path: '/' })
+      alert('회원 정보 수정이 완료되었습니다. 다시 로그인해주세요.')
       window.location.replace('/login')
     } catch (error) {
       console.error('에러 발생:', error)
@@ -126,7 +127,7 @@ export default function Edit() {
           size='sm'
           className='bg-point text-white rounded ml-8'
           onClick={() => {
-            // document.getElementById('profile-image-input')?.click()
+            document.getElementById('profile-image-input')?.click()
           }}
         />
         <input
