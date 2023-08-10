@@ -58,7 +58,7 @@ export default function CalendarAction({
       .then((res) => {
         // * 시간 관계상 에러 처리를 깔끔하게 하지 못했습니다 ㅠㅠ
         if (!res.status || !res.message) {
-          toast.error('예약을 실패했습니다.')
+          toast.error('예약 실패')
           return
         }
         if (res.status > 300) {
@@ -71,7 +71,7 @@ export default function CalendarAction({
         onReserve(res.message)
       })
       .catch(() => {
-        toast.error('예약을 실패했습니다.')
+        // toast.error('예약 실패')
       })
   }
 

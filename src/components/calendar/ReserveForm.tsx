@@ -46,6 +46,7 @@ export default function ReserveForm({ schedule, onCancle, onReserve, user }: Pro
                 className='w-[200px] h-[40px] font-bold font-gmarket'
                 onClick={() => {
                   if (!selectedDate) return toast.error('날짜를 선택해주세요.')
+
                   onReserve(schedule, selectedDate)
                 }}
               />

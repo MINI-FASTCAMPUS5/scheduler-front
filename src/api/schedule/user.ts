@@ -18,9 +18,11 @@ export const addSchedule = async (adminId: string, selectDate: string, cookie: s
       status: 200
     }
   } catch (err) {
+    console.error(err)
+
     return {
-      message: (err as AxiosError<{ message: string }>).response?.data?.message,
-      status: (err as AxiosError<{ message: string }>).response?.status
+      message: (err as AxiosError<{ data: string }>).response?.data?.data,
+      status: (err as AxiosError<{ data: string }>).response?.status
     }
   }
 }
