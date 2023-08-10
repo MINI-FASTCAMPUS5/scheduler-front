@@ -40,10 +40,12 @@ const SignupPage = (): JSX.Element => {
   const handlePasswordLength = (e: ChangeEvent<HTMLInputElement>): void => {
     const newPassword = e.target.value
     setPassword(newPassword)
-    if (newPassword.length < 8) {
-      setPasswordLength('비밀번호는 최소 8자 이상이어야 합니다.')
-    } else {
+
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#^?&\\()\-=+])[A-Za-z\d$@$!%*#^?&\\()\-=+]{8,20}$/
+    if (regex.test(newPassword)) {
       setPasswordLength('')
+    } else {
+      setPasswordLength('비밀번호는 영문, 숫자, 특수문자 조합 8~20자 이내로 입력해주세요.')
     }
   }
 
