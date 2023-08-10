@@ -125,7 +125,7 @@ export default function Daily({ daily }: Props) {
     }
   }
 
-  const hoverEvent = adminId ? 'hover:border-point hover:border-[1px] hover:cursor-pointer' : ''
+  const hoverEvent = adminId ? 'hover:bg-[#6344ff2a] hover:cursor-pointer' : ''
   return (
     <>
       {daily?.map((date, i) => {
@@ -138,7 +138,7 @@ export default function Daily({ daily }: Props) {
         return (
           <div
             key={`daily-${date}-${i}`}
-            className={`cell min-h-[100px] md:min-h-[120px]
+            className={`cell min-h-[100px] md:min-h-[120px] font-gmarket
             ${getBgStyle(date)} transition-all ease-in-out duration-150 ${hoverEvent}`}
             onClick={(e) => handleOnClickCell(e, date)}
           >
@@ -170,7 +170,7 @@ export default function Daily({ daily }: Props) {
                     ${reserveStyle[r.progress].from} opacity-40 to-transparent z-[0]`}
                     />
                     <div
-                      className={`absolute right-2 top-2 w-[10px] h-[10px] rounded-full 
+                      className={`absolute right-2 top-2 w-[10px] h-[10px] rounded-full
                   ${reserveStyle[r.progress].bg} opacity-100 custom-ping`}
                     />
                   </>

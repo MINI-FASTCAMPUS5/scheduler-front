@@ -57,11 +57,11 @@ export default function DailySchedule({
             <img
               src={schedule.profileImage}
               alt={schedule.fullName}
-              className='schedule-cell absolute max-w-5 max-h-5 aspect-square object-cover z-40'
+              className='schedule-cell absolute max-w-[19px] max-h-[19px] aspect-square object-cover z-40'
             />
             <div
               className={`schedule-cell w-full ${
-                schedule.pos === 'start-end' ? 'rounded-l-xl' : 'rounded-xl'
+                schedule.pos === 'start-end' ? 'rounded' : 'rounded'
               } min-w-[100px] cursor-pointer ${bgStyle} pl-8 transition-all ease-in-out z-30 duration-200 overflow-hidden`}
             >
               {schedule.title}

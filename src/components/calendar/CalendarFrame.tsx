@@ -11,12 +11,12 @@ export default function CalendarFrame() {
     <>
       <CalendarSwiper />
       {(isFetching || isLoading) && (
-        <div className='fixed flex flex-col w-full h-full left-0 top-0 bg-purple-50 z-[9999] justify-center items-center opacity-90 overflow-hidden'>
-          <div className='text-black  text-7xl font-extrabold opacity-80 mb-12'>
-            데이터를 가져오고 있습니다!
+        <div className='fixed flex flex-col w-full h-full left-0 top-0 bg-white bg-opacity-30 z-[9999] justify-center items-center opacity-90 overflow-hidden' style={{ backdropFilter: 'blur(80px)' }}>
+          <div className='text-main  text-5xl font-gmarket font-bold opacity-100 mb-12'>
+            낭만있는 덕후 생활
           </div>
           <CheerUpLoading />
-          <span className='animate-ping행사 일정 absolute inline-flex h-full w-full rounded-full bg-purple-100 opacity-10' />
+          {/* <span className='animate-ping absolute inline-flex h-full w-full bg-purple-100 opacity-10' /> */}
         </div>
       )}
       <MonthlyCalendar />

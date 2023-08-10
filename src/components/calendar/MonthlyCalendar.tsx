@@ -5,7 +5,6 @@ import Weeks from '@/components/calendar/Weeks'
 import Daily from '@/components/calendar/Daily'
 import { caculateDailyIdx } from '@/utils/calendar'
 import { useLocation, useNavigate } from 'react-router-dom'
-import Button from '../ui/Button'
 
 export default function MonthlyCalendar() {
   const location = useLocation()
@@ -18,12 +17,12 @@ export default function MonthlyCalendar() {
   return (
     <>
       {keyword && (
-        <div className='pl-1 w-full max-w-[1420px] mx-auto'>
-          <Button
-            text={`검색 취소하기 : ${keyword}`}
-            size='sm'
+        <div className='pl-1 w-full max-w-[1420px] flex justify-end mx-auto'>
+          <div
             onClick={() => navigate(location.pathname)}
-          />
+            className='bg-point font-gmarket cursor-pointer text-[14px] font-bold rounded-[20px] pl-3 pr-3 pt-[2px] pb-[1px] transition text-white hover:bg-wait'
+          >현재 검색 결과 삭제</div>
+          <div className='text-[14px] font-bold mt-[1px] ml-[5px]'>: {keyword}</div>
         </div>
       )}
       <div

@@ -25,10 +25,10 @@ export default function CalendarModal({ onClose, children }: Props) {
       <div className='bg-white w-4/5 f-full max-w-[640px] max-h-[740px] min-h-[640px] rounded-2xl'>
         <div style={{ position: 'relative' }}>
           {children}
-          <button className='absolute top-2 right-2 p-2 font-bold' onClick={() => onClose()}>
+          <button className='absolute top-3 right-3 p-2 font-bold' onClick={() => onClose()}>
             <div
               className={`flex justify-center items-center w-7 h-7 bg-point text-white rounded-[0.6rem]
-          transtion-all duration-200 ease-in-out hover:bg-white hover:text-point border-2 border-point
+          transtion-all duration-200 ease-in-out hover:bg-wait hover:text-white
           `}
             >
               <CgClose className='stroke-1' />
