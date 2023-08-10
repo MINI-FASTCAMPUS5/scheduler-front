@@ -60,7 +60,7 @@ export default function SignUpPage() {
         <form onSubmit={handleSignIn} className='flex flex-col items-center'>
           <div className='flex flex-col w-full'>
             <div className='flex w-full justify-between'>
-              <label htmlFor='email' className='text-gray-600 mt-auto mb-auto'>
+              <label htmlFor='email' className='text-gray-600 mt-auto mb-auto font-gmarket'>
                 이메일
               </label>
               <input
@@ -79,7 +79,7 @@ export default function SignUpPage() {
           </div>
           <div className='flex flex-col w-full'>
             <div className='flex w-full mt-5 justify-between'>
-              <label htmlFor='password' className='text-gray-600 mt-auto mb-auto'>
+              <label htmlFor='password' className='text-gray-600 mt-auto mb-auto font-gmarket'>
                 비밀번호
               </label>
               <input
@@ -98,7 +98,7 @@ export default function SignUpPage() {
           </div>
           <button
             type='submit'
-            className='py-2 w-[230px] bg-main text-white rounded-[14px] disabled:opacity-50 mt-[50px] transition hover:bg-hover'
+            className='py-2 w-[230px] bg-main text-white rounded-[14px] disabled:opacity-50 mt-[50px] hover:bg-hover transition hover:scale-[0.98] font-gmarket font-bold'
             disabled={!emailValid || !passwordValid}
           >
             로그인

@@ -58,7 +58,7 @@ export default function ReserveForm({ schedule, onCancle, onReserve, user }: Pro
               />
             </>
           ) : (
-            <div className='text-2xl font-bold text-point'>매니저는 예약할 수 없습니다!</div>
+            <div className='bg-point pt-2 pb-2 pl-4 pr-4 rounded-[14px] text-2xl font-gmarket font-bold text-white'>매니저는 예약할 수 없습니다!</div>
           )}
         </div>
       </div>

@@ -10,10 +10,10 @@ type Props = {
 
 export default function EventStatusCard({ waiting, accepted, refused, events }: Props) {
   return (
-    <div className='flex flex-col h-[30%] w-full mb-[50px]'>
-      <div className='flex text-3xl font-bold mb-2'>행사현황</div>
+    <div className='flex flex-col h-[30%] w-full mb-[50px] font-gmarket'>
+      <div className='flex text-3xl font-bold mb-2 font-gmarket'>행사현황</div>
       <div className='flex w-full gap-4'>
-        <div className='flex flex-col w-full border-4 border-main rounded-2xl justify-center text-main'>
+        <div className='flex flex-col w-full border-4 border-main rounded-2xl justify-center text-main transition hover:scale-[0.98]'>
           <div className='flex justify-center mb-3'>
             <TbCalendarUp className='pt-[10px] text-[7vh]' />
           </div>
@@ -22,7 +22,7 @@ export default function EventStatusCard({ waiting, accepted, refused, events }: 
           {events ? events : 0}<div className='text-[2vh] mt-5'>개</div>
           </div>
         </div>
-        <div className='flex flex-col w-full border-4 border-wait rounded-2xl justify-center text-wait'>
+        <div className='flex flex-col w-full border-4 border-wait rounded-2xl justify-center text-wait transition hover:scale-[0.98]'>
           <div className='flex justify-center mb-3'>
             <TbFaceId className='pt-[10px] text-[7vh]' />
           </div>
@@ -32,7 +32,7 @@ export default function EventStatusCard({ waiting, accepted, refused, events }: 
             <div className='text-[2vh] mt-5'>개</div>
           </div>
         </div>
-        <div className='flex flex-col w-full border-4 border-confirm rounded-2xl justify-center text-confirm'>
+        <div className='flex flex-col w-full border-4 border-confirm rounded-2xl justify-center text-confirm transition hover:scale-[0.98]'>
           <div className='flex justify-center mb-3'>
             <TbCircleCheckFilled className='pt-[10px] text-[7vh]' />
           </div>
@@ -42,7 +42,7 @@ export default function EventStatusCard({ waiting, accepted, refused, events }: 
             <div className='text-[2vh] mt-5'>개</div>
           </div>
         </div>
-        <div className='flex flex-col w-full border-4 border-point rounded-2xl justify-center text-point'>
+        <div className='flex flex-col w-full border-4 border-point rounded-2xl justify-center text-point transition hover:scale-[0.98]'>
           <div className='flex justify-center mb-3'>
             <TbCircleXFilled className='pt-[10px] text-[7vh]' />
           </div>

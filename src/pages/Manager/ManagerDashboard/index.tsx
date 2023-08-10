@@ -31,7 +31,7 @@ export default function ManagerDashboardPage() {
       <div className='flex w-full h-full'>
         <div className='flex border w-2/5 mr-10 border-boxline overflow-hidden justify-center pt-auto pb-auto rounded-3xl relative'>
           {/* 프로필 이미지 */}
-          <div className='flex flex-col absolute z-20 m-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+          <div className='flex flex-col absolute z-20 m-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition hover:scale-[0.98]'>
             {user.profileImage ? (
               <img
                 className='flex ml-auto mr-auto w-32 h-32 rounded-full aspect-square object-cover border border-boxline shadow-xl'

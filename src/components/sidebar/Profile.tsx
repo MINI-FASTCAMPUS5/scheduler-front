@@ -11,12 +11,12 @@ export default function Profile({ user }: Props) {
   return (
     <div className='mb-8'>
       <div className='flex justify-center items-center p-4 gap-4 mt-3 mb-3'>
-        <img className='w-[70px] h-[70px] rounded-[2.5rem] border-[2px]' src={user.profileImage} />
+        <img className='w-[70px] h-[70px] rounded-[2.5rem] border-[2px] transition hover:scale-[1.05]' src={user.profileImage} />
         <div className='text-center'>
           <h2 className='text-xl text-white font-bold font-gmarket'> {user.fullName}</h2>
           <Link
             to={`${user.role === 'ADMIN' ? '/manager' : '/user'}/edit`}
-            className='inline-block bg-white px-4 rounded-xl font-bold text-[0.8rem] leading-6 mt-2 transition hover:bg-point hover:text-white hover:scale-105'
+            className='inline-block bg-white text-main font-gmarket pt-[1px] px-4 rounded-xl font-bold text-[0.8rem] leading-6 mt-2 transition hover:bg-point hover:text-white hover:scale-105'
           >
             수정
           </Link>

@@ -16,8 +16,8 @@ export default function AddEventList(props: Props) {
 
   return (
     <div className='flex flex-col h-[100%]'>
-      <div className='flex text-3xl font-bold mb-2'>등록한 행사 리스트</div>
-      <div>
+      <div className='flex text-3xl font-bold mb-2 font-gmarket'>등록한 행사 리스트</div>
+      <div className='font-gmarket'>
         <div className='flex w-full h-10 text-white bg-main rounded-full pr-5 pl-5 mb-2 font-bold'>
           <div className='flex w-2/6 mt-auto mb-auto text-base font-bold justify-center'>
             행사명
@@ -33,11 +33,11 @@ export default function AddEventList(props: Props) {
             ))}
         </div>
         <div className='flex w-full gap-5 mt-5 pl-10 pr-10'>
-          <Link to={`/manager/event/calendar/${dayjs(datetime).format(DATE_ROUTE_FORMAT)}`} className='flex h-20 w-full text-white text-[calc(1vw)] font-bold justify-center bg-main rounded-3xl transition hover:bg-[#411b92]'>
-            <div className='flex m-auto'>행사 등록하기</div>
+          <Link to={`/manager/event/calendar/${dayjs(datetime).format(DATE_ROUTE_FORMAT)}`} className='hover:scale-[0.98] flex h-20 w-full text-white text-[calc(1vw)] font-bold justify-center bg-main rounded-3xl transition hover:bg-[#411b92]'>
+            <div className='flex m-auto font-gmarket'>행사 등록하기</div>
           </Link>
-          <Link to={'/manager/approval'} className='flex h-20 w-full text-white text-[calc(1vw)] font-bold justify-center bg-wait rounded-3xl transition hover:bg-[#ef8a0f]'>
-            <div className='flex m-auto'>신청자 승인/취소 관리</div>
+          <Link to={'/manager/approval'} className='hover:scale-[0.98] flex h-20 w-full text-white text-[calc(1vw)] font-bold justify-center bg-wait rounded-3xl transition hover:bg-[#ef8a0f]'>
+            <div className='flex m-auto font-gmarket'>신청자 승인/취소 관리</div>
           </Link>
         </div>
       </div>

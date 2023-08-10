@@ -122,25 +122,24 @@ export default function Edit() {
   }
 
   return (
-    <div className='flex flex-col ml-4 p-4 h-screen'>
-      <h1 className='text-3xl font-bold border-b-2 pb-2 mb-8'>회원정보 수정</h1>
-
+    <div className='flex flex-col pt-2 pb-2 ml-8 mr-8 h-[100vh]'>
+      <div className='flex flex-col font-bold text-4xl mt-10 font-gmarket'>
+        회원정보 수정
+        <div className='border-b-2 border-boxline mb-6 mt-3' />
+      </div>
       <div className='flex items-center'>
-        <div className='w-24 h-24 mb-10 flex items-center justify-center overflow-hidden rounded-full'>
+        <div className='w-[110px] h-[110px] mb-10 flex items-center justify-center overflow-hidden border-2 rounded-full'>
           {profileImage !== null ? (
             <img src={profileImage} alt='Profile Image' />
           ) : (
-            <div>프로필 이미지 없음</div>
+            <img src='/mock_image/user_default.png' alt='Default Image' />
           )}
         </div>
-        <Button
-          text='수정'
-          size='sm'
-          className='bg-point text-white rounded ml-8'
-          onClick={() => {
-            document.getElementById('profile-image-input')?.click()
-          }}
-        />
+        <label className='pt-8' htmlFor='profile-image-input'>
+          <div className='bg-point px-3 min-w-[70px] text-center rounded-full text-white cursor-pointer hover:bg-wait transition-all ease-in-out duration-300 font-gmarket text-[14px] pt-[1px] font-bold'>
+            이미지 수정
+          </div>
+        </label>
         <input
           type='file'
           id='profile-image-input'
@@ -149,114 +148,90 @@ export default function Edit() {
           onChange={handleImageUpload}
         />
       </div>
-
-      {/* 그리드로 수정된 영역 */}
-      <div className='grid grid-cols-3 grid-rows-4 min-w-[720px] max-w-[1392px]'>
-        {/* 1 */}
-        <div className='row-span-2 flex items-start border-t border-gray-300 bg-boxbg pl-4 pt-2'>
-          <label htmlFor='name' className='text-sm font-medium'>
+      <div className='flex flex-col w-full'>
+        <div className='flex border-t-2'>
+          <div className='flex w-[150px] h-[160px] bg-boxbg items-center justify-center text-[16px] font-gmarket font-bold'>
             계정
-          </label>
-        </div>
-
-        {/* 2 */}
-        <div className='flex flex-col mb-4 items-start border-t border-gray-300 pl-4 pt-2'>
-          <label htmlFor='name' className='text-sm font-medium'>
-            이름
-          </label>
-        </div>
-
-        {/* 3 */}
-        <div className='flex flex-col mb-4 items-start border-t border-gray-300 pl-4 pt-2'>
-          <div className='flex items-center'>
-            <input
-              type='text'
-              id='name'
-              value={name}
-              onChange={handleNameChange}
-              className='border p-2 rounded mr-2'
-              style={{ width: '250px' }}
-            />
+          </div>
+          <div className='flex flex-col w-[500px] pl-10'>
+            <div className='flex justify-between h-[50%] items-center'>
+              이름
+              <div className='flex flex-col items-start'>
+                <div className='flex items-center'>
+                  <input
+                    type='text'
+                    id='name'
+                    value={name}
+                    onChange={handleNameChange}
+                    className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px]'
+                    style={{ width: '250px' }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className='flex justify-between h-[50%] items-center'>
+              이메일
+              <div className='flex flex-col items-start col-start-3 row-start-2 text-main font-bold mr-1'>
+                <p>{email}</p> {/* 이메일 값 출력 */}
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* 4 */}
-        <div className='flex flex-col mb-4 items-start col-start-2 row-start-2 pl-4 pt-2'>
-          <label htmlFor='email' className='text-sm font-medium'>
-            이메일
-          </label>
-        </div>
-
-        {/* 5 */}
-        <div className='flex flex-col mb-4 items-start col-start-3 row-start-2 pl-4 pt-2'>
-          <p>{email}</p> {/* 이메일 값 출력 */}
-        </div>
-
-        {/* 6 */}
-        <div className='flex flex-col mb-4 items-start row-span-2 row-start-3 border-t border-b border-gray-300 bg-boxbg pl-4 pt-2'>
-          <label htmlFor='newPassword' className='text-sm font-medium'>
+        <div className='flex border-t-2 border-b-2'>
+          <div className='flex w-[150px] h-[160px] bg-boxbg items-center justify-center text-[16px] font-gmarket font-bold'>
             비밀번호
-          </label>
+          </div>
+          <div className='flex flex-col w-[500px] pl-10'>
+            <div className='flex justify-between h-[50%] items-center'>
+              비밀번호
+              <div className='flex flex-col mb-4 items-start col-start-3 row-start-4 border-gray-300 pl-4 pt-2'>
+                <div className='flex items-center'>
+                  <input
+                    type='password'
+                    id='newPassword'
+                    value={newPassword}
+                    onChange={handleNewPasswordChange}
+                    className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px] text-[12px] placeholder-[12px] flex items-center'
+                    style={{ width: '250px' }}
+                    placeholder='특수문자를 포함, 최소 8자 이상'
+                  />
+                </div>
+              </div>
+            </div>
+            <div className='flex justify-between h-[50%] items-center'>
+              비밀번호 확인
+              <div className='flex flex-col mb-4 items-start col-start-3 row-start-4 border-gray-300 pl-4 pt-2'>
+                <div className='flex items-center'>
+                  <input
+                    type='password'
+                    id='confirmPassword'
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
+                    className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px] text-[12px] placeholder-[12px] flex items-center'
+                    style={{ width: '250px' }}
+                    placeholder='특수문자를 포함, 최소 8자 이상'
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* 7 */}
-        <div className='flex flex-col mb-4 items-start row-start-3 border-t border-gray-300 pl-4 pt-2'>
-          <label htmlFor='newPassword' className='text-sm font-medium'>
-            비밀번호
-          </label>
-        </div>
-
-        {/* 8 */}
-        <div className='flex flex-col mb-4 items-start row-start-3 border-t border-gray-300 pl-4 pt-2'>
-          <div className='flex items-center'>
-            <input
-              type='password'
-              id='newPassword'
-              value={newPassword}
-              onChange={handleNewPasswordChange}
-              className='border p-2 rounded mr-2'
-              style={{ width: '250px' }}
-              placeholder='특수문자를 포함, 최소 8자 이상'
+        <div className='flex w-[650px] mt-4 justify-end'>
+          <div className='flex'>
+            <div
+              onClick={handleCancel}
+              className='flex w-[150px] rounded-[14px] justify-center items-center mr-2 bg-point cursor-pointer text-white transition font-gmarket font-bold hover:bg-wait'
+            >
+              취소
+            </div>
+            <Button
+              text='수정 완료'
+              size='lg'
+              onClick={handleEditComplete}
+              className='w-[150px] px-4 py-2 bg-main text-white font-gmarket font-bold'
             />
           </div>
         </div>
-
-        {/* 9 */}
-        <div className='flex flex-col mb-4 items-start col-start-2 row-start-4 border-b border-gray-300 pl-4 pt-2'>
-          <label htmlFor='confirmPassword' className='text-sm font-medium'>
-            비밀번호 확인
-          </label>
-        </div>
-
-        {/* 10 */}
-        <div className='flex flex-col mb-4 items-start col-start-3 row-start-4 border-b border-gray-300 pl-4 pt-2'>
-          <div className='flex items-center'>
-            <input
-              type='password'
-              id='confirmPassword'
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-              className='border p-2 rounded mr-2'
-              style={{ width: '250px' }}
-              placeholder='특수문자를 포함, 최소 8자 이상'
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className='flex justify-center'>
-        <Button
-          text='취소'
-          size='lg'
-          onClick={handleCancel}
-          className='w-[150px] px-4 py-2 mr-2 bg-point text-white rounded'
-        />
-        <Button
-          text='수정 완료'
-          size='lg'
-          onClick={handleEditComplete}
-          className='w-[150px] px-4 py-2 bg-main text-white rounded'
-        />
       </div>
     </div>
   )

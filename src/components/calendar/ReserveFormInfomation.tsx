@@ -1,6 +1,6 @@
 import { DATE_FORMAT } from '@/constants'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
-import { FcOvertime } from 'react-icons/fc'
+import { BiCalendarX } from 'react-icons/bi'
 import dayjs from 'dayjs'
 import React from 'react'
 
@@ -16,7 +16,7 @@ export default function ReserveFormInfomation({ schedule, onChageDate }: Props) 
   return (
     <ul>
       <li className={itemStyle}>
-        <span className='text-xl font-bold font-gmarket mt-10 bg-slate-200'>{'행사명'}</span>
+        <span className='text-xl font-bold font-gmarket mt-10'>{'행사명'}</span>
         <span className='mt-10 text-[16px] text-[#696969] font-gmarket'>{schedule.title}</span>
       </li>
       <li className={itemStyle}>
@@ -29,13 +29,13 @@ export default function ReserveFormInfomation({ schedule, onChageDate }: Props) 
         <span className='text-xl font-bold font-gmarket'>{'공연 선택'}</span>
         <span className='text-[16px] text-[#696969]'>
           {schedule.startDate < dayjs(date).format(DATE_FORMAT) ? (
-            <div className='bg-inputbox rounded-[10px] h-[30px] pl-[12px] pr-[12px]'>
+            <div className='bg-inputbox flex rounded-[10px] h-[30px] pl-[12px] pr-[12px]'>
               <span>
                 {schedule.endDate > dayjs(date).format(DATE_FORMAT)
                   ? '진행 중인 행사입니다!'
-                  : '이미 끝난 행사입니다!'}
+                  : <div className='text-[#b3b3b3] font-bold mt-[3px]'>이미 끝난 행사입니다!</div>}
               </span>
-              <FcOvertime className='ml-2 w-8 h-8' />
+              <BiCalendarX className='flex m-auto ml-2 w-5 h-5 mt-[5px] text-[#b3b3b3]' />
             </div>
           ) : (
             <input
