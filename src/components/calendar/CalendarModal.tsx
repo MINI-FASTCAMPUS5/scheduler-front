@@ -39,19 +39,3 @@ export default function CalendarModal({ onClose, children }: Props) {
     </section>
   )
 }
-
-{
-  /* <button className='fixed top-0 right-0 p-8 font-bold' onClick={() => onClose()}>
-        <div
-          className={`flex justify-center items-center w-7 h-7 bg-point text-white rounded-[0.6rem]
-        transtion-all duration-200 ease-in-out hover:bg-white hover:text-point border-2 border-point
-        `}
-        >
-          <CgClose className='stroke-1' />
-        </div>
-      </button>
-
-      <div className='bg-white w-4/5 f-full max-w-[640px] max-h-[740px] min-h-[640px] rounded-2xl'>
-        {children}
-      </div> */
-}
