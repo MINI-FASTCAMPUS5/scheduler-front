@@ -13,8 +13,8 @@ type Props = {
 export default function EditFormInformation({ date, onSubmit, onCancle }: Props) {
   const [file, setFile] = useState<File>()
   const [imgSrc, setImgSrc] = useState('')
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  const [startDate, setStartDate] = useState(date)
+  const [endDate, setEndDate] = useState(date)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const imageOverSize = () => toast('이미지 크기는 5MB 이하여야 합니다.')
@@ -41,8 +41,18 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
   }
 
   const handleSubmit = () => {
-    // todo : validation 체크하기
-    if (!file) return
+    if (!file) {
+      toast.warn('이미지를 업로드해주세요', {
+        position: 'top-center'
+      })
+      return
+    }
+    if (!startDate || !endDate || !title || !description) {
+      toast.warn('모든 정보를 입력해주세요', {
+        position: 'top-center'
+      })
+      return
+    }
     const newSchedule = {
       startDate,
       endDate,

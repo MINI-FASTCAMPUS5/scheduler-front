@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SidebarMenu from './sidebar/SidebarMenu'
 import { useLocation, useParams } from 'react-router-dom'
 import { BiCalendarCheck } from 'react-icons/bi'
@@ -9,6 +9,7 @@ import { DATE_ROUTE_FORMAT } from '@/constants'
 export default function UserActionBar() {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
+  const [activeId, setActiveId] = useState('')
   const { year, month, day } = useParams()
   let calendarPath =
     year && month && day
@@ -31,11 +32,17 @@ export default function UserActionBar() {
       url: '/user/mypage'
     }
   ]
-  let idx = -1
-  if (location.pathname.includes('calendar')) idx = 0
-  if (location.pathname.includes('user/mypage')) idx = 1
+
   // params로 체크해서 sidebarMenu[0] 몇번째 인지 정하기
-  const [activeId, setActiveId] = useState(sidebarMenu[idx]?.id ? sidebarMenu[idx].id : -1)
+
+  useEffect(() => {
+    let idx = -1
+    if (location.pathname.includes('calendar')) idx = 0
+    if (location.pathname.includes('user/mypage')) idx = 1
+    setActiveId(() => (sidebarMenu[idx]?.id ? sidebarMenu[idx].id : ''))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
 
   return (
     <div className='mb-6'>

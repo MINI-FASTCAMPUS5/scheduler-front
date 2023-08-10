@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SidebarMenu from './sidebar/SidebarMenu'
 import { useLocation, useParams } from 'react-router-dom'
 import { BiCalendarAlt } from 'react-icons/bi'
@@ -11,6 +11,8 @@ import dayjs from 'dayjs'
 export default function AdminActionBar() {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
+  const [activeId, setActiveId] = useState('')
+
   const { year, month, day } = useParams()
 
   let calendarPath =
@@ -46,12 +48,17 @@ export default function AdminActionBar() {
       url: '/manager/dashboard'
     }
   ]
-  let idx = -1
-  if (location.pathname.includes('/calendar')) idx = 0
-  if (location.pathname.includes('/manager/event/calendar/')) idx = 1
-  if (location.pathname.includes('/manager/approval')) idx = 2
-  if (location.pathname.includes('/manager/dashboard')) idx = 3
-  const [activeId, setActiveId] = useState(sidebarMenu[idx]?.id ? sidebarMenu[idx].id : -1)
+
+  useEffect(() => {
+    let idx = -1
+    if (location.pathname.includes('/calendar')) idx = 0
+    if (location.pathname.includes('/manager/event/calendar/')) idx = 1
+    if (location.pathname.includes('/manager/approval')) idx = 2
+    if (location.pathname.includes('/manager/dashboard')) idx = 3
+    setActiveId(() => (sidebarMenu[idx]?.id ? sidebarMenu[idx].id : ''))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
 
   return (
     <div className='mb-6'>
