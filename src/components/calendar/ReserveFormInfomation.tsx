@@ -12,7 +12,6 @@ type Props = {
 export default function ReserveFormInfomation({ schedule, onChageDate }: Props) {
   const date = new Date()
 
-  // todo 이미 지난 날짜는 예약 불가능하게 하기
   const itemStyle = 'flex justify-between items-center pb-8'
   return (
     <ul>

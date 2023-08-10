@@ -37,7 +37,7 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
         if (base64) {
           const str = base64?.toString()
           if (str && str.length > 1048576 * 10) {
-            toast.warn('이미지는 10MB이하여야합니다!')
+            toast.warn('이미지는 10MB이하여야합니다.')
             return
           }
           setImgFile(files[0])
