@@ -126,8 +126,8 @@ export default function Daily({ daily }: Props) {
       bg: 'bg-confirm'
     },
     REFUSE: {
-      from: 'from-refuse',
-      bg: 'bg-refuse'
+      from: 'from-point',
+      bg: 'bg-point'
     }
   }
 

@@ -26,7 +26,7 @@ export default function DailySchedule({
   const bgByProgress = {
     WAITING: 'bg-wait hover:bg-[#d9960f]',
     ACCEPT: 'bg-confirm hover:bg-[#5cbbd7]',
-    REFUSE: 'bg-refuse hover:bg-[#f43f5e]'
+    REFUSE: 'bg-point hover:bg-[#f43f5e]'
   }
   let bgStyle = 'bg-main hover:bg-[#4619a5]'
   if (typeof reservedList !== 'undefined') {
