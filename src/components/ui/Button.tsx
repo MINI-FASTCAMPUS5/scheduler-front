@@ -31,7 +31,7 @@ export default function Button({
       className={`
       ${sizeStyle} bg-${color} hover:bg-${deepColor} ${
         disabled ? `text-slate-300 opacity-60 hover:bg-${color} cursor-not-allowed` : 'text-white'
-      }  rounded-md transition-colors ease-in-out duration-200 
+      }  rounded-[14px] transition-colors ease-in-out duration-200 
       ${className && className}`}
     >
       {text}
