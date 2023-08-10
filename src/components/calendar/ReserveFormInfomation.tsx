@@ -17,20 +17,20 @@ export default function ReserveFormInfomation({ schedule, onChageDate }: Props) 
   return (
     <ul>
       <li className={itemStyle}>
-        <span className='text-2xl font-bold'>{'행사명'}</span>
-        <span className='text-lg font-bold'>{schedule.title}</span>
+        <span className='text-xl font-bold font-gmarket mt-10 bg-slate-200'>{'행사명'}</span>
+        <span className='mt-10 text-[16px] text-[#696969] font-gmarket'>{schedule.title}</span>
       </li>
       <li className={itemStyle}>
-        <span className='text-2xl font-bold'>{'행사 날짜'}</span>
-        <span className='text-lg font-bold'>
+        <span className='text-xl font-bold font-gmarket'>{'행사 날짜'}</span>
+        <span className='text-[16px] text-[#696969] font-gmarket'>
           {schedule.startDate} ~ {schedule.endDate}
         </span>
       </li>
       <li className={itemStyle}>
-        <span className='text-2xl font-bold'>{'공연 선택'}</span>
-        <span className='text-lg font-bold'>
+        <span className='text-xl font-bold font-gmarket'>{'공연 선택'}</span>
+        <span className='text-[16px] text-[#696969]'>
           {schedule.startDate < dayjs(date).format(DATE_FORMAT) ? (
-            <div className='flex text-slate-500'>
+            <div className='bg-inputbox rounded-[10px] h-[30px] pl-[12px] pr-[12px]'>
               <span>
                 {schedule.endDate > dayjs(date).format(DATE_FORMAT)
                   ? '진행 중인 행사입니다!'
@@ -50,8 +50,8 @@ export default function ReserveFormInfomation({ schedule, onChageDate }: Props) 
         </span>
       </li>
       <li className={itemStyle}>
-        <span className='text-2xl font-bold'>{'행사 설명'}</span>
-        <span className='text-lg font-bold'>{schedule.description}</span>
+        <span className='text-xl font-bold font-gmarket'>{'행사 설명'}</span>
+        <span className='text-[16px] text-[#696969] font-gmarket'>{schedule.description}</span>
       </li>
     </ul>
   )
