@@ -161,7 +161,7 @@ const SignupPage = (): JSX.Element => {
             </div>
 
             <div className='flex justify-between mt-2'>
-              <div className='text-gray-600 mt-auto mb-auto'>이름</div>
+              <div className='text-gray-600 mt-auto mb-auto font-gmarket'>이름</div>
               <input
                 className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px] text-[12px] placeholder-[12px] flex items-center'
                 value={fullName}
@@ -171,7 +171,7 @@ const SignupPage = (): JSX.Element => {
             </div>
 
             <div className='flex justify-between mt-5 '>
-              <div className='text-gray-600 mt-auto mb-auto'>이메일</div>
+              <div className='text-gray-600 mt-auto mb-auto font-gmarket'>이메일</div>
               <input
                 type='email'
                 className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px] text-[12px] placeholder-[12px] flex items-center'
@@ -185,7 +185,7 @@ const SignupPage = (): JSX.Element => {
             )}
 
             <div className='flex justify-between mt-5 '>
-              <div className='text-gray-600 mt-auto mb-auto'>비밀번호</div>
+              <div className='text-gray-600 mt-auto mb-auto font-gmarket'>비밀번호</div>
               <input
                 className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px] text-[12px] placeholder-[12px] flex items-center'
                 value={password}
@@ -199,7 +199,7 @@ const SignupPage = (): JSX.Element => {
             )}
 
             <div className='flex justify-between mt-5'>
-              <div className='text-gray-600 mt-auto mb-auto'>비밀번호 확인</div>
+              <div className='text-gray-600 mt-auto mb-auto font-gmarket'>비밀번호 확인</div>
               <input
                 className='pl-2 h-[36px] w-[250px] bg-inputbox rounded-[10px] text-[12px] placeholder-[12px] flex items-center'
                 value={passwordConfirm}
@@ -208,7 +208,7 @@ const SignupPage = (): JSX.Element => {
                 type='password'
               />
             </div>
-            {passwordMatch && <div className='valid_desc text-red-500'>{passwordMatch}</div>}
+            {passwordMatch && <div className='text-red-600 text-[12px] text-end mt-[5px]'>{passwordMatch}</div>}
           </div>
 
           <div className='flex w-full mt-6'>
@@ -230,7 +230,7 @@ const SignupPage = (): JSX.Element => {
 
           <div className='flex justify-center'>
             <button
-              className='py-2 w-[230px] bg-main text-white rounded-[14px] disabled:opacity-50 mt-[50px] transition hover:bg-hover'
+              className='py-2 w-[230px] bg-main text-white rounded-[14px] disabled:opacity-50 mt-[50px] transition hover:bg-hover hover:scale-[0.98] font-gmarket font-bold'
               type='submit'
             >
               회원가입
