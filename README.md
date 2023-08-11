@@ -14,9 +14,10 @@
 <br>
 미니 프로젝트 기간: 2023.07.24 ~ 2023.08.10
 <br>
-<h3>✔️ <a href="http://ec2-34-228-10-85.compute-1.amazonaws.com/login">배포 링크 바로가기</a></h3>
-<h3>✔️ <a href="https://github.com/MINI-FASTCAMPUS5/scheduler-front">프론트엔드 깃허브 레포지토리 바로가기</a></h3>
-<h3>✔️ <a href="https://github.com/MINI-FASTCAMPUS5/scheduler-back">백엔드 깃허브 레포지토리 바로가기</a></h3>
+<h3>🔗 <a href="http://ec2-34-228-10-85.compute-1.amazonaws.com/login">배포 링크 바로가기</a></h3>
+<h3>🔗 <a href="http://minischeduler-env.eba-m9yfe83y.ap-northeast-2.elasticbeanstalk.com/manager/login">관리자 페이지 바로가기</a></h3>
+<h3>🔗 <a href="https://github.com/MINI-FASTCAMPUS5/scheduler-front">프론트엔드 깃허브 레포지토리 바로가기</a></h3>
+<h3>🔗 <a href="https://github.com/MINI-FASTCAMPUS5/scheduler-back">백엔드 깃허브 레포지토리 바로가기</a></h3>
 <br>
 
 ## 🤗 개발팀
