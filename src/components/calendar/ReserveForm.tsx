@@ -21,10 +21,10 @@ export default function ReserveForm({ schedule, onCancle, onReserve, user }: Pro
         <div className='flex flex-col text-[34px] font-gmarket font-bold ml-auto mr-auto mt-4'>
           행사 신청
         </div>
-        <div className='flex bg-white h-[200px] rounded-2xl overflow-hidden border mt-3 justify-center'>
-          <div className='py-4 flex'>
+        <div className='flex bg-white w-[540px] h-[200px] rounded-2xl overflow-hidden border mt-3 mr-auto ml-auto'>
+          <div className='flex ml-auto mr-auto'>
             {schedule.image ? (
-              <img src={schedule.image} />
+              <img className='flex' src={schedule.image} />
             ) : (
               <img src={'/mock_image/event_default.jpg'} />
             )}

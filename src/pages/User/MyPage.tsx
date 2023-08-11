@@ -22,7 +22,7 @@ export default function MyPage() {
   return (
     <div className='flex flex-col pt-2 pb-2 ml-8 mr-8 h-[100vh]'>
       <div className='flex flex-col font-bold text-4xl mt-10 font-gmarket'>
-        매니저 대시보드
+        마이 페이지
         <div className='border-b-2 border-boxline mb-6 mt-3' />
       </div>
       <div className='flex w-full h-full'>
@@ -62,6 +62,7 @@ export default function MyPage() {
         </div>
         <div className='flex flex-col h-full'>
           <ReserveDetail user={fan} />
+        <div className='flex text-[12px] text-point ml-2 mt-1'>*승인 거절시 티켓이 반환되지 않으면 화면을 새로고침하십시오.</div>
         </div>
       </div>
     </div>

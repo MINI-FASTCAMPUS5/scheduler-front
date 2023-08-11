@@ -10,7 +10,7 @@ export default function BannerSwiper() {
   return (
     <>
       <Swiper
-        className='max-w-[900px] w-full h-[90px] rounded-lg'
+        className='max-w-[870px] w-full h-[100px] rounded-lg'
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, Parallax]}
         spaceBetween={50}
         slidesPerView={1}
@@ -20,20 +20,16 @@ export default function BannerSwiper() {
         scrollbar={{ draggable: true }}
       >
         <SwiperSlide className='max-h-[100px]'>
-          <img className='object-cover m-auto' src='/2pm.png' alt='2pm concert' />
+          <img className='object-cover m-auto' src='/seventeen_ad.png' alt='seventeen' />
         </SwiperSlide>
         <SwiperSlide className='max-h-[100px]'>
-          <img
-            className='object-cover m-auto'
-            src='/psy_humppuckshow.png'
-            alt='psy hummppuckshow'
-          />
+          <img className='object-cover m-auto' src='/bts_ad.png' alt='bts' />
         </SwiperSlide>
         <SwiperSlide className='max-h-[100px]'>
-          <img className='object-cover m-auto' src='/newjeans_ad.png' alt='new jeans' />
+          <img className='object-cover m-auto' src='/newjeans_ad.png' alt='newjeans' />
         </SwiperSlide>
         <SwiperSlide className='max-h-[100px]'>
-          <img className='object-cover m-auto' src='/lesserafim.jpg' alt='lesserafim' />
+          <img className='object-cover m-auto' src='/lesserafim_ad.png' alt='lesserafim' />
         </SwiperSlide>
       </Swiper>
     </>

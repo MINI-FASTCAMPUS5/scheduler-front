@@ -94,7 +94,7 @@ export default function CalendarSwiper() {
         </h1>
         <ArrowButton disabled={isFetching} direction='right' onClick={handleArrowBtn} />
         <Button
-          className='mt-auto min-w-[50px] ml-4 font-gmarket rounded-[22px] font-bold text-[12px] '
+          className='mt-auto min-w-[50px] ml-4 font-gmarket rounded-[22px] pb-[2px] font-bold text-[12px] '
           size='sm'
           text='오늘'
           onClick={navagateToCurrentDate}
@@ -103,7 +103,7 @@ export default function CalendarSwiper() {
       <div className='flex w-[33.33%] justify-end'>
         {/* <Button className='mr-2' text='월간' onClick={navagateToCurrentDate} /> */}
         {user.role === 'ADMIN' && (
-          <Button className='mr-2' text='엑셀 다운로드' onClick={handleDownloadExcel} />
+          <Button className='text-[14px] font-gmarket font-bold' text='엑셀 다운로드' onClick={handleDownloadExcel} />
         )}
       </div>
     </div>

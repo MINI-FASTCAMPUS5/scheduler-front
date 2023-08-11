@@ -18,11 +18,13 @@ export default function MonthlyCalendar() {
     <>
       {keyword && (
         <div className='pl-1 w-full max-w-[1420px] flex justify-end mx-auto'>
+          <div className='text-[14px] font-bold mt-[1px] ml-[5px] mr-[5px]'>{keyword} :</div>
           <div
             onClick={() => navigate(location.pathname)}
             className='bg-point font-gmarket cursor-pointer text-[14px] font-bold rounded-[20px] pl-3 pr-3 pt-[2px] pb-[1px] transition text-white hover:bg-wait'
-          >현재 검색 결과 삭제</div>
-          <div className='text-[14px] font-bold mt-[1px] ml-[5px]'>: {keyword}</div>
+          >
+            현재 검색 결과 삭제
+          </div>
         </div>
       )}
       <div
