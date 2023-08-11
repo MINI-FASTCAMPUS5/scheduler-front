@@ -23,7 +23,8 @@ export default function ReserveDetail({ user }: Props) {
 
   return (
     <>
-      <div className='flex justify-between font-gmarket'>
+    <h2 className='text-2xl font-bold font-gmarket'>소지한 티켓</h2>
+      <div className='flex mt-5 justify-between font-gmarket'>
         {isSuccess && data && (
           <div className='flex gap-3'>
             <Ticket type='used' ticket={data?.getUserInfoDTO.usedTicket} />
@@ -32,7 +33,7 @@ export default function ReserveDetail({ user }: Props) {
         )}
       </div>
       <div>
-        <h2 className='text-2xl font-bold pt-10 font-gmarket'>나의 티켓 리스트</h2>
+        <h2 className='text-2xl font-bold pt-10 font-gmarket'>티켓 사용 리스트</h2>
         <div className='border-[1px] p-4 mt-4 rounded-2xl h-[500px] overflow-y-scroll scrollbar-hide'>
           {isSuccess && data && <TicketList data={data} />}
           {isSuccess && !data && (
