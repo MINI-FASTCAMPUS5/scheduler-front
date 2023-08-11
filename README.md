@@ -4,10 +4,12 @@
 
 ### 연차? 당직? 우리는 콘서트 보러 간다!!!
 
-우리는 회사에서 연차, 당직을 사용하기 위해 남아있는 횟수를 확인하고, 신청하고 사용합니다.
+회사에서 연차, 당직을 사용하기 위해 남아있는 횟수를 확인하고, 신청하고 사용합니다.
+<br> 우리는 덕질을 위해, 남아있는 티켓의 횟수를 확인하고, 신청하고 사용합니다.
 <br> 연간아이돌은 덕질을 위해 만들어진 공연 신청 서비스입니다.
-<br> 일상에 지친 당신에게 월에 한번 원하는 공연을 신청해서 티켓을 소진하세요.
+<br> 일상에 지친 당신에게 매달 한번!! 원하는 공연을 신청해서 티켓을 소진하세요!!
 <br> 기획사는 연간아이돌을 통해 신청된 티켓의 승인, 거절을 결정할 수 있습니다. 홍보는 덤입니다.
+<br> 기획사 권한 신청은 관리자에게 문의하세요.
 
 <br>
 미니 프로젝트 기간: 2023.07.24 ~ 2023.08.10
@@ -57,7 +59,7 @@
         <sub><b>사용자 페이지,<br>회원정보 수정,<br>디자인-2,<br>와이어프레임,<br>유저 플로우</sub>
     </td>
      <td align="center">
-        <sub><b>회원가입 페이지,<br>로그인 페이지,<br>유저 회원가입,<br>매니저 회원가입</sub>
+        <sub><b>회원가입 페이지,<br>로그인 페이지</sub>
     </td>
   </tr>
 </table>
@@ -113,31 +115,21 @@
 
 <br>
 
-### 로그인 페이지</br>
-
-<img src="./public/image/1-login.png" />
-<br>
-<br>
-
 ### 사용자 페이지 </br>
 
-<img src="./public/image/user-1.png" />
-<br><br>
-<img src="./public/image/user-2.png" />
-<br><br>
-<img src="./public/image/user-3.png" />
+<img src="./public/image/Group 2.png" />
 <br>
 <br>
 
-### 관리자(기획사) 페이지 </br>
+### 매니저(기획사) 페이지 </br>
 
-<img src="./public/image/manager-1.png" />
-<br><br>
-<img src="./public/image/manager-2.png" />
-<br><br>
-<img src="./public/image/manager-3.png" />
-<br><br>
-<img src="./public/image/manager-4.png" />
+<img src="./public/image/Group 3.png" />
+<br>
+<br>
+
+### 관리자(권한 관리) 페이지 </br>
+
+<img src="./public/image/Group 1.png" />
 <br>
 <br>
 
