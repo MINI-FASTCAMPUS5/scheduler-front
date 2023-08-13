@@ -13,12 +13,14 @@ import DailyDetail from '@/components/calendar/DailyDetail'
 import ModalPortal from '@/components/ui/ModalPortal'
 import CalendarAction from '@/components/calendar/CalendarAction'
 import { DATE_FORMAT } from '@/constants'
-import { toast } from 'react-toastify'
+import weekday from 'dayjs/plugin/weekday'
+dayjs.extend(weekday)
 
 type Props = {
   daily: string[]
+  limit: number
 }
-export default function Daily({ daily }: Props) {
+export default function Daily({ daily, limit }: Props) {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
   const [isAdmin] = useState(user.role === 'ADMIN' ? true : false)
@@ -74,26 +76,19 @@ export default function Daily({ daily }: Props) {
     setOpenPortal(false)
   }, [])
 
+  // todo handleEdit, handleReserve, handleSubmitSchedule 함수를 하나로 합칠 수 있을 것 같습니다.
+  // todo toast는 모달 내부에서 처리하도록 하기
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
-  const handleEdit = (message: string) => {
-    toast(message, {
-      position: 'top-center'
-    })
+  const handleEdit = () => {
     setOpenPortal(false)
   }
 
-  const handleReserve = (message: string) => {
-    toast(message, {
-      position: 'top-center'
-    })
+  const handleReserve = () => {
     setOpenPortal(false)
   }
 
   // * 공연 추가 모달에서 새로운 공연을 추가하면 실행됩니다.
-  const handleSubmitSchedule = (message: string) => {
-    toast(message, {
-      position: 'top-center'
-    })
+  const handleSubmitSchedule = () => {
     setOpenPortal(false)
   }
 
@@ -108,7 +103,6 @@ export default function Daily({ daily }: Props) {
   }
 
   // * 스케줄이 변경되면 width를 다시 계산합니다.
-  // todo : isFetching이 최선인가?
   useEffect(() => {
     setWidth(() => 20)
     // prettier-ignore
@@ -131,6 +125,22 @@ export default function Daily({ daily }: Props) {
     }
   }
 
+  type Visited = string[][]
+  // todo limit은 외부에서 받기
+
+  let visited: Visited = Array(7)
+    .fill(null)
+    .map(() => Array(limit).fill(null))
+
+  // current weeks of month
+  const getWeeksNumber = (dateFrom: Date) => {
+    const currentDate = dateFrom.getDate()
+    const startOfMonth = new Date(dateFrom.setDate(1))
+    const weekDay = startOfMonth.getDay()
+    return Math.floor((weekDay - 1 + currentDate) / 7) + 1
+  }
+
+  let week = 1
   const hoverEvent = adminId ? 'hover:bg-[#6344ff2a] hover:cursor-pointer' : ''
   return (
     <>
@@ -141,6 +151,46 @@ export default function Daily({ daily }: Props) {
         const isToday = today === dayjs(date).format(DATE_FORMAT)
         let textColor = isToday ? 'text-point' : 'text-main'
         if (disable) textColor += ' opacity-20'
+
+        const currentWeek = getWeeksNumber(new Date(date))
+        // 주 가 바뀌면 visited 초기화
+        if (week !== currentWeek) {
+          visited = visited.map(() => Array(limit).fill(null))
+        }
+        week = currentWeek
+        const currentDay = new Date(date).getDay()
+        providerSchedule?.forEach((s) => {
+          // * 빈 공간이 없다면 return
+          if (visited[currentDay].indexOf(null!) === -1) {
+            return
+          }
+          // * 일치하는 스케줄이 이미 존재한다면 return
+          if (visited[currentDay].find((v) => v === s.id)) {
+            return
+          }
+
+          // * 빈 공간이 있다면 채워넣기
+          const startDate =
+            s.startDate < dayjs(date).weekday(0).format(DATE_FORMAT)
+              ? dayjs(date).weekday(0).format(DATE_FORMAT)
+              : s.startDate
+          const cells = dayjs(s.endDate).diff(dayjs(startDate), 'day') + 1
+          Array(cells)
+            .fill(s.id)
+            .map((v, i) => {
+              if (currentDay + i > 6) return
+              if (visited[currentDay].indexOf(v) !== -1) {
+                visited[currentDay + i][visited[currentDay].indexOf(v)] = v
+              } else {
+                visited[currentDay + i][visited[currentDay + i].indexOf(null!)] = v
+              }
+            })
+        })
+
+        providerSchedule?.sort(
+          (a, b) => visited[currentDay].indexOf(a.id) - visited[currentDay].indexOf(b.id)
+        )
+
         return (
           <div
             key={`daily-${date}-${i}`}

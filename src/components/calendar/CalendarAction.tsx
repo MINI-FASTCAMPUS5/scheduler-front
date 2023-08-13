@@ -19,9 +19,9 @@ type Props = {
   schedule: ProviderScheduleWithPos
   date: string
   onCancle: () => void
-  onReserve: (message: string) => void
-  onEdit: (message: string) => void
-  onSubmit: (message: string) => void
+  onReserve: () => void
+  onEdit: () => void
+  onSubmit: () => void
 }
 
 export default function CalendarAction({
@@ -68,7 +68,8 @@ export default function CalendarAction({
           toast.success(res.message)
           return
         }
-        onReserve(res.message)
+
+        onReserve()
       })
       .catch(() => {
         // toast.error('예약 실패')
@@ -124,10 +125,12 @@ export default function CalendarAction({
         token: cookie.AccessToken
       })
       .then(() => {
-        onEdit('수정되었습니다.')
+        toast.success('수정되었습니다.')
+        onEdit()
       })
       .catch(() => {
-        onEdit('수정에 실패했습니다.')
+        toast.error('수정에 실패했습니다.')
+        onEdit()
       })
   }
 
@@ -150,12 +153,13 @@ export default function CalendarAction({
         token: cookie.AccessToken
       })
       .then((isReflected) => {
-        if (isReflected) {
-          onSubmit('행사가 추가되었습니다.')
-        } else onSubmit('행사 추가에 실패했습니다.')
+        if (isReflected) toast.success('행사가 추가되었습니다.')
+        else toast.error('행사 추가에 실패했습니다.')
+        onSubmit()
       })
       .catch(() => {
-        onSubmit('행사 추가에 실패했습니다.')
+        toast.error('행사 추가에 실패했습니다.')
+        onSubmit()
       })
   }
 
