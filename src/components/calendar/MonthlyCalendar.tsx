@@ -34,7 +34,7 @@ transition-all duration-100 ease-in-out rounded-xl border-[4px] border-white`}
       >
         <Weeks />
         {isSuccess ? (
-          <Daily daily={dailyIdx} />
+          <Daily daily={dailyIdx} limit={2} />
         ) : (
           dailyIdx.map((d, i) => (
             <div key={`dailyIdx-${d + i}`} className='cell min-h-[100px] md:min-h-[120px]' />

@@ -18,8 +18,9 @@ dayjs.extend(weekday)
 
 type Props = {
   daily: string[]
+  limit: number
 }
-export default function Daily({ daily }: Props) {
+export default function Daily({ daily, limit }: Props) {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
   const [isAdmin] = useState(user.role === 'ADMIN' ? true : false)
@@ -126,7 +127,7 @@ export default function Daily({ daily }: Props) {
 
   type Visited = string[][]
   // todo limit은 외부에서 받기
-  const limit = 2
+
   let visited: Visited = Array(7)
     .fill(null)
     .map(() => Array(limit).fill(null))
