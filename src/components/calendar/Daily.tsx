@@ -13,7 +13,6 @@ import DailyDetail from '@/components/calendar/DailyDetail'
 import ModalPortal from '@/components/ui/ModalPortal'
 import CalendarAction from '@/components/calendar/CalendarAction'
 import { DATE_FORMAT } from '@/constants'
-import { toast } from 'react-toastify'
 import weekday from 'dayjs/plugin/weekday'
 dayjs.extend(weekday)
 
@@ -79,25 +78,16 @@ export default function Daily({ daily }: Props) {
   // todo handleEdit, handleReserve, handleSubmitSchedule 함수를 하나로 합칠 수 있을 것 같습니다.
   // todo toast는 모달 내부에서 처리하도록 하기
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
-  const handleEdit = (message: string) => {
-    toast(message, {
-      position: 'top-center'
-    })
+  const handleEdit = () => {
     setOpenPortal(false)
   }
 
-  const handleReserve = (message: string) => {
-    toast(message, {
-      position: 'top-center'
-    })
+  const handleReserve = () => {
     setOpenPortal(false)
   }
 
   // * 공연 추가 모달에서 새로운 공연을 추가하면 실행됩니다.
-  const handleSubmitSchedule = (message: string) => {
-    toast(message, {
-      position: 'top-center'
-    })
+  const handleSubmitSchedule = () => {
     setOpenPortal(false)
   }
 
