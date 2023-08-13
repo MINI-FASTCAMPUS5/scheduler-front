@@ -62,52 +62,23 @@ export function getProviderSchdule(
 ): ProviderScheduleWithPos[] {
   if (typeof schedule === 'undefined') return []
   const filtetedSchedule = schedule.filter((s) => s.startDate <= date && s.endDate >= date)
-  const prevSchedule = schedule.filter(
-    (s) =>
-      s.startDate <= dayjs(date).subtract(1, 'day').format(DATE_FORMAT) &&
-      s.endDate >= dayjs(date).subtract(1, 'day').format(DATE_FORMAT)
-  )
 
   const restItem = filtetedSchedule.length > 2 ? filtetedSchedule.length - 2 : 0
-  const providerSchedule: ProviderScheduleWithPos[] = Array(100).fill(null)
-  filtetedSchedule
-    .map((s) => {
-      // * position 속성 추가 설정
-      let pos: SchedulePosition = 'between'
-      if (s.startDate === date) pos = 'start'
-      if (s.endDate === date) pos = 'end'
+  const providerSchedule = filtetedSchedule.map((s) => {
+    // * position 속성 추가 설정
+    let pos: SchedulePosition = 'between'
+    if (s.startDate === date) pos = 'start'
+    if (s.endDate === date) pos = 'end'
 
-      if (dayjs(date).format('ddd') === '일') {
-        if (s.startDate <= date && s.endDate >= date) pos = 'start'
-        if (s.endDate === date && s.startDate !== date) pos = 'start-end'
-      }
-      if (s.startDate === date && s.endDate === date) pos = 'start-end'
-      return { ...s, pos, restItem }
-    })
-    .forEach((s) => {
-      // * 하루 전 스케줄과 오늘 스케줄을 비교해서 적절한 인덱스에 스케줄을 넣는다.
-      const pi = prevSchedule.findIndex((ps) => ps.id === s.id)
-      if (pi !== -1) {
-        // if (pi == 2 && providerSchedule[pi] === null) {
-        //   if (providerSchedule[0] === null)
-        //     providerSchedule[0] = { ...s, pos: 'start', startDate: date }
-        //   else {
-        //     providerSchedule[pi] = { ...s, pos: 'start', startDate: date }
-        //   }
-        // } else {
-        providerSchedule[pi] = { ...s }
-        // }
-        return
-      } else {
-        for (let j = 0; j < providerSchedule.length; j++) {
-          if (providerSchedule[j] === null) {
-            providerSchedule[j] = { ...s }
-            break
-          }
-        }
-      }
-    })
-  return providerSchedule.filter((s) => s !== null)
+    if (dayjs(date).format('ddd') === '일') {
+      if (s.startDate <= date && s.endDate >= date) pos = 'start'
+      if (s.endDate === date && s.startDate !== date) pos = 'start-end'
+    }
+    if (s.startDate === date && s.endDate === date) pos = 'start-end'
+    return { ...s, pos, restItem }
+  })
+
+  return providerSchedule
 }
 
 // * 현재 달, 이전 달, 다음 달의 날짜를 구해서 배열로 반환
