@@ -187,9 +187,9 @@ export default function Daily({ daily, limit }: Props) {
             })
         })
 
-        providerSchedule?.sort(
-          (a, b) => visited[currentDay].indexOf(a.id) - visited[currentDay].indexOf(b.id)
-        )
+        providerSchedule
+          ?.sort((a, b) => visited[currentDay].indexOf(a.id) - visited[currentDay].indexOf(b.id))
+          .splice(0, providerSchedule.length - limit)
 
         return (
           <div
@@ -216,23 +216,22 @@ export default function Daily({ daily, limit }: Props) {
                   />
                 )
               })}
-              {reservedSchedule?.map((r, i) => {
-                r.progress === 'REFUSE'
-                return (
-                  <>
-                    <div
-                      key={`reserved-${r.reservedDate + i}`}
-                      className={`absolute top-0 w-full h-full bg-gradient-to-t 
-                    ${reserveStyle[r.progress].from} opacity-40 to-transparent z-[0]`}
-                    />
-                    <div
-                      className={`absolute right-2 top-2 w-[10px] h-[10px] rounded-full
-                  ${reserveStyle[r.progress].bg} opacity-100 custom-ping`}
-                    />
-                  </>
-                )
-              })}
-              {providerSchedule.length > 2 && (
+              {/* reservedSchedule는 월에 하나만 가능 */}
+              {reservedSchedule?.length ? (
+                <>
+                  <div
+                    className={`absolute top-0 w-full h-full bg-gradient-to-t 
+                    ${
+                      reserveStyle[reservedSchedule[0].progress].from
+                    } opacity-40 to-transparent z-[0]`}
+                  />
+                  <div
+                    className={`absolute right-2 top-2 w-[10px] h-[10px] rounded-full
+                  ${reserveStyle[reservedSchedule[0].progress].bg} opacity-100 custom-ping`}
+                  />
+                </>
+              ) : null}
+              {providerSchedule[0]?.restItem >= 1 && (
                 <div key={`morebtn-${date}-${i}`} className='absolute'>
                   <MoreButton
                     date={date}
