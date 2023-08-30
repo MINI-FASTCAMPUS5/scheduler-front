@@ -36,11 +36,11 @@ export default {
         '98vh': '98vh'
       },
       fontFamily: {
-        'gmarket': ['GmarketSans', 'sans-serif']
+        gmarket: ['GmarketSans', 'sans-serif']
       }
     }
   },
-  
+
   // eslint-disable-next-line no-undef
   plugins: [require('tailwind-scrollbar-hide')]
 }

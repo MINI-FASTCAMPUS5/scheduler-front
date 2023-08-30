@@ -20,7 +20,7 @@
     /* Linting */
     "strict": true
   },
-  "include": ["src"],
+  "include": ["src", "legacy/Sample"],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

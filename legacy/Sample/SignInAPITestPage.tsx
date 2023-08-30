@@ -14,7 +14,7 @@ export default function SignInAPITestPage() {
   const onClick = async () => {
     const loggedIn = await login(email, password)
     if (loggedIn) {
-      const currentDate = dayjs(new Date()).format(DATE_ROUTE_FORMAT)
+      const currentDate = dayjs().format(DATE_ROUTE_FORMAT)
       navigate('/calendar/' + currentDate)
       return
     }

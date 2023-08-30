@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import React, { useState } from 'react'
 import styles from './Optimistic.module.css'
 
 function fetchComments(postNumber: number) {
@@ -24,7 +24,7 @@ type Comment = {
   body: string
 }
 
-export default function Optimistic() {
+export const Optimistic = () => {
   const queryClient = useQueryClient()
 
   const [postNumber, setPostNumber] = useState(1)

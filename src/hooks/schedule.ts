@@ -4,8 +4,8 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useLocation, useParams } from 'react-router-dom'
-import useUser from './user'
 import { toast } from 'react-toastify'
+import useUser from './user'
 
 export default function useSchedule() {
   const params = useParams()

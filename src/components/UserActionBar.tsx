@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import SidebarMenu from './sidebar/SidebarMenu'
-import { useLocation, useParams } from 'react-router-dom'
-import { BiCalendarCheck } from 'react-icons/bi'
-import { BiSolidUserRectangle } from 'react-icons/bi'
-import dayjs from 'dayjs'
 import { DATE_ROUTE_FORMAT } from '@/constants'
+import dayjs from 'dayjs'
+import React, { useEffect, useState } from 'react'
+import { BiCalendarCheck, BiSolidUserRectangle } from 'react-icons/bi'
+import { useLocation, useParams } from 'react-router-dom'
+import SidebarMenu from './sidebar/SidebarMenu'
 
 export default function UserActionBar() {
   const location = useLocation()
@@ -14,7 +13,7 @@ export default function UserActionBar() {
   let calendarPath =
     year && month && day
       ? `/calendar/${year}/${month}/${day}`
-      : `/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`
+      : `/calendar/${dayjs().format(DATE_ROUTE_FORMAT)}`
 
   searchParams.get('keyword') && (calendarPath += `?keyword=${searchParams.get('keyword')}`)
 
@@ -47,7 +46,6 @@ export default function UserActionBar() {
   return (
     <div className='mb-6'>
       {sidebarMenu.map((menu, idx) => {
-        if (!menu) return
         return (
           <SidebarMenu
             key={menu.id}

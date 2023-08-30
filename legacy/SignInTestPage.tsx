@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react'
+import { DATE_ROUTE_FORMAT } from '@/constants'
+import { UserContext } from '@/context/UserProvider'
 import {
   ADMIN_USER_1,
   ADMIN_USER_2,
@@ -10,11 +11,9 @@ import {
 } from '@/mocks/user'
 import { AdminUser, FanUser } from '@/models/user'
 import { delay } from '@/utils'
-import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { DATE_ROUTE_FORMAT } from '@/constants'
-import { UserContext } from '@/context/UserProvider'
-// import useUser from '@/hooks/user'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // ! 사용자가 브라우저 url을 조작할 경우 로그인이 풀립니다.
 // ! 이때 API가 있다면 다시 API를 호출해서 로그인을 유지해야 합니다.

@@ -23,9 +23,9 @@ module.exports = {
         component: true,
         html: true
       }
-    ]
+    ],
+    'react/jsx-no-useless-fragment': 'error' // 불필요한 fragment 제거
   },
-  // https://stackoverflow.com/questions/72780296/warning-react-version-not-specified-in-eslint-plugin-react-settings-while-run
   settings: {
     react: {
       version: 'detect'

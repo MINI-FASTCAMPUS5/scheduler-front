@@ -12,8 +12,15 @@ type Props = {
 export default function SidebarMenu({ name, children, isActive = false, url, onClick }: Props) {
   const style = isActive ? 'bg-white text-main rounded-l-[20px]' : 'bg-main text-white'
   return (
-    <div className='relative h-[60px] bg-white text-[18px] font-gmarket font-bold' onClick={() => onClick && onClick(name)}>
-      <div className={`${isActive ? 'h-[70px]' : 'h-[70px]'} w-full text-right bg-main hover:text-[19px]`}>
+    <div
+      className='relative h-[60px] bg-white text-[18px] font-gmarket font-bold'
+      onClick={() => onClick && onClick(name)}
+    >
+      <div
+        className={`${
+          isActive ? 'h-[70px]' : 'h-[70px]'
+        } w-full text-right bg-main hover:text-[19px]`}
+      >
         <div className='relative bounce-menu'>
           {isActive && <img className='absolute right-[-1px] z-40' src='/sbtn_ac.svg' />}
           <Link

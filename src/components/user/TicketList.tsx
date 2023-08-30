@@ -1,6 +1,6 @@
+import { TicketListResponse } from '@/api/user/mypage'
 import React from 'react'
 import TicketListItem from './TicketListItem'
-import { TicketListResponse } from '@/api/user/mypage'
 
 type Props = {
   data: TicketListResponse

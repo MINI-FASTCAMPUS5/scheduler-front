@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-// mouseenter, mouseleave
 
 export default function useHover(start: boolean) {
   function addNoHover(e: Event) {
