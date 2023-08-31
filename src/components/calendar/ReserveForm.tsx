@@ -1,7 +1,7 @@
 import ReserveFormInfomation from '@/components/calendar/ReserveFormInfomation'
 import Button from '@/components/ui/Button'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 type Props = {

@@ -1,4 +1,3 @@
-import React from 'react'
 import 'swiper/css'
 import 'swiper/css/a11y'
 import 'swiper/css/navigation'

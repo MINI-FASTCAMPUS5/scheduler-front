@@ -1,7 +1,6 @@
 import { DATE_FORMAT } from '@/constants'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import dayjs from 'dayjs'
-import React from 'react'
 import { BiCalendarX } from 'react-icons/bi'
 
 type Props = {

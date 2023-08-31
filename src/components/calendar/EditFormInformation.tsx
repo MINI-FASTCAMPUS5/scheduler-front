@@ -4,7 +4,7 @@ import { DATE_FORMAT } from '@/constants'
 import { useUser } from '@/hooks/user'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import dayjs from 'dayjs'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 type Props = {

@@ -3,7 +3,6 @@ import ApprovalList from '@/components/approval/ApprovalList'
 import QuickState from '@/components/approval/QuickState'
 import { useUser } from '@/hooks/user'
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
 import { useCookies } from 'react-cookie'
 
 export default function ApprovalPage() {

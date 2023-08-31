@@ -8,7 +8,6 @@ import { ACCESS_TOKEN, DATE_REQEUST_FORMAT } from '@/constants'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import React from 'react'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
 

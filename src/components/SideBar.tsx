@@ -5,7 +5,6 @@ import Profile from '@/components/sidebar/Profile'
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import { useUser } from '@/hooks/user'
 import dayjs from 'dayjs'
-import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import SideBarAd from './SideBarAd'
 

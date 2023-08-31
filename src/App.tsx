@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import CalendarLayout from '@/components/layouts/CalendarLayout'
@@ -24,32 +24,32 @@ import 'react-toastify/dist/ReactToastify.css'
 function App() {
   return (
     <Suspense fallback={<div />}>
-        <ToastContainer />
-        <Routes>
-          <Route path='/calendar' element={<CalendarLayout />}>
-            <Route path='/calendar/:year/:month/:day' element={<CalendarPage />} />
-            <Route path='/calendar/schedule' element={<ScheduleAddTestPage />} />
-          </Route>
-          <Route path='/manager' element={<ManagerLayout />}>
-            <Route
-              path='/manager/event/calendar/:year/:month/:day'
-              element={<ManagerEventAddEditPage />}
-            />
-            <Route path='/manager/approval' element={<ApprovalPage />} />
-            <Route path='/manager/dashboard' element={<ManagerDashboardPage />} />
-            <Route path='/manager/edit' element={<Edit />} />
-          </Route>
-          <Route path='/user' element={<UserLayout />}>
-            <Route path='/user/mypage' element={<MyPage />} />
-            <Route path='/user/edit' element={<Edit />} />
-          </Route>
-          <Route />
-          <Route path='/' element={<MainLayout />}>
-            <Route path='/login' element={<SignInPage />} />
-            <Route path='/signup' element={<SignupPage />} />
-          </Route>
-        </Routes>
-      </Suspense>
+      <ToastContainer />
+      <Routes>
+        <Route path='/calendar' element={<CalendarLayout />}>
+          <Route path='/calendar/:year/:month/:day' element={<CalendarPage />} />
+          <Route path='/calendar/schedule' element={<ScheduleAddTestPage />} />
+        </Route>
+        <Route path='/manager' element={<ManagerLayout />}>
+          <Route
+            path='/manager/event/calendar/:year/:month/:day'
+            element={<ManagerEventAddEditPage />}
+          />
+          <Route path='/manager/approval' element={<ApprovalPage />} />
+          <Route path='/manager/dashboard' element={<ManagerDashboardPage />} />
+          <Route path='/manager/edit' element={<Edit />} />
+        </Route>
+        <Route path='/user' element={<UserLayout />}>
+          <Route path='/user/mypage' element={<MyPage />} />
+          <Route path='/user/edit' element={<Edit />} />
+        </Route>
+        <Route />
+        <Route path='/' element={<MainLayout />}>
+          <Route path='/login' element={<SignInPage />} />
+          <Route path='/signup' element={<SignupPage />} />
+        </Route>
+      </Routes>
+    </Suspense>
   )
 }
 

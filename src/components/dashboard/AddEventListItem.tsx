@@ -1,5 +1,4 @@
 import { ScheduleDtoType } from '@/api/admin/adminPage'
-import React from 'react'
 
 type Props = {
   data: ScheduleDtoType

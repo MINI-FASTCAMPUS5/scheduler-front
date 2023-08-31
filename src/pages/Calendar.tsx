@@ -1,7 +1,6 @@
 import BannerSwiper from '@/components/BannerSwiper'
 import SideBar from '@/components/SideBar'
 import CalendarFrame from '@/components/calendar/CalendarFrame'
-import React from 'react'
 
 export default function CalendarPage() {
   return (

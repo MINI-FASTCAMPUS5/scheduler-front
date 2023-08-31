@@ -1,7 +1,7 @@
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import { useUser } from '@/hooks/user'
 import dayjs from 'dayjs'
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 

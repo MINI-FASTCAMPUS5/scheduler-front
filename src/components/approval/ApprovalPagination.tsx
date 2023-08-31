@@ -1,4 +1,4 @@
-import React from 'react'
+import type { FC } from 'react'
 import Pagination from 'react-js-pagination'
 
 type SearchPagingProps = {
@@ -7,7 +7,7 @@ type SearchPagingProps = {
   setPage: (page: number) => void
 }
 
-const ApprovalPaging: React.FC<SearchPagingProps> = ({ page, count, setPage }) => {
+const ApprovalPaging: FC<SearchPagingProps> = ({ page, count, setPage }) => {
   const arrowBtn = {
     color:
       'pb-[2px] cursor-pointer bg-main ml-2 mr-2 text-white justify-center items-center rounded-xl h-8 w-8 flex transition duration-200 hover:bg-hover'

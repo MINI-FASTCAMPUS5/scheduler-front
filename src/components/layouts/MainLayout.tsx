@@ -1,7 +1,7 @@
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import { useUser } from '@/hooks/user'
 import dayjs from 'dayjs'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import Scene from '../ui/animation/Scene'
 

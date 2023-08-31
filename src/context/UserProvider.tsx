@@ -2,7 +2,7 @@ import api from '@/api'
 import { auth } from '@/api/login/auth'
 import { ACCESS_TOKEN } from '@/constants'
 import { AdminUser, FanUser } from '@/models/user'
-import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { useCookies } from 'react-cookie'
 
 interface IUserContext {

@@ -1,4 +1,3 @@
-import React from 'react'
 import AddFormInformation from './AddFormInformation'
 
 export type ScheduleAddFormData = {

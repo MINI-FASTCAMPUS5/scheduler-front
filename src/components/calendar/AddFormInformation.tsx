@@ -1,7 +1,7 @@
 import Banner from '@/components/Banner'
 import { ScheduleAddFormData } from '@/components/calendar/AddForm'
 import Button from '@/components/ui/Button'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 type Props = {

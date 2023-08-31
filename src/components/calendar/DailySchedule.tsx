@@ -1,7 +1,6 @@
 import { ProviderReservedList } from '@/models/schedule'
 import type { ProviderScheduleWithPos } from '@/utils/calendar'
 import dayjs from 'dayjs'
-import React from 'react'
 
 type Props = {
   schedule: ProviderScheduleWithPos

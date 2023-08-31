@@ -2,7 +2,7 @@ import { getProfileUpdatePage, updateUserInformation, uploadProfileImage } from 
 import Button from '@/components/ui/Button'
 import { ACCESS_TOKEN, DATE_ROUTE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'

@@ -1,5 +1,4 @@
 import { TicketListResponse } from '@/api/user/mypage'
-import React from 'react'
 import TicketListItem from './TicketListItem'
 
 type Props = {

@@ -2,7 +2,6 @@ import CalendarSwiper from '@/components/calendar/CalendarSwiper'
 import MonthlyCalendar from '@/components/calendar/MonthlyCalendar'
 import CheerUpLoading from '@/components/ui/CheerUpLoading'
 import { useSchedule } from '@/hooks/schedule'
-import React from 'react'
 
 export default function CalendarFrame() {
   const { isFetching, isLoading } = useSchedule()

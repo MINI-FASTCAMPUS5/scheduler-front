@@ -1,6 +1,5 @@
 import BannerSwiper from '@/components/BannerSwiper'
 import CalendarFrame from '@/components/calendar/CalendarFrame'
-import React from 'react'
 
 export default function ManagerEventAddEditPage() {
   return (

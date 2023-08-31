@@ -2,7 +2,6 @@
 import { ApprovalListResponse } from '@/api/admin/adminPage'
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
-import React from 'react'
 import { Link } from 'react-router-dom'
 import AddEventListItem from './AddEventListItem'
 

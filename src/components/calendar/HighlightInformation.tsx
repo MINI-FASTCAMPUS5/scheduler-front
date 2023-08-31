@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function HighlightInformation() {
   return (
     <div className='flex text-[0.7rem] top-0 font-bold'>

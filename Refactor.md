@@ -20,15 +20,15 @@
 20. [O] src/components/AdminActionBar.tsx 사이드바 개선 (사진 참고)
 21. [O] !menu 제어문 제거
 22. [O] src/components/Banner.tsx type?: 이렇게 선언하셔야 합니다.
-23. `tsconfig와 eslint를 같이 수정하면 불필요하게 import 를 할 필요가 없습니다.
+23. [O] `tsconfig와 eslint를 같이 수정하면 불필요하게 import 를 할 필요가 없습니다.
 어떻게 하면 없앨 수 있는지 한 번 공부해보세요!`
-24. 'react/jsx-no-useless-fragment': 'error' 을 다시면 불필요한 fragment를 지울 수 있습니다!
+24. [O] 'react/jsx-no-useless-fragment': 'error' 을 다시면 불필요한 fragment를 지울 수 있습니다!
 25. src/components/SideBar.tsx
 26. let calendarPath =
     year && month && day
     ? `/calendar/${year}/${month}/${day}`
     : `/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}` 훅으로 뺴기
-27. VoidFunction 활용
+27. [O] VoidFunction 활용
 28. src/components/calendar/AddFormInformation.tsx 유효성 검사가 가장 먼저 이루어져야, 불필요하게 file 관련된 스크립트가 실행되는 걸 막아줄 수 있을 것 같아요
 29. src/components/calendar/AddFormInformation.tsx 이미지 src= {imgSrc || '/mock_image/event_default.jpg'}로 수정
 30. 오타 잡는 extention spell

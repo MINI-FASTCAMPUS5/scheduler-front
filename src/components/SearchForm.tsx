@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import { BiSearchAlt2 } from 'react-icons/bi'
 import { useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -9,7 +9,7 @@ type Props = {
 export default function SearchForm({ onSubmit }: Props) {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-  const [value, setValue] = React.useState(searchParams.get('keyword') || '')
+  const [value, setValue] = useState(searchParams.get('keyword') || '')
   const searchToast = () =>
     toast.info(`${value}(을)를 검색합니다`, {
       position: 'top-center',

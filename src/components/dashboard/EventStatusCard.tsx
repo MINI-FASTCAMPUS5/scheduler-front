@@ -1,4 +1,3 @@
-import React from 'react'
 import { TbCalendarUp, TbCircleCheckFilled, TbCircleXFilled, TbFaceId } from 'react-icons/tb'
 
 type Props = {

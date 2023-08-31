@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { ACCESS_TOKEN, CALENDAR_TAG_ID, DATE_ROUTE_FORMAT } from '@/constants'

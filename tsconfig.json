@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx", // https://www.typescriptlang.org/tsconfig#jsx
     "allowJs": true,
     /* Linting */
     "strict": true

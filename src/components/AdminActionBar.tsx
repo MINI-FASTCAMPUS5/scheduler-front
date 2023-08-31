@@ -1,6 +1,6 @@
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   BiCalendarAlt,
   BiCalendarPlus,

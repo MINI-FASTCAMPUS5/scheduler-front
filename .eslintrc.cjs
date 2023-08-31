@@ -24,7 +24,8 @@ module.exports = {
         html: true
       }
     ],
-    'react/jsx-no-useless-fragment': 'error' // 불필요한 fragment 제거
+    'react/jsx-no-useless-fragment': 'error', // 불필요한 fragment 제거
+    'react/react-in-jsx-scope': 'off'
   },
   settings: {
     react: {

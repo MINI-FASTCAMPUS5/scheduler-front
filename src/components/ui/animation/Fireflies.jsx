@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { extend, useFrame } from '@react-three/fiber'
 import * as meshline from 'meshline'
-import React, { useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { CatmullRomCurve3, Vector3 } from 'three'
 
 extend(meshline)

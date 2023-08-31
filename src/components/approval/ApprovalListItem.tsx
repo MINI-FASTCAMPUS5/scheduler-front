@@ -1,5 +1,5 @@
 import { ACCESS_TOKEN } from '@/constants'
-import React from 'react'
+import type { FC } from 'react'
 import { useCookies } from 'react-cookie' // react-cookie 라이브러리 임포트
 import { toast } from 'react-toastify'
 import { approveSchedule, cancelSchedule } from '../../api/admin/approvalPage'
@@ -17,7 +17,7 @@ interface ApprovalListItemProps {
   data: ScheduleDtoType
 }
 
-const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
+const ApprovalListItem: FC<ApprovalListItemProps> = ({ data }) => {
   const [cookies] = useCookies([ACCESS_TOKEN]) // 쿠키 가져오기
   const failToast = () => toast.error('요청을 실패하였습니다. 다시 시도해주세요.')
   const cancelFailToast = () => toast.error('이미 승인된 일정은 취소할 수 없습니다.')

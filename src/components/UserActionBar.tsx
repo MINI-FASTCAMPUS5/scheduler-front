@@ -1,6 +1,6 @@
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BiCalendarCheck, BiSolidUserRectangle } from 'react-icons/bi'
 import { useLocation, useParams } from 'react-router-dom'
 import SidebarMenu from './sidebar/SidebarMenu'

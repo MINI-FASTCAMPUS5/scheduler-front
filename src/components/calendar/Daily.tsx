@@ -12,7 +12,7 @@ import { useUser } from '@/hooks/user'
 import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
 import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 dayjs.extend(weekday)
 

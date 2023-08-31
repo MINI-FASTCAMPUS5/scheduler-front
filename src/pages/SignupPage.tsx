@@ -1,5 +1,5 @@
 import api from '@/api'
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { MdInfo } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
