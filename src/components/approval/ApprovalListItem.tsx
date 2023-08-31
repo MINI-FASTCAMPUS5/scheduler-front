@@ -8,7 +8,7 @@ interface ScheduleDtoType {
   description: string
   fullName?: string
   title: string
-  progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
+  progress: ScheduleProgress
   scheduleStart: string
   userScheduleId: number
 }

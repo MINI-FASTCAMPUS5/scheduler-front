@@ -3,13 +3,13 @@ import React, { useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { ACCESS_TOKEN, CALENDAR_TAG_ID, DATE_ROUTE_FORMAT } from '@/constants'
-import useSchedule from '@/hooks/schedule'
+import { useSchedule } from '@/hooks/schedule'
 import { appendSwipeAnimation, swipeCalendar } from '@/utils/calendar'
 
 import HighlightInformation from '@/components/calendar/HighlightInformation'
 import ArrowButton, { DirectionType } from '@/components/ui/ArrowButton'
 import Button from '@/components/ui/Button'
-import useUser from '@/hooks/user'
+import { useUser } from '@/hooks/user'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
 
@@ -18,8 +18,7 @@ export default function CalendarSwiper() {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
   const location = useLocation()
-  const { isFetching } = useSchedule()
-  const { year, month } = useSchedule()
+  const { isFetching, year, month } = useSchedule()
   const navigate = useNavigate()
 
   // * 이전/다음 달로 이동합니다.

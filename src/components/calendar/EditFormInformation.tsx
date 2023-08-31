@@ -1,7 +1,7 @@
 import Banner from '@/components/Banner'
 import Button from '@/components/ui/Button'
 import { DATE_FORMAT } from '@/constants'
-import useUser from '@/hooks/user'
+import { useUser } from '@/hooks/user'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'

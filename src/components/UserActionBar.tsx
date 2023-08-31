@@ -38,7 +38,7 @@ export default function UserActionBar() {
     let idx = -1
     if (location.pathname.includes('calendar')) idx = 0
     if (location.pathname.includes('user/mypage')) idx = 1
-    setActiveId(() => (sidebarMenu[idx]?.id ? sidebarMenu[idx].id : ''))
+    setActiveId(sidebarMenu[idx]?.id ? sidebarMenu[idx].id : '')
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])

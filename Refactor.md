@@ -3,13 +3,13 @@
 3. [O] 불필요한 주석 제거
 4. svg 색상만 다른 경우 currentColor (YeonGanIdolLogoWhite.svg)
 5. CalendarAction.tsx => user === "admin" 위로 올리고 SwiteCase 컴포넌트
-6. 불필요한 익명함수 제거
-7. src/components/calendar/CalendarSwiper.tsx 두 번실행 제거
-8. src/components/calendar/Daily.tsx treeShaking 막기 named export + 배럴 파일
+6. [x] 불필요한 익명함수 제거 @@@ (type 지정이 번거로운데 어떻게 하는게 좋을까?) @@@
+7. [O] src/components/calendar/CalendarSwiper.tsx 두 번 실행 제거
+8. [배럴 파일 진행 중...] src/components/calendar/Daily.tsx treeShaking 막기 named export + 배럴 파일
 9. [O] bgStyle 지우기
 10. [O] App.css 삭제
-11. 비어있는 엠티 파일인데 import 할 필요가 있을까요?! @App.css
-12. 'WAITING' | 'ACCEPT' | 'REFUSE', 'USER' | 'ADMIN' d.ts 이동
+11. [O] 비어있는 엠티 파일인데 import 할 필요가 있을까요?! @App.css
+12. [O] 'WAITING' | 'ACCEPT' | 'REFUSE', 'USER' | 'ADMIN' d.ts 이동
 13. profileImage?: File api/api.ts
 14. URL env
 15. axios instance단에서 interceptor처리
@@ -27,7 +27,7 @@
 26. let calendarPath =
     year && month && day
     ? `/calendar/${year}/${month}/${day}`
-    : `/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}` 훅이로 뺴기
+    : `/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}` 훅으로 뺴기
 27. VoidFunction 활용
 28. src/components/calendar/AddFormInformation.tsx 유효성 검사가 가장 먼저 이루어져야, 불필요하게 file 관련된 스크립트가 실행되는 걸 막아줄 수 있을 것 같아요
 29. src/components/calendar/AddFormInformation.tsx 이미지 src= {imgSrc || '/mock_image/event_default.jpg'}로 수정

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 type Props = {
   date: string
-  onCancle: () => void
+  onCancle: VoidFunction
   onSubmit: (schedule: ScheduleAddFormData) => void
 }
 

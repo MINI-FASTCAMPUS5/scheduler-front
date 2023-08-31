@@ -5,10 +5,10 @@ import DailySchedule from '@/components/calendar/DailySchedule'
 import MoreButton from '@/components/calendar/MoreButton'
 import ModalPortal from '@/components/ui/ModalPortal'
 import { DATE_FORMAT } from '@/constants'
-import useHover from '@/hooks/hover'
-import useResize from '@/hooks/resize'
-import useSchedule from '@/hooks/schedule'
-import useUser from '@/hooks/user'
+import { useHover } from '@/hooks/hover'
+import { useResize } from '@/hooks/resize'
+import { useSchedule } from '@/hooks/schedule'
+import { useUser } from '@/hooks/user'
 import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
 import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
@@ -106,7 +106,7 @@ export default function Daily({ daily, limit }: Props) {
   useEffect(() => {
     setWidth(() => 20)
     // prettier-ignore
-    if (!isFetching) {setTimeout(() => { resize()}, 100) }
+    if (!isFetching) {setTimeout(() => { resize() }, 100) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 

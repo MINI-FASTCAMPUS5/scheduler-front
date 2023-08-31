@@ -1,4 +1,4 @@
-import useUser from '@/hooks/user'
+import { useUser } from '@/hooks/user'
 import { AdminUser, FanUser } from '@/models/user'
 import React from 'react'
 import { Link } from 'react-router-dom'

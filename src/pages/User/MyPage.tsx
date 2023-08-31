@@ -1,5 +1,5 @@
 import ReserveDetail from '@/components/user/ReserveDetail'
-import useUser from '@/hooks/user'
+import { useUser } from '@/hooks/user'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'

@@ -1,7 +1,7 @@
 import Banner from '@/components/Banner'
 import DailySchedule from '@/components/calendar/DailySchedule'
 import CheerUpLoading from '@/components/ui/CheerUpLoading'
-import useSchedule from '@/hooks/schedule'
+import { useSchedule } from '@/hooks/schedule'
 import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
 import React, { useEffect, useState } from 'react'
 
