@@ -15,9 +15,9 @@
 15. axios instance단에서 interceptor처리
 16. src/api/schedule/index.ts 변수명 s 수정
 17. 제네릭으로 활용해서 타입 추론을 하는 연습을 해보세요! (api 함수 호출 부분)
-18. dayjs(new Date()) => dayjs()
-19. src/components/AdminActionBar.tsx 한 줄로 import
-20. src/components/AdminActionBar.tsx 사이드바 개선 (사진 참고)
+18. [O] dayjs(new Date()) => dayjs()
+19. [O] src/components/AdminActionBar.tsx 한 줄로 import
+20. [O] src/components/AdminActionBar.tsx 사이드바 개선 (사진 참고)
 21. [O] !menu 제어문 제거
 22. [O] src/components/Banner.tsx type?: 이렇게 선언하셔야 합니다.
 23. `tsconfig와 eslint를 같이 수정하면 불필요하게 import 를 할 필요가 없습니다.

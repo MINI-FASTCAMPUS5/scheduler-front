@@ -4,17 +4,16 @@ import { Link } from 'react-router-dom'
 type Props = {
   children: React.ReactNode
   isActive?: boolean
-  name: string
   idx: number
   url: string
-  onClick?: (name: string) => void
+  onClick?: (idx: number) => void
 }
-export default function SidebarMenu({ name, children, isActive = false, url, onClick }: Props) {
+export default function SidebarMenu({ idx, children, isActive = false, url, onClick }: Props) {
   const style = isActive ? 'bg-white text-main rounded-l-[20px]' : 'bg-main text-white'
   return (
     <div
       className='relative h-[60px] bg-white text-[18px] font-gmarket font-bold'
-      onClick={() => onClick && onClick(name)}
+      onClick={() => onClick && onClick(idx)}
     >
       <div
         className={`${

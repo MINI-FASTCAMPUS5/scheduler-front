@@ -8,7 +8,7 @@ import SidebarMenu from './sidebar/SidebarMenu'
 export default function UserActionBar() {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-  const [activeId, setActiveId] = useState('')
+  const [activeIdx, setActiveIdx] = useState(-1)
   const { year, month, day } = useParams()
   let calendarPath =
     year && month && day
@@ -20,39 +20,32 @@ export default function UserActionBar() {
   const sidebarMenu = [
     {
       title: '행사 신청 캘린더',
-      id: 'user-sidebar-0',
       Icon: BiCalendarCheck,
       url: calendarPath
     },
     {
       title: '마이 페이지',
-      id: 'user-sidebar-1',
       Icon: BiSolidUserRectangle,
       url: '/user/mypage'
     }
   ]
 
-  // params로 체크해서 sidebarMenu[0] 몇번째 인지 정하기
-
   useEffect(() => {
     let idx = -1
     if (location.pathname.includes('calendar')) idx = 0
     if (location.pathname.includes('user/mypage')) idx = 1
-    setActiveId(sidebarMenu[idx]?.id ? sidebarMenu[idx].id : '')
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setActiveIdx(idx)
   }, [location.pathname])
 
   return (
     <div className='mb-6'>
-      {sidebarMenu.map((menu, idx) => {
+      {sidebarMenu.map((menu, i) => {
         return (
           <SidebarMenu
-            key={menu.id}
-            name={menu.id}
-            isActive={activeId === menu.id}
-            onClick={(name) => setActiveId(name)}
-            idx={idx}
+            key={`user-sidebar-menu-${i}`}
+            isActive={activeIdx === i}
+            onClick={(sidebarIdx) => setActiveIdx(sidebarIdx)}
+            idx={i}
             url={menu.url}
           >
             <p className='flex items-center ml-4'>
