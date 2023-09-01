@@ -21,8 +21,8 @@ export async function signUpUser(
   email: string,
   password: string,
   fullName: string,
-  profileImage: File | undefined,
-  role: 'ADMIN' | 'USER'
+  role: UserRole,
+  profileImage?: File
 ) {
   try {
     const formData = new FormData()

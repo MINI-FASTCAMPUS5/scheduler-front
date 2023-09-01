@@ -10,10 +10,10 @@
 10. [O] App.css 삭제
 11. [O] 비어있는 엠티 파일인데 import 할 필요가 있을까요?! @App.css
 12. [O] 'WAITING' | 'ACCEPT' | 'REFUSE', 'USER' | 'ADMIN' d.ts 이동
-13. profileImage?: File api/api.ts
+13. [O] profileImage?: File api/api.ts
 14. URL env
 15. axios instance단에서 interceptor처리
-16. src/api/schedule/index.ts 변수명 s 수정
+16. [O] src/api/schedule/index.ts 변수명 s 수정
 17. 제네릭으로 활용해서 타입 추론을 하는 연습을 해보세요! (api 함수 호출 부분)
 18. [O] dayjs(new Date()) => dayjs()
 19. [O] src/components/AdminActionBar.tsx 한 줄로 import

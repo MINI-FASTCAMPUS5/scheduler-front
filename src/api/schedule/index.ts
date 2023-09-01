@@ -37,32 +37,31 @@ export const fetchSchedule = async ({
       }
     })
 
-    const reservedList = res.data.schedulerUser.map((s) => {
-      const reservedDate = dayjs(s.scheduleStart).format(DATE_FORMAT)
+    const reservedList = res.data.schedulerUser.map((schedule) => {
+      const reservedDate = dayjs(schedule.scheduleStart).format(DATE_FORMAT)
       return {
-        id: s.id,
-        scheduleId: s.schedulerAdmin.id,
-        progress: s.progress,
+        id: schedule.id,
+        scheduleId: schedule.schedulerAdmin.id,
+        progress: schedule.progress,
         reservedDate,
         user: {
-          ...s.user
+          ...schedule.user
         }
       }
     })
 
     const schedule = res.data.schedulerAdmin
-      .filter((s) => s)
-      .map((s) => {
+      .map((schedule) => {
         return {
-          id: s.id, // post id PK가 안와서 임시로 만듬
-          userId: s.user.id,
-          title: s.title,
-          fullName: s.user.fullName,
-          image: s.image,
-          profileImage: s.user.profileImage,
-          description: s.description,
-          startDate: dayjs(s.scheduleStart).format(DATE_FORMAT),
-          endDate: dayjs(s.scheduleEnd).format(DATE_FORMAT)
+          id: schedule.id, // post id PK가 안와서 임시로 만듬
+          userId: schedule.user.id,
+          title: schedule.title,
+          fullName: schedule.user.fullName,
+          image: schedule.image,
+          profileImage: schedule.user.profileImage,
+          description: schedule.description,
+          startDate: dayjs(schedule.scheduleStart).format(DATE_FORMAT),
+          endDate: dayjs(schedule.scheduleEnd).format(DATE_FORMAT)
         }
       })
       .sort((a, b) => {
