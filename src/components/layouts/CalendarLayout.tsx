@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import useUser from '@/hooks/user'
+import { useUser } from '@/hooks/user'
+import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 export default function CalendarLayout() {

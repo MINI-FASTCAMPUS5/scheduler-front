@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import React, { useEffect, useState } from 'react'
 
 function getPosts(postNumber: number) {
   return fetch(`https://jsonplaceholder.typicode.com/posts/${postNumber}`).then((res) => res.json())
@@ -10,7 +10,7 @@ type Post = {
   title?: string
 }
 
-export default function Sample() {
+export const Sample = () => {
   const [postNumber, setPostNumber] = useState(1)
 
   //  * key는 반드시 배열

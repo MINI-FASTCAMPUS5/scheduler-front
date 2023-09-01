@@ -1,8 +1,7 @@
 import { DATE_FORMAT } from '@/constants'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
-import { BiCalendarX } from 'react-icons/bi'
 import dayjs from 'dayjs'
-import React from 'react'
+import { BiCalendarX } from 'react-icons/bi'
 
 type Props = {
   schedule: ProviderScheduleWithPos
@@ -31,9 +30,11 @@ export default function ReserveFormInfomation({ schedule, onChageDate }: Props) 
           {schedule.startDate < dayjs(date).format(DATE_FORMAT) ? (
             <div className='bg-inputbox flex rounded-[10px] h-[30px] pl-[12px] pr-[12px]'>
               <span>
-                {schedule.endDate > dayjs(date).format(DATE_FORMAT)
-                  ? '진행 중인 행사입니다!'
-                  : <div className='text-[#b3b3b3] font-bold mt-[3px]'>이미 끝난 행사입니다!</div>}
+                {schedule.endDate > dayjs(date).format(DATE_FORMAT) ? (
+                  '진행 중인 행사입니다!'
+                ) : (
+                  <div className='text-[#b3b3b3] font-bold mt-[3px]'>이미 끝난 행사입니다!</div>
+                )}
               </span>
               <BiCalendarX className='flex m-auto ml-2 w-5 h-5 mt-[5px] text-[#b3b3b3]' />
             </div>

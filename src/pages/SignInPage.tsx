@@ -1,8 +1,8 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react'
-import { Link } from 'react-router-dom'
-import useUser from '@/hooks/user'
-import dayjs from 'dayjs'
 import { DATE_ROUTE_FORMAT } from '@/constants'
+import { useUser } from '@/hooks/user'
+import dayjs from 'dayjs'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export default function SignUpPage() {
@@ -15,7 +15,7 @@ export default function SignUpPage() {
     if (emailValid && passwordValid) {
       const loggedIn = await login(email, password)
       if (loggedIn) {
-        window.location.replace(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`)
+        window.location.replace(`/calendar/${dayjs().format(DATE_ROUTE_FORMAT)}`)
       } else {
         failToast()
       }
@@ -23,12 +23,14 @@ export default function SignUpPage() {
   }
 
   const validatePassword = (value: string) => {
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#^?&\\()\-=+])[A-Za-z\d$@$!%*#^?&\\()\-=+]{8,20}$/
+    const regex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#^?&\\()\-=+])[A-Za-z\d$@$!%*#^?&\\()\-=+]{8,20}$/
     return regex.test(value)
   }
 
   const validateEmail = (value: string) => {
-    const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
+    const regex =
+      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
     return regex.test(value)
   }
 

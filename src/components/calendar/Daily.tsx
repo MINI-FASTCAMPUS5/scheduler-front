@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { useLocation } from 'react-router-dom'
-import dayjs from 'dayjs'
-import useSchedule from '@/hooks/schedule'
-import useResize from '@/hooks/resize'
-import useUser from '@/hooks/user'
-import useHover from '@/hooks/hover'
-import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
-import DailySchedule from '@/components/calendar/DailySchedule'
-import MoreButton from '@/components/calendar/MoreButton'
+import CalendarAction from '@/components/calendar/CalendarAction'
 import CalendarModal from '@/components/calendar/CalendarModal'
 import DailyDetail from '@/components/calendar/DailyDetail'
+import DailySchedule from '@/components/calendar/DailySchedule'
+import MoreButton from '@/components/calendar/MoreButton'
 import ModalPortal from '@/components/ui/ModalPortal'
-import CalendarAction from '@/components/calendar/CalendarAction'
 import { DATE_FORMAT } from '@/constants'
+import { useHover } from '@/hooks/hover'
+import { useResize } from '@/hooks/resize'
+import { useSchedule } from '@/hooks/schedule'
+import { useUser } from '@/hooks/user'
+import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
+import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
+import { useCallback, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 dayjs.extend(weekday)
 
 type Props = {
@@ -40,7 +40,7 @@ export default function Daily({ daily, limit }: Props) {
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
   useHover(adminId && adminSchedule?.length !== 0 ? true : false)
 
-  const today = dayjs(new Date()).format(DATE_FORMAT)
+  const today = dayjs().format(DATE_FORMAT)
 
   // * 더보기 버튼 클릭시 모달창을 띄웁니다.
   const handleViewMore = useCallback((date: string) => {
@@ -106,7 +106,7 @@ export default function Daily({ daily, limit }: Props) {
   useEffect(() => {
     setWidth(() => 20)
     // prettier-ignore
-    if (!isFetching) {setTimeout(() => { resize()}, 100) }
+    if (!isFetching) {setTimeout(() => { resize() }, 100) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
@@ -274,6 +274,5 @@ function getBgStyle(date: string) {
   if (dayjs(date).format('ddd') === '일' || dayjs(date).format('ddd') === '토') {
     bgStyle = 'bg-blue-100'
   }
-  bgStyle
   return bgStyle
 }

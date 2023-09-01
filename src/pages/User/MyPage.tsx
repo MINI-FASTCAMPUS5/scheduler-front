@@ -1,10 +1,8 @@
-import React from 'react'
-// import FullProfile from '@/components/FullProfile'
-import useUser from '@/hooks/user'
-import { useNavigate } from 'react-router-dom'
 import ReserveDetail from '@/components/user/ReserveDetail'
-import userDefaultImg from '/mock_image/user_default.png'
+import { useUser } from '@/hooks/user'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import userDefaultImg from '/mock_image/user_default.png'
 
 export default function MyPage() {
   const navigate = useNavigate()
@@ -62,7 +60,9 @@ export default function MyPage() {
         </div>
         <div className='flex flex-col h-full'>
           <ReserveDetail user={fan} />
-        <div className='flex text-[12px] text-point ml-2 mt-1'>*승인 거절시 티켓이 반환되지 않으면 화면을 새로고침하십시오.</div>
+          <div className='flex text-[12px] text-point ml-2 mt-1'>
+            *승인 거절시 티켓이 반환되지 않으면 화면을 새로고침하십시오.
+          </div>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ export type ScheduleDtoType = {
   description: string
   fullName?: string
   title: string
-  progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
+  progress: ScheduleProgress
   scheduleStart: string
   adminScheduleId: number
   userScheduleId: number
@@ -32,7 +32,7 @@ export type ApprovalListResponse = {
     fullName: string
     sizeOfTicket: string
     profileImage: string
-    role: 'USER' | 'ADMIN'
+    role: UserRole
   }
 }
 

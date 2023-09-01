@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import Button from '@/components/ui/Button'
 import Banner from '@/components/Banner'
 import { ScheduleAddFormData } from '@/components/calendar/AddForm'
+import Button from '@/components/ui/Button'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 type Props = {
   date: string
-  onCancle: () => void
+  onCancle: VoidFunction
   onSubmit: (schedule: ScheduleAddFormData) => void
 }
 
@@ -88,22 +88,17 @@ export default function EditFormInformation({ date, onSubmit, onCancle }: Props)
           />
         </div>
         <div className='flex bg-white w-[180px] h-[90px] rounded-2xl overflow-hidden border mt-3 justify-center'>
-        {imgSrc ? (
-          <Banner
-            className='flex h-full'
-            type='side'
-            src={imgSrc}
-            alt='공연 이미지'
-          />
-        ) : (
-          <Banner
-            className='flex h-full'
-            type='side'
-            src='/mock_image/event_default.jpg'
-            alt='공연 이미지'
-          />
-        )}
-      </div>
+          {imgSrc ? (
+            <Banner className='flex h-full' type='side' src={imgSrc} alt='공연 이미지' />
+          ) : (
+            <Banner
+              className='flex h-full'
+              type='side'
+              src='/mock_image/event_default.jpg'
+              alt='공연 이미지'
+            />
+          )}
+        </div>
       </div>
       <div className='flex justify-between pb-4'>
         <span draggable={true} className='text-xl font-bold font-gmarket'>

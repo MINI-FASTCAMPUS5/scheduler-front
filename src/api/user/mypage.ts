@@ -3,7 +3,7 @@ import api from '@/api'
 export type SchedulerRoleUserList = {
   scheduleStart: string
   title: string
-  progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
+  progress: ScheduleProgress
 }
 export type TicketListResponse = {
   getUserInfoDTO: {
@@ -11,7 +11,7 @@ export type TicketListResponse = {
     email: string
     fullName: string
     profileImage: string
-    role: 'USER' | 'ADMIN'
+    role: UserRole
     sizeOfTicket: number
     usedTicket: number
   }

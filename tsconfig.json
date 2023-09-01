@@ -14,13 +14,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx", // https://www.typescriptlang.org/tsconfig#jsx
     "allowJs": true,
-
     /* Linting */
     "strict": true
   },
   "include": ["src"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "legacy"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

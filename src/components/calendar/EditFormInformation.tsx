@@ -1,10 +1,10 @@
-import { ProviderScheduleWithPos } from '@/utils/calendar'
-import React, { useState } from 'react'
 import Banner from '@/components/Banner'
-import dayjs from 'dayjs'
-import { DATE_FORMAT } from '@/constants'
 import Button from '@/components/ui/Button'
-import useUser from '@/hooks/user'
+import { DATE_FORMAT } from '@/constants'
+import { useUser } from '@/hooks/user'
+import { ProviderScheduleWithPos } from '@/utils/calendar'
+import dayjs from 'dayjs'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 type Props = {
@@ -22,7 +22,7 @@ export default function EditFormInformation({ schedule, onEdit, onCancle }: Prop
   const user = getUserInfo()
   const [imgSrc, setImgSrc] = useState('')
   const [imgFile, setImgFile] = useState<File>()
-  const date = dayjs(new Date()).format(DATE_FORMAT)
+  const date = dayjs().format(DATE_FORMAT)
   const [startDate, setStartDate] = useState(schedule.startDate)
   const [endDate, setEndDate] = useState(schedule.endDate)
   const [title, setTitle] = useState(schedule.title)

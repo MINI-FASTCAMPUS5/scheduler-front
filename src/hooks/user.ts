@@ -1,7 +1,7 @@
-import { useContext } from 'react'
 import { UserContext } from '@/context/UserProvider'
+import { useContext } from 'react'
 
-export default function useUser() {
+export const useUser = () => {
   const { getUserInfo, loggedIn, login, loading, logout } = useContext(UserContext)
 
   return { getUserInfo, login, loggedIn, loading, logout }

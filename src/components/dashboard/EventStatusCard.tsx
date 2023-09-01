@@ -1,5 +1,4 @@
-import React from 'react'
-import { TbCalendarUp, TbFaceId, TbCircleCheckFilled, TbCircleXFilled } from 'react-icons/tb'
+import { TbCalendarUp, TbCircleCheckFilled, TbCircleXFilled, TbFaceId } from 'react-icons/tb'
 
 type Props = {
   waiting: string
@@ -19,7 +18,8 @@ export default function EventStatusCard({ waiting, accepted, refused, events }: 
           </div>
           <div className='flex text-[2vh] font-bold justify-center'>등록 행사</div>
           <div className='flex text-[4vh] font-bold mb-2 justify-center'>
-          {events ? events : 0}<div className='text-[2vh] mt-5'>개</div>
+            {events ? events : 0}
+            <div className='text-[2vh] mt-5'>개</div>
           </div>
         </div>
         <div className='flex flex-col w-full border-4 border-wait rounded-2xl justify-center text-wait transition hover:scale-[0.98]'>

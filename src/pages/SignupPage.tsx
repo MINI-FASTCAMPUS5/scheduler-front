@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
-import React, { useState, ChangeEvent } from 'react'
+import api from '@/api'
+import { ChangeEvent, useState } from 'react'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { MdInfo } from 'react-icons/md'
-import api from '@/api'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const SignupPage = (): JSX.Element => {
@@ -208,7 +208,9 @@ const SignupPage = (): JSX.Element => {
                 type='password'
               />
             </div>
-            {passwordMatch && <div className='text-red-600 text-[12px] text-end mt-[5px]'>{passwordMatch}</div>}
+            {passwordMatch && (
+              <div className='text-red-600 text-[12px] text-end mt-[5px]'>{passwordMatch}</div>
+            )}
           </div>
 
           <div className='flex w-full mt-6'>

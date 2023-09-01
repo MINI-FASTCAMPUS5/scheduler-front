@@ -1,9 +1,7 @@
-import React from 'react'
-
 type Props = {
   src: string
   alt: string
-  type: 'top' | 'side' | 'post'
+  type?: 'top' | 'side' | 'post'
   className?: string
 }
 export default function Banner({ src, type = 'top', className, alt }: Props) {

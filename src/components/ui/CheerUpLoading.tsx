@@ -1,4 +1,3 @@
-import React from 'react'
 import './CheerUpLoadingStyle.css'
 export default function CheerUpLoading() {
   return (

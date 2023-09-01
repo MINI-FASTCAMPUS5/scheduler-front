@@ -1,7 +1,6 @@
-import React from 'react'
-import dayjs from 'dayjs'
-import type { ProviderScheduleWithPos } from '@/utils/calendar'
 import { ProviderReservedList } from '@/models/schedule'
+import type { ProviderScheduleWithPos } from '@/utils/calendar'
+import dayjs from 'dayjs'
 
 type Props = {
   schedule: ProviderScheduleWithPos

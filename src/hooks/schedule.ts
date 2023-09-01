@@ -1,18 +1,17 @@
 import { fetchSchedule } from '@/api/schedule'
 import { ACCESS_TOKEN } from '@/constants'
+import { useUser } from '@/hooks/user'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useLocation, useParams } from 'react-router-dom'
-import useUser from './user'
 import { toast } from 'react-toastify'
 
-export default function useSchedule() {
+export const useSchedule = () => {
   const params = useParams()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
   const [cookie] = useCookies([ACCESS_TOKEN])
-  // ? year, month가 없는 경우 체크 필요 redirect 해야함
   const [year, setYear] = useState(params.year ? parseInt(params.year) : 0)
   const [month, setMonth] = useState(params.month ? parseInt(params.month) : 0)
   const [day, setDay] = useState(params.day ? parseInt(params.day) : 0)
@@ -66,7 +65,6 @@ export default function useSchedule() {
   return {
     adminSchedule: schedule?.schedule,
     reservedList: schedule?.reservedList,
-
     isFetching,
     year,
     month,

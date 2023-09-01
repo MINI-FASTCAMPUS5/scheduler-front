@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import Button from '@/components/ui/Button'
 import { getProfileUpdatePage, updateUserInformation, uploadProfileImage } from '@/api/user/edit'
-import { useCookies } from 'react-cookie'
+import Button from '@/components/ui/Button'
 import { ACCESS_TOKEN, DATE_ROUTE_FORMAT } from '@/constants'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
+import { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function Edit() {
   const navigate = useNavigate()
@@ -79,7 +79,7 @@ export default function Edit() {
     if (role === 'USER') {
       return navigate('/user/mypage')
     }
-    return navigate(`/calendar/${dayjs(new Date()).format(DATE_ROUTE_FORMAT)}`)
+    return navigate(`/calendar/${dayjs().format(DATE_ROUTE_FORMAT)}`)
   }
 
   // 수정 완료 버튼을 클릭했을때 비밀번호 변경 누락...빠르게 다시 수정!!!

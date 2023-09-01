@@ -1,7 +1,6 @@
 import { SchedulerRoleUserList } from '@/api/user/mypage'
 import { DATE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
-import React from 'react'
 
 type Props = {
   data: SchedulerRoleUserList

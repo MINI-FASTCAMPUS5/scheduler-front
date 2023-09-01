@@ -1,25 +1,24 @@
-import React, { useCallback } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
+import { useCallback } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-import useSchedule from '@/hooks/schedule'
-import { appendSwipeAnimation, swipeCalendar } from '@/utils/calendar'
 import { ACCESS_TOKEN, CALENDAR_TAG_ID, DATE_ROUTE_FORMAT } from '@/constants'
+import { useSchedule } from '@/hooks/schedule'
+import { appendSwipeAnimation, swipeCalendar } from '@/utils/calendar'
 
-import Button from '@/components/ui/Button'
 import HighlightInformation from '@/components/calendar/HighlightInformation'
 import ArrowButton, { DirectionType } from '@/components/ui/ArrowButton'
-import useUser from '@/hooks/user'
-import { toast } from 'react-toastify'
+import Button from '@/components/ui/Button'
+import { useUser } from '@/hooks/user'
 import { useCookies } from 'react-cookie'
+import { toast } from 'react-toastify'
 
 export default function CalendarSwiper() {
   const [cookie] = useCookies([ACCESS_TOKEN])
   const { getUserInfo } = useUser()
   const user = getUserInfo()
   const location = useLocation()
-  const { isFetching } = useSchedule()
-  const { year, month } = useSchedule()
+  const { isFetching, year, month } = useSchedule()
   const navigate = useNavigate()
 
   // * 이전/다음 달로 이동합니다.
@@ -103,7 +102,11 @@ export default function CalendarSwiper() {
       <div className='flex w-[33.33%] justify-end'>
         {/* <Button className='mr-2' text='월간' onClick={navagateToCurrentDate} /> */}
         {user.role === 'ADMIN' && (
-          <Button className='text-[14px] font-gmarket font-bold' text='엑셀 다운로드' onClick={handleDownloadExcel} />
+          <Button
+            className='text-[14px] font-gmarket font-bold'
+            text='엑셀 다운로드'
+            onClick={handleDownloadExcel}
+          />
         )}
       </div>
     </div>

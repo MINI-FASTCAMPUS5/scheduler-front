@@ -16,7 +16,7 @@ export type ProviderReservedList = {
   id: string
   scheduleId: string
   reservedDate: string
-  progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
+  progress: ScheduleProgress
   user: FanUser
 }
 
@@ -35,7 +35,7 @@ export type UserSchedule = {
   id: string
   scheduleStart: string // reservedDate
   createdAt: string
-  progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
+  progress: ScheduleProgress
   user: FanUser
   schedulerAdmin: AdminSchedule
 }

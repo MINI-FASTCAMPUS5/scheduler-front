@@ -1,9 +1,9 @@
-import { Mesh, PlaneGeometry, Group, Vector3, MathUtils } from 'three'
-import React, { useRef, useState, useLayoutEffect } from 'react'
-import { createRoot, events, extend, useFrame } from '@react-three/fiber'
 import { Plane, useAspect, useTexture } from '@react-three/drei'
-import { EffectComposer, DepthOfField, Vignette } from '@react-three/postprocessing'
+import { createRoot, events, extend, useFrame } from '@react-three/fiber'
+import { DepthOfField, EffectComposer, Vignette } from '@react-three/postprocessing'
 import { MaskFunction } from 'postprocessing'
+import { useLayoutEffect, useRef, useState } from 'react'
+import { Group, MathUtils, Mesh, PlaneGeometry, Vector3 } from 'three'
 import Fireflies from './Fireflies'
 import './layerMaterial'
 

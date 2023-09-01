@@ -1,4 +1,3 @@
-import React from 'react'
 import AddFormInformation from './AddFormInformation'
 
 export type ScheduleAddFormData = {
@@ -11,7 +10,7 @@ export type ScheduleAddFormData = {
 
 type Props = {
   date: string
-  onCancle: () => void
+  onCancle: VoidFunction
   onSubmit: (schedule: ScheduleAddFormData) => void
 }
 export default function AddForm({ date, onCancle, onSubmit }: Props) {

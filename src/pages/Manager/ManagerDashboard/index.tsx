@@ -1,11 +1,10 @@
-import useUser from '@/hooks/user'
-import React from 'react'
+import { getAdminDashbordlList } from '@/api/admin/adminPage'
 import AddEventList from '@/components/dashboard/AddEventList'
 import EventStatusCard from '@/components/dashboard/EventStatusCard'
-import userDefaultImg from '/mock_image/user_default.png'
-import { useCookies } from 'react-cookie'
-import { getAdminDashbordlList } from '@/api/admin/adminPage'
+import { useUser } from '@/hooks/user'
 import { useQuery } from '@tanstack/react-query'
+import { useCookies } from 'react-cookie'
+import userDefaultImg from '/mock_image/user_default.png'
 
 export default function ManagerDashboardPage() {
   const { getUserInfo } = useUser()
@@ -64,8 +63,15 @@ export default function ManagerDashboardPage() {
           )}
         </div>
         <div className='flex flex-col ml-5 w-3/6 h-[100%]'>
-          {isSuccess && data && <EventStatusCard events={data.registeredEventCount} waiting={data.countProcessDTO.waiting} accepted={data.countProcessDTO.accepted} refused={data.countProcessDTO.refused} />}
-          {isSuccess && data && <AddEventList data={data}/>}
+          {isSuccess && data && (
+            <EventStatusCard
+              events={data.registeredEventCount}
+              waiting={data.countProcessDTO.waiting}
+              accepted={data.countProcessDTO.accepted}
+              refused={data.countProcessDTO.refused}
+            />
+          )}
+          {isSuccess && data && <AddEventList data={data} />}
         </div>
       </div>
     </div>

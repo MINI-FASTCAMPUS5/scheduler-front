@@ -1,14 +1,14 @@
-import React from 'react'
-import { approveSchedule, cancelSchedule } from '../../api/admin/approvalPage'
-import { useCookies } from 'react-cookie' // react-cookie 라이브러리 임포트
 import { ACCESS_TOKEN } from '@/constants'
+import type { FC } from 'react'
+import { useCookies } from 'react-cookie' // react-cookie 라이브러리 임포트
 import { toast } from 'react-toastify'
+import { approveSchedule, cancelSchedule } from '../../api/admin/approvalPage'
 
 interface ScheduleDtoType {
   description: string
   fullName?: string
   title: string
-  progress: 'WAITING' | 'ACCEPT' | 'REFUSE'
+  progress: ScheduleProgress
   scheduleStart: string
   userScheduleId: number
 }
@@ -17,7 +17,7 @@ interface ApprovalListItemProps {
   data: ScheduleDtoType
 }
 
-const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
+const ApprovalListItem: FC<ApprovalListItemProps> = ({ data }) => {
   const [cookies] = useCookies([ACCESS_TOKEN]) // 쿠키 가져오기
   const failToast = () => toast.error('요청을 실패하였습니다. 다시 시도해주세요.')
   const cancelFailToast = () => toast.error('이미 승인된 일정은 취소할 수 없습니다.')
@@ -60,22 +60,18 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ data }) => {
       titleState = <div className={`${approval['textState']}`}>{data.title}</div>
       fullNameState = <div className={`${approval['textState']}`}>{data.fullName}</div>
       descriptionState = <div className={`${approval['textState']}`}>{data.description}</div>
-      scheduleStartState = <div className={`${approval['textState']}`}>{data.scheduleStart.split('T')[0]}</div>
+      scheduleStartState = (
+        <div className={`${approval['textState']}`}>{data.scheduleStart.split('T')[0]}</div>
+      )
       break
     case 'REFUSE':
       buttonState = <div className={`${approval['refused']} text-[calc(1vw-5px)]`}>거절완료</div>
-      titleState = (
-        <div className={`${approval['textState']} text-[#c3c3c3]`}>{data.title}</div>
-      )
+      titleState = <div className={`${approval['textState']} text-[#c3c3c3]`}>{data.title}</div>
       fullNameState = (
-        <div className={`${approval['textState']} text-[#c3c3c3]`}>
-          {data.fullName}
-        </div>
+        <div className={`${approval['textState']} text-[#c3c3c3]`}>{data.fullName}</div>
       )
       descriptionState = (
-        <div className={`${approval['textState']} text-[#c3c3c3]`}>
-          {data.description}
-        </div>
+        <div className={`${approval['textState']} text-[#c3c3c3]`}>{data.description}</div>
       )
       scheduleStartState = (
         <div className={`${approval['textState']} text-[#c3c3c3]`}>

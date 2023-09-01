@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
-export default function useResize(selector?: string) {
+export const useResize = (selector?: string) => {
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
 
-  function resize() {
+  const resize = () => {
     if (selector) {
       const target = document.querySelector(selector) as HTMLElement
       setWidth(target ? target.clientWidth : 0)
@@ -20,6 +20,8 @@ export default function useResize(selector?: string) {
     resize()
     window.addEventListener('resize', resize)
     return () => window.removeEventListener('resize', resize)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return { width, height, resize, setWidth, setHeight }

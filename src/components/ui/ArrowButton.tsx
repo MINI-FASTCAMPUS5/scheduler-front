@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaChevronLeft, FaChevronRight, FaMinus } from 'react-icons/fa'
 
 export type DirectionType = 'left' | 'right'

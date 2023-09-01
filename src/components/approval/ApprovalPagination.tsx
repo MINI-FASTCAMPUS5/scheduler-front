@@ -1,17 +1,16 @@
-import React from 'react';
-import Pagination from 'react-js-pagination';
-// import '@/components/approval/ApprovalPagination.scss'
+import type { FC } from 'react'
+import Pagination from 'react-js-pagination'
 
 type SearchPagingProps = {
-    page: number,
-    count: number,
-    setPage: (page: number) => void,
+  page: number
+  count: number
+  setPage: (page: number) => void
 }
 
-const ApprovalPaging: React.FC<SearchPagingProps> = ({page, count, setPage}) => {
-
+const ApprovalPaging: FC<SearchPagingProps> = ({ page, count, setPage }) => {
   const arrowBtn = {
-    color: 'pb-[2px] cursor-pointer bg-main ml-2 mr-2 text-white justify-center items-center rounded-xl h-8 w-8 flex transition duration-200 hover:bg-hover'
+    color:
+      'pb-[2px] cursor-pointer bg-main ml-2 mr-2 text-white justify-center items-center rounded-xl h-8 w-8 flex transition duration-200 hover:bg-hover'
   }
 
   return (
@@ -35,7 +34,7 @@ const ApprovalPaging: React.FC<SearchPagingProps> = ({page, count, setPage}) => 
         onChange={setPage} //페이지가 바뀌면 핸들링 시켜줄 함수
       />
     </div>
-  );
+  )
 }
 
-export default ApprovalPaging;
+export default ApprovalPaging

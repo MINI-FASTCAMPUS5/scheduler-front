@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function SideBarAd() {
   return (
     <div className='max-h-[350px] text-white py-8 overflow-y-scroll scrollbar-hide transition hover:scale-[0.98] cursor-pointer'>

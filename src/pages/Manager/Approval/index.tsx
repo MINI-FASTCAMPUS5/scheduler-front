@@ -1,12 +1,9 @@
-import React from 'react'
+import { getAdminApprovallList } from '@/api/admin/approvalPage'
 import ApprovalList from '@/components/approval/ApprovalList'
+import QuickState from '@/components/approval/QuickState'
+import { useUser } from '@/hooks/user'
 import { useQuery } from '@tanstack/react-query'
 import { useCookies } from 'react-cookie'
-// import QuickState from '@/components/approval/QuickState'
-import { getAdminApprovallList } from '@/api/admin/approvalPage'
-import useUser from '@/hooks/user'
-import QuickState from '@/components/approval/QuickState'
-
 
 export default function ApprovalPage() {
   const { getUserInfo } = useUser()
@@ -26,11 +23,9 @@ export default function ApprovalPage() {
       <div className='flex flex-col font-bold text-4xl mt-10 relative font-gmarket'>
         신청 승인/거절
         <div className='border-b-2 border-boxline mb-6 mt-3' />
-        {isSuccess && data &&(
-        <QuickState state={data.countProcessDto}/>
-        )}
+        {isSuccess && data && <QuickState state={data.countProcessDto} />}
       </div>
-      {isSuccess&& data && <ApprovalList data={data.implScheduleDto}/>}
+      {isSuccess && data && <ApprovalList data={data.implScheduleDto} />}
     </div>
   )
 }

@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
-// mouseenter, mouseleave
 
-export default function useHover(start: boolean) {
+export const useHover = (start: boolean) => {
   function addNoHover(e: Event) {
     const element = e.target as HTMLElement
     element.closest('.cell')?.classList.add('no-cell-hover')

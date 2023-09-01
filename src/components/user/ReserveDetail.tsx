@@ -1,11 +1,10 @@
-import React from 'react'
+import { getMyTicketList } from '@/api/user/mypage'
+import { ACCESS_TOKEN } from '@/constants'
+import { FanUser } from '@/models/user'
 import { useQuery } from '@tanstack/react-query'
 import { useCookies } from 'react-cookie'
-import { getMyTicketList } from '@/api/user/mypage'
 import Ticket from './Ticket'
 import TicketList from './TicketList'
-import { FanUser } from '@/models/user'
-import { ACCESS_TOKEN } from '@/constants'
 
 type Props = {
   user: FanUser
@@ -23,7 +22,7 @@ export default function ReserveDetail({ user }: Props) {
 
   return (
     <>
-    <h2 className='text-2xl font-bold font-gmarket'>소지한 티켓</h2>
+      <h2 className='text-2xl font-bold font-gmarket'>소지한 티켓</h2>
       <div className='flex mt-5 justify-between font-gmarket'>
         {isSuccess && data && (
           <div className='flex gap-3'>

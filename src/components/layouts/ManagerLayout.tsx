@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import useUser from '@/hooks/user'
-import { Outlet, useNavigate } from 'react-router-dom'
 import SideBar from '@/components/SideBar'
+import { useUser } from '@/hooks/user'
+import { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export default function ManagerLayout() {

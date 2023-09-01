@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
-import { ProviderScheduleWithPos } from '@/utils/calendar'
-// import Banner from '@/components/Banner'
 import ReserveFormInfomation from '@/components/calendar/ReserveFormInfomation'
 import Button from '@/components/ui/Button'
+import { ProviderScheduleWithPos } from '@/utils/calendar'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
-// import { MdDiversity1 } from 'react-icons/md'
 
 type Props = {
   schedule: ProviderScheduleWithPos
@@ -58,7 +56,9 @@ export default function ReserveForm({ schedule, onCancle, onReserve, user }: Pro
               />
             </>
           ) : (
-            <div className='bg-point pt-2 pb-2 pl-4 pr-4 rounded-[14px] text-2xl font-gmarket font-bold text-white'>매니저는 예약할 수 없습니다!</div>
+            <div className='bg-point pt-2 pb-2 pl-4 pr-4 rounded-[14px] text-2xl font-gmarket font-bold text-white'>
+              매니저는 예약할 수 없습니다!
+            </div>
           )}
         </div>
       </div>

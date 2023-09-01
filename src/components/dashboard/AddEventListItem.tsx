@@ -1,12 +1,10 @@
 import { ScheduleDtoType } from '@/api/admin/adminPage'
-import React from 'react'
 
 type Props = {
   data: ScheduleDtoType
 }
 
 export default function AddEventListItem({ data }: Props) {
-
   return (
     <div>
       <div className='flex w-full h-[48px] bg-boxbg rounded-xl pr-5 pl-5 transition hover:scale-[0.98]'>
