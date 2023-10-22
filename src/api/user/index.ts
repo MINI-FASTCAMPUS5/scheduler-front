@@ -1,5 +1,5 @@
+import api, { APIResponseBase } from '@/api/index'
 import { User } from '@/models/user'
-import api, { APIResponseBase } from './index'
 
 export interface UserInformationAPIResponse extends APIResponseBase<User> {}
 

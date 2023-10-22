@@ -13,7 +13,7 @@ export function ReserveDetail({ user }: ReserveDetailProps) {
   const [cookie] = useCookies([ACCESS_TOKEN])
 
   const { data, isSuccess } = useQuery(
-    ['myTicketList', user.id ? user.id : ''],
+    ['myTicketList', user.id],
     () => getMyTicketList(cookie.AccessToken),
     {
       staleTime: 1000 * 60 * 5

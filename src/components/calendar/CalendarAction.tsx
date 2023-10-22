@@ -1,6 +1,6 @@
 import api from '@/api'
+import { addSchedule } from '@/api/schedule'
 import { createSchedule } from '@/api/schedule/admin'
-import { addSchedule } from '@/api/schedule/user'
 import { AddForm, ScheduleAddFormData } from '@/components/calendar/AddForm'
 import { EditForm } from '@/components/calendar/EditForm'
 import { ReserveForm } from '@/components/calendar/ReserveForm'

@@ -66,9 +66,7 @@ function UserProvider({ children }: Props) {
 
   useEffect(() => {
     if (loggedIn && userInfo) return
-    if (pathname === '/login' || pathname === '/signup' || pathname === '/') {
-      return
-    }
+    if (!cookies[ACCESS_TOKEN]) return
     setLoading(true)
     to(getUserInformationAPI(cookies[ACCESS_TOKEN])).then(([errorMessage, res]) => {
       if (errorMessage || res === null) {

@@ -2,6 +2,7 @@ import api from '@/api'
 import { DATE_FORMAT } from '@/constants'
 import { ProviderReservedList, ProviderSchedule, Schedule } from '@/models/schedule'
 import { delay } from '@/utils'
+import { AxiosError } from 'axios'
 import dayjs from 'dayjs'
 
 interface ScheduleRequestOption {
@@ -87,6 +88,32 @@ export const fetchSchedule = async ({
     return {
       schedule: [],
       reservedList: []
+    }
+  }
+}
+
+export const addSchedule = async (adminId: string, selectDate: string, cookie: string) => {
+  try {
+    await api({
+      url: `/user/schedule/create?schedulerAdminId=${adminId}`,
+      method: 'POST',
+      headers: {
+        Authorization: cookie
+      },
+      data: {
+        scheduleStart: selectDate
+      }
+    })
+    return {
+      message: '일정이 추가되었습니다.',
+      status: 200
+    }
+  } catch (err) {
+    console.error(err)
+
+    return {
+      message: (err as AxiosError<{ data: string }>).response?.data?.data,
+      status: (err as AxiosError<{ data: string }>).response?.status
     }
   }
 }

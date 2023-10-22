@@ -12,7 +12,7 @@ import { useUser } from '@/hooks/user'
 import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
 import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 dayjs.extend(weekday)
 
@@ -106,6 +106,23 @@ export function Daily({ daily, limit }: DailyProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
+  const reserveStyle = useMemo(
+    () => ({
+      WAITING: {
+        from: 'from-wait',
+        bg: 'bg-wait'
+      },
+      ACCEPT: {
+        from: 'from-confirm',
+        bg: 'bg-confirm'
+      },
+      REFUSE: {
+        from: 'from-point',
+        bg: 'bg-point'
+      }
+    }),
+    []
+  )
   // current week of month
   const convertWeekToNumber = (dateFrom: Date) => {
     const currentDate = dateFrom.getDate()
@@ -168,11 +185,13 @@ export function Daily({ daily, limit }: DailyProps) {
                   {/* 컴포넌트로 뺴기 */}
                   <div
                     className={`absolute top-0 w-full h-full bg-gradient-to-t 
-                    from-wait opacity-40 to-transparent z-[0]`}
+                    ${
+                      reserveStyle[reservedSchedule[0].progress].from
+                    } opacity-40 to-transparent z-[0]`}
                   />
                   <div
                     className={`absolute right-2 top-2 w-[10px] h-[10px] rounded-full
-                    'bg-wait' opacity-100 custom-ping`}
+                  ${reserveStyle[reservedSchedule[0].progress].bg} opacity-100 custom-ping`}
                   />
                 </>
               )}

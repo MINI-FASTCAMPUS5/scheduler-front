@@ -1,5 +1,5 @@
 import { getProfileUpdatePage, updateUserInformation, uploadProfileImage } from '@/api/user/edit'
-import Button from '@/components/ui/Button'
+import { Button } from '@/components/ui/Button'
 import { ACCESS_TOKEN, DATE_ROUTE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'

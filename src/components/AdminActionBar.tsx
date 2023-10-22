@@ -8,7 +8,7 @@ import {
   BiSolidUserRectangle
 } from 'react-icons/bi'
 import { useLocation, useParams } from 'react-router-dom'
-import SidebarMenu from './sidebar/SidebarMenu'
+import { SidebarMenu } from './sidebar/SidebarMenu'
 
 export function AdminActionBar() {
   const location = useLocation()
