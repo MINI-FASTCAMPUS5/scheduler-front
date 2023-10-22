@@ -1,4 +1,4 @@
-import BannerSwiper from '@/components/BannerSwiper'
+import { BannerSwiper } from '@/components/BannerSwiper'
 import SideBar from '@/components/SideBar'
 import CalendarFrame from '@/components/calendar/CalendarFrame'
 

@@ -1,6 +1,6 @@
-import CalendarSwiper from '@/components/calendar/CalendarSwiper'
-import MonthlyCalendar from '@/components/calendar/MonthlyCalendar'
-import CheerUpLoading from '@/components/ui/CheerUpLoading'
+import { CalendarSwiper } from '@/components/calendar/CalendarSwiper'
+import { MonthlyCalendar } from '@/components/calendar/MonthlyCalendar'
+import { CheerUpLoading } from '@/components/ui/CheerUpLoading'
 import { useSchedule } from '@/hooks/schedule'
 
 export default function CalendarFrame() {

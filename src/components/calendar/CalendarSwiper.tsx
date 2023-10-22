@@ -13,7 +13,7 @@ import { useUser } from '@/hooks/user'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
 
-export default function CalendarSwiper() {
+export function CalendarSwiper() {
   const [cookie] = useCookies([ACCESS_TOKEN])
   const { getUserInfo } = useUser()
   const user = getUserInfo()

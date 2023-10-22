@@ -16,19 +16,20 @@ import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 dayjs.extend(weekday)
 
-type Props = {
+interface DailyProps {
   daily: string[]
   limit: number
 }
-export default function Daily({ daily, limit }: Props) {
+
+export function Daily({ daily, limit }: DailyProps) {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
   const [isAdmin] = useState(user.role === 'ADMIN' ? true : false)
   const { pathname } = useLocation()
   // * 모달 관련 속성
-  const [openPortal, setOpenPortal] = useState(false)
-  const [portalType, setPortalType] = useState<'edit' | 'reserve' | 'add'>('reserve')
-  const [openMoreModal, setOpenMoreModal] = useState(false)
+  const [portalType, setPortalType] = useState<DaillyCalendarPortalType>('RESERVE')
+  const [openCalendarActionModal, setOpenCalendarActionModal] = useState(false)
+  const [openDailyDetailModal, setOpenDailyDetailModal] = useState(false)
   const [targetSchedule, setTargetSchedule] = useState({} as ProviderScheduleWithPos)
   const [targetDate, setTargetDate] = useState('')
   // * 스타일링 관련 속성
@@ -46,50 +47,50 @@ export default function Daily({ daily, limit }: Props) {
   const handleViewMore = useCallback((date: string) => {
     if (!document.getElementById(`monthly-${date}`)) return
     setTargetDate(date)
-    setOpenMoreModal(true)
+    setOpenDailyDetailModal(true)
   }, [])
 
   // * /manager 페이지라면 수정 모달을 띄우고, /calendar 페이지라면 예약 모달을 띄웁니다.
   const handleSchedule = useCallback(
     (schedule: ProviderScheduleWithPos) => {
-      setOpenMoreModal(false)
+      setOpenDailyDetailModal(false)
       setTargetSchedule(schedule)
       setPortalType(() => {
         if (pathname.includes('manager/event/calendar') && user.id === schedule.userId) {
-          return 'edit'
+          return 'EDIT'
         }
-        return 'reserve'
+        return 'RESERVE'
       })
-      setOpenPortal(true)
+      setOpenCalendarActionModal(true)
     },
     [pathname, user.id]
   )
 
   // * 더보기 모달창을 닫습니다.
-  const setCloseMoreModal = useCallback(() => {
-    setOpenMoreModal(false)
+  const setCloseDailyDetailModal = useCallback(() => {
+    setOpenDailyDetailModal(false)
     setTargetDate('')
   }, [])
 
   // * 모달창을 닫습니다.
-  const setClosePortal = useCallback(() => {
-    setOpenPortal(false)
+  const setCloseCalendarActionModal = useCallback(() => {
+    setOpenCalendarActionModal(false)
   }, [])
 
   // todo handleEdit, handleReserve, handleSubmitSchedule 함수를 하나로 합칠 수 있을 것 같습니다.
   // todo toast는 모달 내부에서 처리하도록 하기
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
   const handleEdit = () => {
-    setOpenPortal(false)
+    setOpenCalendarActionModal(false)
   }
 
   const handleReserve = () => {
-    setOpenPortal(false)
+    setOpenCalendarActionModal(false)
   }
 
   // * 공연 추가 모달에서 새로운 공연을 추가하면 실행됩니다.
   const handleSubmitSchedule = () => {
-    setOpenPortal(false)
+    setOpenCalendarActionModal(false)
   }
 
   const handleOnClickCell = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, date: string) => {
@@ -97,9 +98,9 @@ export default function Daily({ daily, limit }: Props) {
     if ((e.target as HTMLElement).classList.contains('moreBtn')) return
     // * 클릭한 부분이 cell의 스케줄 부분이라면 공연 수정, cell이라면 return합니다. (handleSchedule에서 처리)
     if ((e.target as HTMLElement).classList.contains('schedule-cell')) return
-    setPortalType('add')
+    setPortalType('ADD')
     setTargetDate(date)
-    setOpenPortal(true)
+    setOpenCalendarActionModal(true)
   }
 
   // * 스케줄이 변경되면 width를 다시 계산합니다.
@@ -110,105 +111,58 @@ export default function Daily({ daily, limit }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
-  const reserveStyle = {
-    WAITING: {
-      from: 'from-wait',
-      bg: 'bg-wait'
-    },
-    ACCEPT: {
-      from: 'from-confirm',
-      bg: 'bg-confirm'
-    },
-    REFUSE: {
-      from: 'from-point',
-      bg: 'bg-point'
-    }
-  }
-
-  type Visited = string[][]
-  // todo limit은 외부에서 받기
-
-  let visited: Visited = Array(7)
-    .fill(null)
-    .map(() => Array(limit).fill(null))
-
-  // current weeks of month
-  const getWeeksNumber = (dateFrom: Date) => {
+  // current week of month
+  const convertWeekToNumber = (dateFrom: Date) => {
     const currentDate = dateFrom.getDate()
     const startOfMonth = new Date(dateFrom.setDate(1))
     const weekDay = startOfMonth.getDay()
     return Math.floor((weekDay - 1 + currentDate) / 7) + 1
   }
 
+  let cells: string[][] = Array(7)
+    .fill(null)
+    .map(() => Array(limit).fill(null))
+
   let week = 1
-  const hoverEvent = adminId ? 'hover:bg-[#6344ff2a] hover:cursor-pointer' : ''
   return (
     <>
       {daily?.map((date, i) => {
         const disable = dayjs(date).month() + 1 !== Number(month) ? true : false
+        const isToday = today === dayjs(date).format(DATE_FORMAT)
+
         const providerSchedule = getProviderSchdule(adminSchedule, date)
         const reservedSchedule = reservedList?.filter((r) => r.reservedDate === date)
-        const isToday = today === dayjs(date).format(DATE_FORMAT)
-        let textColor = isToday ? 'text-point' : 'text-main'
-        if (disable) textColor += ' opacity-20'
 
-        const currentWeek = getWeeksNumber(new Date(date))
-        // 주 가 바뀌면 visited 초기화
-        if (week !== currentWeek) {
-          visited = visited.map(() => Array(limit).fill(null))
+        const curWeek = convertWeekToNumber(new Date(date))
+        // 주 가 바뀌면 cells 초기화
+        if (week !== curWeek) {
+          cells = cells.map(() => Array(limit).fill(null))
+          week = curWeek
         }
-        week = currentWeek
-        const currentDay = new Date(date).getDay()
-        providerSchedule?.forEach((s) => {
-          // * 빈 공간이 없다면 return
-          if (visited[currentDay].indexOf(null!) === -1) {
-            return
-          }
-          // * 일치하는 스케줄이 이미 존재한다면 return
-          if (visited[currentDay].find((v) => v === s.id)) {
-            return
-          }
 
-          // * 빈 공간이 있다면 채워넣기
-          const startDate =
-            s.startDate < dayjs(date).weekday(0).format(DATE_FORMAT)
-              ? dayjs(date).weekday(0).format(DATE_FORMAT)
-              : s.startDate
-          const cells = dayjs(s.endDate).diff(dayjs(startDate), 'day') + 1
-          Array(cells)
-            .fill(s.id)
-            .map((v, i) => {
-              if (currentDay + i > 6) return
-              if (visited[currentDay].indexOf(v) !== -1) {
-                visited[currentDay + i][visited[currentDay].indexOf(v)] = v
-              } else {
-                visited[currentDay + i][visited[currentDay + i].indexOf(null!)] = v
-              }
-            })
-        })
-
-        providerSchedule
-          ?.sort((a, b) => visited[currentDay].indexOf(a.id) - visited[currentDay].indexOf(b.id))
-          .splice(0, providerSchedule.length - limit)
+        fillSchedule(providerSchedule, cells, date, limit)
 
         return (
           <div
             key={`daily-${date}-${i}`}
             className={`cell min-h-[100px] md:min-h-[120px] font-gmarket
-            ${getBgStyle(date)} transition-all ease-in-out duration-150 ${hoverEvent}`}
+            ${getBgStyle(date)} transition-all ease-in-out duration-150 
+            ${adminId && 'hover:bg-[#6344ff2a] hover:cursor-pointer'}`}
             onClick={(e) => handleOnClickCell(e, date)}
           >
-            {/* <div className='h-full hover:bg-[rgba(0,0,0,0.1)] transition-all ease-in-out duration-150' /> */}
-            <div id={`monthly-${date}`} className={`h-full relative ${textColor}`}>
-              <span className='pl-2 font-bold'>
-                {dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()}{' '}
-              </span>
-              {providerSchedule?.map((s, j) => {
+            <div
+              id={`monthly-${date}`}
+              className={`h-full relative 
+              ${isToday ? 'text-point' : 'text-main'} 
+              ${disable && ' opacity-20'}`}
+            >
+              <span className='pl-2 font-bold'>{getTwoDigitDate(date)}</span>
+              {providerSchedule?.map((schedule, j) => {
                 if (disable || j > 1) return null
                 return (
                   <DailySchedule
-                    key={s.id + s.title + j}
-                    schedule={s}
+                    key={schedule.id}
+                    schedule={schedule}
                     reservedList={reservedList}
                     cellWidth={width}
                     date={date}
@@ -216,18 +170,16 @@ export default function Daily({ daily, limit }: Props) {
                   />
                 )
               })}
-              {/* reservedSchedule는 월에 하나만 가능 */}
+
               {reservedSchedule?.length ? (
                 <>
                   <div
                     className={`absolute top-0 w-full h-full bg-gradient-to-t 
-                    ${
-                      reserveStyle[reservedSchedule[0].progress].from
-                    } opacity-40 to-transparent z-[0]`}
+                    from-wait opacity-40 to-transparent z-[0]`}
                   />
                   <div
                     className={`absolute right-2 top-2 w-[10px] h-[10px] rounded-full
-                  ${reserveStyle[reservedSchedule[0].progress].bg} opacity-100 custom-ping`}
+                    'bg-wait' opacity-100 custom-ping`}
                   />
                 </>
               ) : null}
@@ -244,20 +196,22 @@ export default function Daily({ daily, limit }: Props) {
           </div>
         )
       })}
-      {openMoreModal && (
-        <CalendarModal onClose={setCloseMoreModal}>
-          <DailyDetail date={targetDate} onClick={handleSchedule} />
-        </CalendarModal>
-      )}
-      {openPortal && (
+      {openDailyDetailModal && (
         <ModalPortal>
-          <CalendarModal onClose={setClosePortal}>
+          <CalendarModal onClose={setCloseDailyDetailModal}>
+            <DailyDetail date={targetDate} onClick={handleSchedule} />
+          </CalendarModal>
+        </ModalPortal>
+      )}
+      {openCalendarActionModal && (
+        <ModalPortal>
+          <CalendarModal onClose={setCloseCalendarActionModal}>
             <CalendarAction
               type={portalType}
-              user={isAdmin ? 'admin' : 'fan'}
+              user={user.role}
               schedule={targetSchedule}
               date={targetDate}
-              onCancle={setClosePortal}
+              onCancle={setCloseCalendarActionModal}
               onEdit={handleEdit}
               onReserve={handleReserve}
               onSubmit={handleSubmitSchedule}
@@ -267,6 +221,43 @@ export default function Daily({ daily, limit }: Props) {
       )}
     </>
   )
+}
+
+// function findStartDate(providerSchedule: ProviderScheduleWithPos[], cells: string[][]) {}
+function fillSchedule(
+  providerSchedule: ProviderScheduleWithPos[],
+  cells: string[][],
+  date: string,
+  limit: number
+) {
+  const day = new Date(date).getDay()
+  providerSchedule?.forEach((s) => {
+    if (cells[day].indexOf(null!) === -1) return
+    if (cells[day].find((v) => v === s.id)) return
+    // * 빈 공간이 있다면 채워넣기
+    const startDate =
+      s.startDate < dayjs(date).weekday(0).format(DATE_FORMAT)
+        ? dayjs(date).weekday(0).format(DATE_FORMAT)
+        : s.startDate
+    const scheduleRange = dayjs(s.endDate).diff(dayjs(startDate), 'day') + 1
+    Array(scheduleRange)
+      .fill(s.id)
+      .forEach((v, i) => {
+        if (day + i > 6) return
+        if (cells[day].indexOf(v) !== -1) {
+          cells[day + i][cells[day].indexOf(v)] = v
+        } else {
+          cells[day + i][cells[day + i].indexOf(null!)] = v
+        }
+      })
+  })
+  providerSchedule
+    ?.sort((a, b) => cells[day].indexOf(a.id) - cells[day].indexOf(b.id))
+    .splice(0, providerSchedule.length - limit)
+}
+
+function getTwoDigitDate(date: string) {
+  return dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()
 }
 
 function getBgStyle(date: string) {

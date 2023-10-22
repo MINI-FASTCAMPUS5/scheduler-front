@@ -1,8 +1,9 @@
+export type UserRole = 'ADMIN' | 'USER'
 type User = {
   id: string
   email: string
   profileImage: string
-  role: 'ADMIN' | 'USER'
+  role: UserRole
   fullName: string
 }
 

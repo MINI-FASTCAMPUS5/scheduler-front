@@ -34,7 +34,6 @@ function UserProvider({ children }: Props) {
   const [loggedIn, setLoggedIn] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  // todo : 원래는 getUserInfo안에서 비동기적으로 데이터의 정합성을 검사해야하지만, 이미 작성된 로직이 많고 시간 관계상 따로 뺏습니다.
   // * 사용자 정보가 없다면, 서버에 요청을 보내 사용자 정보를 가져옵니다.
   const getUserInfo = useCallback(() => {
     if (!userInfo.id) return {} as AdminUser | FanUser

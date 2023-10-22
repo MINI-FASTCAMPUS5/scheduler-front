@@ -1,6 +1,6 @@
 import { implScheduleDtoType } from '@/api/admin/approvalPage'
 import { useEffect, useState } from 'react'
-import CheerUpLoading from '../ui/CheerUpLoading'
+import { CheerUpLoading } from '../ui/CheerUpLoading'
 import ApprovalListItem from './ApprovalListItem'
 import ApprovalPaging from './ApprovalPagination'
 

@@ -12,8 +12,8 @@ import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
 
 type Props = {
-  type: 'add' | 'edit' | 'reserve'
-  user: 'admin' | 'fan'
+  type: DaillyCalendarPortalType
+  user: UserRole
   schedule: ProviderScheduleWithPos
   date: string
   onCancle: () => void
@@ -163,13 +163,13 @@ export default function CalendarAction({
 
   return (
     <>
-      {type === 'add' && user == 'admin' && (
+      {type === 'ADD' && user == 'admin' && (
         <AddForm onCancle={onCancle} onSubmit={handleSubmit} date={date} />
       )}
-      {type === 'edit' && user == 'admin' && (
+      {type === 'EDIT' && user == 'admin' && (
         <EditForm onCancle={onCancle} onEdit={handleEdit} schedule={schedule!} />
       )}
-      {type === 'reserve' && (
+      {type === 'RESERVE' && (
         <ReserveForm
           onCancle={onCancle}
           onReserve={handleReserve}
