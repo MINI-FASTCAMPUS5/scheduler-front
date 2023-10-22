@@ -16,8 +16,6 @@ import ManagerEventAddEditPage from './pages/Manager/ManagerEventAddEdit'
 import Edit from './pages/User/Edit'
 import MyPage from './pages/User/MyPage'
 
-const ScheduleAddTestPage = lazy(() => import('../legacy/Sample/Schedule'))
-
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -28,7 +26,6 @@ function App() {
       <Routes>
         <Route path='/calendar' element={<CalendarLayout />}>
           <Route path='/calendar/:year/:month/:day' element={<CalendarPage />} />
-          <Route path='/calendar/schedule' element={<ScheduleAddTestPage />} />
         </Route>
         <Route path='/manager' element={<ManagerLayout />}>
           <Route
@@ -45,6 +42,7 @@ function App() {
         </Route>
         <Route />
         <Route path='/' element={<MainLayout />}>
+          <Route path='/' element={<SignInPage />} />
           <Route path='/login' element={<SignInPage />} />
           <Route path='/signup' element={<SignupPage />} />
         </Route>

@@ -4,14 +4,14 @@ import { ProviderReservedList, ProviderSchedule, Schedule } from '@/models/sched
 import { delay } from '@/utils'
 import dayjs from 'dayjs'
 
-type ScheduleRequestOption = {
+interface ScheduleRequestOption {
   year: number
   month: number
   token: string
   userId?: string
   keyword?: string
 }
-
+// HACK : 템플릿 엔진기준으로 API가 만들어져서, 프론트에서 필요한 데이터만 추출해서 사용하도록 응답을 수정했습니다.
 export const fetchSchedule = async ({
   year,
   month,
@@ -23,14 +23,13 @@ export const fetchSchedule = async ({
   reservedList: ProviderReservedList[]
 }> => {
   try {
-    // * 최소 1초의 딜레이로 에니메이션을 보여줌
+    // * 최소 1초의 딜레이로 애니메이션을 보여줌
     let path = '/user/schedule'
     if (keyword)
       path += `/search?year=${year}&month=${month}&keyword=${encodeURIComponent(keyword)}`
     else path += `?year=${year}&month=${month}`
 
     const start = new Date()
-
     const res: { data: Schedule } = await api.get(path, {
       headers: {
         Authorization: token
@@ -53,7 +52,7 @@ export const fetchSchedule = async ({
     const schedule = res.data.schedulerAdmin
       .map((schedule) => {
         return {
-          id: schedule.id, // post id PK가 안와서 임시로 만듬
+          id: schedule.id, // * post id PK가 안와서 임시로 만듬
           userId: schedule.user.id,
           title: schedule.title,
           fullName: schedule.user.fullName,

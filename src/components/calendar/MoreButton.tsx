@@ -1,9 +1,9 @@
 type Props = {
   date: string
-  restItem: number
+  count: number
   onClick?: (id: string) => void
 }
-export default function MoreButton({ date, restItem, onClick }: Props) {
+export default function MoreButton({ date, count, onClick }: Props) {
   return (
     <button
       className={`moreBtn flex items-center leading-[1rem] border-[1px] bg-white border-main text-main px-1 font-bold rounded-[8px] ml-1 cursor-pointer
@@ -11,7 +11,7 @@ export default function MoreButton({ date, restItem, onClick }: Props) {
       `}
       onClick={() => onClick && onClick(date)}
     >
-      <span className='moreBtn'>{`+ MORE ${restItem}`}</span>
+      <span className='moreBtn'>{`+ MORE ${count}`}</span>
       {/* <div className='ml-2 w-full border-2 border-main bg-transparent uppercase font-bold'></div> */}
     </button>
   )

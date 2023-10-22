@@ -18,7 +18,6 @@ export default function CalendarFrame() {
             낭만있는 덕후 생활
           </div>
           <CheerUpLoading />
-          {/* <span className='animate-ping absolute inline-flex h-full w-full bg-purple-100 opacity-10' /> */}
         </div>
       )}
       <MonthlyCalendar />

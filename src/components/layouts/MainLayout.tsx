@@ -1,25 +1,7 @@
-import { DATE_ROUTE_FORMAT } from '@/constants'
-import { useUser } from '@/hooks/user'
-import dayjs from 'dayjs'
-import { useEffect } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import Scene from '../ui/animation/Scene'
 
 export default function MainLayout() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const { getUserInfo, loggedIn, loading } = useUser()
-
-  useEffect(() => {
-    if (loggedIn && !loading) {
-      window.location.replace(`/calendar/${dayjs().format(DATE_ROUTE_FORMAT)}`)
-      return
-    } else {
-      if (location.pathname === '/login' || location.pathname === '/signup') return
-      else navigate('/login')
-    }
-  }, [getUserInfo, navigate, loggedIn, location.pathname, loading])
-
   return (
     <div className='h-[100vh] w-[100vw]'>
       <div className=' absolute flex text-[50px] z-40 top-5 left-8'>

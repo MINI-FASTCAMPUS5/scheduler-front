@@ -163,10 +163,10 @@ export default function CalendarAction({
 
   return (
     <>
-      {type === 'ADD' && user == 'admin' && (
+      {type === 'ADD' && user == 'ADMIN' && (
         <AddForm onCancle={onCancle} onSubmit={handleSubmit} date={date} />
       )}
-      {type === 'EDIT' && user == 'admin' && (
+      {type === 'EDIT' && user == 'ADMIN' && (
         <EditForm onCancle={onCancle} onEdit={handleEdit} schedule={schedule!} />
       )}
       {type === 'RESERVE' && (

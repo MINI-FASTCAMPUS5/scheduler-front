@@ -1,10 +1,11 @@
 export type UserRole = 'ADMIN' | 'USER'
-type User = {
+export type User = {
   id: string
   email: string
   profileImage: string
   role: UserRole
   fullName: string
+  sizeOfTicket: number
 }
 
 // * Fan User Type

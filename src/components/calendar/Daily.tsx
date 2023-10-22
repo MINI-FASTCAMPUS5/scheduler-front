@@ -20,11 +20,10 @@ interface DailyProps {
   daily: string[]
   limit: number
 }
-
 export function Daily({ daily, limit }: DailyProps) {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
-  const [isAdmin] = useState(user.role === 'ADMIN' ? true : false)
+  const { month, adminSchedule, reservedList, isFetching } = useSchedule()
   const { pathname } = useLocation()
   // * 모달 관련 속성
   const [portalType, setPortalType] = useState<DaillyCalendarPortalType>('RESERVE')
@@ -34,14 +33,12 @@ export function Daily({ daily, limit }: DailyProps) {
   const [targetDate, setTargetDate] = useState('')
   // * 스타일링 관련 속성
   const { width, resize, setWidth } = useResize('.cell')
+  const [isAdmin] = useState(user.role === 'ADMIN' ? true : false)
 
   // * 행사 등록/수정 페이지 + 어드민일 경우 자신이 등록한 스케줄만 가져옵니다.
   const adminId = isAdmin && pathname.includes('manager/event/calendar') ? user.id : ''
-  const { month, adminSchedule, reservedList, isFetching } = useSchedule()
   // * 어드민이고 매니저 페이지일 경우 마우스 호버 이벤트를 추가합니다.
   useHover(adminId && adminSchedule?.length !== 0 ? true : false)
-
-  const today = dayjs().format(DATE_FORMAT)
 
   // * 더보기 버튼 클릭시 모달창을 띄웁니다.
   const handleViewMore = useCallback((date: string) => {
@@ -77,8 +74,6 @@ export function Daily({ daily, limit }: DailyProps) {
     setOpenCalendarActionModal(false)
   }, [])
 
-  // todo handleEdit, handleReserve, handleSubmitSchedule 함수를 하나로 합칠 수 있을 것 같습니다.
-  // todo toast는 모달 내부에서 처리하도록 하기
   // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
   const handleEdit = () => {
     setOpenCalendarActionModal(false)
@@ -128,25 +123,23 @@ export function Daily({ daily, limit }: DailyProps) {
     <>
       {daily?.map((date, i) => {
         const disable = dayjs(date).month() + 1 !== Number(month) ? true : false
-        const isToday = today === dayjs(date).format(DATE_FORMAT)
+        const isToday = dayjs().format(DATE_FORMAT) === dayjs(date).format(DATE_FORMAT)
 
         const providerSchedule = getProviderSchdule(adminSchedule, date)
         const reservedSchedule = reservedList?.filter((r) => r.reservedDate === date)
 
         const curWeek = convertWeekToNumber(new Date(date))
-        // 주 가 바뀌면 cells 초기화
         if (week !== curWeek) {
           cells = cells.map(() => Array(limit).fill(null))
           week = curWeek
         }
-
         fillSchedule(providerSchedule, cells, date, limit)
 
         return (
           <div
             key={`daily-${date}-${i}`}
             className={`cell min-h-[100px] md:min-h-[120px] font-gmarket
-            ${getBgStyle(date)} transition-all ease-in-out duration-150 
+            ${getDailyCellBgStyle(date)} transition-all ease-in-out duration-150 
             ${adminId && 'hover:bg-[#6344ff2a] hover:cursor-pointer'}`}
             onClick={(e) => handleOnClickCell(e, date)}
           >
@@ -170,9 +163,9 @@ export function Daily({ daily, limit }: DailyProps) {
                   />
                 )
               })}
-
-              {reservedSchedule?.length ? (
+              {!!reservedSchedule?.length && (
                 <>
+                  {/* 컴포넌트로 뺴기 */}
                   <div
                     className={`absolute top-0 w-full h-full bg-gradient-to-t 
                     from-wait opacity-40 to-transparent z-[0]`}
@@ -182,12 +175,12 @@ export function Daily({ daily, limit }: DailyProps) {
                     'bg-wait' opacity-100 custom-ping`}
                   />
                 </>
-              ) : null}
+              )}
               {providerSchedule[0]?.restItem >= 1 && (
                 <div key={`morebtn-${date}-${i}`} className='absolute'>
                   <MoreButton
                     date={date}
-                    restItem={providerSchedule[0].restItem}
+                    count={providerSchedule[0].restItem}
                     onClick={handleViewMore}
                   />
                 </div>
@@ -223,7 +216,6 @@ export function Daily({ daily, limit }: DailyProps) {
   )
 }
 
-// function findStartDate(providerSchedule: ProviderScheduleWithPos[], cells: string[][]) {}
 function fillSchedule(
   providerSchedule: ProviderScheduleWithPos[],
   cells: string[][],
@@ -260,7 +252,7 @@ function getTwoDigitDate(date: string) {
   return dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()
 }
 
-function getBgStyle(date: string) {
+function getDailyCellBgStyle(date: string) {
   let bgStyle = 'bg-blue-50'
   if (dayjs(date).format('ddd') === '일' || dayjs(date).format('ddd') === '토') {
     bgStyle = 'bg-blue-100'

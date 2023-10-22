@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 type Props = {
   schedule: ProviderScheduleWithPos
-  user: 'admin' | 'fan'
+  user: UserRole
   onCancle: () => void
   onReserve: (schedule: ProviderScheduleWithPos, selectedDate: string) => void
 }
@@ -35,7 +35,7 @@ export default function ReserveForm({ schedule, onCancle, onReserve, user }: Pro
           />
         </div>
         <div className='flex justify-around py-10 mr-10 ml-10'>
-          {user === 'fan' ? (
+          {user === 'USER' ? (
             <>
               <Button
                 disabled={!selectedDate}
