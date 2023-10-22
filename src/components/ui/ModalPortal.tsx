@@ -1,8 +1,9 @@
 import reactDom from 'react-dom'
-type Props = {
+
+interface ModalPortalProps {
   children: React.ReactNode
 }
-export default function ModalPortal({ children }: Props) {
+export function ModalPortal({ children }: ModalPortalProps) {
   if (typeof window === 'undefined') {
     return null
   }

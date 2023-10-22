@@ -3,7 +3,7 @@ import { MonthlyCalendar } from '@/components/calendar/MonthlyCalendar'
 import { CheerUpLoading } from '@/components/ui/CheerUpLoading'
 import { useSchedule } from '@/hooks/schedule'
 
-export default function CalendarFrame() {
+export function CalendarFrame() {
   const { isFetching, isLoading } = useSchedule()
 
   return (

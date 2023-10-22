@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import { CgClose } from 'react-icons/cg'
 
-type Props = {
+interface CalendarModalProps {
   children?: React.ReactNode
-
   onClose: () => void
 }
-export default function CalendarModal({ onClose, children }: Props) {
+export function CalendarModal({ onClose, children }: CalendarModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   useEffect(() => {
     setTimeout(() => setIsOpen(true), 200)

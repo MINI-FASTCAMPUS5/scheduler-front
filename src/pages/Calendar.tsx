@@ -1,6 +1,6 @@
 import { BannerSwiper } from '@/components/BannerSwiper'
-import SideBar from '@/components/SideBar'
-import CalendarFrame from '@/components/calendar/CalendarFrame'
+import { SideBar } from '@/components/SideBar'
+import { CalendarFrame } from '@/components/calendar/CalendarFrame'
 
 export default function CalendarPage() {
   return (

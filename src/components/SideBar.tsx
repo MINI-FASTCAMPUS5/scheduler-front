@@ -1,21 +1,21 @@
-import AdminActionBar from '@/components/AdminActionBar'
-import SearchForm from '@/components/SearchForm'
-import UserActionBar from '@/components/UserActionBar'
-import Profile from '@/components/sidebar/Profile'
+import { AdminActionBar } from '@/components/AdminActionBar'
+import { SearchForm } from '@/components/SearchForm'
+import { UserActionBar } from '@/components/UserActionBar'
+import { Profile } from '@/components/sidebar/Profile'
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import { useUser } from '@/hooks/user'
 import dayjs from 'dayjs'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import SideBarAd from './SideBarAd'
+import { SideBarAd } from './SideBarAd'
 
-export default function SideBar() {
+export function SideBar() {
   const navigate = useNavigate()
-  const location = useLocation()
+  const { pathname } = useLocation()
   const { getUserInfo } = useUser()
   const user = getUserInfo()
 
   const handleSubmit = (value: string) => {
-    navigate(`${location.pathname}?keyword=${value}`)
+    navigate(`${pathname}?keyword=${value}`)
   }
 
   return (

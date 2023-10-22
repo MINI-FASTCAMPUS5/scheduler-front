@@ -1,4 +1,4 @@
-import SideBar from '@/components/SideBar'
+import { SideBar } from '@/components/SideBar'
 import { useUser } from '@/hooks/user'
 import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'

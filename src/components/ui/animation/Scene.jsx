@@ -4,7 +4,7 @@ import { DepthOfField, EffectComposer, Vignette } from '@react-three/postprocess
 import { MaskFunction } from 'postprocessing'
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Group, MathUtils, Mesh, PlaneGeometry, Vector3 } from 'three'
-import Fireflies from './Fireflies'
+import { Fireflies } from './Fireflies'
 import './layerMaterial'
 
 let bgUrl = '/resources/bg.jpg'
@@ -103,7 +103,7 @@ function Effects() {
   )
 }
 
-export default function Scene() {
+export function Scene() {
   return (
     <Canvas>
       <Experience />

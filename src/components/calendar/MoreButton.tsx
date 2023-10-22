@@ -1,9 +1,9 @@
-type Props = {
+interface MoreButtonProps {
   date: string
   count: number
   onClick?: (id: string) => void
 }
-export default function MoreButton({ date, count, onClick }: Props) {
+export function MoreButton({ date, count, onClick }: MoreButtonProps) {
   return (
     <button
       className={`moreBtn flex items-center leading-[1rem] border-[1px] bg-white border-main text-main px-1 font-bold rounded-[8px] ml-1 cursor-pointer

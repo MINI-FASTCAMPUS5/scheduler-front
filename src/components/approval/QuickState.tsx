@@ -1,11 +1,11 @@
-type Props = {
+interface QuickStateProps {
   state: {
     accepted: number
     refused: number
     waiting: number
   }
 }
-export default function QuickState({ state }: Props) {
+export function QuickState({ state }: QuickStateProps) {
   return (
     <div className='flex mb-[34px] absolute right-0 bottom-0'>
       <div className='flex text-[28px]'>

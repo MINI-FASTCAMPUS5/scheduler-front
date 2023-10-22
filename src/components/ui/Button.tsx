@@ -1,4 +1,4 @@
-type Props = {
+interface ButtonProps {
   text: string
   onClick?: () => void
   disabled?: boolean
@@ -6,19 +6,18 @@ type Props = {
   className?: string
   type?: 'red' | 'purple'
 }
-export default function Button({
+export function Button({
   text,
   disabled = false,
   size = 'md',
   className,
   onClick,
   type = 'purple'
-}: Props) {
+}: ButtonProps) {
   let sizeStyle = ''
   if (size === 'sm') sizeStyle = 'h-6 px-2'
   else if (size === 'md') sizeStyle = 'h-8 px-4'
   else if (size === 'lg') sizeStyle = 'h-10 px-6'
-
   const color = type === 'purple' ? 'main' : 'point'
   const deepColor = type === 'purple' ? 'hover' : 'rose-500'
 

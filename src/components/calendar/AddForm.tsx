@@ -1,6 +1,6 @@
-import AddFormInformation from './AddFormInformation'
+import { AddFormInformation } from './AddFormInformation'
 
-export type ScheduleAddFormData = {
+export interface ScheduleAddFormData {
   startDate: string
   endDate: string
   title: string
@@ -8,12 +8,12 @@ export type ScheduleAddFormData = {
   imageFile: File
 }
 
-type Props = {
+interface AddFormProps {
   date: string
   onCancle: VoidFunction
   onSubmit: (schedule: ScheduleAddFormData) => void
 }
-export default function AddForm({ date, onCancle, onSubmit }: Props) {
+export function AddForm({ date, onCancle, onSubmit }: AddFormProps) {
   return (
     <section className='overflow-y-scroll h-full p-4 px-12 scrollbar-hide'>
       <div className='h-full flex flex-col justify-between rounded-2xl'>

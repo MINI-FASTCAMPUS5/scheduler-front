@@ -1,17 +1,17 @@
-import ReserveFormInfomation from '@/components/calendar/ReserveFormInfomation'
-import Button from '@/components/ui/Button'
+import { ReserveFormInfomation } from '@/components/calendar/ReserveFormInfomation'
+import { Button } from '@/components/ui/Button'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-type Props = {
+interface ReserveFormProps {
   schedule: ProviderScheduleWithPos
   user: UserRole
   onCancle: () => void
   onReserve: (schedule: ProviderScheduleWithPos, selectedDate: string) => void
 }
 
-export default function ReserveForm({ schedule, onCancle, onReserve, user }: Props) {
+export function ReserveForm({ schedule, onCancle, onReserve, user }: ReserveFormProps) {
   const [selectedDate, setSelectedDate] = useState('')
   return (
     <section className='overflow-hidden h-full p-4 px-12'>

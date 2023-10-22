@@ -1,5 +1,5 @@
+import { Scene } from '@/components/ui/animation/Scene'
 import { Outlet } from 'react-router-dom'
-import Scene from '../ui/animation/Scene'
 
 export default function MainLayout() {
   return (

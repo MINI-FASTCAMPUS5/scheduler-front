@@ -2,7 +2,7 @@ import { ProviderReservedList } from '@/models/schedule'
 import type { ProviderScheduleWithPos } from '@/utils/calendar'
 import dayjs from 'dayjs'
 
-type Props = {
+interface DailyScheduleProps {
   schedule: ProviderScheduleWithPos
   reservedList: ProviderReservedList[] | undefined
   cellWidth: number
@@ -11,13 +11,13 @@ type Props = {
   onClickSchedule: (schedule: ProviderScheduleWithPos) => void
 }
 
-export default function DailySchedule({
+export function DailySchedule({
   schedule,
   cellWidth: cellWidth,
   onClickSchedule,
   reservedList,
   date
-}: Props) {
+}: DailyScheduleProps) {
   const startDate = dayjs(date).day() === 0 ? date : schedule.startDate
   let cells = Math.min(dayjs(schedule.endDate).diff(dayjs(startDate), 'day') + 1, 8)
   if (schedule.pos === 'start-end') cells = 1

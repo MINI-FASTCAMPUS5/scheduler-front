@@ -1,11 +1,11 @@
 import { useUser } from '@/hooks/user'
-import { AdminUser, FanUser } from '@/models/user'
+import { User } from '@/models/user'
 import { Link } from 'react-router-dom'
 
-type Props = {
-  user: Partial<AdminUser | FanUser>
+interface ProfileProps {
+  user: Partial<User>
 }
-export default function Profile({ user }: Props) {
+export function Profile({ user }: ProfileProps) {
   const { logout } = useUser()
   return (
     <div className='mb-8'>

@@ -5,7 +5,7 @@ import { BiCalendarCheck, BiSolidUserRectangle } from 'react-icons/bi'
 import { useLocation, useParams } from 'react-router-dom'
 import SidebarMenu from './sidebar/SidebarMenu'
 
-export default function UserActionBar() {
+export function UserActionBar() {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
   const [activeIdx, setActiveIdx] = useState(-1)

@@ -1,4 +1,4 @@
-export default function HighlightInformation() {
+export function HighlightInformation() {
   return (
     <div className='flex text-[0.7rem] top-0 font-bold'>
       <div className='flex items-center mr-[0.8rem]'>

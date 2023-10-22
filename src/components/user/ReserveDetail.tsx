@@ -1,15 +1,15 @@
 import { getMyTicketList } from '@/api/user/mypage'
 import { ACCESS_TOKEN } from '@/constants'
-import { FanUser } from '@/models/user'
+import { User } from '@/models/user'
 import { useQuery } from '@tanstack/react-query'
 import { useCookies } from 'react-cookie'
-import Ticket from './Ticket'
-import TicketList from './TicketList'
+import { Ticket } from './Ticket'
+import { TicketList } from './TicketList'
 
-type Props = {
-  user: FanUser
+interface ReserveDetailProps {
+  user: User
 }
-export default function ReserveDetail({ user }: Props) {
+export function ReserveDetail({ user }: ReserveDetailProps) {
   const [cookie] = useCookies([ACCESS_TOKEN])
 
   const { data, isSuccess } = useQuery(

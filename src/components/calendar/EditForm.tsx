@@ -1,7 +1,7 @@
 import { ProviderScheduleWithPos } from '@/utils/calendar'
-import EditFormInformation from './EditFormInformation'
+import { EditFormInformation } from './EditFormInformation'
 
-type Props = {
+interface EditFormProps {
   schedule: ProviderScheduleWithPos
   onCancle: () => void
   onEdit: (
@@ -11,7 +11,7 @@ type Props = {
   ) => void
 }
 
-export default function EditForm({ schedule, onCancle, onEdit }: Props) {
+export function EditForm({ schedule, onCancle, onEdit }: EditFormProps) {
   return (
     <section className='overflow-y-scroll h-full p-4 px-12 scrollbar-hide'>
       <div className='h-full flex flex-col justify-between rounded-2xl'>

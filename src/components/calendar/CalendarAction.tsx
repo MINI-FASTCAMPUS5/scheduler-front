@@ -1,9 +1,9 @@
 import api from '@/api'
 import { createSchedule } from '@/api/schedule/admin'
 import { addSchedule } from '@/api/schedule/user'
-import AddForm, { ScheduleAddFormData } from '@/components/calendar/AddForm'
-import EditForm from '@/components/calendar/EditForm'
-import ReserveForm from '@/components/calendar/ReserveForm'
+import { AddForm, ScheduleAddFormData } from '@/components/calendar/AddForm'
+import { EditForm } from '@/components/calendar/EditForm'
+import { ReserveForm } from '@/components/calendar/ReserveForm'
 import { ACCESS_TOKEN, DATE_REQEUST_FORMAT } from '@/constants'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -11,7 +11,7 @@ import dayjs from 'dayjs'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
 
-type Props = {
+interface CalendarActionProps {
   type: DaillyCalendarPortalType
   user: UserRole
   schedule: ProviderScheduleWithPos
@@ -22,7 +22,7 @@ type Props = {
   onSubmit: () => void
 }
 
-export default function CalendarAction({
+export function CalendarAction({
   type,
   user,
   schedule,
@@ -31,7 +31,7 @@ export default function CalendarAction({
   onCancle,
   onReserve,
   onSubmit
-}: Props) {
+}: CalendarActionProps) {
   const [cookie] = useCookies([ACCESS_TOKEN])
   const queryClient = useQueryClient()
 

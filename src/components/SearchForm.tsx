@@ -3,10 +3,10 @@ import { BiSearchAlt2 } from 'react-icons/bi'
 import { useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-type Props = {
+interface SearchFormProps {
   onSubmit: (value: string) => void
 }
-export default function SearchForm({ onSubmit }: Props) {
+export function SearchForm({ onSubmit }: SearchFormProps) {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
   const [value, setValue] = useState(searchParams.get('keyword') || '')

@@ -1,15 +1,15 @@
-import Banner from '@/components/Banner'
-import DailySchedule from '@/components/calendar/DailySchedule'
+import { Banner } from '@/components/Banner'
+import { DailySchedule } from '@/components/calendar/DailySchedule'
 import { CheerUpLoading } from '@/components/ui/CheerUpLoading'
 import { useSchedule } from '@/hooks/schedule'
 import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
 import { useEffect, useState } from 'react'
 
-type Props = {
+interface DailyDetailProps {
   date: string
   onClick: (schedule: ProviderScheduleWithPos) => void
 }
-export default function DailyDetail({ date, onClick }: Props) {
+export function DailyDetail({ date, onClick }: DailyDetailProps) {
   const { adminSchedule, reservedList, isFetching } = useSchedule()
   const [scheduleWithPos, setScheduleWithPos] = useState<ProviderScheduleWithPos[]>([])
 

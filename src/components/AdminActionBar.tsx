@@ -10,7 +10,7 @@ import {
 import { useLocation, useParams } from 'react-router-dom'
 import SidebarMenu from './sidebar/SidebarMenu'
 
-export default function AdminActionBar() {
+export function AdminActionBar() {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
   const [activeIdx, setActiveIdx] = useState(-1)

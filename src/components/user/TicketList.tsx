@@ -1,10 +1,10 @@
 import { TicketListResponse } from '@/api/user/mypage'
-import TicketListItem from './TicketListItem'
+import { TicketListItem } from './TicketListItem'
 
-type Props = {
+interface TicketListProps {
   data: TicketListResponse
 }
-export default function TicketList({ data }: Props) {
+export function TicketList({ data }: TicketListProps) {
   return (
     <ul>
       {data.schedulerRoleUserList?.map((schedule) => (
