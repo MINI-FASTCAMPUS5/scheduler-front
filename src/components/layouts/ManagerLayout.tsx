@@ -8,7 +8,6 @@ export default function ManagerLayout() {
   const { getUserInfo, loggedIn, loading } = useUser()
 
   useEffect(() => {
-    // 브라우저 히스토리를 교체합니다.
     if (loggedIn && getUserInfo().role !== 'ADMIN') window.location.replace('/404')
   }, [getUserInfo, loggedIn, navigate, loading])
 

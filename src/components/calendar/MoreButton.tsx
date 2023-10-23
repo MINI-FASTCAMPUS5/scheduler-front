@@ -13,7 +13,6 @@ export function MoreButton({ date, count, onClick }: MoreButtonProps) {
         onClick={() => onClick && onClick(date)}
       >
         <span className='moreBtn'>{`+ MORE ${count}`}</span>
-        {/* <div className='ml-2 w-full border-2 border-main bg-transparent uppercase font-bold'></div> */}
       </button>
     </div>
   )

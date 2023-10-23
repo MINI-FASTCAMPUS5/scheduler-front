@@ -12,7 +12,7 @@ export function SideBar() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { getUserInfo } = useUser()
-  const user = getUserInfo()
+  const { role } = getUserInfo()
 
   const handleSubmit = (value: string) => {
     navigate(`${pathname}?keyword=${value}`)
@@ -36,13 +36,12 @@ export function SideBar() {
       <div className='mb-4'>
         <SearchForm onSubmit={handleSubmit} />
       </div>
-      {user.role === 'USER' && <UserActionBar />}
-      {user.role === 'ADMIN' && <AdminActionBar />}
+      {role === 'USER' && <UserActionBar />}
+      {role === 'ADMIN' && <AdminActionBar />}
       <div className='mb-auto overflow-y-scroll scrollbar-hide border-dashed border-y-2 border-[#8a70ff] mt-4'>
-        {user.role === 'USER' && <SideBarAd />}
-        {user.role === 'ADMIN' && <div className='flex h-[280px]' />}
+        {role === 'USER' ? <SideBarAd /> : <div className='flex h-[280px]' />}
       </div>
-      <Profile user={user} />
+      <Profile />
     </aside>
   )
 }

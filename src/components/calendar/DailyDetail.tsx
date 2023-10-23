@@ -19,7 +19,6 @@ export function DailyDetail({ date, onClick }: DailyDetailProps) {
       return s
     })
     setScheduleWithPos(filteredSchedule)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminSchedule, isFetching])
 
   return (
@@ -32,7 +31,6 @@ export function DailyDetail({ date, onClick }: DailyDetailProps) {
               행사 리스트
             </span>
           </h1>
-          {/* 임시 로당 바 */}
           {isFetching && scheduleWithPos.length === 0 && (
             <div className='flex flex-col pt-12 justify-center items-center'>
               <div className='text-2xl text-main font-bold text-center pb-8'>
