@@ -1,7 +1,6 @@
-import { AddForm, ScheduleAddFormData } from '@/components/calendar/AddForm'
-import { EditForm } from '@/components/calendar/EditForm'
-import { ReserveForm } from '@/components/calendar/ReserveForm'
+import { ScheduleAddFormData } from '@/components/calendar/AddForm'
 import { ACCESS_TOKEN, DATE_REQEUST_FORMAT } from '@/constants'
+import { useUser } from '@/hooks/user'
 import { useAddMutation } from '@/mutates/addMutation'
 import { useEditMutation } from '@/mutates/editMutation'
 import { useReserveMutation } from '@/mutates/reserveMutation'
@@ -10,10 +9,10 @@ import { useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
+import { CalendarFormSwitchCase } from './CalendarFormSwitchCase'
 
 interface CalendarActionProps {
   type: DaillyCalendarPortalType
-  user: UserRole
   schedule: ProviderScheduleWithPos
   date: string
   onCancle: () => void
@@ -24,9 +23,7 @@ interface CalendarActionProps {
 
 export function CalendarAction({
   type,
-  user,
   schedule,
-  date,
   onEdit,
   onCancle,
   onReserve,
@@ -38,6 +35,9 @@ export function CalendarAction({
   const reserveMutation = useReserveMutation(queryClient, cookie.AccessToken)
   const editMutation = useEditMutation(queryClient)
   const addMutation = useAddMutation(queryClient)
+
+  const { getUserInfo } = useUser()
+  const { role } = getUserInfo()
 
   const handleReserve = (schedule: ProviderScheduleWithPos, selectDate: string) => {
     reserveMutation
@@ -120,21 +120,14 @@ export function CalendarAction({
   }
 
   return (
-    <>
-      {type === 'ADD' && user == 'ADMIN' && (
-        <AddForm onCancle={onCancle} onSubmit={handleSubmit} date={date} />
-      )}
-      {type === 'EDIT' && user == 'ADMIN' && (
-        <EditForm onCancle={onCancle} onEdit={handleEdit} schedule={schedule!} />
-      )}
-      {type === 'RESERVE' && (
-        <ReserveForm
-          onCancle={onCancle}
-          onReserve={handleReserve}
-          schedule={schedule}
-          user={user}
-        />
-      )}
-    </>
+    <CalendarFormSwitchCase
+      role={role}
+      type={type}
+      schedule={schedule}
+      onCancle={onCancle}
+      onReserve={handleReserve}
+      onSubmit={handleSubmit}
+      onEdit={handleEdit}
+    />
   )
 }

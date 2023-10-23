@@ -163,7 +163,6 @@ export function Daily({ daily, limit }: DailyProps) {
           <CalendarModal onClose={() => setOpenCalendarActionModal(false)}>
             <CalendarAction
               type={portalType}
-              user={user.role}
               schedule={targetSchedule}
               date={targetDate}
               onCancle={() => setOpenCalendarActionModal(false)}

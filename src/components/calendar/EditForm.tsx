@@ -1,9 +1,9 @@
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import { EditFormInformation } from './EditFormInformation'
 
-interface EditFormProps {
+export interface EditFormProps {
   schedule: ProviderScheduleWithPos
-  onCancle: () => void
+  onCancle: VoidFunction
   onEdit: (
     schedule: ProviderScheduleWithPos & {
       imgFile?: File

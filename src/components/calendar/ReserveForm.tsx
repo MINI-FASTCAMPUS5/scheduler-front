@@ -1,17 +1,19 @@
 import { ReserveFormInfomation } from '@/components/calendar/ReserveFormInfomation'
 import { Button } from '@/components/ui/Button'
+import { useUser } from '@/hooks/user'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-interface ReserveFormProps {
+export interface ReserveFormProps {
   schedule: ProviderScheduleWithPos
-  user: UserRole
   onCancle: () => void
   onReserve: (schedule: ProviderScheduleWithPos, selectedDate: string) => void
 }
 
-export function ReserveForm({ schedule, onCancle, onReserve, user }: ReserveFormProps) {
+export function ReserveForm({ schedule, onCancle, onReserve }: ReserveFormProps) {
+  const { getUserInfo } = useUser()
+  const { role } = getUserInfo()
   const [selectedDate, setSelectedDate] = useState('')
   return (
     <section className='overflow-hidden h-full p-4 px-12'>
@@ -35,7 +37,7 @@ export function ReserveForm({ schedule, onCancle, onReserve, user }: ReserveForm
           />
         </div>
         <div className='flex justify-around py-10 mr-10 ml-10'>
-          {user === 'USER' ? (
+          {role === 'USER' ? (
             <>
               <Button
                 disabled={!selectedDate}
