@@ -28,7 +28,7 @@ function Fatline({ curve, color }) {
 }
 
 // eslint-disable-next-line react/prop-types
-export default function Fireflies({ count, colors, radius = 10 }) {
+export function Fireflies({ count, colors, radius = 10 }) {
   const lines = useMemo(
     () =>
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

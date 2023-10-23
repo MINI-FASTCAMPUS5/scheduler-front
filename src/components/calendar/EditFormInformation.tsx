@@ -1,5 +1,5 @@
-import Banner from '@/components/Banner'
-import Button from '@/components/ui/Button'
+import { Banner } from '@/components/Banner'
+import { Button } from '@/components/ui/Button'
 import { DATE_FORMAT } from '@/constants'
 import { useUser } from '@/hooks/user'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
@@ -7,7 +7,7 @@ import dayjs from 'dayjs'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-type Props = {
+interface EditFormProps {
   schedule: ProviderScheduleWithPos
   onCancle: () => void
   onEdit: (
@@ -17,7 +17,7 @@ type Props = {
   ) => unknown
 }
 
-export default function EditFormInformation({ schedule, onEdit, onCancle }: Props) {
+export function EditFormInformation({ schedule, onEdit, onCancle }: EditFormProps) {
   const { getUserInfo } = useUser()
   const user = getUserInfo()
   const [imgSrc, setImgSrc] = useState('')

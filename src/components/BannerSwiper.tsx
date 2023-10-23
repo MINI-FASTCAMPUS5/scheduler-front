@@ -5,7 +5,7 @@ import 'swiper/css/scrollbar'
 import { A11y, Autoplay, Navigation, Pagination, Parallax, Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-export default function BannerSwiper() {
+export function BannerSwiper() {
   return (
     <Swiper
       className='max-w-[870px] w-full h-[100px] rounded-lg'

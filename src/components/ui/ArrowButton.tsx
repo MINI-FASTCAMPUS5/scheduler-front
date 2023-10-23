@@ -1,13 +1,12 @@
 import { FaChevronLeft, FaChevronRight, FaMinus } from 'react-icons/fa'
 
 export type DirectionType = 'left' | 'right'
-type Props = {
+interface ArrowBtnProps {
   direction: DirectionType
   onClick?: (direction: 'left' | 'right') => void
   disabled?: boolean
 }
-
-export default function ArrowBotton({ direction, onClick, disabled = true }: Props) {
+export function ArrowButton({ direction, onClick, disabled = true }: ArrowBtnProps) {
   const iconStyle = 'text-[16px] text-white'
   let ICON =
     direction === 'left' ? (

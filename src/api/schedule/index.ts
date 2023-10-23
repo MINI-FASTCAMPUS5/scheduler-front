@@ -4,14 +4,14 @@ import { ProviderReservedList, ProviderSchedule, Schedule } from '@/models/sched
 import { delay } from '@/utils'
 import dayjs from 'dayjs'
 
-type ScheduleRequestOption = {
+interface ScheduleRequestOption {
   year: number
   month: number
   token: string
   userId?: string
   keyword?: string
 }
-
+// HACK : 템플릿 엔진기준으로 API가 만들어져서, 프론트에서 필요한 데이터만 추출해서 사용하도록 응답을 수정했습니다.
 export const fetchSchedule = async ({
   year,
   month,
@@ -23,14 +23,13 @@ export const fetchSchedule = async ({
   reservedList: ProviderReservedList[]
 }> => {
   try {
-    // * 최소 1초의 딜레이로 에니메이션을 보여줌
+    // * 최소 1초의 딜레이로 애니메이션을 보여줌
     let path = '/user/schedule'
     if (keyword)
       path += `/search?year=${year}&month=${month}&keyword=${encodeURIComponent(keyword)}`
     else path += `?year=${year}&month=${month}`
 
     const start = new Date()
-
     const res: { data: Schedule } = await api.get(path, {
       headers: {
         Authorization: token
@@ -53,7 +52,7 @@ export const fetchSchedule = async ({
     const schedule = res.data.schedulerAdmin
       .map((schedule) => {
         return {
-          id: schedule.id, // post id PK가 안와서 임시로 만듬
+          id: schedule.id, // * post id PK가 안와서 임시로 만듬
           userId: schedule.user.id,
           title: schedule.title,
           fullName: schedule.user.fullName,
@@ -89,5 +88,49 @@ export const fetchSchedule = async ({
       schedule: [],
       reservedList: []
     }
+  }
+}
+
+export const addSchedule = async (adminId: string, selectDate: string, cookie: string) => {
+  const res = await api({
+    url: `/user/schedule/create?schedulerAdminId=${adminId}`,
+    method: 'POST',
+    headers: {
+      Authorization: cookie
+    },
+    data: {
+      scheduleStart: selectDate
+    }
+  })
+  if (res.data.status === 200) {
+    return {
+      message: '일정이 추가되었습니다.',
+      status: 200
+    }
+  }
+  return {
+    message: res.data.message ?? '일정 추가에 실패했습니다.',
+    status: res.data.status ?? 404
+  }
+}
+
+export const editSchedule = async (id: string, formData: FormData, token: string) => {
+  const res = await api(`/admin/schedule/updat/${id}`, {
+    method: 'POST',
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: token
+    }
+  })
+  if (res.data.status === 200) {
+    return {
+      message: '수정이 완료되었습니다.',
+      status: 200
+    }
+  }
+  return {
+    message: res.data.message ?? '수정에 실패했습니다.',
+    status: res.data.status ?? 404
   }
 }

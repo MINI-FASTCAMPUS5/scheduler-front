@@ -5,23 +5,31 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useLocation, useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
 export const useSchedule = () => {
+  // * URL에서 년, 월, 일을 가져옴
   const params = useParams()
-  const location = useLocation()
-  const searchParams = new URLSearchParams(location.search)
-  const [cookie] = useCookies([ACCESS_TOKEN])
-  const [year, setYear] = useState(params.year ? parseInt(params.year) : 0)
-  const [month, setMonth] = useState(params.month ? parseInt(params.month) : 0)
-  const [day, setDay] = useState(params.day ? parseInt(params.day) : 0)
-  const [keyword, setKeyword] = useState(searchParams.get('keyword') || '')
+  const [year, setYear] = useState(Number(params.year) || 0)
+  const [month, setMonth] = useState(Number(params.month) || 0)
+  const [day, setDay] = useState(Number(params.day) || 0)
 
-  const { pathname } = useLocation()
+  // * URL에서 검색어를 가져옴
+  const { search, pathname } = useLocation()
+  const searchParams = new URLSearchParams(search)
+  const [keyword, setKeyword] = useState(searchParams.get('keyword') || '')
+  const [cookie] = useCookies([ACCESS_TOKEN])
   const { getUserInfo } = useUser()
   const user = getUserInfo()
-  const userId = user.role === 'ADMIN' && pathname.includes('manager/event/calendar') ? user.id : ''
 
+  // * 관리자가 아니고 manger/event/calendar 페이지가 아닐경우 userId를 빈 문자열로 설정
+  const userId = user.role === 'ADMIN' && pathname.includes('manager/event/calendar') ? user.id : ''
+  const fetchScheduleOptions = {
+    year,
+    month,
+    userId,
+    keyword,
+    token: cookie.AccessToken
+  }
   const {
     data: schedule,
     isFetching,
@@ -30,15 +38,8 @@ export const useSchedule = () => {
     isFetched,
     isSuccess
   } = useQuery(
-    ['schedule', year, month, `${userId ? userId : ''}`, `${keyword ? keyword : ''}`],
-    () =>
-      fetchSchedule({
-        year,
-        month,
-        userId: `${userId ? userId : ''}`,
-        keyword: `${keyword ? keyword : ''}`,
-        token: cookie.AccessToken
-      }),
+    ['schedule', year, month, userId, keyword],
+    () => fetchSchedule(fetchScheduleOptions),
     {
       enabled: !!year && !!month && !!cookie.AccessToken,
       staleTime: 1000 * 60 * 5
@@ -51,8 +52,7 @@ export const useSchedule = () => {
       typeof params.month === 'undefined' ||
       typeof params.day === 'undefined'
     ) {
-      toast.error('잘못된 접근입니다.')
-      return
+      throw new Error('잘못된 접근입니다.')
     }
 
     setYear(parseInt(params.year))
@@ -60,7 +60,7 @@ export const useSchedule = () => {
     setDay(parseInt(params.day))
     const searchParams = new URLSearchParams(location.search)
     setKeyword(searchParams.get('keyword') || '')
-  }, [params, location.search])
+  }, [params, search])
 
   return {
     adminSchedule: schedule?.schedule,

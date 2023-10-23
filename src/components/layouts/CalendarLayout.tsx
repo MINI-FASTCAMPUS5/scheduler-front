@@ -1,13 +1,8 @@
 import { useUser } from '@/hooks/user'
-import { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 export default function CalendarLayout() {
-  const navigate = useNavigate()
   const { loggedIn, loading } = useUser()
-  useEffect(() => {
-    if (!loggedIn && !loading) navigate('/login')
-  }, [loggedIn, navigate, loading])
 
   return (
     <main className='relative h-full'>

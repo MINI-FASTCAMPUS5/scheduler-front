@@ -1,12 +1,9 @@
 import { useUser } from '@/hooks/user'
-import { AdminUser, FanUser } from '@/models/user'
 import { Link } from 'react-router-dom'
 
-type Props = {
-  user: Partial<AdminUser | FanUser>
-}
-export default function Profile({ user }: Props) {
-  const { logout } = useUser()
+export function Profile() {
+  const { getUserInfo, logout } = useUser()
+  const user = getUserInfo()
   return (
     <div className='mb-8'>
       <div className='flex justify-center items-center p-4 gap-4 mt-3 mb-3'>

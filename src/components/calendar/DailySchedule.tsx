@@ -2,7 +2,7 @@ import { ProviderReservedList } from '@/models/schedule'
 import type { ProviderScheduleWithPos } from '@/utils/calendar'
 import dayjs from 'dayjs'
 
-type Props = {
+interface DailyScheduleProps {
   schedule: ProviderScheduleWithPos
   reservedList: ProviderReservedList[] | undefined
   cellWidth: number
@@ -11,13 +11,13 @@ type Props = {
   onClickSchedule: (schedule: ProviderScheduleWithPos) => void
 }
 
-export default function DailySchedule({
+export function DailySchedule({
   schedule,
   cellWidth: cellWidth,
   onClickSchedule,
   reservedList,
   date
-}: Props) {
+}: DailyScheduleProps) {
   const startDate = dayjs(date).day() === 0 ? date : schedule.startDate
   let cells = Math.min(dayjs(schedule.endDate).diff(dayjs(startDate), 'day') + 1, 8)
   if (schedule.pos === 'start-end') cells = 1
@@ -49,9 +49,7 @@ export default function DailySchedule({
               minWidth: `${cellWidth * cells}px`,
               maxWidth: `${cellWidth * cells}px`
             }}
-            onClick={() => {
-              onClickSchedule(schedule)
-            }}
+            onClick={() => onClickSchedule(schedule)}
           >
             <img
               src={schedule.profileImage}
@@ -61,7 +59,7 @@ export default function DailySchedule({
             <div
               className={`schedule-cell w-full ${
                 schedule.pos === 'start-end' ? 'rounded' : 'rounded'
-              } min-w-[100px] cursor-pointer ${bgStyle} pl-8 transition-all ease-in-out z-30 duration-200 overflow-hidden`}
+              } min-w-[0px] cursor-pointer ${bgStyle} pl-8 transition-all ease-in-out z-30 duration-200 overflow-hidden`}
             >
               {schedule.title}
             </div>

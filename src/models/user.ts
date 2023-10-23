@@ -1,15 +1,17 @@
-type User = {
+export type UserRole = 'ADMIN' | 'USER'
+export type User = {
   id: string
   email: string
   profileImage: string
-  role: 'ADMIN' | 'USER'
+  role: UserRole
   fullName: string
+  sizeOfTicket: string
 }
 
 // * Fan User Type
 type Fan = {
   role: 'USER'
-  sizeOfTicket: number
+  sizeOfTicket: string
 }
 export type FanUser = Fan & User
 

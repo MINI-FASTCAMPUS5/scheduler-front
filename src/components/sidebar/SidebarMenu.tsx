@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
-
-type Props = {
+interface SideBarMenuProps {
   children: React.ReactNode
   isActive?: boolean
   idx: number
   url: string
   onClick?: (idx: number) => void
 }
-export default function SidebarMenu({ idx, children, isActive = false, url, onClick }: Props) {
+export function SidebarMenu({ idx, children, isActive = false, url, onClick }: SideBarMenuProps) {
   const style = isActive ? 'bg-white text-main rounded-l-[20px]' : 'bg-main text-white'
   return (
     <div

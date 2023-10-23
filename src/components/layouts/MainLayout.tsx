@@ -1,24 +1,17 @@
+import { Scene } from '@/components/ui/animation/Scene'
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import { useUser } from '@/hooks/user'
 import dayjs from 'dayjs'
 import { useEffect } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import Scene from '../ui/animation/Scene'
+import { Outlet } from 'react-router-dom'
 
 export default function MainLayout() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const { getUserInfo, loggedIn, loading } = useUser()
+  const { loading, loggedIn } = useUser()
 
   useEffect(() => {
-    if (loggedIn && !loading) {
-      window.location.replace(`/calendar/${dayjs().format(DATE_ROUTE_FORMAT)}`)
-      return
-    } else {
-      if (location.pathname === '/login' || location.pathname === '/signup') return
-      else navigate('/login')
-    }
-  }, [getUserInfo, navigate, loggedIn, location.pathname, loading])
+    const date = dayjs().format(DATE_ROUTE_FORMAT)
+    if (loggedIn) window.location.replace(`/calendar/${date}`)
+  }, [loggedIn])
 
   return (
     <div className='h-[100vh] w-[100vw]'>
@@ -31,11 +24,13 @@ export default function MainLayout() {
       <div className=' absolute flex text-[10px] z-40 bottom-5 left-8 text-white opacity-50'>
         Illustrated by Chulmin Park & Source Zustand
       </div>
-      <main className='absolute flex h-[100vh] w-[100vw] p-auto'>
-        <div className=' flex w-[480px] bg-white p-10 rounded-[20px] z-[999] m-auto mr-[300px] shadow-xl'>
-          <Outlet />
-        </div>
-      </main>
+      {!loggedIn && !loading && (
+        <main className='absolute flex h-[100vh] w-[100vw] p-auto'>
+          <div className=' flex w-[480px] bg-white p-10 rounded-[20px] z-[999] m-auto mr-[300px] shadow-xl'>
+            <Outlet />
+          </div>
+        </main>
+      )}
       <Scene />
     </div>
   )

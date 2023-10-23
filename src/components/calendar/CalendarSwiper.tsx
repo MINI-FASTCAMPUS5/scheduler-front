@@ -6,18 +6,18 @@ import { ACCESS_TOKEN, CALENDAR_TAG_ID, DATE_ROUTE_FORMAT } from '@/constants'
 import { useSchedule } from '@/hooks/schedule'
 import { appendSwipeAnimation, swipeCalendar } from '@/utils/calendar'
 
-import HighlightInformation from '@/components/calendar/HighlightInformation'
-import ArrowButton, { DirectionType } from '@/components/ui/ArrowButton'
-import Button from '@/components/ui/Button'
+import { HighlightInformation } from '@/components/calendar/HighlightInformation'
+import { ArrowButton, DirectionType } from '@/components/ui/ArrowButton'
+import { Button } from '@/components/ui/Button'
 import { useUser } from '@/hooks/user'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
 
-export default function CalendarSwiper() {
+export function CalendarSwiper() {
   const [cookie] = useCookies([ACCESS_TOKEN])
   const { getUserInfo } = useUser()
   const user = getUserInfo()
-  const location = useLocation()
+  const { pathname, search } = useLocation()
   const { isFetching, year, month } = useSchedule()
   const navigate = useNavigate()
 
@@ -25,19 +25,19 @@ export default function CalendarSwiper() {
   const handleArrowBtn = useCallback(
     (direction: DirectionType) => {
       if (!year || !month) return toast.error('비정상적인 접근입니다.')
-      const route = location.pathname.split(`/${year}`)[0]
+      const route = pathname.split(`/${year}`)[0]
       const path = swipeCalendar(direction, {
         year,
         month,
         path: route
       })
-      const searchParams = new URLSearchParams(location.search)
+      const searchParams = new URLSearchParams(search)
       navigate(
         `${path}${searchParams.get('keyword') ? `?keyword=${searchParams.get('keyword')}` : ''}`
       )
       appendSwipeAnimation(CALENDAR_TAG_ID, direction)
     },
-    [navigate, year, month, location.pathname, location.search]
+    [navigate, year, month, pathname, search]
   )
 
   // * 오늘로 이동합니다.
@@ -60,10 +60,7 @@ export default function CalendarSwiper() {
         link.click()
       }
     }
-    xhr.open(
-      'GET',
-      'http://minischeduler-env.eba-m9yfe83y.ap-northeast-2.elasticbeanstalk.com/admin/schedule/excelDownload'
-    )
+    xhr.open('GET', import.meta.env.VITE_EXCEL_DOWNLOAD_URL)
     xhr.responseType = 'blob'
     xhr.setRequestHeader('Authorization', cookie[ACCESS_TOKEN])
     xhr.send()
@@ -75,7 +72,6 @@ export default function CalendarSwiper() {
     }
   }
 
-  // todo max width를 캘린더와 동일하게 맞추기
   return (
     <div className='flex items-center justify-center w-full max-w-[1420px] mt-2 mx-auto'>
       <div className='w-[33.33%] flex mt-auto flex-wrap'>
@@ -100,7 +96,6 @@ export default function CalendarSwiper() {
         />
       </div>
       <div className='flex w-[33.33%] justify-end'>
-        {/* <Button className='mr-2' text='월간' onClick={navagateToCurrentDate} /> */}
         {user.role === 'ADMIN' && (
           <Button
             className='text-[14px] font-gmarket font-bold'

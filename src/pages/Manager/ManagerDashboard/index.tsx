@@ -1,6 +1,6 @@
 import { getAdminDashbordlList } from '@/api/admin/adminPage'
-import AddEventList from '@/components/dashboard/AddEventList'
-import EventStatusCard from '@/components/dashboard/EventStatusCard'
+import { AddEventList } from '@/components/dashboard/AddEventList'
+import { EventStatusCard } from '@/components/dashboard/EventStatusCard'
 import { useUser } from '@/hooks/user'
 import { useQuery } from '@tanstack/react-query'
 import { useCookies } from 'react-cookie'

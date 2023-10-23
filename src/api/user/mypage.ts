@@ -1,11 +1,11 @@
 import api from '@/api'
 
-export type SchedulerRoleUserList = {
+export interface SchedulerRoleUserList {
   scheduleStart: string
   title: string
   progress: ScheduleProgress
 }
-export type TicketListResponse = {
+export interface TicketListResponse {
   getUserInfoDTO: {
     id: number
     email: string
@@ -17,19 +17,14 @@ export type TicketListResponse = {
   }
   schedulerRoleUserList: SchedulerRoleUserList[]
 }
-export const getMyTicketList = async (cookie: string): Promise<TicketListResponse | null> => {
-  try {
-    const res = await api({
-      url: '/mypage?role=USER',
-      method: 'GET',
-      headers: {
-        Authorization: cookie
-      }
-    })
 
-    if (res.data.data) return res.data.data
-    return null
-  } catch (error) {
-    return null
-  }
+export const getMyTicketList = async (cookie: string): Promise<TicketListResponse | null> => {
+  const { data } = await api({
+    url: '/mypage?role=USER',
+    method: 'GET',
+    headers: {
+      Authorization: cookie
+    }
+  })
+  return data.data
 }

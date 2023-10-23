@@ -1,11 +1,11 @@
 import { implScheduleDtoType } from '@/api/admin/approvalPage'
 import { useEffect, useState } from 'react'
-import CheerUpLoading from '../ui/CheerUpLoading'
+import { CheerUpLoading } from '../ui/CheerUpLoading'
 import ApprovalListItem from './ApprovalListItem'
 import ApprovalPaging from './ApprovalPagination'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function ApprovalList(props: any) {
+export function ApprovalList(props: any) {
   // eslint-disable-next-line react/prop-types
   const { data } = props
 

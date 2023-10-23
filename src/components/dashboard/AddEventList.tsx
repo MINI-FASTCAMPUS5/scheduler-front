@@ -3,13 +3,13 @@ import { ApprovalListResponse } from '@/api/admin/adminPage'
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
-import AddEventListItem from './AddEventListItem'
+import { AddEventListItem } from './AddEventListItem'
 
-type Props = {
+interface AddEventListProps {
   data: ApprovalListResponse
 }
 
-export default function AddEventList(props: Props) {
+export function AddEventList(props: AddEventListProps) {
   const { data } = props
   const datetime = new Date()
 

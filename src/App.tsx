@@ -2,21 +2,18 @@ import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import CalendarLayout from '@/components/layouts/CalendarLayout'
-import CalendarPage from '@/pages/Calendar'
+import MainLayout from '@/components/layouts/MainLayout'
+import ManagerLayout from '@/components/layouts/ManagerLayout'
+import UserLayout from '@/components/layouts/UserLayout'
 
-const MainLayout = lazy(() => import('@/components/layouts/MainLayout'))
 const SignupPage = lazy(() => import('pages/SignupPage'))
 const SignInPage = lazy(() => import('pages/SignInPage'))
-
-import ManagerLayout from './components/layouts/ManagerLayout'
-import UserLayout from './components/layouts/UserLayout'
-import ApprovalPage from './pages/Manager/Approval'
-import ManagerDashboardPage from './pages/Manager/ManagerDashboard'
-import ManagerEventAddEditPage from './pages/Manager/ManagerEventAddEdit'
-import Edit from './pages/User/Edit'
-import MyPage from './pages/User/MyPage'
-
-const ScheduleAddTestPage = lazy(() => import('../legacy/Sample/Schedule'))
+const CalendarPage = lazy(() => import('@/pages/Calendar'))
+const ApprovalPage = lazy(() => import('@/pages/Manager/Approval'))
+const ManagerDashboardPage = lazy(() => import('@/pages/Manager/ManagerDashboard'))
+const ManagerEventAddEditPage = lazy(() => import('@/pages/Manager/ManagerEventAddEdit'))
+const Edit = lazy(() => import('@/pages/User/Edit'))
+const MyPage = lazy(() => import('@/pages/User/MyPage'))
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -28,7 +25,6 @@ function App() {
       <Routes>
         <Route path='/calendar' element={<CalendarLayout />}>
           <Route path='/calendar/:year/:month/:day' element={<CalendarPage />} />
-          <Route path='/calendar/schedule' element={<ScheduleAddTestPage />} />
         </Route>
         <Route path='/manager' element={<ManagerLayout />}>
           <Route
@@ -45,6 +41,7 @@ function App() {
         </Route>
         <Route />
         <Route path='/' element={<MainLayout />}>
+          <Route path='/' element={<SignInPage />} />
           <Route path='/login' element={<SignInPage />} />
           <Route path='/signup' element={<SignupPage />} />
         </Route>

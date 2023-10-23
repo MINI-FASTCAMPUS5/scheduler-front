@@ -1,8 +1,8 @@
-type Props = {
+interface TicketProps {
   type: 'rest' | 'used'
   ticket: number
 }
-export default function Ticket({ type, ticket }: Props) {
+export function Ticket({ type, ticket }: TicketProps) {
   const options = {
     rest: {
       src: '/dots.svg',

@@ -1,13 +1,13 @@
 import { TbCalendarUp, TbCircleCheckFilled, TbCircleXFilled, TbFaceId } from 'react-icons/tb'
 
-type Props = {
+interface EventStatusCardProps {
   waiting: string
   accepted: string
   refused: string
   events: string
 }
 
-export default function EventStatusCard({ waiting, accepted, refused, events }: Props) {
+export function EventStatusCard({ waiting, accepted, refused, events }: EventStatusCardProps) {
   return (
     <div className='flex flex-col h-[30%] w-full mb-[50px] font-gmarket'>
       <div className='flex text-3xl font-bold mb-2 font-gmarket'>행사현황</div>

@@ -3,12 +3,12 @@ import { ProviderScheduleWithPos } from '@/utils/calendar'
 import dayjs from 'dayjs'
 import { BiCalendarX } from 'react-icons/bi'
 
-type Props = {
+interface ReserveFormProps {
   schedule: ProviderScheduleWithPos
   onChageDate: (date: string) => void
 }
 
-export default function ReserveFormInfomation({ schedule, onChageDate }: Props) {
+export function ReserveFormInfomation({ schedule, onChageDate }: ReserveFormProps) {
   const date = new Date()
 
   const itemStyle = 'flex justify-between items-center pb-8'

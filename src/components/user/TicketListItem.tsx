@@ -2,10 +2,10 @@ import { SchedulerRoleUserList } from '@/api/user/mypage'
 import { DATE_FORMAT } from '@/constants'
 import dayjs from 'dayjs'
 
-type Props = {
+interface TicketListItemProps {
   data: SchedulerRoleUserList
 }
-export default function TicketListItem({ data }: Props) {
+export function TicketListItem({ data }: TicketListItemProps) {
   const option = {
     ACCEPT: 'bg-confirm',
     REFUSE: 'bg-point',

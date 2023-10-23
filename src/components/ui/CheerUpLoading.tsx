@@ -1,5 +1,5 @@
 import './CheerUpLoadingStyle.css'
-export default function CheerUpLoading() {
+export function CheerUpLoading() {
   return (
     <div>
       <svg

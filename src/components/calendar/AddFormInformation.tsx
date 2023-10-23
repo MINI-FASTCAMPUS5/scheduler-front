@@ -1,16 +1,16 @@
-import Banner from '@/components/Banner'
+import { Banner } from '@/components/Banner'
 import { ScheduleAddFormData } from '@/components/calendar/AddForm'
-import Button from '@/components/ui/Button'
+import { Button } from '@/components/ui/Button'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-type Props = {
+interface AddFormProps {
   date: string
   onCancle: VoidFunction
   onSubmit: (schedule: ScheduleAddFormData) => void
 }
 
-export default function EditFormInformation({ date, onSubmit, onCancle }: Props) {
+export function AddFormInformation({ date, onSubmit, onCancle }: AddFormProps) {
   const [file, setFile] = useState<File>()
   const [imgSrc, setImgSrc] = useState('')
   const [startDate, setStartDate] = useState(date)

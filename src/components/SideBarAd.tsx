@@ -1,4 +1,4 @@
-export default function SideBarAd() {
+export function SideBarAd() {
   return (
     <div className='max-h-[350px] text-white py-8 overflow-y-scroll scrollbar-hide transition hover:scale-[0.98] cursor-pointer'>
       <img className='m-auto max-h-[260px]' src='/side_add.png' alt='side bar advertisement' />

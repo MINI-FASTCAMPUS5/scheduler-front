@@ -1,9 +1,9 @@
-import CalendarSwiper from '@/components/calendar/CalendarSwiper'
-import MonthlyCalendar from '@/components/calendar/MonthlyCalendar'
-import CheerUpLoading from '@/components/ui/CheerUpLoading'
+import { CalendarSwiper } from '@/components/calendar/CalendarSwiper'
+import { MonthlyCalendar } from '@/components/calendar/MonthlyCalendar'
+import { CheerUpLoading } from '@/components/ui/CheerUpLoading'
 import { useSchedule } from '@/hooks/schedule'
 
-export default function CalendarFrame() {
+export function CalendarFrame() {
   const { isFetching, isLoading } = useSchedule()
 
   return (
@@ -18,7 +18,6 @@ export default function CalendarFrame() {
             낭만있는 덕후 생활
           </div>
           <CheerUpLoading />
-          {/* <span className='animate-ping absolute inline-flex h-full w-full bg-purple-100 opacity-10' /> */}
         </div>
       )}
       <MonthlyCalendar />

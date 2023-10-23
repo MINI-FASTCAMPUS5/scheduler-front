@@ -1,21 +1,21 @@
-import AdminActionBar from '@/components/AdminActionBar'
-import SearchForm from '@/components/SearchForm'
-import UserActionBar from '@/components/UserActionBar'
-import Profile from '@/components/sidebar/Profile'
+import { AdminActionBar } from '@/components/AdminActionBar'
+import { SearchForm } from '@/components/SearchForm'
+import { UserActionBar } from '@/components/UserActionBar'
+import { Profile } from '@/components/sidebar/Profile'
 import { DATE_ROUTE_FORMAT } from '@/constants'
 import { useUser } from '@/hooks/user'
 import dayjs from 'dayjs'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import SideBarAd from './SideBarAd'
+import { SideBarAd } from './SideBarAd'
 
-export default function SideBar() {
+export function SideBar() {
   const navigate = useNavigate()
-  const location = useLocation()
+  const { pathname } = useLocation()
   const { getUserInfo } = useUser()
-  const user = getUserInfo()
+  const { role } = getUserInfo()
 
   const handleSubmit = (value: string) => {
-    navigate(`${location.pathname}?keyword=${value}`)
+    navigate(`${pathname}?keyword=${value}`)
   }
 
   return (
@@ -36,13 +36,12 @@ export default function SideBar() {
       <div className='mb-4'>
         <SearchForm onSubmit={handleSubmit} />
       </div>
-      {user.role === 'USER' && <UserActionBar />}
-      {user.role === 'ADMIN' && <AdminActionBar />}
+      {role === 'USER' && <UserActionBar />}
+      {role === 'ADMIN' && <AdminActionBar />}
       <div className='mb-auto overflow-y-scroll scrollbar-hide border-dashed border-y-2 border-[#8a70ff] mt-4'>
-        {user.role === 'USER' && <SideBarAd />}
-        {user.role === 'ADMIN' && <div className='flex h-[280px]' />}
+        {role === 'USER' ? <SideBarAd /> : <div className='flex h-[280px]' />}
       </div>
-      <Profile user={user} />
+      <Profile />
     </aside>
   )
 }

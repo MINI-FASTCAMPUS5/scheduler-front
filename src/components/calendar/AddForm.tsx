@@ -1,6 +1,8 @@
-import AddFormInformation from './AddFormInformation'
+import { DATE_FORMAT } from '@/constants'
+import dayjs from 'dayjs'
+import { AddFormInformation } from './AddFormInformation'
 
-export type ScheduleAddFormData = {
+export interface ScheduleAddFormData {
   startDate: string
   endDate: string
   title: string
@@ -8,12 +10,12 @@ export type ScheduleAddFormData = {
   imageFile: File
 }
 
-type Props = {
-  date: string
+export interface AddFormProps {
   onCancle: VoidFunction
   onSubmit: (schedule: ScheduleAddFormData) => void
 }
-export default function AddForm({ date, onCancle, onSubmit }: Props) {
+export function AddForm({ onCancle, onSubmit }: AddFormProps) {
+  const date = dayjs().format(DATE_FORMAT)
   return (
     <section className='overflow-y-scroll h-full p-4 px-12 scrollbar-hide'>
       <div className='h-full flex flex-col justify-between rounded-2xl'>

@@ -1,14 +1,16 @@
-import api from '@/api'
-import { auth } from '@/api/login/auth'
+import { LoginAPI } from '@/api/login/login'
+import { getUserInformationAPI } from '@/api/user'
 import { ACCESS_TOKEN } from '@/constants'
-import { AdminUser, FanUser } from '@/models/user'
+import { User } from '@/models/user'
+import { to } from '@/utils'
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { useCookies } from 'react-cookie'
+import { useLocation } from 'react-router-dom'
 
 interface IUserContext {
   loading: boolean
   loggedIn: boolean
-  getUserInfo: () => AdminUser | FanUser
+  getUserInfo: () => User
   login: (email: string, password: string) => Promise<boolean>
   logout: () => void
 }
@@ -16,7 +18,7 @@ interface IUserContext {
 export const UserContext = createContext<IUserContext>({
   loggedIn: false,
   loading: true,
-  getUserInfo: () => ({}) as AdminUser | FanUser,
+  getUserInfo: () => ({}) as User,
   login: async () => {
     return false
   },
@@ -30,82 +32,57 @@ type Props = {
 function UserProvider({ children }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, setCookie, removeCookie] = useCookies([ACCESS_TOKEN])
-  const [userInfo, setUserInfo] = useState({} as AdminUser | FanUser)
+  const [userInfo, setUserInfo] = useState<User | null>(null)
   const [loggedIn, setLoggedIn] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
+  const { pathname } = useLocation()
 
-  // todo : 원래는 getUserInfo안에서 비동기적으로 데이터의 정합성을 검사해야하지만, 이미 작성된 로직이 많고 시간 관계상 따로 뺏습니다.
-  // * 사용자 정보가 없다면, 서버에 요청을 보내 사용자 정보를 가져옵니다.
   const getUserInfo = useCallback(() => {
-    if (!userInfo.id) return {} as AdminUser | FanUser
+    if (!userInfo) {
+      window.location.assign('/login')
+      throw new Error('유저 정보가 없습니다.')
+    }
     return userInfo
   }, [userInfo])
 
-  // * 로그인 후 cookie를 저장하고, 로그인 상태를 true로 변경합니다.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const login = async (email: string, password: string) => {
-    try {
-      setLoading(true)
-      setLoggedIn(false)
-      const res = await api('/login', {
-        method: 'POST',
-        data: {
-          email: email,
-          password: password
-        },
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      setCookie(ACCESS_TOKEN, res.headers.authorization, { path: '/' })
-      setUserInfo(res.data.data as AdminUser | FanUser)
+  const login = useCallback(
+    async (email: string, password: string) => {
+      const [errorMessage, response] = await to(LoginAPI(email, password))
+      if (errorMessage || response === null) return false
+      setCookie(ACCESS_TOKEN, response.token, { path: '/' })
+      setUserInfo(response.data)
       setLoggedIn(true)
-      setLoading(false)
       return true
-    } catch (error) {
-      console.error(error)
-      removeCookie('AccessToken', { path: '/' })
-      setLoggedIn(false)
-      setLoading(false)
-      return false
-    }
-  }
+    },
+    [setCookie]
+  )
+
   const logout = useCallback(() => {
     removeCookie(ACCESS_TOKEN, { path: '/' })
     setLoggedIn(false)
-    setUserInfo({} as AdminUser | FanUser)
-    window.location.replace('/login')
+    setUserInfo(null)
+    window.location.assign('/login')
   }, [removeCookie])
 
   useEffect(() => {
+    if (loggedIn && userInfo) return
+    if (!cookies[ACCESS_TOKEN]) return
     setLoading(true)
-    if (loggedIn || userInfo.id) {
-      setLoading(false)
-      return
-    }
-    if (!cookies[ACCESS_TOKEN]) {
-      removeCookie(ACCESS_TOKEN, { path: '/' })
-      setLoading(false)
-      return
-    }
-    auth(cookies[ACCESS_TOKEN])
-      .then((user) => {
-        if (user) {
-          setUserInfo(user as AdminUser | FanUser)
-          setLoggedIn(true)
-        } else {
-          removeCookie(ACCESS_TOKEN, { path: '/' })
-          window.location.replace('/login')
-        }
+    to(getUserInformationAPI(cookies[ACCESS_TOKEN])).then(([errorMessage, res]) => {
+      if (errorMessage || res === null) {
+        setLoggedIn(false)
         setLoading(false)
-      })
-      .catch((error) => {
-        console.error(error)
+        setUserInfo(null)
         removeCookie(ACCESS_TOKEN, { path: '/' })
-        setLoading(false)
-        window.location.replace('/login')
-      })
-  }, [cookies, loggedIn, removeCookie, userInfo.id])
+        return
+      }
+      errorMessage && console.error(errorMessage)
+      setUserInfo(res.data)
+      setLoggedIn(true)
+      setLoading(false)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
 
   const value = useMemo(
     () => ({ getUserInfo, loggedIn, setUserInfo, setLoggedIn, login, loading, logout }),
