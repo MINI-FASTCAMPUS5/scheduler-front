@@ -12,8 +12,9 @@ import { useUser } from '@/hooks/user'
 import { ProviderScheduleWithPos, getProviderSchdule } from '@/utils/calendar'
 import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { ReservedCellCover } from './ReservedCellCover'
 dayjs.extend(weekday)
 
 interface DailyProps {
@@ -69,25 +70,6 @@ export function Daily({ daily, limit }: DailyProps) {
     setTargetDate('')
   }, [])
 
-  // * 모달창을 닫습니다.
-  const setCloseCalendarActionModal = useCallback(() => {
-    setOpenCalendarActionModal(false)
-  }, [])
-
-  // * 수정 모달에서 수정 버튼을 누르면 실행됩니다.
-  const handleEdit = () => {
-    setOpenCalendarActionModal(false)
-  }
-
-  const handleReserve = () => {
-    setOpenCalendarActionModal(false)
-  }
-
-  // * 공연 추가 모달에서 새로운 공연을 추가하면 실행됩니다.
-  const handleSubmitSchedule = () => {
-    setOpenCalendarActionModal(false)
-  }
-
   const handleOnClickCell = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, date: string) => {
     if (!pathname.includes('manager/event/calendar') || !isAdmin) return
     if ((e.target as HTMLElement).classList.contains('moreBtn')) return
@@ -105,31 +87,6 @@ export function Daily({ daily, limit }: DailyProps) {
     if (!isFetching) {setTimeout(() => { resize() }, 100) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
-
-  const reserveStyle = useMemo(
-    () => ({
-      WAITING: {
-        from: 'from-wait',
-        bg: 'bg-wait'
-      },
-      ACCEPT: {
-        from: 'from-confirm',
-        bg: 'bg-confirm'
-      },
-      REFUSE: {
-        from: 'from-point',
-        bg: 'bg-point'
-      }
-    }),
-    []
-  )
-  // current week of month
-  const convertWeekToNumber = (dateFrom: Date) => {
-    const currentDate = dateFrom.getDate()
-    const startOfMonth = new Date(dateFrom.setDate(1))
-    const weekDay = startOfMonth.getDay()
-    return Math.floor((weekDay - 1 + currentDate) / 7) + 1
-  }
 
   let cells: string[][] = Array(7)
     .fill(null)
@@ -181,28 +138,14 @@ export function Daily({ daily, limit }: DailyProps) {
                 )
               })}
               {!!reservedSchedule?.length && (
-                <>
-                  {/* 컴포넌트로 뺴기 */}
-                  <div
-                    className={`absolute top-0 w-full h-full bg-gradient-to-t 
-                    ${
-                      reserveStyle[reservedSchedule[0].progress].from
-                    } opacity-40 to-transparent z-[0]`}
-                  />
-                  <div
-                    className={`absolute right-2 top-2 w-[10px] h-[10px] rounded-full
-                  ${reserveStyle[reservedSchedule[0].progress].bg} opacity-100 custom-ping`}
-                  />
-                </>
+                <ReservedCellCover progress={reservedSchedule[0].progress} />
               )}
               {providerSchedule[0]?.restItem >= 1 && (
-                <div key={`morebtn-${date}-${i}`} className='absolute'>
-                  <MoreButton
-                    date={date}
-                    count={providerSchedule[0].restItem}
-                    onClick={handleViewMore}
-                  />
-                </div>
+                <MoreButton
+                  date={date}
+                  count={providerSchedule[0].restItem}
+                  onClick={handleViewMore}
+                />
               )}
             </div>
           </div>
@@ -217,16 +160,16 @@ export function Daily({ daily, limit }: DailyProps) {
       )}
       {openCalendarActionModal && (
         <ModalPortal>
-          <CalendarModal onClose={setCloseCalendarActionModal}>
+          <CalendarModal onClose={() => setOpenCalendarActionModal(false)}>
             <CalendarAction
               type={portalType}
               user={user.role}
               schedule={targetSchedule}
               date={targetDate}
-              onCancle={setCloseCalendarActionModal}
-              onEdit={handleEdit}
-              onReserve={handleReserve}
-              onSubmit={handleSubmitSchedule}
+              onCancle={() => setOpenCalendarActionModal(false)}
+              onEdit={() => setOpenCalendarActionModal(false)}
+              onReserve={() => setOpenCalendarActionModal(false)}
+              onSubmit={() => setOpenCalendarActionModal(false)}
             />
           </CalendarModal>
         </ModalPortal>
@@ -270,11 +213,18 @@ function fillSchedule(
 function getTwoDigitDate(date: string) {
   return dayjs(date).date() / 10 < 1 ? '0' + dayjs(date).date() : dayjs(date).date()
 }
-
 function getDailyCellBgStyle(date: string) {
   let bgStyle = 'bg-blue-50'
   if (dayjs(date).format('ddd') === '일' || dayjs(date).format('ddd') === '토') {
     bgStyle = 'bg-blue-100'
   }
   return bgStyle
+}
+
+// current week of month
+const convertWeekToNumber = (dateFrom: Date) => {
+  const currentDate = dateFrom.getDate()
+  const startOfMonth = new Date(dateFrom.setDate(1))
+  const weekDay = startOfMonth.getDay()
+  return Math.floor((weekDay - 1 + currentDate) / 7) + 1
 }

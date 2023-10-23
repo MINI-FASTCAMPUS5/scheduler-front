@@ -45,7 +45,6 @@ function App() {
           <Route path='/login' element={<SignInPage />} />
           <Route path='/signup' element={<SignupPage />} />
         </Route>
-        <Route path='/*' element={<h1 className='text-3xl'>404 NOT FOUND</h1>} />
       </Routes>
     </Suspense>
   )

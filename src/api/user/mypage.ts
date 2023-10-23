@@ -20,7 +20,7 @@ export interface TicketListResponse {
 
 export const getMyTicketList = async (cookie: string): Promise<TicketListResponse | null> => {
   const { data } = await api({
-    url: '/mypage?role=USE',
+    url: '/mypage?role=USER',
     method: 'GET',
     headers: {
       Authorization: cookie

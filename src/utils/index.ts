@@ -15,6 +15,7 @@ export async function to<T>(promise: Promise<T>): Promise<[{ message: string } |
     const result: [null, T] = [null, data]
     return result
   } catch (error) {
+    console.error(error)
     if (error && typeof error === 'object' && 'message' in error) {
       return [{ message: `${error.message}` }, null]
     }

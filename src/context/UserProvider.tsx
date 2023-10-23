@@ -76,6 +76,7 @@ function UserProvider({ children }: Props) {
         removeCookie(ACCESS_TOKEN, { path: '/' })
         return
       }
+      errorMessage && console.error(errorMessage)
       setUserInfo(res.data)
       setLoggedIn(true)
       setLoading(false)

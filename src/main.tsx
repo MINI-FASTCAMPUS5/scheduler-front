@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from '@/App.tsx'
 import '@/index.css'
-import { handleError } from './query'
+import { handleError } from './queries'
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({

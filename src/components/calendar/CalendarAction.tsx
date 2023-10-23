@@ -1,12 +1,12 @@
-import api from '@/api'
-import { addSchedule } from '@/api/schedule'
-import { createSchedule } from '@/api/schedule/admin'
 import { AddForm, ScheduleAddFormData } from '@/components/calendar/AddForm'
 import { EditForm } from '@/components/calendar/EditForm'
 import { ReserveForm } from '@/components/calendar/ReserveForm'
 import { ACCESS_TOKEN, DATE_REQEUST_FORMAT } from '@/constants'
+import { useAddMutation } from '@/mutates/addMutation'
+import { useEditMutation } from '@/mutates/editMutation'
+import { useReserveMutation } from '@/mutates/reserveMutation'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useCookies } from 'react-cookie'
 import { toast } from 'react-toastify'
@@ -35,18 +35,10 @@ export function CalendarAction({
   const [cookie] = useCookies([ACCESS_TOKEN])
   const queryClient = useQueryClient()
 
-  // * Reserve Mutation
-  const reserveMutation = useMutation({
-    mutationFn: ({ adminId, selectDate }: { adminId: string; selectDate: string }) => {
-      return addSchedule(adminId, selectDate, cookie.AccessToken)
-    },
-    onSuccess: async () => {
-      queryClient.invalidateQueries(['schedule'])
-    },
-    onError: (error) => {
-      console.error(error)
-    }
-  })
+  const reserveMutation = useReserveMutation(queryClient, cookie.AccessToken)
+  const editMutation = useEditMutation(queryClient)
+  const addMutation = useAddMutation(queryClient)
+
   const handleReserve = (schedule: ProviderScheduleWithPos, selectDate: string) => {
     reserveMutation
       .mutateAsync({
@@ -66,33 +58,10 @@ export function CalendarAction({
           toast.success(res.message)
           return
         }
-
         onReserve()
-      })
-      .catch(() => {
-        // toast.error('예약 실패')
       })
   }
 
-  // * Edit Mutation
-  const editMutation = useMutation({
-    mutationFn: ({ id, formData, token }: { id: string; formData: FormData; token: string }) => {
-      return api(`/admin/schedule/update/${id}`, {
-        method: 'POST',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: token
-        }
-      })
-    },
-    onSuccess: async () => {
-      queryClient.invalidateQueries(['schedule'])
-    },
-    onError: (error) => {
-      console.error(error)
-    }
-  })
   const handleEdit = (
     schedule: ProviderScheduleWithPos & {
       imgFile?: File
@@ -116,6 +85,7 @@ export function CalendarAction({
         }
       )
     )
+
     editMutation
       .mutateAsync({
         id: schedule.id,
@@ -126,24 +96,12 @@ export function CalendarAction({
         toast.success('수정되었습니다.')
         onEdit()
       })
-      .catch(() => {
-        toast.error('수정에 실패했습니다.')
-        onEdit()
-      })
+    // .catch(() => {
+    //   toast.error('수정에 실패했습니다.')
+    //   onEdit()
+    // })
   }
 
-  // * Add(Submit) Mutation
-  const addMutation = useMutation({
-    mutationFn: ({ schedule, token }: { schedule: ScheduleAddFormData; token: string }) => {
-      return createSchedule(schedule, token)
-    },
-    onSuccess: async () => {
-      queryClient.invalidateQueries(['schedule'])
-    },
-    onError: (error) => {
-      console.error(error)
-    }
-  })
   const handleSubmit = (schedule: ScheduleAddFormData) => {
     addMutation
       .mutateAsync({
@@ -155,10 +113,10 @@ export function CalendarAction({
         else toast.error('행사 추가에 실패했습니다.')
         onSubmit()
       })
-      .catch(() => {
-        toast.error('행사 추가에 실패했습니다.')
-        onSubmit()
-      })
+    // .catch(() => {
+    //   toast.error('행사 추가에 실패했습니다.')
+    //   onSubmit()
+    // })
   }
 
   return (
