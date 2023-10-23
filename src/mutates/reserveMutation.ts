@@ -8,9 +8,6 @@ export const useReserveMutation = (queryClient: QueryClient, token: string) => {
     },
     onSuccess: async () => {
       queryClient.invalidateQueries(['schedule'])
-    },
-    onError: (error) => {
-      console.error(error)
     }
   })
   return reserveMutation

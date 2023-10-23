@@ -49,9 +49,7 @@ export function DailySchedule({
               minWidth: `${cellWidth * cells}px`,
               maxWidth: `${cellWidth * cells}px`
             }}
-            onClick={() => {
-              onClickSchedule(schedule)
-            }}
+            onClick={() => onClickSchedule(schedule)}
           >
             <img
               src={schedule.profileImage}
@@ -61,7 +59,7 @@ export function DailySchedule({
             <div
               className={`schedule-cell w-full ${
                 schedule.pos === 'start-end' ? 'rounded' : 'rounded'
-              } min-w-[100px] cursor-pointer ${bgStyle} pl-8 transition-all ease-in-out z-30 duration-200 overflow-hidden`}
+              } min-w-[0px] cursor-pointer ${bgStyle} pl-8 transition-all ease-in-out z-30 duration-200 overflow-hidden`}
             >
               {schedule.title}
             </div>

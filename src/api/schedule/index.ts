@@ -2,7 +2,6 @@ import api from '@/api'
 import { DATE_FORMAT } from '@/constants'
 import { ProviderReservedList, ProviderSchedule, Schedule } from '@/models/schedule'
 import { delay } from '@/utils'
-import { AxiosError } from 'axios'
 import dayjs from 'dayjs'
 
 interface ScheduleRequestOption {
@@ -93,27 +92,45 @@ export const fetchSchedule = async ({
 }
 
 export const addSchedule = async (adminId: string, selectDate: string, cookie: string) => {
-  try {
-    await api({
-      url: `/user/schedule/create?schedulerAdminId=${adminId}`,
-      method: 'POST',
-      headers: {
-        Authorization: cookie
-      },
-      data: {
-        scheduleStart: selectDate
-      }
-    })
+  const res = await api({
+    url: `/user/schedule/create?schedulerAdminId=${adminId}`,
+    method: 'POST',
+    headers: {
+      Authorization: cookie
+    },
+    data: {
+      scheduleStart: selectDate
+    }
+  })
+  if (res.data.status === 200) {
     return {
       message: '일정이 추가되었습니다.',
       status: 200
     }
-  } catch (err) {
-    console.error(err)
+  }
+  return {
+    message: res.data.message ?? '일정 추가에 실패했습니다.',
+    status: res.data.status ?? 404
+  }
+}
 
-    return {
-      message: (err as AxiosError<{ data: string }>).response?.data?.data,
-      status: (err as AxiosError<{ data: string }>).response?.status
+export const editSchedule = async (id: string, formData: FormData, token: string) => {
+  const res = await api(`/admin/schedule/updat/${id}`, {
+    method: 'POST',
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: token
     }
+  })
+  if (res.data.status === 200) {
+    return {
+      message: '수정이 완료되었습니다.',
+      status: 200
+    }
+  }
+  return {
+    message: res.data.message ?? '수정에 실패했습니다.',
+    status: res.data.status ?? 404
   }
 }

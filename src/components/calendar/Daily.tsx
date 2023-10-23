@@ -82,9 +82,9 @@ export function Daily({ daily, limit }: DailyProps) {
 
   // * 스케줄이 변경되면 width를 다시 계산합니다.
   useEffect(() => {
-    setWidth(() => 20)
+    setWidth(0)
     // prettier-ignore
-    if (!isFetching) {setTimeout(() => { resize() }, 100) }
+    if (!isFetching) {setTimeout(() => resize(), 0) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 

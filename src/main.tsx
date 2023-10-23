@@ -1,5 +1,5 @@
 import UserProvider from '@/context/UserProvider'
-import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
@@ -12,11 +12,11 @@ const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (err) => handleError(err)
   }),
-  mutationCache: new MutationCache({
-    onError(error) {
-      handleError(error)
-    }
-  }),
+  // mutationCache: new MutationCache({
+  //   onError(error) {
+  //     handleError(error)
+  //   }
+  // }),
   defaultOptions: {
     queries: {
       retry: false

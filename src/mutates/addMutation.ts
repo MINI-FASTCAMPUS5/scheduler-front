@@ -9,9 +9,6 @@ export const useAddMutation = (queryClient: QueryClient) => {
     },
     onSuccess: async () => {
       queryClient.invalidateQueries(['schedule'])
-    },
-    onError: (error) => {
-      console.error(error)
     }
   })
   return addMutation

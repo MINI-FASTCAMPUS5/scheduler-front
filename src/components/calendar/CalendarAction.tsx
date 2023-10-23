@@ -4,11 +4,12 @@ import { useUser } from '@/hooks/user'
 import { useAddMutation } from '@/mutates/addMutation'
 import { useEditMutation } from '@/mutates/editMutation'
 import { useReserveMutation } from '@/mutates/reserveMutation'
+import { to } from '@/utils'
 import { ProviderScheduleWithPos } from '@/utils/calendar'
+import { toast } from '@/utils/toast'
 import { useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useCookies } from 'react-cookie'
-import { toast } from 'react-toastify'
 import { CalendarFormSwitchCase } from './CalendarFormSwitchCase'
 
 interface CalendarActionProps {
@@ -40,26 +41,16 @@ export function CalendarAction({
   const { role } = getUserInfo()
 
   const handleReserve = (schedule: ProviderScheduleWithPos, selectDate: string) => {
-    reserveMutation
-      .mutateAsync({
+    to(
+      reserveMutation.mutateAsync({
         adminId: schedule.id,
         selectDate: dayjs(selectDate).format(DATE_REQEUST_FORMAT)
       })
-      .then((res) => {
-        // * 시간 관계상 에러 처리를 깔끔하게 하지 못했습니다 ㅠㅠ
-        if (!res.status || !res.message) {
-          toast.error('예약 실패')
-          return
-        }
-        if (res.status > 300) {
-          toast.error(res.message)
-          return
-        } else if (res.status > 200) {
-          toast.success(res.message)
-          return
-        }
-        onReserve()
-      })
+    ).then(([error, data]) => {
+      if (error?.message) toast(error.message, 'error')
+      else if (data?.message) toast(data.message, 'success')
+      onReserve()
+    })
   }
 
   const handleEdit = (
@@ -86,37 +77,30 @@ export function CalendarAction({
       )
     )
 
-    editMutation
-      .mutateAsync({
+    to(
+      editMutation.mutateAsync({
         id: schedule.id,
         formData,
         token: cookie.AccessToken
       })
-      .then(() => {
-        toast.success('수정되었습니다.')
-        onEdit()
-      })
-    // .catch(() => {
-    //   toast.error('수정에 실패했습니다.')
-    //   onEdit()
-    // })
+    ).then(([error, data]) => {
+      if (error?.message) toast(error.message, 'error')
+      else if (data?.message) toast(data.message, 'success')
+      onEdit()
+    })
   }
 
   const handleSubmit = (schedule: ScheduleAddFormData) => {
-    addMutation
-      .mutateAsync({
+    to(
+      addMutation.mutateAsync({
         schedule,
         token: cookie.AccessToken
       })
-      .then((isReflected) => {
-        if (isReflected) toast.success('행사가 추가되었습니다.')
-        else toast.error('행사 추가에 실패했습니다.')
-        onSubmit()
-      })
-    // .catch(() => {
-    //   toast.error('행사 추가에 실패했습니다.')
-    //   onSubmit()
-    // })
+    ).then(([error, isRejected]) => {
+      if (error?.message) toast(error.message, 'error')
+      else if (isRejected) toast('일정이 추가되었습니다.', 'success')
+      onSubmit()
+    })
   }
 
   return (
