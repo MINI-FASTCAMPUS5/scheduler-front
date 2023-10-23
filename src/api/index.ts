@@ -5,8 +5,7 @@ export interface APIResponseBase<T> {
   status: number
   msg: string
 }
-
 const api = axios.create({
-  baseURL: 'http://minischeduler-env.eba-m9yfe83y.ap-northeast-2.elasticbeanstalk.com'
+  baseURL: import.meta.env.VITE_BACK_URL
 })
 export default api

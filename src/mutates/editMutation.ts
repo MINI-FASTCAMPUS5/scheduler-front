@@ -10,6 +10,5 @@ export const useEditMutation = (queryClient: QueryClient) => {
       queryClient.invalidateQueries(['schedule'])
     }
   })
-
   return editMutation
 }

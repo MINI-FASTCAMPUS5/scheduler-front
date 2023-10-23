@@ -5,13 +5,13 @@ export type User = {
   profileImage: string
   role: UserRole
   fullName: string
-  sizeOfTicket: number
+  sizeOfTicket: string
 }
 
 // * Fan User Type
 type Fan = {
   role: 'USER'
-  sizeOfTicket: number
+  sizeOfTicket: string
 }
 export type FanUser = Fan & User
 
