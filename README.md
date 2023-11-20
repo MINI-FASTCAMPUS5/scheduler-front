@@ -14,11 +14,17 @@
 <br>
 미니 프로젝트 기간: 2023.07.24 ~ 2023.08.10
 <br>
-<h3>🔗 <a href="http://ec2-34-228-10-85.compute-1.amazonaws.com:8080/login">배포 링크 바로가기</a></h3>
-<h3>🔗 <a href="http://minischeduler-env.eba-m9yfe83y.ap-northeast-2.elasticbeanstalk.com/manager/login">관리자 페이지 바로가기</a></h3>
-<h3>🔗 <a href="https://github.com/MINI-FASTCAMPUS5/scheduler-front">프론트엔드 깃허브 레포지토리 바로가기</a></h3>
-<h3>🔗 <a href="https://github.com/MINI-FASTCAMPUS5/scheduler-back">백엔드 깃허브 레포지토리 바로가기</a></h3>
-<br>
+
+<h3>🔗 바로가기</h3>
+
+[![관리자페이지](https://img.shields.io/badge/관리자_페이지-F6C344.svg)](http://minischeduler-env.eba-m9yfe83y.ap-northeast-2.elasticbeanstalk.com/manager/)
+[![연간아이돌](https://img.shields.io/badge/연간_아이돌-E933A1.svg)](http://ec2-34-228-10-85.compute-1.amazonaws.com/login/)
+[![프론트엔드](https://img.shields.io/badge/프론트엔드_GitHub_Repository-white.svg)](https://github.com/MINI-FASTCAMPUS5/scheduler-front)
+[![백엔드](https://img.shields.io/badge/백엔드_GitHub_Repository-black.svg)](https://github.com/MINI-FASTCAMPUS5/scheduler-back)
+<h4> 기획사 계정으로 일정을 등록하고, 회원가입한 팬 계정으로 티케팅해보세요 <br>
+ACCOUNT : fastcampus@fastcampus.com <br>
+PASSWORD : alswns1!
+</h4>
 
 ## 🤗 개발팀
 
@@ -133,5 +139,22 @@
 <img src="./public/image/Group 1.png" />
 <br>
 <br>
+
+## 아키텍처
+
+- prettier, eslint, husky를 사용하여 컨벤션 관리
+- git flow를 일부 적용하여 커밋 노드의 간선이 교차하지 않도록 개발
+- git-actions를 사용하여 vercel에 자동 배포, 추가로 aws ec2에 http로 수동 배포
+
+<img width="6793" alt="미니프로젝트 12조 파트 및 유저플로우 작업" src="https://github.com/MINI-FASTCAMPUS5/scheduler-front/assets/73880776/92905f2a-8560-469c-9abc-751f25764d6e">
+
+## 회고 및 로그 작성
+
+[Github Organization 프로젝트 환경 설정하기](https://web-log-wheat.vercel.app/log/LHdlmXd45fzRAtbTaExb#Organization_vercel%EC%97%90_%EB%AC%B4%EB%A3%8C_%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0_(+_git_actions))
+
+[가상 호스트 포트 추가 시 확인 사항](https://web-log-wheat.vercel.app/log/ATRpJC9GRc0BfZJUPEvi)
+
+[토이 프로젝트에서 겪은 문제와 대처했던 방법들](https://web-log-wheat.vercel.app/log/Nx0Ihkmdo2ObM0b17ZIh)
+
 
 ### 🙏 감사합니다 </br>
